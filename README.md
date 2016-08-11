@@ -58,9 +58,11 @@ Sorry, for not tackling this in a better way! Stay tuned for updates.
 ## Development
 
 1. Clone this repo
+2. Run `gulp` for generating packaged folder specifically for extension stuff.
 2. Go to chrome extensions [chrome://extensions](chrome://extensions)
 3. Enable developer mode
-4. Click on load unpacked extension and select this cloned repo
+5. Click on load unpacked extension and select the generated folder.
+6. [Admin Access Only] - run `gulp zip` for generating zip file to be uploaded on *Chrome Web Store*.
 
 PRs are most welcome :)
 
