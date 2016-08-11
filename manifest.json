@@ -1,0 +1,29 @@
+{
+  "name": "GitHub Plus",
+  "version": "0.1.1",
+  "manifest_version": 2,
+  "description": "Display size of each file, download link and option to copy file contents",
+  "homepage_url": "https://github.com/softvar/github-plus",
+  "author": "Varun Malhotra",
+  "icons": {
+    "16": "icons/gplus16.png",
+    "48": "icons/gplus48.png",
+    "128": "icons/gplus128.png"
+  },
+  "browser_action": {
+   "default_icon": "icons/gplus48.png",
+   "default_popup": "index.html",
+   "default_title": "Github Plus"
+  },
+  "permissions": [
+    "http://github.com/*",
+    "https://github.com/*"
+  ],
+  "content_scripts": [{
+    "matches": [
+      "http://github.com/*",
+      "https://github.com/*"
+    ],
+    "js": [ "src/inject.js" ]
+  }]
+}
