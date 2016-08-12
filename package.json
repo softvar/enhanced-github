@@ -28,6 +28,7 @@
     "gulp-concat": "^2.6.0",
     "gulp-jshint": "^2.0.1",
     "gulp-uglify": "^2.0.0",
+    "gulp-watch": "^4.3.9",
     "gulp-zip": "^3.2.0",
     "jshint": "^2.9.2"
   }
