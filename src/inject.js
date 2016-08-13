@@ -216,6 +216,10 @@ var domUtils = {
         if (!data) { return; }
 
         utils.removePrevInstancesOf('.download'); // remove before adding new ones
+        
+        if (uptree && uptree[3]) {
+          uptree[3].insertAdjacentHTML('afterend', '<td class="download"></td>');
+        }
 
         for (var i = 0; i < ns.length; i++) {
           if (data[i].type === 'file') {
@@ -237,10 +241,6 @@ var domUtils = {
           }
         }
       });
-    }
-    if (uptree && uptree[3]) {
-      utils.removePrevInstancesOf('.download'); // remove before adding new ones
-      uptree[3].insertAdjacentHTML('afterend', '<td class="download"></td>');
     }
   }
 };
