@@ -207,6 +207,7 @@ var domUtils = {
   addFileSizeAndDownloadLink: function  () {
     var links = document.querySelectorAll('tr.js-navigation-item > td.content a');
     var ns = document.querySelectorAll('tr.js-navigation-item > td.age');
+    var uptree = document.querySelectorAll('tr.up-tree > td');
 
     if (ns.length && ns.length === links.length) { // verify length for showing in-sync
       apiUtils.getRepoContent(function (data) {
@@ -215,6 +216,10 @@ var domUtils = {
         if (!data) { return; }
 
         utils.removePrevInstancesOf('.download'); // remove before adding new ones
+        
+        if (uptree && uptree[3]) {
+          uptree[3].insertAdjacentHTML('afterend', '<td class="download"></td>');
+        }
 
         for (var i = 0; i < ns.length; i++) {
           if (data[i].type === 'file') {
