@@ -207,6 +207,7 @@ var domUtils = {
   addFileSizeAndDownloadLink: function  () {
     var links = document.querySelectorAll('tr.js-navigation-item > td.content a');
     var ns = document.querySelectorAll('tr.js-navigation-item > td.age');
+    var uptree = document.querySelectorAll('tr.up-tree > td');
 
     if (ns.length && ns.length === links.length) { // verify length for showing in-sync
       apiUtils.getRepoContent(function (data) {
@@ -235,6 +236,7 @@ var domUtils = {
             ns[i].insertAdjacentHTML('afterend', '<td></td>');
           }
         }
+        uptree[3].insertAdjacentHTML('afterend', '<td></td>');
       });
     }
   }
