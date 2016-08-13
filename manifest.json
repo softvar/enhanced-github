@@ -1,6 +1,6 @@
 {
   "name": "GitHub Plus",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "manifest_version": 2,
   "description": "Display size of each file, download link and option to copy file contents",
   "homepage_url": "https://github.com/softvar/github-plus",
