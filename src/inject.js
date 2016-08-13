@@ -236,8 +236,11 @@ var domUtils = {
             ns[i].insertAdjacentHTML('afterend', '<td></td>');
           }
         }
-        uptree[3].insertAdjacentHTML('afterend', '<td></td>');
       });
+    }
+    if (uptree && uptree[3]) {
+      utils.removePrevInstancesOf('.download'); // remove before adding new ones
+      uptree[3].insertAdjacentHTML('afterend', '<td class="download"></td>');
     }
   }
 };
