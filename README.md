@@ -14,6 +14,10 @@
 * Copy file's contents directly to Clipboard (just won't work for markdown files).
 * Download file while viewing it's contents.
 
+[Featured on ProductHunt](https://www.producthunt.com/tech/github-plus)
+
+<img src="product_hunt.png" height="300" />
+
 ## Author
 
 | Author | [Varun Malhotra](http://varunmalhotra.xyz) |
