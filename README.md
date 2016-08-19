@@ -32,16 +32,20 @@ To tackle this, create a new Github Access Token.
 1. If logged-in, visit [https://github.com/settings/tokens](https://github.com/settings/tokens)
 2. Generate a new token, select `repo` scope and create a one.
 3. Copy and store the generated token which looks something like: `17c1a8d5b399d66b6212382d98d4c67a94d58955` (a fake one :P).
-4. Visit [https://github.com](https://github.com) and open developers tools.
-5. Store the key in localStorage
-	```
-	localStorage.setItem('x-github-token', '17c1a8d5b399d66b6212382d98d4c67a94d58955')
-	```
+4. Click on extension icon and then on `Settings-Options` on top right.
+	<img src="extension-popup-screenshot.png" width="380" />
 
-This Chrome extension will automatically pick this valid access token and Bingo! Enjoy the extension without any worry.
+	OR
 
-Sorry, for not tackling this in a better way! Stay tuned for updates.
+	Go to [chrome://extensions](http://chrome://extensions), find github-plus and click on `Options`.
 
+	<img src="extension-options-link.png" />
+	<img src="extension-options-page.png" width="380" />
+
+5. Enter the valid Github Access Token
+6. Click on `SAVE` and Enjoy the benefits.
+
+This Chrome extension will automatically pick this valid access token and Bingo!
 
 ## Screenshots
 
