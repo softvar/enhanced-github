@@ -1,6 +1,6 @@
 {
   "name": "GitHub Plus",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "manifest_version": 2,
   "description": "Display size of each file, download link and option to copy file contents",
   "homepage_url": "https://github.com/softvar/github-plus",
@@ -17,7 +17,8 @@
   },
   "permissions": [
     "http://github.com/*",
-    "https://github.com/*"
+    "https://github.com/*",
+    "storage"
   ],
   "content_scripts": [{
     "matches": [
@@ -25,5 +26,9 @@
       "https://github.com/*"
     ],
     "js": [ "src/inject.js" ]
-  }]
+  }],
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  }
 }
