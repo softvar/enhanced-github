@@ -13,6 +13,7 @@
 ***********************/
 
 var GITHUB_API_REPOS_BASE_URI = 'https://api.github.com/repos/';
+var storedGithubToken;
 
 var utils = {
   getContentPath: function () {
@@ -116,7 +117,7 @@ var apiUtils = {
 
     var userRepo = path.user + '/' + path.repo;
     var contentPath = contentPath || utils.getContentPath() || '';
-    var token = localStorage.getItem('x-github-token');
+    var token = storedGithubToken || localStorage.getItem('x-github-token');
     var headers = {};
     var branch = utils.getBranch() || 'master';
 
@@ -263,6 +264,12 @@ chrome.extension.sendMessage({}, function (response) {
 
       var hashDetection = new webNavigationUtils.hashHandler();
 
+      chrome.storage.sync.get({
+        'x-github-token': ''
+      }, function(storedData) {
+        storedGithubToken = storedData['x-github-token'];
+        fetchDataAndCreateDOMElements();
+      });
       fetchDataAndCreateDOMElements();
     }
   }, 10)
