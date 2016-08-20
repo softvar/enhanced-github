@@ -14,6 +14,8 @@
 * Copy file's contents directly to Clipboard (just won't work for markdown files).
 * Download file while viewing it's contents.
 
+***Note:*** For private repos, Github Access Token is requires. Follow the steps [mentioned below](#github-api-rate-limiting) to add your Github Access Token.
+
 [Featured on ProductHunt](https://www.producthunt.com/tech/github-plus)
 
 <img src="product_hunt.png" height="300" />
