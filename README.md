@@ -18,7 +18,7 @@
 
 [Featured on ProductHunt](https://www.producthunt.com/tech/github-plus)
 
-<img src="product_hunt.png" height="300" />
+<img src="screenshots/product_hunt.png" height="300" />
 
 ## Author
 
@@ -35,14 +35,14 @@ To tackle this, create a new Github Access Token.
 2. Generate a new token, select `repo` scope and create a one.
 3. Copy and store the generated token which looks something like: `17c1a8d5b399d66b6212382d98d4c67a94d58955` (a fake one :P).
 4. Click on extension icon and then on `Settings-Options` on top right.
-	<img src="extension-popup-screenshot.png" width="380" />
+	<img src="screenshots/extension-popup-screenshot.png" width="380" />
 
 	OR
 
 	Go to [chrome://extensions](http://chrome://extensions), find github-plus and click on `Options`.
 
-	<img src="extension-options-link.png" />
-	<img src="extension-options-page.png" width="380" />
+	<img src="screenshots/extension-options-link.png" />
+	<img src="screenshots/extension-options-page.png" width="380" />
 
 5. Enter the valid Github Access Token
 6. Click on `SAVE` and Enjoy the benefits.
@@ -53,11 +53,11 @@ This Chrome extension will automatically pick this valid access token and Bingo!
 
 #### Screenshot of each file size and it's download link
 
-<img src="screenshot-home.png">
+<img src="screenshots/screenshot-home.png">
 
 #### Screenshot of Copy fle contents and download link
 
-<img src="screenshot-file.png">
+<img src="screenshots/screenshot-file.png">
 
 
 ## Libraries Used
