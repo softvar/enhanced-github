@@ -13,7 +13,7 @@
 ***********************/
 
 var GITHUB_API_REPOS_BASE_URI = 'https://api.github.com/repos/';
-var storedGithubToken;
+var storedGithubToken, defaultBranch, repoSize;
 
 var utils = {
   getContentPath: function () {
@@ -111,7 +111,7 @@ var apiUtils = {
   parseJSON: function (response) {
     return response === null ? null : response.json();
   },
-  getRepoContent: function (callback, contentPath) {
+  getRepoContent: function (callback, contentPath, isRepoMetaData) {
     var path = utils.getUsernameWithReponameFromGithubURL();
     if (!path.user || !path.repo) { return; }
 
@@ -119,7 +119,12 @@ var apiUtils = {
     var contentPath = contentPath || utils.getContentPath() || '';
     var token = storedGithubToken || localStorage.getItem('x-github-token');
     var headers = {};
-    var branch = utils.getBranch() || 'master';
+    var branch = utils.getBranch() || defaultBranch || 'master';
+    var contentParams = '';
+
+    if (!isRepoMetaData) {
+      contentParams = '/contents/' + contentPath + '?ref=' + branch;
+    }
 
     if (token) {
       headers = {
@@ -128,7 +133,7 @@ var apiUtils = {
       }
     }
 
-    fetch(GITHUB_API_REPOS_BASE_URI + userRepo + '/contents/' + contentPath + '?ref=' + branch, {
+    fetch(GITHUB_API_REPOS_BASE_URI + userRepo + contentParams, {
         headers: headers
       })
       .then(apiUtils.checkStatus)
@@ -175,6 +180,47 @@ var domUtils = {
   },
   hasClass: function (elem, className) {
     return elem.className.split(' ').indexOf(className) > -1;
+  },
+  addRepoData: function () {
+    var path = utils.getUsernameWithReponameFromGithubURL();
+    var userRepo = path.user + '/' + path.repo;
+    if (defaultBranch && window.location.href &&
+      window.location.href !== 'https://github.com/' +userRepo
+    ) {
+      fetchDataAndCreateDOMElements();
+      return;
+    }
+
+    if (repoSize) {
+      fetchDataAndCreateDOMElements();
+      return;
+    }
+
+    apiUtils.getRepoContent(
+      function (data) {
+        repoSize = data.size;
+        defaultBranch = data.default_branch;
+
+        fetchDataAndCreateDOMElements();
+
+        var ns = document.querySelector('ul.numbers-summary');
+
+        utils.removePrevInstancesOf('.repo-size');
+        var formattedFileSize = utils.formatKiloBytes(repoSize * 1024); // Github API return size in KB for repo
+
+        var html = '<li class="repo-size">' +
+          '<a>' +
+            '<svg class="octicon octicon-database" aria-hidden="true" height="16" version="1.1" viewBox="0 0 12 16" width="12">' +
+            '<path d="M6 15c-3.31 0-6-.9-6-2v-2c0-.17.09-.34.21-.5.67.86 3 1.5 5.79 1.5s5.12-.64 5.79-1.5c.13.16.21.33.21.5v2c0 1.1-2.69 2-6 2zm0-4c-3.31 0-6-.9-6-2V7c0-.11.04-.21.09-.31.03-.06.07-.13.12-.19C.88 7.36 3.21 8 6 8s5.12-.64 5.79-1.5c.05.06.09.13.12.19.05.1.09.21.09.31v2c0 1.1-2.69 2-6 2zm0-4c-3.31 0-6-.9-6-2V3c0-1.1 2.69-2 6-2s6 .9 6 2v2c0 1.1-2.69 2-6 2zm0-5c-2.21 0-4 .45-4 1s1.79 1 4 1 4-.45 4-1-1.79-1-4-1z"></path>' +
+            '</svg>' +
+            '<span class="num text-emphasized"> ' +
+              formattedFileSize.size +
+            '</span> ' +
+            formattedFileSize.measure +
+          '</a>' +
+          '</li>';
+        ns.insertAdjacentHTML('beforeend', html);
+    }, '', true);
   },
   addCopyAndDownloadButton: function () {
     var btnGroup = document.querySelectorAll('.js-zeroclipboard')[0];
@@ -268,9 +314,8 @@ chrome.extension.sendMessage({}, function (response) {
         'x-github-token': ''
       }, function(storedData) {
         storedGithubToken = storedData['x-github-token'];
-        fetchDataAndCreateDOMElements();
+        domUtils.addRepoData();
       });
-      fetchDataAndCreateDOMElements();
     }
   }, 10)
 });
