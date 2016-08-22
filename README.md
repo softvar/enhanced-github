@@ -9,7 +9,8 @@
 
 ## Features
 
-* Automatically displays each file size for every active branch (not applicable for folder / symlink).
+* Displays repo size.
+* Displays each file size for every active branch (not applicable for folder / symlink).
 * Show download link for each individual file (not applicable for folder / symlink).
 * Copy file's contents directly to Clipboard (just won't work for markdown files).
 * Download file while viewing it's contents.
