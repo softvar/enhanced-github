@@ -77,6 +77,33 @@ This Chrome extension will automatically pick this valid access token and Bingo!
 
 PRs are most welcome :)
 
+## Changelog
+
+* **v0.1.1** *- 13th Aug, 2016*
+
+	* Initial Launch
+
+* **v0.1.2** *- 14th Aug, 2016*
+
+	* fix bug file on commits/<branch> url
+
+* **v0.1.3** *- 14th Aug, 2016*
+
+	* fix focus effect on up-tree not removing blank td while navigating [#3](https://github.com/softvar/github-plus/pull/3)
+
+* **v0.1.4** *- 20th Aug, 2016*
+
+	* Better way of adding Github Access token - click extension or click options - Github Plus after opening *chrome://extension*
+
+* **v0.1.5** *- 22nd Aug, 2016*
+
+	* Show repo size on Github's repo homepage
+	* bugfix of default branch other than **master**
+
+* **v0.1.6** *- 27th Aug, 2016*
+
+	* fix not showing repo size when navigating back; fix no hash change detection
+
 
 ## Copyright and License
 
