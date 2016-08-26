@@ -65,7 +65,7 @@ var utils = {
     dataAfterSorting = dataAfterSorting.concat(folders).concat(files).concat(others);
     return dataAfterSorting;
   },
-  formatKiloBytes: function (bytes) {
+  convertSizeToHumanReadableFormat: function (bytes) {
     if (bytes === 0) {
       return {
         size: 0,
@@ -85,7 +85,7 @@ var utils = {
     };
   },
   getFileSizeAndUnit: function (data) {
-    var formatBytes = utils.formatKiloBytes(data.size);
+    var formatBytes = utils.convertSizeToHumanReadableFormat(data.size);
     var size = formatBytes.size;
     var unit = formatBytes.measure;
 
@@ -157,7 +157,8 @@ var webNavigationUtils = {
         if (self.oldHash !== window.location.pathname) {
           self.oldHash = window.location.pathname;
           setTimeout(function () {
-            fetchDataAndCreateDOMElements();
+            // fetchDataAndCreateDOMElements();
+            domUtils.addRepoData();
           }, 2000);
         }
     };
@@ -181,6 +182,25 @@ var domUtils = {
   hasClass: function (elem, className) {
     return elem.className.split(' ').indexOf(className) > -1;
   },
+  appendRepoSizeElement: function () {
+    var elem = document.querySelector('ul.numbers-summary');
+
+    utils.removePrevInstancesOf('.repo-size');
+    var formattedFileSize = utils.convertSizeToHumanReadableFormat(repoSize * 1024); // Github API return size in KB for repo
+
+    var html = '<li class="repo-size">' +
+      '<a>' +
+        '<svg class="octicon octicon-database" aria-hidden="true" height="16" version="1.1" viewBox="0 0 12 16" width="12">' +
+        '<path d="M6 15c-3.31 0-6-.9-6-2v-2c0-.17.09-.34.21-.5.67.86 3 1.5 5.79 1.5s5.12-.64 5.79-1.5c.13.16.21.33.21.5v2c0 1.1-2.69 2-6 2zm0-4c-3.31 0-6-.9-6-2V7c0-.11.04-.21.09-.31.03-.06.07-.13.12-.19C.88 7.36 3.21 8 6 8s5.12-.64 5.79-1.5c.05.06.09.13.12.19.05.1.09.21.09.31v2c0 1.1-2.69 2-6 2zm0-4c-3.31 0-6-.9-6-2V3c0-1.1 2.69-2 6-2s6 .9 6 2v2c0 1.1-2.69 2-6 2zm0-5c-2.21 0-4 .45-4 1s1.79 1 4 1 4-.45 4-1-1.79-1-4-1z"></path>' +
+        '</svg>' +
+        '<span class="num text-emphasized"> ' +
+          formattedFileSize.size +
+        '</span> ' +
+        formattedFileSize.measure +
+      '</a>' +
+      '</li>';
+    elem.insertAdjacentHTML('beforeend', html);
+  },
   addRepoData: function () {
     var path = utils.getUsernameWithReponameFromGithubURL();
     var userRepo = path.user + '/' + path.repo;
@@ -193,6 +213,7 @@ var domUtils = {
 
     if (repoSize) {
       fetchDataAndCreateDOMElements();
+      domUtils.appendRepoSizeElement();
       return;
     }
 
@@ -202,24 +223,7 @@ var domUtils = {
         defaultBranch = data.default_branch;
 
         fetchDataAndCreateDOMElements();
-
-        var ns = document.querySelector('ul.numbers-summary');
-
-        utils.removePrevInstancesOf('.repo-size');
-        var formattedFileSize = utils.formatKiloBytes(repoSize * 1024); // Github API return size in KB for repo
-
-        var html = '<li class="repo-size">' +
-          '<a>' +
-            '<svg class="octicon octicon-database" aria-hidden="true" height="16" version="1.1" viewBox="0 0 12 16" width="12">' +
-            '<path d="M6 15c-3.31 0-6-.9-6-2v-2c0-.17.09-.34.21-.5.67.86 3 1.5 5.79 1.5s5.12-.64 5.79-1.5c.13.16.21.33.21.5v2c0 1.1-2.69 2-6 2zm0-4c-3.31 0-6-.9-6-2V7c0-.11.04-.21.09-.31.03-.06.07-.13.12-.19C.88 7.36 3.21 8 6 8s5.12-.64 5.79-1.5c.05.06.09.13.12.19.05.1.09.21.09.31v2c0 1.1-2.69 2-6 2zm0-4c-3.31 0-6-.9-6-2V3c0-1.1 2.69-2 6-2s6 .9 6 2v2c0 1.1-2.69 2-6 2zm0-5c-2.21 0-4 .45-4 1s1.79 1 4 1 4-.45 4-1-1.79-1-4-1z"></path>' +
-            '</svg>' +
-            '<span class="num text-emphasized"> ' +
-              formattedFileSize.size +
-            '</span> ' +
-            formattedFileSize.measure +
-          '</a>' +
-          '</li>';
-        ns.insertAdjacentHTML('beforeend', html);
+        domUtils.appendRepoSizeElement();
     }, '', true);
   },
   addCopyAndDownloadButton: function () {
@@ -253,10 +257,10 @@ var domUtils = {
   },
   addFileSizeAndDownloadLink: function  () {
     var links = document.querySelectorAll('tr.js-navigation-item > td.content a');
-    var ns = document.querySelectorAll('tr.js-navigation-item > td.age');
+    var elems = document.querySelectorAll('tr.js-navigation-item > td.age');
     var uptree = document.querySelectorAll('tr.up-tree > td');
 
-    if (ns.length && ns.length === links.length) { // verify length for showing in-sync
+    if (elems.length && elems.length === links.length) { // verify length for showing in-sync
       apiUtils.getRepoContent(function (data) {
         data = utils.sortFileStructureAsOnSite(data);
 
@@ -268,7 +272,7 @@ var domUtils = {
           uptree[3].insertAdjacentHTML('afterend', '<td class="download"></td>');
         }
 
-        for (var i = 0; i < ns.length; i++) {
+        for (var i = 0; i < elems.length; i++) {
           if (data[i].type === 'file') {
             var formattedFileSize = utils.getFileSizeAndUnit(data[i]);
 
@@ -282,9 +286,9 @@ var domUtils = {
                 '</a>' +
               '</span>'
             '</td>';
-            ns[i].insertAdjacentHTML('afterend', html);
+            elems[i].insertAdjacentHTML('afterend', html);
           } else {
-            ns[i].insertAdjacentHTML('afterend', '<td class="download"></td>');
+            elems[i].insertAdjacentHTML('afterend', '<td class="download"></td>');
           }
         }
       });
