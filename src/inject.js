@@ -1,5 +1,3 @@
-/* global chrome, fetch*/
-
 /*!
  * clipboard.js v1.5.12
  * https://zenorocha.github.io/clipboard.js
@@ -133,7 +131,7 @@ var apiUtils = {
       }
     }
 
-    fetch(GITHUB_API_REPOS_BASE_URI + userRepo + contentParams, {
+    window.fetch(GITHUB_API_REPOS_BASE_URI + userRepo + contentParams, {
         headers: headers
       })
       .then(apiUtils.checkStatus)
@@ -301,7 +299,7 @@ function fetchDataAndCreateDOMElements () {
   domUtils.addFileSizeAndDownloadLink();
 }
 
-chrome.extension.sendMessage({}, function (response) {
+window.chrome.extension.sendMessage({}, function (response) {
   var readyStateCheckInterval = setInterval(function () {
     if (document.readyState === 'complete') {
       clearInterval(readyStateCheckInterval)
@@ -314,7 +312,7 @@ chrome.extension.sendMessage({}, function (response) {
 
       var hashDetection = new webNavigationUtils.hashHandler();
 
-      chrome.storage.sync.get({
+      window.chrome.storage.sync.get({
         'x-github-token': ''
       }, function(storedData) {
         storedGithubToken = storedData['x-github-token'];
