@@ -31,5 +31,8 @@
     "gulp-watch": "^4.3.9",
     "gulp-zip": "^3.2.0",
     "jshint": "^2.9.2"
+  },
+  "dependencies": {
+    "clipboard": "^1.5.13"
   }
 }

@@ -14,7 +14,7 @@ var bases = {
 };
 
 var paths = {
-  scripts: [ 'src/*.js', 'options.js', 'popup.js' ],
+  scripts: [ 'node_modules/clipboard/clipboard.min.js', 'src/*.js', 'options.js', 'popup.js' ],
   html: [ '*.html' ],
   manifest: [ 'manifest.json' ],
   icons: [ 'icons/*.png' ],

@@ -25,7 +25,7 @@
       "http://github.com/*",
       "https://github.com/*"
     ],
-    "js": [ "src/inject.js" ]
+    "js": [ "node_modules/clipboard/clipboard.min.js", "src/inject.js" ]
   }],
   "options_ui": {
     "page": "options.html",
