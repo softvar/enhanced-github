@@ -14,7 +14,7 @@ var bases = {
 };
 
 var paths = {
-  scripts: [ 'src/*.js', 'options.js', 'popup.js' ],
+  scripts: [ 'src/*.js', 'options.js', 'popup.js', 'platform.js' ],
   html: [ '*.html' ],
   manifest: [ 'manifest.json' ],
   icons: [ 'icons/*.png' ],

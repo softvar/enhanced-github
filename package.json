@@ -4,7 +4,8 @@
   "description": "Github Add-ons - Download File, display size of each file and Copy file contents",
   "main": "src/inject.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "gulp"
   },
   "repository": {
     "type": "git",
