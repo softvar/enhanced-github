@@ -1,6 +1,6 @@
 {
   "name": "github-plus",
-  "version": "0.1.0",
+  "version": "0.1.7",
   "description": "Github Add-ons - Download File, display size of each file and Copy file contents",
   "main": "src/inject.js",
   "scripts": {
