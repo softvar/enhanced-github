@@ -14,7 +14,8 @@ var bases = {
 };
 
 var paths = {
-  scripts: [ 'node_modules/clipboard/clipboard.min.js', 'src/*.js', 'options.js', 'popup.js' ],
+  vendor: [ 'node_modules/clipboard/dist/clipboard.min.js' ],
+  scripts: [ 'src/*.js', 'options.js', 'popup.js' ],
   html: [ '*.html' ],
   manifest: [ 'manifest.json' ],
   icons: [ 'icons/*.png' ],
@@ -32,6 +33,13 @@ gulp.task('scripts', ['clean'], function() {
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
 });
+
+// Copy all other files to dist directly
+gulp.task('copy-clipboard-file', ['clean'], function() {
+  // Copy html
+  gulp.src(paths.vendor)
+    .pipe(gulp.dest(bases.app));
+  });
 
 // Copy all other files to dist directly
 gulp.task('copy', ['clean'], function() {
@@ -63,4 +71,4 @@ gulp.task('watch' , function () {
   return gulp.watch([paths.scripts, paths.html, paths.icons, paths.manifest], ['default']);
 });
 // Define the default task as a sequence of the above tasks
-gulp.task('default', ['clean', 'scripts', 'copy']);
+gulp.task('default', ['copy-clipboard-file', 'clean', 'scripts', 'copy']);

@@ -1,6 +1,6 @@
 {
   "name": "GitHub Plus",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "manifest_version": 2,
   "description": "Display repo size, size of each file, download link and option to copy file contents",
   "homepage_url": "https://github.com/softvar/github-plus",
@@ -25,7 +25,7 @@
       "http://github.com/*",
       "https://github.com/*"
     ],
-    "js": [ "node_modules/clipboard/clipboard.min.js", "src/inject.js" ]
+    "js": [ "src/clipboard.min.js", "src/inject.js" ]
   }],
   "options_ui": {
     "page": "options.html",
