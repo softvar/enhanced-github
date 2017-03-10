@@ -85,25 +85,33 @@ PRs are most welcome :)
 
 * **v0.1.2** *- 14th Aug, 2016*
 
-	* fix bug file on commits/<branch> url
+	* Fix :: fix bug file on commits/<branch> url
 
 * **v0.1.3** *- 14th Aug, 2016*
 
-	* fix focus effect on up-tree not removing blank td while navigating [#3](https://github.com/softvar/github-plus/pull/3)
+	* Fix :: fix focus effect on up-tree not removing blank td while navigating [#3](https://github.com/softvar/github-plus/pull/3)
 
 * **v0.1.4** *- 20th Aug, 2016*
 
-	* Better way of adding Github Access token - click extension or click options - Github Plus after opening *chrome://extension*
+	* Improvement :: Better way of adding Github Access token - click extension or click options - Github Plus after opening *chrome://extension*
 
 * **v0.1.5** *- 22nd Aug, 2016*
 
-	* Show repo size on Github's repo homepage
-	* bugfix of default branch other than **master**
+	* Feature :: Show repo size on Github's repo homepage
+	* Fix :: bugfix of default branch other than **master**
 
 * **v0.1.6** *- 27th Aug, 2016*
 
-	* fix not showing repo size when navigating back; fix no hash change detection
+	* Fix :: not showing repo size when navigating back; fix no hash change detection
 
+* **v0.1.7** *- 10th Mar, 2017*
+
+	* Fix :: Add proper toggle class [github changed class names] which fixes flickering while hover
+	* Fix :: Dont add `td` when there's no file present.
+
+* **v0.1.8** *- 10th Mar, 2017*
+
+	* Imporvemnt :: Use `clipboard` as a dependency and use it via `manifest.json`
 
 ## Copyright and License
 
