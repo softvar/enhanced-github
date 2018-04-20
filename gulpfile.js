@@ -62,7 +62,7 @@ gulp.task('copy', ['clean'], function() {
 });
 
 // Delete the dist directory
-gulp.task('zip', ['clean'], function() {
+gulp.task('zip', function() {
   return gulp.src('github-plus-zip/**/*')
     .pipe(zip(APP_NAME + '.zip'))
     .pipe(gulp.dest('.'));
