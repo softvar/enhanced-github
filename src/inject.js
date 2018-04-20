@@ -227,7 +227,7 @@ var domUtils = {
     }, '', true);
   },
   addCopyAndDownloadButton: function () {
-    var btnGroup = document.querySelectorAll('.js-zeroclipboard')[0];
+    var btnGroup = document.querySelectorAll('.BtnGroup')[0];
     if (btnGroup && window.location.href && window.location.href.indexOf('blob/' + utils.getBranch()) > -1) {
       new Clipboard('.js-file-clipboard'); // instantiate copy to clipborad
 
@@ -249,7 +249,7 @@ var domUtils = {
               '</svg>' +
           '</a>';
 
-          btnGroup.insertAdjacentHTML('afterend', btnGroupHtml);
+          btnGroup.insertAdjacentHTML('beforeend', btnGroupHtml);
         },
         utils.getContentPath()
       );
