@@ -19,11 +19,12 @@ var paths = {
   html: [ '*.html' ],
   manifest: [ 'manifest.json' ],
   icons: [ 'icons/*.png' ],
+  zip: [ '*.zip' ]
 };
 
 // Delete the dist directory
 gulp.task('clean', function() {
-  return gulp.src(bases.dist)
+  return gulp.src(bases.dist, bases.zip)
     .pipe(clean());
 });
 
@@ -61,7 +62,7 @@ gulp.task('copy', ['clean'], function() {
 });
 
 // Delete the dist directory
-gulp.task('zip', function() {
+gulp.task('zip', ['clean'], function() {
   return gulp.src('github-plus-zip/**/*')
     .pipe(zip(APP_NAME + '.zip'))
     .pipe(gulp.dest('.'));
