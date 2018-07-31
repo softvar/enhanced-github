@@ -94,6 +94,25 @@ var utils = {
     [].forEach.call(document.querySelectorAll(selector), function (el) {
       el.parentNode.removeChild(el);
     });
+  },
+  getFileExtension: function(filename){
+    var filenameArray = filename.split(".");
+    if( filenameArray.length === 1 || ( filenameArray[0] === "" && filenameArray.length === 2 ) ) {
+        return false;
+    }
+
+    return filenameArray.pop(); 
+  },
+  isImage: function(extension){
+    return ['png', 'jpg', 'jpeg', 'svg'].indexOf(extension) !== -1 ? true : false;
+  },
+  totalImagesInDirectory: function(files){
+       var totalImageFiles = files.filter(function(file){
+       var extension = utils.getFileExtension(file.name);
+          return extension && utils.isImage(extension);
+       });
+
+       return totalImageFiles.length;
   }
 };
 
@@ -258,12 +277,15 @@ var domUtils = {
   addFileSizeAndDownloadLink: function  () {
     var links = document.querySelectorAll('tr.js-navigation-item > td.content a');
     var elems = document.querySelectorAll('tr.js-navigation-item > td.age');
+    var fileElements = document.querySelectorAll('tr.js-navigation-item > td.icon');
     var uptree = document.querySelectorAll('tr.up-tree > td');
     var isAnyFilePresent = false;
 
     if (elems.length && elems.length === links.length) { // verify length for showing in-sync
       apiUtils.getRepoContent(function (data) {
         data = utils.sortFileStructureAsOnSite(data);
+        var totalImagesInDirectory = utils.totalImagesInDirectory(data);
+
 
         if (!data) { return; }
 
@@ -279,11 +301,10 @@ var domUtils = {
         if (!isAnyFilePresent) {
           return;
         }
-
+        
         if (uptree && uptree[3]) {
           uptree[3].insertAdjacentHTML('afterend', '<td class="download"></td>');
         }
-
         for (var i = 0; i < elems.length; i++) {
           if (data[i].type === 'file') {
             var formattedFileSize = utils.getFileSizeAndUnit(data[i]);
@@ -298,6 +319,11 @@ var domUtils = {
                 '</a>' +
               '</span>'
             '</td>';
+
+            if(totalImagesInDirectory <= 100){
+              var image = '<img src='+data[i].download_url+' height="25" width="25">';
+              fileElements[i].innerHTML= image;
+            }
             elems[i].insertAdjacentHTML('afterend', html);
           } else {
             elems[i].insertAdjacentHTML('afterend', '<td class="download"></td>');
