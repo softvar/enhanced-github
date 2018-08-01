@@ -69,11 +69,12 @@ This Chrome extension will automatically pick this valid access token and Bingo!
 ## Development
 
 1. Clone this repo
-2. Run `gulp` for generating packaged folder specifically for extension stuff.
-2. Go to chrome extensions [chrome://extensions](chrome://extensions)
-3. Enable developer mode
-5. Click on load unpacked extension and select the generated folder.
-6. [Admin Access Only] - run `gulp zip` for generating zip file to be uploaded on *Chrome Web Store*.
+2. Run `npm run build or yarn build` for generating packaged folder specifically for extension stuff.
+3. Run `npm run dev or yarn dev` for development.
+4. Go to chrome extensions [chrome://extensions](chrome://extensions)
+5. Enable developer mode
+6. Click on load unpacked extension and select the generated folder.
+7. [Admin Access Only] - run `npm run publish or yarn publish` for generating zip file to be uploaded on *Chrome Web Store*.
 
 PRs are most welcome :)
 

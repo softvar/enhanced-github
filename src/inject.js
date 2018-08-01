@@ -10,6 +10,7 @@
 ***********************/
 
 var GITHUB_API_REPOS_BASE_URI = 'https://api.github.com/repos/';
+var SHOW_MAX_IMAGES = 100;
 var storedGithubToken, defaultBranch, repoSize;
 
 var utils = {
@@ -94,6 +95,45 @@ var utils = {
     [].forEach.call(document.querySelectorAll(selector), function (el) {
       el.parentNode.removeChild(el);
     });
+  },
+  getFileExtension: function(filename){
+    var filenameArray = filename.split(".");
+
+    // check also for files without any extensions
+    if( filenameArray.length === 1 || ( filenameArray[0] === "" && filenameArray.length === 2 ) ) {
+        return false;
+    }
+
+    return filenameArray.pop().toLowerCase(); 
+  },
+  isImage: function(file){
+    var extension = utils.getFileExtension(file.name);
+    var isImageExtension =  ['png', 'jpg', 'jpeg', 'gif'].indexOf(extension) !== -1 ? true : false;
+
+    return extension && isImageExtension;    
+  },
+  totalImagesInDirectory: function(files){
+    if(files){
+      var totalImageFiles = files.filter(function(file){
+        return utils.isImage(file);
+      });
+
+    return totalImageFiles.length;      
+  }
+  
+  return 0;
+  },
+  buildImageContainer: function(src){
+    var img = document.createElement('img');
+    var anchor = document.createElement('a');
+    anchor.href =  src;
+    anchor.target ="_blank";
+    img.src = src;
+    img.height=25;
+    img.width=25;
+    anchor.appendChild(img);
+    
+    return anchor;
   }
 };
 
@@ -258,12 +298,15 @@ var domUtils = {
   addFileSizeAndDownloadLink: function  () {
     var links = document.querySelectorAll('tr.js-navigation-item > td.content a');
     var elems = document.querySelectorAll('tr.js-navigation-item > td.age');
+    var fileIconContainer = document.querySelectorAll('tr.js-navigation-item > td.icon');
     var uptree = document.querySelectorAll('tr.up-tree > td');
     var isAnyFilePresent = false;
 
     if (elems.length && elems.length === links.length) { // verify length for showing in-sync
       apiUtils.getRepoContent(function (data) {
         data = utils.sortFileStructureAsOnSite(data);
+        var totalImagesInDirectory = utils.totalImagesInDirectory(data);
+
 
         if (!data) { return; }
 
@@ -279,11 +322,10 @@ var domUtils = {
         if (!isAnyFilePresent) {
           return;
         }
-
+        
         if (uptree && uptree[3]) {
           uptree[3].insertAdjacentHTML('afterend', '<td class="download"></td>');
         }
-
         for (var i = 0; i < elems.length; i++) {
           if (data[i].type === 'file') {
             var formattedFileSize = utils.getFileSizeAndUnit(data[i]);
@@ -298,6 +340,13 @@ var domUtils = {
                 '</a>' +
               '</span>'
             '</td>';
+            
+            // if there are more than 100 images in directory then dont show images
+            if(totalImagesInDirectory <= SHOW_MAX_IMAGES && utils.isImage(data[i])){
+                var domChild = fileIconContainer[i].querySelector('.octicon');
+                domChild.parentNode.replaceChild(utils.buildImageContainer(data[i].download_url), domChild);
+            }
+            
             elems[i].insertAdjacentHTML('afterend', html);
           } else {
             elems[i].insertAdjacentHTML('afterend', '<td class="download"></td>');
