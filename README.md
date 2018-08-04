@@ -124,9 +124,6 @@ PRs are most welcome :)
 	* Improvement :: Update logos/icons to adhere with [Github logo policy](https://github.com/logos)
 	* Improvement :: Show Github-styled tooltip when hovering hover file download link
 
-## Credits
-
-Thanks to [Eduardo Cermeno](https://www.pinterest.com/wolf1827/) for the icons/logos.
 ## Copyright and License
 
 >The [MIT license](https://opensource.org/licenses/MIT) (MIT)
