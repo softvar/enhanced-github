@@ -3,6 +3,8 @@
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/d/anlikcnbgdeidpacdbdljnabclhahhmd.svg)
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/v/anlikcnbgdeidpacdbdljnabclhahhmd.svg)
 
+❗️ This extension is not sponsored by, endorsed by, or an official project of GitHub. This is a personal project and is developed solely for providing additional functionalities on Github website.
+
 ## Link
 
 🚀 Install extension from [Chrome Web Store](https://chrome.google.com/webstore/detail/github-pluse/anlikcnbgdeidpacdbdljnabclhahhmd)
@@ -113,6 +115,18 @@ PRs are most welcome :)
 
 	* Imporvemnt :: Use `clipboard` as a dependency and use it via `manifest.json`
 
+* **v1.0.8** *- 1st May, 2018*
+
+	* Fix :: Update classes to fix download. (Cmd/Ctr + Click) to download file
+
+* **v1.1.8** *- 05th Aug, 2018*
+
+	* Improvement :: Update logos/icons to adhere with [Github logo policy](https://github.com/logos)
+	* Improvement :: Show Github-styled tooltip when hovering hover file download link
+
+## Credits
+
+Thanks to [Eduardo Cermeno](https://www.pinterest.com/wolf1827/) for the icons/logos.
 ## Copyright and License
 
 >The [MIT license](https://opensource.org/licenses/MIT) (MIT)

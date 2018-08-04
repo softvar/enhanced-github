@@ -1,10 +1,12 @@
 {
   "name": "github-plus",
   "version": "1.0.1",
-  "description": "Github Add-ons - Download File, display size of each file and Copy file contents",
+  "description": "Add-ons for Github website - Download File, display size of each file and Copy file contents",
   "main": "src/inject.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "gulp watch",
+    "build": "gulp",
+    "zip": "gulp zip"
   },
   "repository": {
     "type": "git",
