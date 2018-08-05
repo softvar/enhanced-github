@@ -42,9 +42,8 @@ To tackle this, create a new Github Access Token.
 
 	OR
 
-	Go to [chrome://extensions](http://chrome://extensions), find github-plus and click on `Options`.
+	Right click on github-plus extension and and click on `Options` in the dropdown menu.
 
-	<img src="screenshots/extension-options-link.png" />
 	<img src="screenshots/extension-options-page.png" width="380" />
 
 5. Enter the valid Github Access Token
