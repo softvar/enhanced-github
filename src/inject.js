@@ -1,6 +1,6 @@
 /*!
- * github-plus
- * https://github.com/softvar/github-plus
+ * enhanced-github
+ * https://github.com/softvar/enhanced-github
  *
  * Licensed MIT © Varun Malhotrs
  */

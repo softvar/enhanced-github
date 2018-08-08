@@ -7,10 +7,10 @@ var uglify = require('gulp-uglify');
 var zip = require('gulp-zip');
 var watch = require('gulp-watch');
 
-var APP_NAME = 'github-plus';
+var APP_NAME = 'enhanced-github';
 var bases = {
   app: 'src/',
-  dist: 'github-plus-zip/',
+  dist: 'enhanced-github-zip/',
 };
 
 var paths = {
@@ -19,12 +19,17 @@ var paths = {
   html: [ '*.html' ],
   manifest: [ 'manifest.json' ],
   icons: [ 'icons/*.png' ],
-  zip: [ '*.zip' ]
+  zip: [ `${APP_NAME}.zip` ]
 };
 
+gulp.task('clean-zip', function() {
+  return gulp.src(paths.zip)
+    .pipe(clean());
+});
+
 // Delete the dist directory
-gulp.task('clean', function() {
-  return gulp.src(bases.dist, bases.zip)
+gulp.task('clean', ['clean-zip'], function() {
+  return gulp.src(bases.dist)
     .pipe(clean());
 });
 
@@ -62,8 +67,8 @@ gulp.task('copy', ['clean'], function() {
 });
 
 // Delete the dist directory
-gulp.task('zip', function() {
-  return gulp.src('github-plus-zip/**/*')
+gulp.task('zip', ['clean-zip'], function() {
+  return gulp.src('enhanced-github-zip/**/*')
     .pipe(zip(APP_NAME + '.zip'))
     .pipe(gulp.dest('.'));
 });

@@ -1,13 +1,13 @@
-## <img src="icons/gplus48.png"> Github Plus - A useful Chrome Extension
+## <img src="icons/enhanced-github128.png"> Enhanced Github
+
+> Chrome extension that adds useful features on Github website
 
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/d/anlikcnbgdeidpacdbdljnabclhahhmd.svg)
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/v/anlikcnbgdeidpacdbdljnabclhahhmd.svg)
 
-❗️ This extension is not sponsored by, endorsed by, or an official project of GitHub. This is a personal project and is developed solely for providing additional functionalities on Github website.
-
 ## Link
 
-🚀 Install extension from [Chrome Web Store](https://chrome.google.com/webstore/detail/github-pluse/anlikcnbgdeidpacdbdljnabclhahhmd)
+🚀 Install extension from [Chrome Web Store](https://chrome.google.com/webstore/detail/enhanced-github/anlikcnbgdeidpacdbdljnabclhahhmd)
 
 ## Features
 
@@ -17,7 +17,7 @@
 * Copy file's contents directly to Clipboard (just won't work for markdown files).
 * Download file while viewing it's contents.
 
-***Note:*** For private repos([Issue #6](https://github.com/softvar/github-plus/issues/6)), Github Access Token is required. Follow the steps [mentioned below](#github-api-rate-limiting) to add your Github Access Token.
+***Note:*** For private repos([Issue #6](https://github.com/softvar/enhanced-github/issues/6)), Github Access Token is required. Follow the steps [mentioned below](#github-api-rate-limiting) to add your Github Access Token.
 
 [Featured on ProductHunt](https://www.producthunt.com/tech/github-plus)
 
@@ -42,7 +42,7 @@ To tackle this, create a new Github Access Token.
 
 	OR
 
-	Right click on github-plus extension and and click on `Options` in the dropdown menu.
+	Right click on enhanced-github extension and and click on `Options` in the dropdown menu.
 
 	<img src="screenshots/extension-options-page.png" width="380" />
 
@@ -90,11 +90,11 @@ PRs are most welcome :)
 
 * **v0.1.3** *- 14th Aug, 2016*
 
-	* Fix :: fix focus effect on up-tree not removing blank td while navigating [#3](https://github.com/softvar/github-plus/pull/3)
+	* Fix :: fix focus effect on up-tree not removing blank td while navigating [#3](https://github.com/softvar/enhanced-github/pull/3)
 
 * **v0.1.4** *- 20th Aug, 2016*
 
-	* Improvement :: Better way of adding Github Access token - click extension or click options - Github Plus after opening *chrome://extension*
+	* Improvement :: Better way of adding Github Access token - click extension or click options - Enhanced Github after opening *chrome://extension*
 
 * **v0.1.5** *- 22nd Aug, 2016*
 
@@ -125,9 +125,11 @@ PRs are most welcome :)
 
 ## Copyright and License
 
+❗️ This extension is not sponsored by, endorsed by, or an official project of GitHub. This is a personal project and is developed solely for providing additional functionalities on Github website.
+
 >The [MIT license](https://opensource.org/licenses/MIT) (MIT)
 >
->Copyright (c) 2016 Varun Malhotra
+>Copyright (c) 2016-2018 Varun Malhotra
 >
 >Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 >
