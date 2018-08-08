@@ -1,4 +1,4 @@
-## <img src="icons/enhanced-github128.png"> Enhanced Github
+## <img src="icons/enhanced-github128.png" align="center"> Enhanced Github
 
 > Chrome extension that adds useful features on Github website
 
