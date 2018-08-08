@@ -118,7 +118,7 @@ PRs are most welcome :)
 
 	* Fix :: Update classes to fix download. (Cmd/Ctr + Click) to download file
 
-* **v1.1.8** *- 05th Aug, 2018*
+* **v2.0.0** *- 09th Aug, 2018*
 
 	* Improvement :: Update logos/icons to adhere with [Github logo policy](https://github.com/logos)
 	* Improvement :: Show Github-styled tooltip when hovering hover file download link
