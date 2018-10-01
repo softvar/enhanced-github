@@ -94,6 +94,20 @@ var utils = {
     [].forEach.call(document.querySelectorAll(selector), function (el) {
       el.parentNode.removeChild(el);
     });
+  },
+  getNumberOfLines: function (data, elemCurrent, fn) {
+    // Get content path for given file
+    var result = data.html_url.match(/.*[bt][lr][oe][be]\/[^//]+\/(.*)/);
+    var contentPath = result && result.length && result[1];
+
+    apiUtils.getRepoContent(
+      function (dataFile) {
+        if (!dataFile) {
+          return;
+        }
+        var numOfLines = atob(dataFile.content).split(/\r\n|\r|\n/).length + ' lines';
+        fn(numOfLines, elemCurrent);
+    }, contentPath);
   }
 };
 
@@ -286,20 +300,27 @@ var domUtils = {
         }
 
         for (var i = 0; i < elems.length; i++) {
-          if (data[i].type === 'file') {
-            var formattedFileSize = utils.getFileSizeAndUnit(data[i]);
+          var dataCurrent = data[i];
+          var elemCurrent = elems[i];
 
-            var html = '<td class="download" style="width: 20px;padding-right: 10px;color: #888;text-align: right;white-space: nowrap;">' +
-              '<span style="margin-right: 5px;">' + formattedFileSize + '</span>' +
-              '<a href="' + data[i].download_url + '" title="(Alt/Cmd/Ctr + Click) to download File" aria-label="(Alt/Cmd/Ctr + Click) to download File" class="tooltipped tooltipped-nw" download="' + data[i].name + '">' +
+          if (dataCurrent.type === 'file') {
+            var formattedFileSize = utils.getFileSizeAndUnit(dataCurrent);
+
+            // As this is async function, pass variables to avoid mutation:
+            utils.getNumberOfLines(dataCurrent, elemCurrent, function (numberOfLines, element) {
+              var html = '<td class="download" style="width: 20px;padding-right: 10px;color: #888;text-align: right;white-space: nowrap;">' +
+                '<span style="margin-right: 5px;">' + numberOfLines + '</span>' +
+                '<span style="margin-right: 5px;">' + formattedFileSize + '</span>' +
+                '<a href="' + dataCurrent.download_url + '" title="(Alt/Cmd/Ctr + Click) to download File" aria-label="(Alt/Cmd/Ctr + Click) to download File" class="tooltipped tooltipped-nw" download="' + dataCurrent.name + '">' +
                 '<svg class="octicon octicon-cloud-download" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16">' +
                 '<path d="M9 12h2l-3 3-3-3h2V7h2v5zm3-8c0-.44-.91-3-4.5-3C5.08 1 3 2.92 3 5 1.02 5 0 6.52 0 8c0 1.53 1 3 3 3h3V9.7H3C1.38 9.7 1.3 8.28 1.3 8c0-.17.05-1.7 1.7-1.7h1.3V5c0-1.39 1.56-2.7 3.2-2.7 2.55 0 3.13 1.55 3.2 1.8v1.2H12c.81 0 2.7.22 2.7 2.2 0 2.09-2.25 2.2-2.7 2.2h-2V11h2c2.08 0 4-1.16 4-3.5C16 5.06 14.08 4 12 4z"></path>' +
                 '</svg>' +
-              '</a>' +
-            '</td>';
-            elems[i].insertAdjacentHTML('afterend', html);
+                '</a>' +
+                '</td>';
+              element.insertAdjacentHTML('afterend', html);
+            });
           } else {
-            elems[i].insertAdjacentHTML('afterend', '<td class="download"></td>');
+              elemCurrent.insertAdjacentHTML('afterend', '<td class="download"></td>');
           }
         }
       });
