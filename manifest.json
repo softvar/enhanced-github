@@ -1,6 +1,6 @@
 {
-  "name": "Enhanced Github",
-  "short_name": "Enhanced Github",
+  "name": "Enhanced GitHub",
+  "short_name": "Enhanced GitHub",
   "version": "2.0.4",
   "manifest_version": 2,
   "description": "Display repo size, size of each file, download link and option to copy file contents",
@@ -14,7 +14,7 @@
   "browser_action": {
    "default_icon": "icons/enhanced-github48.png",
    "default_popup": "index.html",
-   "default_title": "Enhanced Github"
+   "default_title": "Enhanced GitHub"
   },
   "permissions": [
     "http://github.com/*",
