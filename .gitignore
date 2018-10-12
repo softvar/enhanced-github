@@ -1,3 +1,4 @@
 *zip*
 node_modules/
 *.log
+.idea
