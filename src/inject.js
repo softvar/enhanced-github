@@ -228,7 +228,7 @@ var domUtils = {
     }, '', true);
   },
   addCopyAndDownloadButton: function () {
-    var btnGroup = document.querySelectorAll('.BtnGroup')[0];
+    var btnGroup = document.querySelectorAll('.BtnGroup:not(.d-md-none)')[0];
     if (btnGroup && window.location.href && window.location.href.indexOf('blob/' + utils.getBranch()) > -1) {
       new Clipboard('.js-file-clipboard'); // instantiate copy to clipborad
 

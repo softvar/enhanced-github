@@ -123,6 +123,15 @@ PRs are most welcome :)
 	* Improvement :: Update logos/icons to adhere with [Github logo policy](https://github.com/logos)
 	* Improvement :: Show Github-styled tooltip when hovering hover file download link
 
+* **v2.0.2** *- 26th Oct, 2018*
+
+	* Fix buttons alignment in options.js
+
+* **v2.0.3** *- 27th Oct, 2018*
+
+	* Fix selector path for inserting _copy file_ and _download file_ buttons while viewing a file
+	* Minify content script thereby saving `4KB` per request. `inject.js` from `12KB` to `4KB`
+
 ## Copyright and License
 
 ❗️ This extension is not sponsored by, endorsed by, or an official project of GitHub. This is a personal project and is developed solely for providing additional functionalities on Github website.

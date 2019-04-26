@@ -1,6 +1,6 @@
 {
   "name": "enhanced-github",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Add-ons for Github website - Download File, display size of each file and Copy file contents",
   "main": "src/inject.js",
   "scripts": {
@@ -27,10 +27,8 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
-    "gulp-concat": "^2.6.0",
     "gulp-jshint": "^2.0.1",
-    "gulp-uglify": "^2.0.0",
-    "gulp-watch": "^4.3.9",
+    "gulp-uglify-es": "^1.0.4",
     "gulp-zip": "^3.2.0",
     "jshint": "^2.9.2"
   },

@@ -2,10 +2,8 @@ var gulp = require('gulp');
 
 var clean = require('gulp-clean');
 var jshint = require('gulp-jshint');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
+var uglify = require('gulp-uglify-es').default;
 var zip = require('gulp-zip');
-var watch = require('gulp-watch');
 
 var APP_NAME = 'enhanced-github';
 var bases = {
@@ -55,6 +53,7 @@ gulp.task('copy', ['clean'], function() {
 
   // Copy lib scripts, maintaining the original directory structure
   gulp.src(paths.scripts, {base: '.'})
+    .pipe(uglify())
     .pipe(gulp.dest(bases.dist));
 
   // Copy icons, maintaining the original directory structure

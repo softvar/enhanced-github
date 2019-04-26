@@ -1,7 +1,7 @@
 {
   "name": "Enhanced Github",
   "short_name": "Enhanced Github",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "manifest_version": 2,
   "description": "Display repo size, size of each file, download link and option to copy file contents",
   "homepage_url": "https://github.com/softvar/enhanced-github",
