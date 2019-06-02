@@ -289,7 +289,7 @@ var domUtils = {
           if (data[i].type === 'file') {
             var formattedFileSize = utils.getFileSizeAndUnit(data[i]);
 
-            var html = '<td class="download" style="width: 20px;padding-right: 10px;color: #888;text-align: right;white-space: nowrap;">' +
+            var html = '<td class="download" style="width: 20px;padding-right: 10px;color: #6a737d;text-align: right;white-space: nowrap;">' +
               '<span style="margin-right: 5px;">' + formattedFileSize + '</span>' +
               '<a href="' + data[i].download_url + '" title="(Alt/Option/Ctrl + Click) to download File" aria-label="(Alt/Option/Ctrl + Click) to download File" class="tooltipped tooltipped-nw" download="' + data[i].name + '">' +
                 '<svg class="octicon octicon-cloud-download" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16">' +
