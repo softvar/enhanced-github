@@ -184,7 +184,7 @@ var domUtils = {
     var elem = document.querySelector('ul.numbers-summary');
 
     utils.removePrevInstancesOf('.repo-size');
-    var formattedFileSize = utils.convertSizeToHumanReadableFormat(repoSize * 1024); // Github API return size in KB for repo
+    var formattedFileSize = utils.convertSizeToHumanReadableFormat(repoSize * 1024); // GitHub API return size in KB for repo
 
     var html = '<li class="repo-size">' +
       '<a>' +

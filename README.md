@@ -1,6 +1,6 @@
-## <img src="icons/enhanced-github128.png" align="center"> Enhanced Github
+## <img src="icons/enhanced-github128.png" align="center"> Enhanced GitHub
 
-> Chrome extension that adds useful features on Github website
+> Chrome extension that adds useful features on GitHub website
 
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/d/anlikcnbgdeidpacdbdljnabclhahhmd.svg)
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/v/anlikcnbgdeidpacdbdljnabclhahhmd.svg)
@@ -17,7 +17,7 @@
 * Copy file's contents directly to Clipboard (just won't work for markdown files).
 * Download file while viewing it's contents.
 
-***Note:*** For private repos([Issue #6](https://github.com/softvar/enhanced-github/issues/6)), Github Access Token is required. Follow the steps [mentioned below](#github-api-rate-limiting) to add your Github Access Token.
+***Note:*** For private repos([Issue #6](https://github.com/softvar/enhanced-github/issues/6)), GitHub Access Token is required. Follow the steps [mentioned below](#github-api-rate-limiting) to add your GitHub Access Token.
 
 [Featured on ProductHunt](https://www.producthunt.com/tech/github-plus)
 
@@ -28,11 +28,11 @@
 | Author | [Varun Malhotra](http://varunmalhotra.xyz) |
 |--------|--------------------------------------------|
 
-## Github API Rate Limiting
+## GitHub API Rate Limiting
 
-Since this extension fetches data using Github public v3 API for showing file *size* and *download_url*, it consumes free quota which is very less [Github API Rate Limiting](https://developer.github.com/v3/rate_limit/).
+Since this extension fetches data using GitHub public v3 API for showing file *size* and *download_url*, it consumes free quota which is very less [GitHub API Rate Limiting](https://developer.github.com/v3/rate_limit/).
 
-To tackle this, create a new Github Access Token.
+To tackle this, create a new GitHub Access Token.
 
 1. If logged-in, visit [https://github.com/settings/tokens](https://github.com/settings/tokens)
 2. Generate a new token, select `repo` scope and create a one.
@@ -46,7 +46,7 @@ To tackle this, create a new Github Access Token.
 
 	<img src="screenshots/extension-options-page.png" width="380" />
 
-5. Enter the valid Github Access Token
+5. Enter the valid GitHub Access Token
 6. Click on `SAVE` and Enjoy the benefits.
 
 This Chrome extension will automatically pick this valid access token and Bingo!
@@ -94,11 +94,11 @@ PRs are most welcome :)
 
 * **v0.1.4** *- 20th Aug, 2016*
 
-	* Improvement :: Better way of adding Github Access token - click extension or click options - Enhanced Github after opening *chrome://extension*
+	* Improvement :: Better way of adding GitHub Access token - click extension or click options - Enhanced GitHub after opening *chrome://extension*
 
 * **v0.1.5** *- 22nd Aug, 2016*
 
-	* Feature :: Show repo size on Github's repo homepage
+	* Feature :: Show repo size on GitHub's repo homepage
 	* Fix :: bugfix of default branch other than **master**
 
 * **v0.1.6** *- 27th Aug, 2016*
@@ -120,8 +120,8 @@ PRs are most welcome :)
 
 * **v2.0.0** *- 09th Aug, 2018*
 
-	* Improvement :: Update logos/icons to adhere with [Github logo policy](https://github.com/logos)
-	* Improvement :: Show Github-styled tooltip when hovering hover file download link
+	* Improvement :: Update logos/icons to adhere with [GitHub logo policy](https://github.com/logos)
+	* Improvement :: Show GitHub-styled tooltip when hovering hover file download link
 
 * **v2.0.2** *- 26th Oct, 2018*
 
@@ -134,7 +134,7 @@ PRs are most welcome :)
 
 ## Copyright and License
 
-❗️ This extension is not sponsored by, endorsed by, or an official project of GitHub. This is a personal project and is developed solely for providing additional functionalities on Github website.
+❗️ This extension is not sponsored by, endorsed by, or an official project of GitHub. This is a personal project and is developed solely for providing additional functionalities on GitHub website.
 
 >The [MIT license](https://opensource.org/licenses/MIT) (MIT)
 >
