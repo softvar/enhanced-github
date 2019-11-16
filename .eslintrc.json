@@ -1,0 +1,12 @@
+{
+  "extends": ["standard", "plugin:prettier/recommended"],
+  "rules": {
+    "promise/param-names": "off",
+    "handle-callback-err": 0
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "jest": true
+  }
+}
