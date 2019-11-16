@@ -29,7 +29,11 @@ const plugins = [
     entryOnly: true
   }),
   new CleanWebpackPlugin({
-    default: [destination]
+    default: [
+      destination,
+      path.resolve(__dirname, 'enhanced-github'),
+      path.resolve(__dirname, 'enhanced-github.zip')
+    ]
   }),
   new CopyPlugin([
     { from: 'options.js', to: destination },
@@ -39,12 +43,10 @@ const plugins = [
     { from: 'icons/*.png', to: destination }
   ]),
   new ZipFilesPlugin({
-    entries: [
-      { src: destination, dist: zipDestination }
-    ],
+    entries: [{ src: destination, dist: '/enhanced-github' }],
     output: zipDestination,
-    format: 'zip',
-  }),
+    format: 'zip'
+  })
 ];
 
 module.exports = function(_env, argv) {
