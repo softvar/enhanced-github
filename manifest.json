@@ -12,22 +12,17 @@
     "128": "icons/enhanced-github128.png"
   },
   "browser_action": {
-   "default_icon": "icons/enhanced-github48.png",
-   "default_popup": "index.html",
-   "default_title": "Enhanced GitHub"
+    "default_icon": "icons/enhanced-github48.png",
+    "default_popup": "index.html",
+    "default_title": "Enhanced GitHub"
   },
-  "permissions": [
-    "http://github.com/*",
-    "https://github.com/*",
-    "storage"
+  "permissions": ["http://github.com/*", "https://github.com/*", "storage"],
+  "content_scripts": [
+    {
+      "matches": ["http://github.com/*", "https://github.com/*"],
+      "js": ["src/inject.js"]
+    }
   ],
-  "content_scripts": [{
-    "matches": [
-      "http://github.com/*",
-      "https://github.com/*"
-    ],
-    "js": [ "src/clipboard.min.js", "src/inject.js" ]
-  }],
   "options_ui": {
     "page": "options.html",
     "chrome_style": true

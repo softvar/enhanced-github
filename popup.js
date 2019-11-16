@@ -1,3 +1,5 @@
-document.getElementById('settings-btn').addEventListener('click', function () {
-	chrome.tabs.create({ 'url': 'chrome://extensions/?options=' + chrome.runtime.id });
+/* global chrome */
+
+document.getElementById('settings-btn').addEventListener('click', function() {
+  chrome.tabs.create({ url: 'chrome://extensions/?options=' + chrome.runtime.id });
 });
