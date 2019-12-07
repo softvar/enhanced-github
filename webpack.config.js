@@ -29,11 +29,7 @@ const plugins = [
     entryOnly: true
   }),
   new CleanWebpackPlugin({
-    default: [
-      destination,
-      path.resolve(__dirname, 'enhanced-github'),
-      path.resolve(__dirname, 'enhanced-github.zip')
-    ]
+    default: [destination, path.resolve(__dirname, 'enhanced-github'), path.resolve(__dirname, 'enhanced-github.zip')]
   }),
   new CopyPlugin([
     { from: 'options.js', to: destination },
