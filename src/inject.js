@@ -9,8 +9,7 @@
     CODE BEGINS HERE
 ***********************/
 
-/* global Clipboard */
-require('clipboard');
+var ClipboardLib = require('clipboard');
 
 const GITHUB_API_REPOS_BASE_URI = 'https://api.github.com/repos/';
 let storedGithubToken, defaultBranch, repoSize;
@@ -259,7 +258,7 @@ let domUtils = {
     let btnGroup = document.querySelectorAll('.BtnGroup:not(.d-md-none)')[0];
     if (btnGroup && window.location.href && window.location.href.indexOf('blob/' + utils.getBranch()) > -1) {
       // instantiate copy to clipborad
-      new Clipboard('.js-file-clipboard'); // eslint-disable-line no-new
+      new ClipboardLib('.js-file-clipboard'); // eslint-disable-line no-new
 
       apiUtils.getRepoContent(function(data) {
         let formattedFileSize = utils.getFileSizeAndUnit(data);
