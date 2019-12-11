@@ -2,7 +2,7 @@
 
 > Chrome extension that adds useful features on GitHub website
 
-![Chrome Web Store](https://img.shields.io/chrome-web-store/d/anlikcnbgdeidpacdbdljnabclhahhmd.svg)
+[![Financial Contributors on Open Collective](https://opencollective.com/enhanced-github/all/badge.svg?label=financial+contributors)](https://opencollective.com/enhanced-github) ![Chrome Web Store](https://img.shields.io/chrome-web-store/d/anlikcnbgdeidpacdbdljnabclhahhmd.svg)
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/anlikcnbgdeidpacdbdljnabclhahhmd?color=orange&style=flat-square)
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/v/anlikcnbgdeidpacdbdljnabclhahhmd.svg)
 
@@ -139,6 +139,36 @@ PRs are most welcome :)
 		* Remove jshint and used eslint for linting
 		* Used prettier for auto-formatting files
 		* Used husky and lint-staged to configure and run git-hooks
+
+## Contributors
+
+### Code Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/softvar/enhanced-github/graphs/contributors"><img src="https://opencollective.com/enhanced-github/contributors.svg?width=890&button=false" /></a>
+
+### Financial Contributors
+
+Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/enhanced-github/contribute)]
+
+#### Individuals
+
+<a href="https://opencollective.com/enhanced-github"><img src="https://opencollective.com/enhanced-github/individuals.svg?width=890"></a>
+
+#### Organizations
+
+Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/enhanced-github/contribute)]
+
+<a href="https://opencollective.com/enhanced-github/organization/0/website"><img src="https://opencollective.com/enhanced-github/organization/0/avatar.svg"></a>
+<a href="https://opencollective.com/enhanced-github/organization/1/website"><img src="https://opencollective.com/enhanced-github/organization/1/avatar.svg"></a>
+<a href="https://opencollective.com/enhanced-github/organization/2/website"><img src="https://opencollective.com/enhanced-github/organization/2/avatar.svg"></a>
+<a href="https://opencollective.com/enhanced-github/organization/3/website"><img src="https://opencollective.com/enhanced-github/organization/3/avatar.svg"></a>
+<a href="https://opencollective.com/enhanced-github/organization/4/website"><img src="https://opencollective.com/enhanced-github/organization/4/avatar.svg"></a>
+<a href="https://opencollective.com/enhanced-github/organization/5/website"><img src="https://opencollective.com/enhanced-github/organization/5/avatar.svg"></a>
+<a href="https://opencollective.com/enhanced-github/organization/6/website"><img src="https://opencollective.com/enhanced-github/organization/6/avatar.svg"></a>
+<a href="https://opencollective.com/enhanced-github/organization/7/website"><img src="https://opencollective.com/enhanced-github/organization/7/avatar.svg"></a>
+<a href="https://opencollective.com/enhanced-github/organization/8/website"><img src="https://opencollective.com/enhanced-github/organization/8/avatar.svg"></a>
+<a href="https://opencollective.com/enhanced-github/organization/9/website"><img src="https://opencollective.com/enhanced-github/organization/9/avatar.svg"></a>
 
 ## Copyright and License
 
