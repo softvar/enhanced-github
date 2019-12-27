@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - 6.10.0
+  - 8
+  - 10.0.0
+  - node
+install:
+  - yarn install
+after_success: 'yarn test:prod'
+cache:
+  yarn: true
+  directories:
+    - node_modules
