@@ -23,27 +23,46 @@ ${license} License, Copyright Varun Malhotra
 
 Dependencies used - ${deps}`;
 
-const plugins = [
-  new webpack.BannerPlugin({
-    banner: libraryHeaderComment,
-    entryOnly: true
-  }),
-  new CleanWebpackPlugin({
-    default: [destination, path.resolve(__dirname, 'enhanced-github'), path.resolve(__dirname, 'enhanced-github.zip')]
-  }),
-  new CopyPlugin([
-    { from: 'options.js', to: destination },
-    { from: 'popup.js', to: destination },
-    { from: '*html', to: destination },
-    { from: 'manifest.json', to: destination },
-    { from: 'icons/*.png', to: destination }
-  ]),
-  new ZipFilesPlugin({
-    entries: [{ src: destination, dist: '/enhanced-github' }],
-    output: zipDestination,
-    format: 'zip'
-  })
-];
+function addPlugins(argv) {
+  let plugins = [];
+
+  plugins.push(
+    new webpack.BannerPlugin({
+      banner: libraryHeaderComment,
+      entryOnly: true
+    })
+  );
+  plugins.push(
+    new CleanWebpackPlugin({
+      default: [destination, path.resolve(__dirname, 'enhanced-github'), path.resolve(__dirname, 'enhanced-github.zip')]
+    })
+  );
+  plugins.push(
+    new CopyPlugin(
+      [
+        { from: 'options.js', to: destination },
+        { from: 'popup.js', to: destination },
+        { from: '*html', to: destination },
+        { from: 'manifest.json', to: destination },
+        { from: 'icons/*.png', to: destination },
+        { from: 'src/background.js', to: destination }
+      ],
+      { copyUnmodified: true }
+    )
+  );
+
+  if (argv.mode === 'production') {
+    plugins.push(
+      new ZipFilesPlugin({
+        entries: [{ src: destination, dist: '/enhanced-github' }],
+        output: zipDestination,
+        format: 'zip'
+      })
+    );
+  }
+
+  return plugins;
+}
 
 module.exports = function(_env, argv) {
   return {
@@ -68,6 +87,10 @@ module.exports = function(_env, argv) {
         }
       ]
     },
-    plugins
+    plugins: addPlugins(argv),
+    watchOptions: {
+      poll: true,
+      ignored: /node_modules/
+    }
   };
 };

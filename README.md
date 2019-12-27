@@ -5,6 +5,7 @@
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/d/anlikcnbgdeidpacdbdljnabclhahhmd.svg)
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/anlikcnbgdeidpacdbdljnabclhahhmd?color=orange&style=flat-square)
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/v/anlikcnbgdeidpacdbdljnabclhahhmd.svg)
+[![Build Status](http://img.shields.io/travis/softvar/enhanced-github/master.svg?style=flat)](http://travis-ci.org/softvar/enhanced-github)
 
 ## Link
 
@@ -17,6 +18,8 @@
 - Show download link for each individual file (not applicable for folder / symlink).
 - Copy file's contents directly to Clipboard (just won't work for markdown files).
 - Download file while viewing it's contents.
+
+The extension handles the SPA behavior of GitHub page from `v3.0.0` onwards.
 
 **_Note:_** For private repos([Issue #6](https://github.com/softvar/enhanced-github/issues/6)), GitHub Access Token is required. Follow the steps [mentioned below](#github-api-rate-limiting) to add your GitHub Access Token.
 
@@ -70,75 +73,17 @@ This Chrome extension will automatically pick this valid access token and Bingo!
 ## Development
 
 1. Clone this repo
-2. Run `gulp` for generating packaged folder specifically for extension stuff.
+2. Run `yarn dev` for generating packaged folder specifically for extension stuff.
 3. Go to chrome extensions [chrome://extensions](chrome://extensions)
 4. Enable developer mode
 5. Click on load unpacked extension and select the generated folder.
-6. [Admin Access Only] - run `gulp zip` for generating zip file to be uploaded on _Chrome Web Store_.
+6. [Admin Access Only] - run `yarn build` for generating zip file to be uploaded on _Chrome Web Store_.
 
 PRs are most welcome :)
 
 ## Changelog
 
-- **v0.1.1** _- 13th Aug, 2016_
-
-		* Initial Launch
-
-- **v0.1.2** _- 14th Aug, 2016_
-
-		* Fix :: fix bug file on commits/<branch> url
-
-- **v0.1.3** _- 14th Aug, 2016_
-
-		* Fix :: fix focus effect on up-tree not removing blank td while navigating [#3](https://github.com/softvar/enhanced-github/pull/3)
-
-- **v0.1.4** _- 20th Aug, 2016_
-
-		* Improvement :: Better way of adding GitHub Access token - click extension or click options - Enhanced GitHub after opening *chrome://extension*
-
-- **v0.1.5** _- 22nd Aug, 2016_
-
-		* Feature :: Show repo size on GitHub's repo homepage
-		* Fix :: bugfix of default branch other than **master**
-
-- **v0.1.6** _- 27th Aug, 2016_
-
-		* Fix :: not showing repo size when navigating back; fix no hash change detection
-
-- **v0.1.7** _- 10th Mar, 2017_
-
-		* Fix :: Add proper toggle class [github changed class names] which fixes flickering while hover
-		* Fix :: Dont add `td` when there's no file present.
-
-- **v0.1.8** _- 10th Mar, 2017_
-
-		* Imporvemnt :: Use `clipboard` as a dependency and use it via `manifest.json`
-
-- **v1.0.8** _- 1st May, 2018_
-
-		* Fix :: Update classes to fix download. (Cmd/Ctr + Click) to download file
-
-- **v2.0.0** _- 09th Aug, 2018_
-
-		* Improvement :: Update logos/icons to adhere with [GitHub logo policy](https://github.com/logos)
-		* Improvement :: Show GitHub-styled tooltip when hovering hover file download link
-
-- **v2.0.2** _- 26th Oct, 2018_
-
-		* Fix buttons alignment in options.js
-
-- **v2.0.3** _- 27th Oct, 2018_
-
-		* Fix selector path for inserting _copy file_ and _download file_ buttons while viewing a file
-		* Minify content script thereby saving `4KB` per request. `inject.js` from `12KB` to `4KB`
-
-- **v2.1.0** _- 16th Nov, 2019_
-
-		* Remove gulp and used webpack for bundling and automation
-		* Remove clipboard from source code and instead use a dep bundled with (minified)inject.js
-		* Remove jshint and used eslint for linting
-		* Used prettier for auto-formatting files
-		* Used husky and lint-staged to configure and run git-hooks
+[CHANGELOG.md](https://github.com/softvar/enhanced-github/blob/master/CHANGELOG.md)
 
 ## Copyright and License
 
@@ -146,7 +91,7 @@ PRs are most welcome :)
 
 > The [MIT license](https://opensource.org/licenses/MIT) (MIT)
 >
-> Copyright (c) 2016-2019 Varun Malhotra
+> Copyright (c) 2016-2020 Varun Malhotra
 >
 > Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 >
