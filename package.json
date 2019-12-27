@@ -9,7 +9,7 @@
     "lint": "eslint '**/*.js' --fix",
     "prettier": "./node_modules/prettier/bin-prettier.js --write",
     "test:dev": "jest --config=jest.config.js --watch --debug --colors --errorOnDeprecated",
-    "test:prod": "jest --config=jest.config.js"
+    "test": "jest --config=jest.config.js"
   },
   "repository": {
     "type": "git",
@@ -35,7 +35,7 @@
     "@babel/preset-env": "^7.6.2",
     "babel-loader": "^8.0.6",
     "clean-webpack-plugin": "^3.0.0",
-    "copy-webpack-plugin": "^5.0.5",
+    "copy-webpack-plugin": "^5.1.1",
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-standard": "^11.0.0",
@@ -48,7 +48,7 @@
     "jest": "^24.9.0",
     "lint-staged": "^8.1.3",
     "prettier": "^1.16.4",
-    "webpack": "^4.41.2",
+    "webpack": "^4.41.4",
     "webpack-cli": "^3.3.9",
     "webpack-zip-files-plugin": "^1.0.0"
   },

@@ -6,7 +6,7 @@ node_js:
   - node
 install:
   - yarn install
-after_success: 'yarn test:prod'
+after_success: 'yarn test'
 cache:
   yarn: true
   directories:

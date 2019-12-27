@@ -19,7 +19,7 @@
 - Copy file's contents directly to Clipboard (just won't work for markdown files).
 - Download file while viewing it's contents.
 
-The extension handles the SPA behavior of GitHub page from `v3.0.0` onwards.
+The extension handles the SPA behavior of GitHub website from `v3.0.0` onwards :)
 
 **_Note:_** For private repos([Issue #6](https://github.com/softvar/enhanced-github/issues/6)), GitHub Access Token is required. Follow the steps [mentioned below](#github-api-rate-limiting) to add your GitHub Access Token.
 
