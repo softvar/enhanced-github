@@ -1,17 +1,22 @@
+- **v3.0.1** _- 3rd Jan, 2020_
+
+  - Use `webNavigation` API in background to detect page-url changes
+  - Remove `setInterval` and `onpopstate` for page-url change listener from `inject.js`
+
 - **v3.0.0** _- 28th Dec, 2019_
 
   - Since GitHub is now SPA, changes are made to handle SPA behavior
-  - Introduced background script to get web requests and append elements when page is rendered. For this, `webRequest` permission is required.
+  - Introduce background script to get web requests and append elements when page is rendered. For this, `webRequest` permission is required.
   - Minimize API hits. API call is made only when required. No calls on `onpopstate` event.
-  - Refactored the entire code, made it modular
+  - Refactor the entire code, made it modular
 
 - **v2.1.0** _- 16th Nov, 2019_
 
   - Remove gulp and used webpack for bundling and automation
   - Remove clipboard from source code and instead use a dep bundled with (minified)inject.js
   - Remove jshint and used eslint for linting
-  - Used prettier for auto-formatting files
-  - Used husky and lint-staged to configure and run git-hooks
+  - Use prettier for auto-formatting files
+  - Use husky and lint-staged to configure and run git-hooks
 
 - **v2.0.3** _- 27th Oct, 2018_
 

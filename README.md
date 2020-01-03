@@ -62,11 +62,11 @@ This Chrome extension will automatically pick this valid access token and Bingo!
 
 #### Screenshot of each file size and it's download link
 
-<img src="screenshots/screenshot-home.png">
+<img src="screenshots/github-repo-home.png">
 
 #### Screenshot of Copy fle contents and download link
 
-<img src="screenshots/screenshot-file.png">
+<img src="screenshots/github-file.png">
 
 ## Libraries Used
 

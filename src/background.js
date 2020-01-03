@@ -17,10 +17,7 @@ chrome.webRequest.onCompleted.addListener(
   { urls: ['*://*.github.com/*'] }
 );
 
-chrome.runtime.onMessage.addListener(function(request, _sender, _sendResponse) {
-  currentUrl = request.url;
-
-  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-    tabId = tabs[0] && tabs[0].id;
-  });
+chrome.webNavigation.onHistoryStateUpdated.addListener((details) => {
+  tabId = details.tabId;
+  currentUrl = details.url;
 });

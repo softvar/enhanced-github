@@ -4,7 +4,7 @@
  *
  * Licensed MIT (c) Varun Malhotrs
  */
-const webNavigationUtil = require('./utils/webNavigationUtil');
+const messageListenerUtil = require('./utils/messageListenerUtil');
 const domUtil = require('./utils/domUtil');
 const storageUtil = require('./utils/storageUtil');
 const CommonEnum = require('./enums/CommonEnum');
@@ -24,7 +24,7 @@ window.chrome.extension.sendMessage({}, function(_response) {
         false
       );
 
-      webNavigationUtil.addListners();
+      messageListenerUtil.addListners();
 
       window.chrome.storage.sync.get(
         {
