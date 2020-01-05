@@ -25,14 +25,21 @@ The extension handles the SPA behavior of GitHub website from `v3.0.0` onwards :
 
 **_Note:_** For private repos([Issue #6](https://github.com/softvar/enhanced-github/issues/6)), GitHub Access Token is required. Follow the steps [mentioned below](#github-api-rate-limiting) to add your GitHub Access Token.
 
+### Permissions required
+
+- `"*://*.github.com/*"` - for running on `github.com` domain.
+- `storage` - for storing GitHub access token on your local system. GitHub Access token is required for private repos and for handling API rate-limiting issues.
+- `webRequest` - to support GitHub being a single-page-application now. Read this [detailed blog](https://medium.com/@softvar/making-chrome-extension-smart-by-supporting-spa-websites-1f76593637e8).
+- `webNavigation` - to support GitHub being a single-page-application now. Read this [detailed blog](https://medium.com/@softvar/making-chrome-extension-smart-by-supporting-spa-websites-1f76593637e8).
+
 [Featured on ProductHunt](https://www.producthunt.com/tech/github-plus)
 
 <img src="screenshots/product_hunt.png" height="300" />
 
 ## Author
 
-| Author | [Varun Malhotra](http://varunmalhotra.xyz) |
-| ------ | ------------------------------------------ |
+| Author | [Varun Malhotra](https://varunmalhotra.xyz) |
+| ------ | ------------------------------------------- |
 
 
 ## GitHub API Rate Limiting

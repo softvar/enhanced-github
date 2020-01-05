@@ -1,3 +1,8 @@
+- **v3.1.0** _- 6th Jan, 2020_
+
+  - Extension only utilizes `webNavigation` history for GitHub website using webNavigation event filters. Rest assured, history of any other website is not permitted.
+  - Updated README with the doc link explaining introduction of `webRequest` and `webNavigation` API for supporting single-page GitHub website.
+
 - **v3.0.1** _- 3rd Jan, 2020_
 
   - Use `webNavigation` API in background to detect page-url changes
@@ -9,6 +14,9 @@
   - Introduce background script to get web requests and append elements when page is rendered. For this, `webRequest` permission is required.
   - Minimize API hits. API call is made only when required. No calls on `onpopstate` event.
   - Refactor the entire code, made it modular
+  - Permissions required:
+    - `webRequest` - to support GitHub being a single-page-application now. Read this [detailed blog](https://medium.com/@softvar/making-chrome-extension-smart-by-supporting-spa-websites-1f76593637e8).
+    - `webNavigation` - to support GitHub being a single-page-application now. Read this [detailed blog](https://medium.com/@softvar/making-chrome-extension-smart-by-supporting-spa-websites-1f76593637e8).
 
 - **v2.1.0** _- 16th Nov, 2019_
 
