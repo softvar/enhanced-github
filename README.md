@@ -49,7 +49,7 @@ Since this extension fetches data using GitHub public v3 API for showing file _s
 To tackle this, create a new GitHub Access Token.
 
 1. If logged-in, visit [https://github.com/settings/tokens](https://github.com/settings/tokens)
-2. Generate a new token, select `repo` scope and create a one.
+2. Generate a new token, select `repo` scope and create it.
 3. Copy and store the generated token which looks something like: `17c1a8d5b399d66b6212382d98d4c67a94d58955` (a fake one :P).
 4. Click on extension icon and then on `Settings-Options` on top right.
    <img src="screenshots/extension-popup-screenshot.png" width="380" />
