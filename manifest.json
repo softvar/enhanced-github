@@ -24,7 +24,7 @@
     }
   ],
   "background": {
-    "scripts": ["background.js"],
+    "scripts": ["src/background.js"],
     "persistent": true
   },
   "options_ui": {
