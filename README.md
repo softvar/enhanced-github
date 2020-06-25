@@ -67,6 +67,19 @@ This Chrome extension will automatically pick this valid access token and Bingo!
 
 ## Screenshots
 
+### New GitHub Design - [Blog](https://github.blog/changelog/2020-06-23-design-updates-to-repositories-and-github-ui/)
+
+#### Screenshot of each file size and it's download link
+
+<img src="screenshots/github-repo-home-new.png">
+
+#### Screenshot of Copy fle contents and download link
+
+<img src="screenshots/github-file-new.png">
+
+
+### Old GitHub Design
+
 #### Screenshot of each file size and it's download link
 
 <img src="screenshots/github-repo-home.png">
@@ -78,6 +91,7 @@ This Chrome extension will automatically pick this valid access token and Bingo!
 ## Libraries Used
 
 - Thanks to [@zenorocha](https://github.com/zenorocha/) for [Clipboard.js](https://github.com/zenorocha/clipboard.js) - Modern copy to clipboard. No Flash. Just 3kb gzipped.
+
 
 ## Development
 
@@ -116,6 +130,15 @@ Become a financial contributor and help us sustain our community. [[Contribute](
 Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/enhanced-github/contribute)]
 
 <a href="https://opencollective.com/enhanced-github/organization/0/website"><img src="https://opencollective.com/enhanced-github/organization/0/avatar.svg"></a>
+
+## Policy
+
+❗️NO BS POLICY:
+
+> Enahanced GitHub Chrome Extension doesn't collect/share/care about your data at all.
+>
+> Asks for GitHub Access Token for private repos and if Rate Limiting is your concern.
+
 
 ## Copyright and License
 
