@@ -45,7 +45,8 @@ function addPlugins(argv) {
         { from: '*html', to: destination },
         { from: 'manifest.json', to: destination },
         { from: 'icons/*.png', to: destination },
-        { from: 'src/background.js', to: destination }
+        { from: 'src/background.js', to: destination },
+        { from: 'LICENSE', to: destination }
       ],
       { copyUnmodified: true }
     )

@@ -1,7 +1,7 @@
 {
   "name": "enhanced-github",
   "version": "3.1.0",
-  "description": "Add-ons for GitHub website - Download File, display size of each file and Copy file contents",
+  "description": "Add-ons for GitHub website - Repo size, Download File, display size of each file and Copy file contents",
   "main": "src/inject.js",
   "scripts": {
     "dev": "webpack --watch --mode=development",
@@ -25,6 +25,8 @@
     "extension",
     "github",
     "enhanced-github",
+    "repo-size",
+    "file-size",
     "file-download"
   ],
   "dependencies": {

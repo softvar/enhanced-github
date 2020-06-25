@@ -30,11 +30,15 @@ function saveOptions() {
       // Update statusText to let user know options were saved.
       var statusText = document.getElementById('status--text');
       var validationWarning = document.getElementById('validation-warning');
+      var validationMessage = validateUserToken(token);
 
-      statusText.textContent = 'Options saved!!';
-      validationWarning.textContent = validateUserToken(token);
+      if (!validationMessage) {
+        statusText.textContent = 'Options saved!!';
+        document.getElementById('status').style.display = 'inline-block';
+      }
 
-      document.getElementById('status').style.display = 'inline-block';
+      validationWarning.textContent = validationMessage;
+
       setTimeout(function() {
         statusText.textContent = '';
         document.getElementById('status').style.display = 'none';

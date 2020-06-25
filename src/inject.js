@@ -10,6 +10,12 @@ const storageUtil = require('./utils/storageUtil');
 const CommonEnum = require('./enums/CommonEnum');
 
 window.chrome.extension.sendMessage({}, function(_response) {
+  window.enhancedGithub = {
+    config: {
+      isNewDesign: localStorage.getItem('enhanced-github-for-new-design') || 1
+    }
+  };
+
   let readyStateCheckInterval = setInterval(function() {
     if (document.readyState === 'complete') {
       clearInterval(readyStateCheckInterval);
