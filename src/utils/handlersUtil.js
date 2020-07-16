@@ -45,6 +45,8 @@ let handlersUtil = {
 
     if (commonUtil.isForGithUbNewUi()) {
       setTimeout(function() {
+        commonUtil.removePrevInstancesOf('.eg-download'); // remove before adding new ones
+
         const containerItems = document.querySelectorAll(
           '.js-navigation-container.js-active-navigation-container .js-navigation-item'
         );
@@ -62,7 +64,7 @@ let handlersUtil = {
               let formattedFileSize = commonUtil.getFileSizeAndUnit(data[actualDataIndex]);
 
               let html = `
-                <div role="gridcell" class="mr-1 text-gray-light" style="width: 95px;">
+                <div role="gridcell" class="mr-1 text-gray-light eg-download" style="width: 95px;">
                   <span class="css-truncate css-truncate-target d-block">
                     <span style="margin-right: 5px;">
                       ${formattedFileSize}
@@ -80,7 +82,7 @@ let handlersUtil = {
               commitElem.insertAdjacentHTML('afterend', html);
             } else {
               const defaultHtml = `
-                <div role="gridcell" class="mr-1" style="width: 90px;"></div>
+                <div role="gridcell" class="mr-1 eg-download" style="width: 90px;"></div>
               `;
 
               commitElem.insertAdjacentHTML('afterend', defaultHtml);
