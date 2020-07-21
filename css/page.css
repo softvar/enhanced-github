@@ -664,6 +664,32 @@ code {
   background: #ececec;
 }
 
+.feature h2 {
+  font-size: 1.4rem;
+  font-weight: 500;
+  border-bottom: none;
+  padding-bottom: 0;
+  color: #3a5169;
+}
+.features {
+  border-top: 1px solid #eaecef;
+  padding: 1.2rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: stretch;
+  justify-content: space-between;
+}
+.feature {
+  flex-grow: 1;
+  flex-basis: 30%;
+  max-width: 30%;
+}
+
+.feature p {
+  font-size: 18px;
+}
+
 #scrollUp {
   position: fixed;
   z-index: 999999;
