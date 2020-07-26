@@ -5,6 +5,7 @@ $(document).ready(function () {
         $('.top-nav-link').removeClass('is-active  active');
         $('.features-nav-link').removeClass('is-active  active');
         $('.privacy-policy-nav-link').removeClass('is-active  active');
+        $('.screenshots-nav-link').removeClass('is-active  active');
     }
 
     function onScroll() {
@@ -27,15 +28,9 @@ $(document).ready(function () {
         } else if (topOffset > 1 * viewportHeight && topOffset < 2 * viewportHeight) {
             $('.features-nav-link').addClass('is-active  active');
         } else if (topOffset > 2 * viewportHeight && topOffset < 3 * viewportHeight) {
-            $('.installation-nav-link').addClass('is-active  active');
-        } else if (topOffset > 3 * viewportHeight && topOffset < 5 * viewportHeight) {
-            $('.flow-diagram-nav-link').addClass('is-active  active');
-        } else if (topOffset > 5 * viewportHeight && topOffset < 8.5 * viewportHeight) {
-            $('.docs-nav-link').addClass('is-active  active');
-        } else if (topOffset > 8.5 * viewportHeight && topOffset < 10.5 * viewportHeight) {
-            $('.usage-nav-link').addClass('is-active  active');
-        } else if (topOffset > 10.5 * viewportHeight && topOffset < 14 * viewportHeight) {
-            $('.live-demo-nav-link').addClass('is-active  active');
+            $('.screenshots-nav-link').addClass('is-active  active');
+        } else if (topOffset > 3 * viewportHeight && topOffset < 4 * viewportHeight) {
+            $('.privacy-policy-nav-link').addClass('is-active  active');
         } else {
             unhighlightAllNavBarLinks()
         }
@@ -82,4 +77,12 @@ $(document).ready(function () {
 
     // Call onScroll on init too to highlight the appropriate navlink
     onScroll();
+
+    new Glide('.glide', {
+        type: 'slider',
+        gap: 30,
+        autoplay: 3500,
+        startAt: 0,
+        perView: 1
+    }).mount()
 });

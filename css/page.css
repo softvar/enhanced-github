@@ -39,8 +39,8 @@ a {
 
 body {
     color: white;
-    width: 100%;
-    display: table;
+    /* width: 100%; */
+    /* display: table; */
 }
 
 ::selection{
@@ -115,135 +115,6 @@ small {
 
 .thin {
   font-weight: 200; }
-
-.flow-text {
-  font-weight: 300; }
-  @media only screen and (min-width: 360px) {
-    .flow-text {
-      font-size: 1.2rem; } }
-  @media only screen and (min-width: 0px) {
-    .flow-text {
-      line-height: .8rem; } }
-  @media only screen and (min-width: 390px) {
-    .flow-text {
-      font-size: 1.224rem; } }
-  @media only screen and (min-width: 30px) {
-    .flow-text {
-      line-height: .904rem; } }
-  @media only screen and (min-width: 420px) {
-    .flow-text {
-      font-size: 1.248rem; } }
-  @media only screen and (min-width: 60px) {
-    .flow-text {
-      line-height: 1.008rem; } }
-  @media only screen and (min-width: 450px) {
-    .flow-text {
-      font-size: 1.272rem; } }
-  @media only screen and (min-width: 90px) {
-    .flow-text {
-      line-height: 1.112rem; } }
-  @media only screen and (min-width: 480px) {
-    .flow-text {
-      font-size: 1.296rem; } }
-  @media only screen and (min-width: 120px) {
-    .flow-text {
-      line-height: 1.216rem; } }
-  @media only screen and (min-width: 510px) {
-    .flow-text {
-      font-size: 1.32rem; } }
-  @media only screen and (min-width: 150px) {
-    .flow-text {
-      line-height: 1.32rem; } }
-  @media only screen and (min-width: 540px) {
-    .flow-text {
-      font-size: 1.344rem; } }
-  @media only screen and (min-width: 180px) {
-    .flow-text {
-      line-height: 1.424rem; } }
-  @media only screen and (min-width: 570px) {
-    .flow-text {
-      font-size: 1.368rem; } }
-  @media only screen and (min-width: 210px) {
-    .flow-text {
-      line-height: 1.528rem; } }
-  @media only screen and (min-width: 600px) {
-    .flow-text {
-      font-size: 1.392rem; } }
-  @media only screen and (min-width: 240px) {
-    .flow-text {
-      line-height: 1.632rem; } }
-  @media only screen and (min-width: 630px) {
-    .flow-text {
-      font-size: 1.416rem; } }
-  @media only screen and (min-width: 270px) {
-    .flow-text {
-      line-height: 1.736rem; } }
-  @media only screen and (min-width: 660px) {
-    .flow-text {
-      font-size: 1.44rem; } }
-  @media only screen and (min-width: 300px) {
-    .flow-text {
-      line-height: 1.84rem; } }
-  @media only screen and (min-width: 690px) {
-    .flow-text {
-      font-size: 1.464rem; } }
-  @media only screen and (min-width: 330px) {
-    .flow-text {
-      line-height: 1.944rem; } }
-  @media only screen and (min-width: 720px) {
-    .flow-text {
-      font-size: 1.488rem; } }
-  @media only screen and (min-width: 360px) {
-    .flow-text {
-      line-height: 2.048rem; } }
-  @media only screen and (min-width: 750px) {
-    .flow-text {
-      font-size: 1.512rem; } }
-  @media only screen and (min-width: 390px) {
-    .flow-text {
-      line-height: 2.152rem; } }
-  @media only screen and (min-width: 780px) {
-    .flow-text {
-      font-size: 1.536rem; } }
-  @media only screen and (min-width: 420px) {
-    .flow-text {
-      line-height: 2.256rem; } }
-  @media only screen and (min-width: 810px) {
-    .flow-text {
-      font-size: 1.56rem; } }
-  @media only screen and (min-width: 450px) {
-    .flow-text {
-      line-height: 2.36rem; } }
-  @media only screen and (min-width: 840px) {
-    .flow-text {
-      font-size: 1.584rem; } }
-  @media only screen and (min-width: 480px) {
-    .flow-text {
-      line-height: 2.464rem; } }
-  @media only screen and (min-width: 870px) {
-    .flow-text {
-      font-size: 1.608rem; } }
-  @media only screen and (min-width: 510px) {
-    .flow-text {
-      line-height: 2.568rem; } }
-  @media only screen and (min-width: 900px) {
-    .flow-text {
-      font-size: 1.632rem; } }
-  @media only screen and (min-width: 540px) {
-    .flow-text {
-      line-height: 2.672rem; } }
-  @media only screen and (min-width: 930px) {
-    .flow-text {
-      font-size: 1.656rem; } }
-  @media only screen and (min-width: 570px) {
-    .flow-text {
-      line-height: 2.776rem; } }
-  @media only screen and (min-width: 960px) {
-    .flow-text {
-      font-size: 1.68rem; } }
-  @media only screen and (min-width: 600px) {
-    .flow-text {
-      line-height: 2.88rem; } }
 
 /*******************************
  * Material Design override css
@@ -361,52 +232,6 @@ footer a {
 }
 /*********/
 
-/*Huge thanks to @tobiasahlin at http://tobiasahlin.com/spinkit/ */
-.spinner {
-  margin: auto 0;
-}
-
-.spinner > div {
-  width: 8px;
-  height: 8px;
-  background-color: #333;
-
-  border-radius: 100%;
-  display: inline-block;
-  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-}
-
-.spinner.active > div {
-  background-color: #afb128;
-}
-
-.spinner .bounce1 {
-  -webkit-animation-delay: -0.32s;
-  animation-delay: -0.32s;
-}
-
-.spinner .bounce2 {
-  -webkit-animation-delay: -0.16s;
-  animation-delay: -0.16s;
-}
-
-@-webkit-keyframes sk-bouncedelay {
-  0%, 80%, 100% { -webkit-transform: scale(0) }
-  40% { -webkit-transform: scale(1.0) }
-}
-
-@keyframes sk-bouncedelay {
-  0%, 80%, 100% {
-    -webkit-transform: scale(0);
-    transform: scale(0);
-  } 40% {
-    -webkit-transform: scale(1.0);
-    transform: scale(1.0);
-  }
-}
-
-
 /*******************************
  * Page css
  *******************************/
@@ -435,50 +260,6 @@ footer a {
   background: #3e5979;
 }
 
-.task-completed {
-  color: #33af92;
-}
-.task-active, .worker-active {
-  color: #afb128;
-}
-.task-failed, .worker-terminated {
-  color: #ff5a5a;
-}
-.task-queued, .worker-idle {
-  color: #777;
-}
-.task-queue-box.task-completed {
-  border: 1px solid #33af92;
-  border-bottom: 2px solid #33af92;
-}
-.task-queue-box.task-active {
-  border: 1px solid #afb128;
-  border-bottom: 2px solid #afb128;
-}
-.task-queue-box.task-failed {
-  border: 1px solid #ff5a5a;
-  border-bottom: 2px solid #ff5a5a;
-}
-.task-queue-box.task-queued {
-  border: 1px solid #777;
-  border-bottom: 2px solid #777;
-}
-
-.task-btn--first {
-  margin-left: -16px;
-}
-.task-queue-box {
-  width: 140px;
-  height: 40px;
-  line-height: 40px;
-  margin: 0 auto;
-  text-align: center;
-  word-wrap: break-word;
-  overflow-x: auto;
-  padding: 5px;
-  font-size: 14px;
-  display: inline-block;
-}
 
 /* Large desktop */
 @media (min-width: 1200px) {
@@ -501,6 +282,12 @@ footer a {
   .section-content {
     padding: 40px 50px 0 20px !important;
   }
+  .section-content__top {
+    padding-top: 45% !important;
+  }
+  #features, #privacy-policy {
+    height: 150vh;
+  }
   /*code {
     max-width: 600px;
   }*/
@@ -511,23 +298,16 @@ footer a {
   .nav-links, .sdots-navbar, .mdl-mini-footer__right-section, table {
     display: none;
   }
-  .script-download {
-    font-size: 18px !important;
-  }
-  /*code {
-    max-width: 300px;
-  }*/
-  .hljs {
-    font-size: 12px;
-  }
+
   .section-content {
     padding: 40px 15px 40px 20px !important;
   }
-  .live-demo-box {
-    height: 365px !important;
+  .section-content__top {
+    padding-top: 45% !important;
   }
-  .live-demo-box-container {
-    height: 320px !important;
+
+  #features, #privacy-policy {
+    height: 150vh;
   }
 }
 
@@ -536,19 +316,14 @@ table {
   margin-bottom: 20px;
 }
 
-.layout__content {
-  width: 100% !important;
-  display: table;
-}
-
 .lib-desc {
   font-size: 18px;
 }
 
-#top, #installation, #features, #privacy-policy, #screenshots {
+#top, #features, #privacy-policy, #screenshots {
   height: 100vh;
   min-height: 100vh;
-  display: table;
+  /* display: table; */
   width: 100vw;
 }
 
@@ -557,40 +332,21 @@ table {
   color: var(--light-blue);
   text-align: center;
 }
-#features {
-  background: #fff;
-    color: #666;
-}
-#installation, #privacy-policy {
-  background: var(--dark-blue); /*#FAEDCA;*/
+#features, #privacy-policy {
+  background: #eaeaea;
   color: #666;
 }
-#flow-diagram {
-  background: #fff;
-    color: #666;
-}
-#docs {
-  background: #fff;
-    color: #666;
-}
-#usage {
-  background: var(--dark-blue);
-    color: #666;
-}
-#live-demo, #screenshots {
-  background: #fff;
+#screenshots {
+  background: var(--dark-blue); /*#FAEDCA;*/
   color: #666;
 }
 
 #features ul > li {
   font-size: 20px;
 }
-#docs .hljs {
-  background: #f3f3f3;
-}
 
 #top .section-content {
-  display: table-cell;
+  /* display: table-cell; */
 }
 
 .section-content {
@@ -598,8 +354,12 @@ table {
   padding: 40px 75px 40px 40px;
 }
 
+.section-content__top {
+  padding-top: 15%;
+}
+
 .fragment-id {
-  /* text-decoration: underline; */
+  text-decoration: underline;
 }
 
 .fragment-id svg {
@@ -619,49 +379,6 @@ table {
 
 .script-download pre {
   white-space: inherit;
-}
-
-code {
-  max-width: calc(100vw - 150px);
-  border: 1px solid #e8e8e8;
-  border-left: 3px solid #b1b1b1;
-}
-
-.code {
-  padding: 10px;
-  background: #DEDEDE;
-  color: #444;
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
-
-#usage .code {
-  background: #fff;
-}
-
-.live-demo-header {
-  font-size: 18px;
-}
-.live-demo-box {
-  border: 1px solid var(--light-blue);
-  height: 500px;
-}
-.live-demo-box-container {
-  max-height: 455px;
-  overflow: auto;
-}
-.live-demo-box-header {
-  font-size: 18px;
-  color: var(--light-blue);
-  padding: 10px;
-  border-bottom: 3px solid var(--light-blue);
-  background: var(--dark-blue);
-}
-.live-demo-box-content {
-  padding: 10px;
-}
-.live-demo-box-content:nth-child(even) {
-  background: #ececec;
 }
 
 .feature h2 {
@@ -688,6 +405,10 @@ code {
 
 .feature p {
   font-size: 18px;
+}
+
+.slider__arrow {
+  background: var(--dark-blue);
 }
 
 #scrollUp {
@@ -828,5 +549,8 @@ code {
   }
   .github-corner .octo-arm {
     animation: octocat-wave 560ms ease-in-out;
+  }
+  #features, #privacy-policy {
+    height: 150vh;
   }
 }

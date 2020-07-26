@@ -1,330 +1,479 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Color Schemr - to finalize your decent theme once and for ever.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="theme-color" content="var(--light-blue)">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Color Schemr - to finalize your decent theme once and for ever.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="theme-color" content="var(--light-blue)">
 
-    <title>Enhanced GitHub | Home</title>
+  <title>Enhanced GitHub | Home</title>
 
-    <link rel="stylesheet" href="css/material.indigo-pink-1.3.0.min.css">
-    <link rel="stylesheet" type="text/css" href="css/page.css">
+  <link rel="stylesheet" href="css/material.indigo-pink-1.3.0.min.css">
+  <link rel="stylesheet" href="css/glide.core.min.css">
+  <link rel="stylesheet" href="css/glide.theme.min.css">
+  <link rel="stylesheet" type="text/css" href="css/page.css">
 
-    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"> -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"> -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
+
 <body>
-    <a href="https://github.com/softvar/enhanced-github" class="github-corner" target="_blank" title="View on Github">
-        <svg width="80px" height="80px" viewBox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: fixed; top: 0; border: 0; right: 0;">
-            <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
-            <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
-            <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
-        </svg>
-    </a>
-    <div class="mdl-layout mdl-layout--fixed-header">
-      <header class="mdl-layout__header">
-        <div aria-expanded="false" role="button" tabindex="0" class="mdl-layout__drawer-button"><i class="material-icons"></i></div>
+  <a href="https://github.com/softvar/enhanced-github" class="github-corner" target="_blank" title="View on Github">
+    <svg width="80px" height="80px" viewBox="0 0 250 250"
+      style="fill:#70B7FD; color:#fff; position: fixed; top: 0; border: 0; right: 0;">
+      <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+      <path
+        d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+        fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+      <path
+        d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+        fill="currentColor" class="octo-body"></path>
+    </svg>
+  </a>
+  <div class="mdl-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+      <div aria-expanded="false" role="button" tabindex="0" class="mdl-layout__drawer-button"><i
+          class="material-icons"></i></div>
 
-        <div class="mdl-layout__header-row">
-          <!-- Title -->
-          <span class="mdl-layout-title">Enhanced GitHub</span>
-          <!-- Add spacer, to align navigation to the right -->
-          <div class="mdl-layout-spacer"></div>
-          <!-- Navigation. We hide it in small screens. -->
-          <nav class="animate--scroll mdl-navigation mdl-layout--large-screen-only nav-links" style="margin-right: 30px;">
-            <a class="animate--scroll mdl-navigation__link features-nav-link" href="#features">Features</a>
-            <a class="animate--scroll mdl-navigation__link privacy-policy-nav-link" href="#privacy-policy">Privacy Policy</a>
-            <a class="animate--scroll mdl-navigation__link screenshots-nav-link" href="#screenshots">Screenshots</a>
-          </nav>
-        </div>
-      </header>
-      <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title" style="background: var(--light-blue);color: #fff;">
-            Enhanced GitHub
-        </span>
-        <nav class="mdl-navigation">
-          <a class="mdl-navigation__link animate--scroll" href="#features">Features</a>
-          <a class="mdl-navigation__link animate--scroll" href="#privacy-policy">Privacy Policy</a>
-          <a class="mdl-navigation__link animate--scroll" href="#screenshots">Screenshots</a>
-
-
-          <div style="text-align: center; margin-top: 20px;">
-            <div style="padding-bottom: 40px;">
-              <a href="https://paypal.me/softvar" target="_blank">
-                <img src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" alt="" />
-              </a>
-            </div>
-            <div><b>Find me on:</b></div>
-            <a href="https://twitter.com/s0ftvar" id="twitter">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="50" viewBox="0 0 1664 1664" version="1.1" class="social-icon twitter" style="margin-left: 0">
-                   <path transform="scale(1,-1) translate(0,-1024)" d="M44 145q35 -4 78 -4q225 0 401 138q-105 2 -188 64.5t-114 159.5q33 -5 61 -5q43 0 85 11q-112 23 -185.5 111.5t-73.5 205.5v4q68 -38 146 -41q-66 44 -105 115t-39 154q0 88 44 163q121 -149 294.5 -238.5t371.5 -99.5q-8 38 -8 74q0 134 94.5 228.5t228.5 94.5 q140 0 236 -102q109 21 205 78q-37 -115 -142 -178q93 10 186 50q-67 -98 -162 -167q1 -14 1 -42q0 -130 -38 -259.5t-115.5 -248.5t-184.5 -210.5t-258 -146t-323 -54.5q-271 0 -496 145z"></path>
-                </svg>
-            </a>
-
-            <a href="https://github.com/softvar" id="github">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="50" viewBox="0 0 1664 1664" version="1.1" class="social-icon github">
-                   <path transform="scale(1,-1) translate(0,-1024)" d="M0 640q0 209 103 385.5t279.5 279.5t385.5 103t385.5 -103t279.5 -279.5t103 -385.5q0 -251 -146.5 -451.5t-378.5 -277.5q-27 -5 -39.5 7t-12.5 30v211q0 97 -52 142q57 6 102.5 18t94 39t81 66.5t53 105t20.5 150.5q0 121 -79 206q37 91 -8 204q-28 9 -81 -11t-92 -44 l-38 -24q-93 26 -192 26t-192 -26q-16 11 -42.5 27t-83.5 38.5t-86 13.5q-44 -113 -7 -204q-79 -85 -79 -206q0 -85 20.5 -150t52.5 -105t80.5 -67t94 -39t102.5 -18q-40 -36 -49 -103q-21 -10 -45 -15t-57 -5t-65.5 21.5t-55.5 62.5q-19 32 -48.5 52t-49.5 24l-20 3 q-21 0 -29 -4.5t-5 -11.5t9 -14t13 -12l7 -5q22 -10 43.5 -38t31.5 -51l10 -23q13 -38 44 -61.5t67 -30t69.5 -7t55.5 3.5l23 4q0 -38 0.5 -89t0.5 -54q0 -18 -13 -30t-40 -7q-232 77 -378.5 277.5t-146.5 451.5z"></path>
-                </svg>
-            </a>
-
-            <a href="https://www.linkedin.com/in/softvar" id="linkedin">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="50" viewBox="0 0 1664 1664" version="1.1" class="social-icon linkedin">
-                   <path transform="scale(1,-1) translate(0,-1024)" d="M0 1217q0 74 51.5 122.5t134.5 48.5t133 -48.5t51 -122.5q1 -73 -50.5 -122t-135.5 -49h-2q-82 0 -132 49t-50 122zM19 -80v991h330v-991h-330zM531 -80q2 399 2 647t-1 296l-1 48h329v-144h-2q20 32 41 56t56.5 52t87 43.5t114.5 15.5q171 0 275 -113.5t104 -332.5v-568 h-329v530q0 105 -40.5 164.5t-126.5 59.5q-63 0 -105.5 -34.5t-63.5 -85.5q-11 -30 -11 -81v-553h-329z"></path>
-                </svg>
-            </a>
-
-            <a href="http://stackoverflow.com/users/2494535/softvar" id="stackoverflow">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="50" viewBox="0 0 1664 1664" version="1.1" class="social-icon stackoverflow">
-                   <path transform="scale(1,-1) translate(0,-1024)" d="M928 135v-151l-707 -1v151zM1169 481v-701l-1 -35v-1h-1132l-35 1h-1v736h121v-618h928v618h120zM241 393l704 -65l-13 -150l-705 65zM309 709l683 -183l-39 -146l-683 183zM472 1058l609 -360l-77 -130l-609 360zM832 1389l398 -585l-124 -85l-399 584zM1285 1536 l121 -697l-149 -26l-121 697z"></path>
-                </svg>
-            </a>
-        </div>
+      <div class="mdl-layout__header-row">
+        <!-- Title -->
+        <span class="mdl-layout-title">Enhanced GitHub</span>
+        <!-- Add spacer, to align navigation to the right -->
+        <div class="mdl-layout-spacer"></div>
+        <!-- Navigation. We hide it in small screens. -->
+        <nav class="animate--scroll mdl-navigation mdl-layout--large-screen-only nav-links" style="margin-right: 30px;">
+          <a class="animate--scroll mdl-navigation__link features-nav-link" href="#features">Features</a>
+          <a class="animate--scroll mdl-navigation__link screenshots-nav-link" href="#screenshots">Screenshots</a>
+          <a class="animate--scroll mdl-navigation__link privacy-policy-nav-link" href="#privacy-policy">Privacy Policy</a>
         </nav>
       </div>
+    </header>
+    <div class="mdl-layout__drawer">
+      <span class="mdl-layout-title" style="background: var(--light-blue);color: #fff;">
+        Enhanced GitHub
+      </span>
+      <nav class="mdl-navigation">
+        <a class="mdl-navigation__link animate--scroll" href="#features">Features</a>
+        <a class="mdl-navigation__link animate--scroll" href="#screenshots">Screenshots</a>
+        <a class="mdl-navigation__link animate--scroll" href="#privacy-policy">Privacy Policy</a>
+
+
+        <div style="text-align: center; margin-top: 20px;">
+          <div style="padding-bottom: 40px;">
+            <a href="https://paypal.me/softvar" target="_blank">
+              <img src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" alt="" />
+            </a>
+          </div>
+          <div><b>Find me on:</b></div>
+          <a href="https://twitter.com/s0ftvar" id="twitter">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="50" viewBox="0 0 1664 1664" version="1.1"
+              class="social-icon twitter" style="margin-left: 0">
+              <path transform="scale(1,-1) translate(0,-1024)"
+                d="M44 145q35 -4 78 -4q225 0 401 138q-105 2 -188 64.5t-114 159.5q33 -5 61 -5q43 0 85 11q-112 23 -185.5 111.5t-73.5 205.5v4q68 -38 146 -41q-66 44 -105 115t-39 154q0 88 44 163q121 -149 294.5 -238.5t371.5 -99.5q-8 38 -8 74q0 134 94.5 228.5t228.5 94.5 q140 0 236 -102q109 21 205 78q-37 -115 -142 -178q93 10 186 50q-67 -98 -162 -167q1 -14 1 -42q0 -130 -38 -259.5t-115.5 -248.5t-184.5 -210.5t-258 -146t-323 -54.5q-271 0 -496 145z">
+              </path>
+            </svg>
+          </a>
+
+          <a href="https://github.com/softvar" id="github">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="50" viewBox="0 0 1664 1664" version="1.1"
+              class="social-icon github">
+              <path transform="scale(1,-1) translate(0,-1024)"
+                d="M0 640q0 209 103 385.5t279.5 279.5t385.5 103t385.5 -103t279.5 -279.5t103 -385.5q0 -251 -146.5 -451.5t-378.5 -277.5q-27 -5 -39.5 7t-12.5 30v211q0 97 -52 142q57 6 102.5 18t94 39t81 66.5t53 105t20.5 150.5q0 121 -79 206q37 91 -8 204q-28 9 -81 -11t-92 -44 l-38 -24q-93 26 -192 26t-192 -26q-16 11 -42.5 27t-83.5 38.5t-86 13.5q-44 -113 -7 -204q-79 -85 -79 -206q0 -85 20.5 -150t52.5 -105t80.5 -67t94 -39t102.5 -18q-40 -36 -49 -103q-21 -10 -45 -15t-57 -5t-65.5 21.5t-55.5 62.5q-19 32 -48.5 52t-49.5 24l-20 3 q-21 0 -29 -4.5t-5 -11.5t9 -14t13 -12l7 -5q22 -10 43.5 -38t31.5 -51l10 -23q13 -38 44 -61.5t67 -30t69.5 -7t55.5 3.5l23 4q0 -38 0.5 -89t0.5 -54q0 -18 -13 -30t-40 -7q-232 77 -378.5 277.5t-146.5 451.5z">
+              </path>
+            </svg>
+          </a>
+
+          <a href="https://www.linkedin.com/in/softvar" id="linkedin">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="50" viewBox="0 0 1664 1664" version="1.1"
+              class="social-icon linkedin">
+              <path transform="scale(1,-1) translate(0,-1024)"
+                d="M0 1217q0 74 51.5 122.5t134.5 48.5t133 -48.5t51 -122.5q1 -73 -50.5 -122t-135.5 -49h-2q-82 0 -132 49t-50 122zM19 -80v991h330v-991h-330zM531 -80q2 399 2 647t-1 296l-1 48h329v-144h-2q20 32 41 56t56.5 52t87 43.5t114.5 15.5q171 0 275 -113.5t104 -332.5v-568 h-329v530q0 105 -40.5 164.5t-126.5 59.5q-63 0 -105.5 -34.5t-63.5 -85.5q-11 -30 -11 -81v-553h-329z">
+              </path>
+            </svg>
+          </a>
+
+          <a href="http://stackoverflow.com/users/2494535/softvar" id="stackoverflow">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="50" viewBox="0 0 1664 1664" version="1.1"
+              class="social-icon stackoverflow">
+              <path transform="scale(1,-1) translate(0,-1024)"
+                d="M928 135v-151l-707 -1v151zM1169 481v-701l-1 -35v-1h-1132l-35 1h-1v736h121v-618h928v618h120zM241 393l704 -65l-13 -150l-705 65zM309 709l683 -183l-39 -146l-683 183zM472 1058l609 -360l-77 -130l-609 360zM832 1389l398 -585l-124 -85l-399 584zM1285 1536 l121 -697l-149 -26l-121 697z">
+              </path>
+            </svg>
+          </a>
+        </div>
+      </nav>
+    </div>
 
     <div class="dots-navbar" style="color: var(--light-blue);position: fixed;top: 40%;right: 15px;">
-        <a class="animate--scroll" href="#top">
-            <div id="dot-1" class="dots top-nav-link"></div>
-            <div class="mdl-tooltip mdl-tooltip--left" data-mdl-for="dot-1">Intro</div>
-        </a>
-        <a class="animate--scroll" href="#features">
-            <div id="dot-2" class="dots features-nav-link"></div>
-            <div class="mdl-tooltip mdl-tooltip--left" data-mdl-for="dot-2">Features</div>
-        </a>
-        <a class="animate--scroll" href="#privacy-policy">
-            <div id="dot-3" class="dots privacy-policy-nav-link"></div>
-            <div class="mdl-tooltip mdl-tooltip--left" data-mdl-for="dot-3">Privacy Policy</div>
-        </a>
-        <a class="animate--scroll" href="#screenshots">
-            <div id="dot-4" class="dots screenshots-nav-link"></div>
-            <div class="mdl-tooltip mdl-tooltip--left" data-mdl-for="dot-4">Screenshots</div>
-        </a>
+      <a class="animate--scroll" href="#top">
+        <div id="dot-1" class="dots top-nav-link"></div>
+        <div class="mdl-tooltip mdl-tooltip--left" data-mdl-for="dot-1">Intro</div>
+      </a>
+      <a class="animate--scroll" href="#features">
+        <div id="dot-2" class="dots features-nav-link"></div>
+        <div class="mdl-tooltip mdl-tooltip--left" data-mdl-for="dot-2">Features</div>
+      </a>
+      <a class="animate--scroll" href="#screenshots">
+        <div id="dot-4" class="dots screenshots-nav-link"></div>
+        <div class="mdl-tooltip mdl-tooltip--left" data-mdl-for="dot-4">Screenshots</div>
+      </a>
+      <a class="animate--scroll" href="#privacy-policy">
+        <div id="dot-3" class="dots privacy-policy-nav-link"></div>
+        <div class="mdl-tooltip mdl-tooltip--left" data-mdl-for="dot-3">Privacy Policy</div>
+      </a>
     </div>
-      <div class="layout__content" id="main-content">
-        <div id="top">
-            <div class="section-content">
-                <img src="images/enhanced-github.png" />
-                <h2 style="color: #fff;">Enhanced GitHub</h2>
-                <h5>Browser Extension that provides GitHub add-ons</h5>
-                <div style="margin-top:50px;">
-                    <a href="https://chrome.google.com/webstore/detail/enhanced-github/anlikcnbgdeidpacdbdljnabclhahhmd" target="_blank">
-                        <img title="Chrome Browser" src="data:image/png;base64,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"/>
-                    </a>
-                    <a href="https://microsoftedge.microsoft.com/addons/detail/enhanced-github/eibibhailjcnbpjmemmcaakcookdleon" target="_blank">
-                        <img title="Micorsoft Edge Browser" src="data:image/png;base64,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"/>
-                    </a>
-                </div>
-            </div>
+
+    <div class="layout__content" id="main-content">
+
+      <div id="top">
+        <div class="section-content section-content__top">
+          <img src="images/enhanced-github.png" />
+          <h2 style="color: #fff;">Enhanced GitHub</h2>
+          <h5>Browser Extension that provides GitHub add-ons</h5>
+          <div style="margin-top:50px;">
+            <a href="https://chrome.google.com/webstore/detail/enhanced-github/anlikcnbgdeidpacdbdljnabclhahhmd"
+              target="_blank">
+              <img title="Chrome Browser"
+                src="data:image/png;base64,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" />
+            </a>
+            <a href="https://microsoftedge.microsoft.com/addons/detail/enhanced-github/eibibhailjcnbpjmemmcaakcookdleon"
+              target="_blank">
+              <img title="Micorsoft Edge Browser"
+                src="data:image/png;base64,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" />
+            </a>
+          </div>
         </div>
+      </div>
 
-        <div id="features">
-            <div class="section-content">
-                <h3>
-                    <a class="fragment-id animate--scroll" href="#features">
-                        <svg width="30" height="30" viewBox="0 0 16 16">
-                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon--anchor"></use>
-                        </svg>
-                    </a>
-                    Features
-                </h3>
-                <div class="features">
-                    <div class="feature">
-                        <h2>File Size</h2>
-                        <p>Isn't it useful to know the file-size before attempting to view it? With this Extension, View size of every file listed in the file-navigation view.</p>
-                    </div>
-                    <div class="feature">
-                        <h2>Download File</h2>
-                        <p>Ever wonder to download just a file instead of cloning/downloading the entire reposiroty? Download a particular file on your system with a single click using this extension.</p>
-                    </div>
-                    <div class="feature">
-                        <h2>Copy File Contents</h2>
-                        <p>Do you copy file contents from GitHub often? With just one click, directly copy file contents to the clipboard.</p>
-                    </div>
-                    <div class="feature">
-                        <h2>Raw File Link</h2>
-                        <p>Get File's raw link directly. GitHub raw links help in lot ways. Use it to view markdown(and such) files raw-code.</p>
-                    </div>
-                    <div class="feature">
-                        <h2>Repo Size</h2>
-                        <p>Curious to know how big is the repo before cloning/downloading it? This Extension dissplay the size of the entire repo on the repo homepage.</p>
-                    </div>
-                    <div class="feature">
-                        <h2>Fully Open Sourced</h2>
-                        <p>The entire extension is open-sourced on <a
-                                href="https://github.com/softvar/enhanced-github">GitHub</a> and licensed under <a
-                                href="https://opensource.org/licenses/MIT">MIT</a>. Feel free to contribute or report
-                            any bug/suggestion.</p>
-                    </div>
-                </div>
-                <p style="text-align: center;">
-                    <a target="_blank" rel="noopener noreferrer"
-                        href="https://img.shields.io/chrome-web-store/users/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&logo=google-chrome&logoColor=white"><img
-                        src="https://img.shields.io/chrome-web-store/users/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&logo=google-chrome&logoColor=white"
-                        alt="Chrome Web Store"
-                        data-canonical-src="https://img.shields.io/chrome-web-store/users/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&logo=google-chrome&logoColor=white"
-                        style="max-width:100%;"></a>
-                    <a target="_blank" rel="noopener noreferrer"
-                        href="https://img.shields.io/chrome-web-store/v/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&logo=google-chrome&logoColor=white"><img
-                        src="https://img.shields.io/chrome-web-store/v/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&logo=google-chrome&logoColor=white"
-                        alt="Chrome Web Store"
-                        data-canonical-src="https://img.shields.io/chrome-web-store/v/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&logo=google-chrome&logoColor=white"
-                        style="max-width:100%;"></a>
-                    <a target="_blank" rel="noopener noreferrer"
-                        href="https://img.shields.io/chrome-web-store/rating/anlikcnbgdeidpacdbdljnabclhahhmd?color=orange&style=for-the-badge&logo=google-chrome&logoColor=white"><img
-                        src="https://img.shields.io/chrome-web-store/rating/anlikcnbgdeidpacdbdljnabclhahhmd?color=orange&style=for-the-badge&logo=google-chrome&logoColor=white"
-                        alt="Chrome Web Store"
-                        data-canonical-src="https://img.shields.io/chrome-web-store/rating/anlikcnbgdeidpacdbdljnabclhahhmd?color=orange&style=for-the-badge&logo=google-chrome&logoColor=white"
-                        style="max-width:100%;"></a>
-                </p>
+      <div id="features">
+        <div class="section-content">
+          <h3>
+            Features
+            <a class="fragment-id animate--scroll" href="#features">
+              <svg width="30" height="30" viewBox="0 0 16 16">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon--anchor"></use>
+              </svg>
+            </a>
+          </h3>
+          <div class="features">
+            <div class="feature">
+              <h2>File Size</h2>
+              <p>Isn't it useful to know the file-size before attempting to view it? With this Extension,
+                View size of every file listed in the file-navigation view.</p>
             </div>
-        </div>
-
-        <div id="privacy-policy" style="color: #e4e4e4;">
-            <div class="section-content">
-                <h3>
-                    <a class="fragment-id animate--scroll" href="#privacy-policy">
-                        <svg width="30" height="30" viewBox="0 0 16 16">
-                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon--anchor"></use>
-                        </svg>
-                    </a>
-                    Privacy Policy
-                </h3>
-                <br /><br />
-
-                <div>
-                    <div style="font-family: 'Roboto',sans-serif;position: relative;font-size: 24px;font-weight: 300;line-height: 1.35;letter-spacing: .08em;">
-                        Enhanced GitHub Chrome Extension doesn't collect/share/care about your data at all.
-                        <br />
-                        Asks for GitHub Access Token only for private repos and if Rate Limiting is your concern.
-                    </div>
-
-                    <h5 style="margin-top:40px;">Permissions Required:</h5>
-
-                    <ul  style="margin-top:20px;">
-                        <li style="margin-top:20px;font-size:17px;">
-                            <strong>"*://*.github.com/*"</strong> - for running on github.com domain.
-                        </li>
-                        <li style="margin-top:20px;font-size:17px;">
-                            <strong>storage</strong> - for storing GitHub access token on your local system. GitHub Access token is required for private repos and for handling API rate-limiting issues.
-                        </li>
-                        <li style="margin-top:20px;font-size:17px;">
-                            <strong>webRequest</strong> - to support GitHub being a single-page-application now.
-                        </li>
-                        <li style="margin-top:20px;font-size:17px;">
-                            <strong>webNavigation</strong> - to support GitHub being a single-page-application now.
-                        </li>
-
-                    </ul>
-
-                    <br /><br /><br />
-                    Read the detailed <a href="https://medium.com/@softvar/making-chrome-extension-smart-by-supporting-spa-websites-1f76593637e8">blog which explains why above-mentioned permissions are required</a> to support GitHub SPA website.
-                </div>
-                </div>
-
+            <div class="feature">
+              <h2>Download File</h2>
+              <p>Ever wonder to download just a file instead of cloning/downloading the entire reposiroty?
+                Download a particular file on your system with a single click using this extension.</p>
             </div>
+            <div class="feature">
+              <h2>Copy File Contents</h2>
+              <p>Do you copy file contents from GitHub often? With just one click, directly copy file
+                contents to the clipboard.</p>
+            </div>
+            <div class="feature">
+              <h2>Raw File Link</h2>
+              <p>Get File's raw link directly. GitHub raw links help in lot ways. Use it to view
+                markdown(and such) files raw-code.</p>
+            </div>
+            <div class="feature">
+              <h2>Repo Size</h2>
+              <p>Curious to know how big is the repo before cloning/downloading it? This Extension
+                dissplay the size of the entire repo on the repo homepage.</p>
+            </div>
+            <div class="feature">
+              <h2>Fully Open Sourced</h2>
+              <p>The entire extension is open-sourced on <a href="https://github.com/softvar/enhanced-github">GitHub</a>
+                and licensed under <a href="https://opensource.org/licenses/MIT">MIT</a>. Feel free to contribute or
+                report
+                any bug/suggestion.</p>
+            </div>
+          </div>
+          <div style="padding: 20px;background: #d8d8d8;margin: 90px -75px -40px -40px;">
+            <p style="text-align: center;">
+              <a target="_blank" rel="noopener noreferrer"
+                href="https://img.shields.io/chrome-web-store/users/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&logo=google-chrome&logoColor=white"><img
+                  src="https://img.shields.io/chrome-web-store/users/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&logo=google-chrome&logoColor=white"
+                  alt="Chrome Web Store"
+                  data-canonical-src="https://img.shields.io/chrome-web-store/users/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&logo=google-chrome&logoColor=white"
+                  style="max-width:100%;"></a>
+              <a target="_blank" rel="noopener noreferrer"
+                href="https://img.shields.io/chrome-web-store/v/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&logo=google-chrome&logoColor=white"><img
+                  src="https://img.shields.io/chrome-web-store/v/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&logo=google-chrome&logoColor=white"
+                  alt="Chrome Web Store"
+                  data-canonical-src="https://img.shields.io/chrome-web-store/v/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&logo=google-chrome&logoColor=white"
+                  style="max-width:100%;"></a>
+              <a target="_blank" rel="noopener noreferrer"
+                href="https://img.shields.io/chrome-web-store/rating/anlikcnbgdeidpacdbdljnabclhahhmd?color=orange&style=for-the-badge&logo=google-chrome&logoColor=white"><img
+                  src="https://img.shields.io/chrome-web-store/rating/anlikcnbgdeidpacdbdljnabclhahhmd?color=orange&style=for-the-badge&logo=google-chrome&logoColor=white"
+                  alt="Chrome Web Store"
+                  data-canonical-src="https://img.shields.io/chrome-web-store/rating/anlikcnbgdeidpacdbdljnabclhahhmd?color=orange&style=for-the-badge&logo=google-chrome&logoColor=white"
+                  style="max-width:100%;"></a>
+            </p>
+          </div>
         </div>
       </div>
 
       <div id="screenshots" style="color: #e4e4e4;">
         <div class="section-content">
-            <h3>
-                <a class="fragment-id animate--scroll" href="#screenshots">
-                    <svg width="30" height="30" viewBox="0 0 16 16">
-                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon--anchor"></use>
-                    </svg>
-                </a>
-                Screenshots
-            </h3>
-            <br /><br />
+          <h3>
+            Screenshots
+            <a class="fragment-id animate--scroll" href="#screenshots">
+              <svg width="30" height="30" viewBox="0 0 16 16">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon--anchor"></use>
+              </svg>
+            </a>
+          </h3>
+          <br /><br />
 
-            <h5 style="color: #444; margin:25px 0 25px 0;">GitHub Repository Home</h5>
-            <img src="images/github-repo-home-new.png" width="800" height="415" />
+          <div class="glide">
+            <div data-glide-el="track" class="glide__track" style="text-align: center;">
+              <ul class="glide__slides">
+                <li class="glide__slide">
+                  <img src="images/github-repo-home-new.png" width="800" />
+                  <h5 style="color: #a9a9a9; margin:25px 0 25px 0;">GitHub Repository Home</h5>
+                </li>
+                <li class="glide__slide">
+                  <img src="images/github-file-new.png" width="800" />
+                  <h5 style="color: #a9a9a9; margin:25px 0 25px 0;">GitHub File View</h5>
+                </li>
+                <li class="glide__slide">
+                  <img src="images/extension-options-page.png" width="500" />
+                  <h5 style="color: #a9a9a9; margin:25px 0 25px 0;">Extension Options</h5>
+                </li>
+              </ul>
+              <div data-glide-el="controls">
+                <button class="slider__arrow slider__arrow--prev glide__arrow glide__arrow--prev" data-glide-dir="<">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                    <path fill="#fff"
+                      d="M0 12l10.975 11 2.848-2.828-6.176-6.176H24v-3.992H7.646l6.176-6.176L10.975 1 0 12z">
+                    </path>
+                  </svg>
+                </button>
 
-            <h5 style="color: #444; margin:25px 0 25px 0;">GitHub File View</h5>
-            <img src="images/github-file-new.png" width="800" height="415" />
+                <button class="slider__arrow slider__arrow--next glide__arrow glide__arrow--next" data-glide-dir=">"
+                  style="right: 0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                    <path fill="#fff"
+                      d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z">
+                    </path>
+                  </svg>
+                </button>
+              </div>
+              <div class="slider__bullets glide__bullets" data-glide-el="controls[nav]">
 
-            <h5 style="color: #444; margin:25px 0 25px 0;">Extension Options</h5>
-            <img src="images/extension-options-page.png" width="500" height="500" />
+                <button class="slider__bullet glide__bullet glide__bullet--active" data-glide-dir="=0"></button>
+
+                <button class="slider__bullet glide__bullet" data-glide-dir="=1"></button>
+
+                <button class="slider__bullet glide__bullet" data-glide-dir="=2"></button>
+
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
+      <div id="privacy-policy">
+        <div class="section-content">
+          <h3>
+            Privacy Policy
+            <a class="fragment-id animate--scroll" href="#privacy-policy">
+              <svg width="30" height="30" viewBox="0 0 16 16">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon--anchor"></use>
+              </svg>
+            </a>
+          </h3>
+          <br /><br />
 
-      <footer class="mdl-mini-footer">
-        <div class="mdl-mini-footer__left-section" style=" margin-top: 25px;">
-          <a href="https://github.com/softvar/enhanced-github" style="color:#444;">Enhanced GitHub</a> by <a href="http://varunmalhotra.xyz">Varun Malhotra</a>
-          with <svg fill="red" width="17" class="pulse" height="17" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-            <path transform="scale(1,-1) translate(0,-1536)" d="M896 -128q-26 0 -44 18l-624 602q-10 8 -27.5 26t-55.5 65.5t-68 97.5t-53.5 121t-23.5 138q0 220 127 344t351 124q62 0 126.5 -21.5t120 -58t95.5 -68.5t76 -68q36 36 76 68t95.5 68.5t120 58t126.5 21.5q224 0 351 -124t127 -344q0 -221 -229 -450l-623 -600 q-18 -18 -44 -18z" ></path>
-          </svg>
-          in India
-        </div>
-        <div class="mdl-mini-footer__right-section" style=" margin-top: 25px;">
-            <span></span>Copyright 2016-present MIT License
-        </div>
-        <div style="text-align: center;margin: 0 auto;">
-                <a href="https://twitter.com/s0ftvar" id="twitter">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="50" viewBox="0 0 1664 1664" version="1.1" class="social-icon twitter" style="margin-left: 0">
-                       <path transform="scale(1,-1) translate(0,-1024)" d="M44 145q35 -4 78 -4q225 0 401 138q-105 2 -188 64.5t-114 159.5q33 -5 61 -5q43 0 85 11q-112 23 -185.5 111.5t-73.5 205.5v4q68 -38 146 -41q-66 44 -105 115t-39 154q0 88 44 163q121 -149 294.5 -238.5t371.5 -99.5q-8 38 -8 74q0 134 94.5 228.5t228.5 94.5 q140 0 236 -102q109 21 205 78q-37 -115 -142 -178q93 10 186 50q-67 -98 -162 -167q1 -14 1 -42q0 -130 -38 -259.5t-115.5 -248.5t-184.5 -210.5t-258 -146t-323 -54.5q-271 0 -496 145z"></path>
-                    </svg>
-                </a>
-
-                <a href="https://github.com/softvar" id="github">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="50" viewBox="0 0 1664 1664" version="1.1" class="social-icon github">
-                       <path transform="scale(1,-1) translate(0,-1024)" d="M0 640q0 209 103 385.5t279.5 279.5t385.5 103t385.5 -103t279.5 -279.5t103 -385.5q0 -251 -146.5 -451.5t-378.5 -277.5q-27 -5 -39.5 7t-12.5 30v211q0 97 -52 142q57 6 102.5 18t94 39t81 66.5t53 105t20.5 150.5q0 121 -79 206q37 91 -8 204q-28 9 -81 -11t-92 -44 l-38 -24q-93 26 -192 26t-192 -26q-16 11 -42.5 27t-83.5 38.5t-86 13.5q-44 -113 -7 -204q-79 -85 -79 -206q0 -85 20.5 -150t52.5 -105t80.5 -67t94 -39t102.5 -18q-40 -36 -49 -103q-21 -10 -45 -15t-57 -5t-65.5 21.5t-55.5 62.5q-19 32 -48.5 52t-49.5 24l-20 3 q-21 0 -29 -4.5t-5 -11.5t9 -14t13 -12l7 -5q22 -10 43.5 -38t31.5 -51l10 -23q13 -38 44 -61.5t67 -30t69.5 -7t55.5 3.5l23 4q0 -38 0.5 -89t0.5 -54q0 -18 -13 -30t-40 -7q-232 77 -378.5 277.5t-146.5 451.5z"></path>
-                    </svg>
-                </a>
-
-                <a href="https://www.linkedin.com/in/softvar" id="linkedin">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="50" viewBox="0 0 1664 1664" version="1.1" class="social-icon linkedin">
-                       <path transform="scale(1,-1) translate(0,-1024)" d="M0 1217q0 74 51.5 122.5t134.5 48.5t133 -48.5t51 -122.5q1 -73 -50.5 -122t-135.5 -49h-2q-82 0 -132 49t-50 122zM19 -80v991h330v-991h-330zM531 -80q2 399 2 647t-1 296l-1 48h329v-144h-2q20 32 41 56t56.5 52t87 43.5t114.5 15.5q171 0 275 -113.5t104 -332.5v-568 h-329v530q0 105 -40.5 164.5t-126.5 59.5q-63 0 -105.5 -34.5t-63.5 -85.5q-11 -30 -11 -81v-553h-329z"></path>
-                    </svg>
-                </a>
-
-                <a href="http://stackoverflow.com/users/2494535/softvar" id="stackoverflow">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="50" viewBox="0 0 1664 1664" version="1.1" class="social-icon stackoverflow">
-                       <path transform="scale(1,-1) translate(0,-1024)" d="M928 135v-151l-707 -1v151zM1169 481v-701l-1 -35v-1h-1132l-35 1h-1v736h121v-618h928v618h120zM241 393l704 -65l-13 -150l-705 65zM309 709l683 -183l-39 -146l-683 183zM472 1058l609 -360l-77 -130l-609 360zM832 1389l398 -585l-124 -85l-399 584zM1285 1536 l121 -697l-149 -26l-121 697z"></path>
-                    </svg>
-                </a>
-
-                <div>
-                    <a href="https://paypal.me/softvar" target="_blank" style="margin-top:30px;">
-                        <img src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" alt="" />
-                    </a>
-                </div>
+          <div>
+            <div
+              style="font-family: 'Roboto',sans-serif;position: relative;font-size: 24px;font-weight: 300;line-height: 1.35;letter-spacing: .08em;">
+              Enhanced GitHub Chrome Extension doesn't collect/share/care about your data at all.
+              <br />
+              Asks for GitHub Access Token only for private repos and if Rate Limiting is your concern.
             </div>
-      </footer>
-      <!-- <footer style="background: #777; padding: 10px;">
+
+            <h5 style="margin-top:40px;">Permissions Required:</h5>
+
+            <ul style="margin-top:20px;">
+              <li style="margin-top:20px;font-size:17px;">
+                <strong>"*://*.github.com/*"</strong> - for running on github.com domain.
+              </li>
+              <li style="margin-top:20px;font-size:17px;">
+                <strong>storage</strong> - for storing GitHub access token on your local system. GitHub
+                Access token is required for private repos and for handling API rate-limiting issues.
+              </li>
+              <li style="margin-top:20px;font-size:17px;">
+                <strong>webRequest</strong> - to support GitHub being a single-page-application now.
+              </li>
+              <li style="margin-top:20px;font-size:17px;">
+                <strong>webNavigation</strong> - to support GitHub being a single-page-application now.
+              </li>
+
+            </ul>
+
+            <br /><br /><br />
+            Read the detailed <a
+              href="https://medium.com/@softvar/making-chrome-extension-smart-by-supporting-spa-websites-1f76593637e8">blog
+              which explains why above-mentioned permissions are required</a> to support GitHub SPA
+            website.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <footer class="mdl-mini-footer">
+    <div class="mdl-mini-footer__left-section" style=" margin-top: 25px;">
+      <a href="https://github.com/softvar/enhanced-github" style="color:#444;">Enhanced GitHub</a> by <a
+        href="http://varunmalhotra.xyz">Varun Malhotra</a>
+      with <svg fill="red" width="17" class="pulse" height="17" viewBox="0 0 1792 1792"
+        xmlns="http://www.w3.org/2000/svg">
+        <path transform="scale(1,-1) translate(0,-1536)"
+          d="M896 -128q-26 0 -44 18l-624 602q-10 8 -27.5 26t-55.5 65.5t-68 97.5t-53.5 121t-23.5 138q0 220 127 344t351 124q62 0 126.5 -21.5t120 -58t95.5 -68.5t76 -68q36 36 76 68t95.5 68.5t120 58t126.5 21.5q224 0 351 -124t127 -344q0 -221 -229 -450l-623 -600 q-18 -18 -44 -18z">
+        </path>
+      </svg>
+      in India
+    </div>
+    <div class="mdl-mini-footer__right-section" style=" margin-top: 25px;">
+      <span></span>Copyright 2016-present MIT License
+    </div>
+    <div style="text-align: center;margin: 0 auto;">
+      <a href="https://twitter.com/s0ftvar" id="twitter">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="50" viewBox="0 0 1664 1664" version="1.1"
+          class="social-icon twitter" style="margin-left: 0">
+          <path transform="scale(1,-1) translate(0,-1024)"
+            d="M44 145q35 -4 78 -4q225 0 401 138q-105 2 -188 64.5t-114 159.5q33 -5 61 -5q43 0 85 11q-112 23 -185.5 111.5t-73.5 205.5v4q68 -38 146 -41q-66 44 -105 115t-39 154q0 88 44 163q121 -149 294.5 -238.5t371.5 -99.5q-8 38 -8 74q0 134 94.5 228.5t228.5 94.5 q140 0 236 -102q109 21 205 78q-37 -115 -142 -178q93 10 186 50q-67 -98 -162 -167q1 -14 1 -42q0 -130 -38 -259.5t-115.5 -248.5t-184.5 -210.5t-258 -146t-323 -54.5q-271 0 -496 145z">
+          </path>
+        </svg>
+      </a>
+
+      <a href="https://github.com/softvar" id="github">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="50" viewBox="0 0 1664 1664" version="1.1"
+          class="social-icon github">
+          <path transform="scale(1,-1) translate(0,-1024)"
+            d="M0 640q0 209 103 385.5t279.5 279.5t385.5 103t385.5 -103t279.5 -279.5t103 -385.5q0 -251 -146.5 -451.5t-378.5 -277.5q-27 -5 -39.5 7t-12.5 30v211q0 97 -52 142q57 6 102.5 18t94 39t81 66.5t53 105t20.5 150.5q0 121 -79 206q37 91 -8 204q-28 9 -81 -11t-92 -44 l-38 -24q-93 26 -192 26t-192 -26q-16 11 -42.5 27t-83.5 38.5t-86 13.5q-44 -113 -7 -204q-79 -85 -79 -206q0 -85 20.5 -150t52.5 -105t80.5 -67t94 -39t102.5 -18q-40 -36 -49 -103q-21 -10 -45 -15t-57 -5t-65.5 21.5t-55.5 62.5q-19 32 -48.5 52t-49.5 24l-20 3 q-21 0 -29 -4.5t-5 -11.5t9 -14t13 -12l7 -5q22 -10 43.5 -38t31.5 -51l10 -23q13 -38 44 -61.5t67 -30t69.5 -7t55.5 3.5l23 4q0 -38 0.5 -89t0.5 -54q0 -18 -13 -30t-40 -7q-232 77 -378.5 277.5t-146.5 451.5z">
+          </path>
+        </svg>
+      </a>
+
+      <a href="https://www.linkedin.com/in/softvar" id="linkedin">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="50" viewBox="0 0 1664 1664" version="1.1"
+          class="social-icon linkedin">
+          <path transform="scale(1,-1) translate(0,-1024)"
+            d="M0 1217q0 74 51.5 122.5t134.5 48.5t133 -48.5t51 -122.5q1 -73 -50.5 -122t-135.5 -49h-2q-82 0 -132 49t-50 122zM19 -80v991h330v-991h-330zM531 -80q2 399 2 647t-1 296l-1 48h329v-144h-2q20 32 41 56t56.5 52t87 43.5t114.5 15.5q171 0 275 -113.5t104 -332.5v-568 h-329v530q0 105 -40.5 164.5t-126.5 59.5q-63 0 -105.5 -34.5t-63.5 -85.5q-11 -30 -11 -81v-553h-329z">
+          </path>
+        </svg>
+      </a>
+
+      <a href="http://stackoverflow.com/users/2494535/softvar" id="stackoverflow">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="50" viewBox="0 0 1664 1664" version="1.1"
+          class="social-icon stackoverflow">
+          <path transform="scale(1,-1) translate(0,-1024)"
+            d="M928 135v-151l-707 -1v151zM1169 481v-701l-1 -35v-1h-1132l-35 1h-1v736h121v-618h928v618h120zM241 393l704 -65l-13 -150l-705 65zM309 709l683 -183l-39 -146l-683 183zM472 1058l609 -360l-77 -130l-609 360zM832 1389l398 -585l-124 -85l-399 584zM1285 1536 l121 -697l-149 -26l-121 697z">
+          </path>
+        </svg>
+      </a>
+
+      <div>
+        <a href="https://paypal.me/softvar" target="_blank" style="margin-top:30px;">
+          <img src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" alt="" />
+        </a>
+      </div>
+    </div>
+  </footer>
+  <!-- <footer style="background: #777; padding: 10px;">
           <div style="text-align: center">
               <a href="https://paypal.me/softvar" target="_blank">
                 <img src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" alt="" />
               </a>
           </div>
       </footer> -->
-    </div>
+  </div>
 
-    <a href="#" id="scrollUp" style="display: none;"></a>
-    <div class="mdl-layout__obfuscator"></div>
+  <a href="#" id="scrollUp" style="display: none;"></a>
+  <div class="mdl-layout__obfuscator"></div>
 
-    <div style="display: none;">
-        <svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16" fill="#777" ><path id="icon--anchor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg>
-    </div>
+  <div style="display: none;">
+    <svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"
+      fill="#777">
+      <path id="icon--anchor" fill-rule="evenodd"
+        d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
+      </path>
+    </svg>
+  </div>
 
-    <script type="text/javascript" src="vendor/getmdl-1.3.0-material.min.js"></script>
-    <script type="text/javascript" src="vendor/jquery.min.js"></script>
-    <script type="text/javascript" src="index.js"></script>
+  <script type="text/javascript" src="vendor/getmdl-1.3.0-material.min.js"></script>
+  <script type="text/javascript" src="vendor/jquery.min.js"></script>
+  <script type="text/javascript" src="vendor/glide.js"></script>
+  <script type="text/javascript" src="index.js"></script>
 
-    <!-- Start Visual Website Optimizer Asynchronous Code -->
-    <script type='text/javascript'>
-        var _vwo_code=(function(){
-        var account_id=location.search.split('id=')[1] ? location.search.split('id=')[1] : 60781,
-        settings_tolerance=2000,
-        library_tolerance=2500,
-        use_existing_jquery=false,
+  <!-- Start Visual Website Optimizer Asynchronous Code -->
+  <script type='text/javascript'>
+    var _vwo_code = (function () {
+      var account_id = location.search.split('id=')[1] ? location.search.split('id=')[1] : 60781,
+        settings_tolerance = 2000,
+        library_tolerance = 2500,
+        use_existing_jquery = false,
         // DO NOT EDIT BELOW THIS LINE
-        f=false,d=document;return{use_existing_jquery:function(){return use_existing_jquery;},library_tolerance:function(){return library_tolerance;},finish:function(){if(!f){f=true;var a=d.getElementById('_vis_opt_path_hides');if(a)a.parentNode.removeChild(a);}},finished:function(){return f;},load:function(a){var b=d.createElement('script');b.src=a;b.type='text/javascript';b.innerText;b.onerror=function(){_vwo_code.finish();};d.getElementsByTagName('head')[0].appendChild(b);},init:function(){settings_timer=setTimeout('_vwo_code.finish()',settings_tolerance);this.load('//dev.visualwebsiteoptimizer.com/j.php?a='+account_id+'&u='+encodeURIComponent(d.URL)+'&r='+Math.random());var a=d.createElement('style'),b='body{opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important;}',h=d.getElementsByTagName('head')[0];a.setAttribute('id','_vis_opt_path_hides');a.setAttribute('type','text/css');if(a.styleSheet)a.styleSheet.cssText=b;else a.appendChild(d.createTextNode(b));h.appendChild(a);return settings_timer;}};}());_vwo_settings_timer=_vwo_code.init();
-    </script>
-    <!-- End Visual Website Optimizer Asynchronous Code -->
+        f = false,
+        d = document;
+      return {
+        use_existing_jquery: function () {
+          return use_existing_jquery;
+        },
+        library_tolerance: function () {
+          return library_tolerance;
+        },
+        finish: function () {
+          if (!f) {
+            f = true;
+            var a = d.getElementById('_vis_opt_path_hides');
+            if (a) a.parentNode.removeChild(a);
+          }
+        },
+        finished: function () {
+          return f;
+        },
+        load: function (a) {
+          var b = d.createElement('script');
+          b.src = a;
+          b.type = 'text/javascript';
+          b.innerText;
+          b.onerror = function () {
+            _vwo_code.finish();
+          };
+          d.getElementsByTagName('head')[0].appendChild(b);
+        },
+        init: function () {
+          settings_timer = setTimeout('_vwo_code.finish()', settings_tolerance);
+          this.load('//dev.visualwebsiteoptimizer.com/j.php?a=' + account_id + '&u=' +
+            encodeURIComponent(d.URL) + '&r=' + Math.random());
+          var a = d.createElement('style'),
+            b =
+            'body{opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important;}',
+            h = d.getElementsByTagName('head')[0];
+          a.setAttribute('id', '_vis_opt_path_hides');
+          a.setAttribute('type', 'text/css');
+          if (a.styleSheet) a.styleSheet.cssText = b;
+          else a.appendChild(d.createTextNode(b));
+          h.appendChild(a);
+          return settings_timer;
+        }
+      };
+    }());
+    _vwo_settings_timer = _vwo_code.init();
+  </script>
+  <!-- End Visual Website Optimizer Asynchronous Code -->
+
+
+
 </body>
+
 </html>
