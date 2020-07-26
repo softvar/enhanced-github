@@ -116,6 +116,10 @@ small {
 .thin {
   font-weight: 200; }
 
+.is-visible {
+  visibility: visible !important;
+}
+
 /*******************************
  * Material Design override css
  *******************************/
