@@ -94,13 +94,6 @@ let commonUtil = {
     [].forEach.call(document.querySelectorAll(selector), function(el) {
       el.parentNode.removeChild(el);
     });
-  },
-  isForGithUbNewUi: function() {
-    if (window.enhancedGithub && window.enhancedGithub.config) {
-      return window.enhancedGithub.config.isNewDesign;
-    }
-
-    return false;
   }
 };
 

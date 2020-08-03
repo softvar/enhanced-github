@@ -2,18 +2,16 @@
  * enhanced-github
  * https://github.com/softvar/enhanced-github
  *
- * Licensed MIT (c) Varun Malhotrs
+ * Licensed MIT (c) Varun Malhotra
  */
 const messageListenerUtil = require('./utils/messageListenerUtil');
 const domUtil = require('./utils/domUtil');
 const storageUtil = require('./utils/storageUtil');
 const CommonEnum = require('./enums/CommonEnum');
 
-window.chrome.extension.sendMessage({}, function(_response) {
+;(function() {
   window.enhancedGithub = {
-    config: {
-      isNewDesign: localStorage.getItem('enhanced-github-for-new-design') || 1
-    }
+    config: {}
   };
 
   let readyStateCheckInterval = setInterval(function() {
@@ -32,15 +30,17 @@ window.chrome.extension.sendMessage({}, function(_response) {
 
       messageListenerUtil.addListners();
 
-      window.chrome.storage.sync.get(
+      chrome.storage.sync.get(
         {
           'x-github-token': ''
         },
         function(storedData) {
-          storageUtil.set(CommonEnum.TOKEN, storedData['x-github-token']);
+          if (storedData) {
+            storageUtil.set(CommonEnum.TOKEN, storedData['x-github-token']);
+          }
           domUtil.addRepoData();
         }
       );
     }
   }, 10);
-});
+})();
