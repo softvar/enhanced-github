@@ -9,7 +9,7 @@ const domUtil = require('./utils/domUtil');
 const storageUtil = require('./utils/storageUtil');
 const CommonEnum = require('./enums/CommonEnum');
 
-;(function() {
+(function() {
   window.enhancedGithub = {
     config: {}
   };

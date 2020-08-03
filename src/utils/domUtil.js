@@ -49,9 +49,6 @@ let domUtil = {
 
       elem.parentElement.insertAdjacentHTML('beforeend', html);
     }
-
-    return;
-
   },
   addRepoData: function() {
     setTimeout(() => {
@@ -106,8 +103,6 @@ let domUtil = {
     apiUtil.getRepoContent(function(data) {
       handlersUtil.onPathContentFetched(data);
     });
-
-    return;
   }
 };
 

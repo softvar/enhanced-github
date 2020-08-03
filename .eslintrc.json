@@ -6,6 +6,7 @@
   },
   "env": {
     "browser": true,
+    "webextensions": true,
     "node": true,
     "jest": true
   }

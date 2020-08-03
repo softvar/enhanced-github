@@ -91,8 +91,6 @@ let handlersUtil = {
         }
       }
     }, 1000);
-
-    return;
   }
 };
 
