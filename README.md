@@ -2,17 +2,24 @@
 
 > Browser extension that adds useful features on GitHub website
 
-![Chrome Web Store](https://img.shields.io/chrome-web-store/d/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&logo=google-chrome&logoColor=white)
+<br/>
+
+![Chrome Web Store](https://img.shields.io/chrome-web-store/d/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&label=Chrome%20users&ogo=google-chrome&logoColor=white)
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/anlikcnbgdeidpacdbdljnabclhahhmd?style=for-the-badge&logo=google-chrome&color=orange&logoColor=white)
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/v/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&logo=google-chrome&logoColor=white)
-![Microsoft Edge Add-on](https://img.shields.io/badge/dynamic/json?style=for-the-badge&logo=microsoft-edge&label=microsoft%20edge%20add-on&query=%24.version&url=https%3A%2F%2Fmicrosoftedge.microsoft.com%2Faddons%2Fgetproductdetailsbycrxid%2Feibibhailjcnbpjmemmcaakcookdleon)
-[![Build Status](http://img.shields.io/travis/softvar/enhanced-github/master.svg?style=for-the-badge)](http://travis-ci.org/softvar/enhanced-github)
 
-[![Financial Contributors on Open Collective](https://opencollective.com/enhanced-github/all/badge.svg?label=financial+contributors&style=for-the-badge)](https://opencollective.com/enhanced-github)
+![Firefox Users](https://img.shields.io/amo/dw/enhanced-github?color=blue&label=Firefox%20Add-on%20Downloads&logo=firefox&style=for-the-badge)
+![Firefox Add-on](https://img.shields.io/amo/v/enhanced-github?logo=firefox&style=for-the-badge&label=Firefox%20add-on)
+
+![Microsoft Edge Add-on](https://img.shields.io/badge/dynamic/json?style=for-the-badge&logo=microsoft-edge&label=microsoft%20edge%20add-on&query=%24.version&url=https%3A%2F%2Fmicrosoftedge.microsoft.com%2Faddons%2Fgetproductdetailsbycrxid%2Feibibhailjcnbpjmemmcaakcookdleon)
+
+[![Build Status](http://img.shields.io/travis/softvar/enhanced-github/master.svg?style=for-the-badge)](http://travis-ci.org/softvar/enhanced-github)
 
 ## Supported Browsers
 
 <img alt="Chrome" src="https://img.icons8.com/fluent/24/000000/chrome.png" align="center"/> Install extension from [Chrome Web Store](https://chrome.google.com/webstore/detail/enhanced-github/anlikcnbgdeidpacdbdljnabclhahhmd)
+
+<img alt="Firefox" src="screenshots/firefox.png" align="center"/> Install add-on from [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/enhanced-github/)
 
 <img alt="Microsoft Edge" src="https://img.icons8.com/fluent/24/000000/ms-edge-new.png" align="center"/> Install extension from [Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/enhanced-github/eibibhailjcnbpjmemmcaakcookdleon)
 
@@ -107,10 +114,10 @@ This browser extension will automatically pick this valid access token and Bingo
 
 1. Clone this repo
 2. Run `yarn dev` for generating packaged folder specifically for extension stuff.
-3. Go to chrome extensions [chrome://extensions](chrome://extensions) or Microsoft Edge Extensions [edge://extensions/](edge://extensions/)
+3. Go to extension page. For chrome extensions [chrome://extensions](chrome://extensions), Firefox Add-ons [about:debugging](about:debugging), and Microsoft Edge Extensions [edge://extensions/](edge://extensions/).
 4. Enable developer mode
 5. Click on load unpacked extension and select the generated folder.
-6. [Admin Access Only] - run `yarn build` for generating zip file to be uploaded on _Chrome Web Store_ and _Microsoft Edge Addons_.
+6. [Admin Access Only] - run `yarn build` for generating zip file to be uploaded on _Chrome Web Store_, _Firefox Add-ons_, and _Microsoft Edge Addons_.
 
 PRs are most welcome :)
 
