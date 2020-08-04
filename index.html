@@ -128,7 +128,7 @@
 
     <div class="layout__content" id="main-content">
 
-      <div id="top">
+      <div id="top" style="position: relative;">
         <div class="section-content section-content__top">
           <img src="images/enhanced-github.png" />
           <h2 style="color: #fff;">Enhanced GitHub</h2>
@@ -139,11 +139,35 @@
               <img title="Chrome Browser"
                 src="data:image/png;base64,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" />
             </a>
+            <a href="https://addons.mozilla.org/en-US/firefox/addon/enhanced-github/"
+              target="_blank">
+              <img title="Firefox Browser"
+                src="images/firefox.png" />
+            </a>
             <a href="https://microsoftedge.microsoft.com/addons/detail/enhanced-github/eibibhailjcnbpjmemmcaakcookdleon"
               target="_blank">
               <img title="Micorsoft Edge Browser"
                 src="data:image/png;base64,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" />
             </a>
+          </div>
+          <div style="padding: 20px;;position: absolute; bottom: 10px;left: 0;right: 0;margin: 0 auto;">
+            <p style="text-align: center;">
+              <a target="_blank" rel="noopener noreferrer"
+                href="https://chrome.google.com/webstore/detail/enhanced-github/anlikcnbgdeidpacdbdljnabclhahhmd?hl=ene"><img
+                  src="https://img.shields.io/chrome-web-store/users/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&logo=google-chrome&logoColor=white&label=Chrome%20users"
+                  alt="Chrome Web Store"
+                  style="max-width:100%;"></a>
+              <a target="_blank" rel="noopener noreferrer"
+                href="https://chrome.google.com/webstore/detail/enhanced-github/anlikcnbgdeidpacdbdljnabclhahhmd?hl=en"><img
+                  src="https://img.shields.io/chrome-web-store/v/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&logo=google-chrome&logoColor=white"
+                  alt="Chrome Web Store"
+                  style="max-width:100%;"></a>
+              <a target="_blank" rel="noopener noreferrer"
+                href="https://chrome.google.com/webstore/detail/enhanced-github/anlikcnbgdeidpacdbdljnabclhahhmd?hl=en"><img
+                  src="https://img.shields.io/chrome-web-store/rating/anlikcnbgdeidpacdbdljnabclhahhmd?color=orange&style=for-the-badge&logo=google-chrome&logoColor=white"
+                  alt="Chrome Web Store"
+                  style="max-width:100%;"></a>
+            </p>
           </div>
         </div>
       </div>
@@ -159,6 +183,10 @@
             </a>
           </h3>
           <div class="features">
+            <div class="feature">
+              <h2>Cross Browser</h2>
+              <p>Enjoy the same extension on your loved browser. Chrome, Firefox, and Microsoft Edge are supported browsers.</p>
+            </div>
             <div class="feature">
               <h2>File Size</h2>
               <p>Isn't it useful to know the file-size before attempting to view it? With this Extension,
@@ -191,28 +219,6 @@
                 report
                 any bug/suggestion.</p>
             </div>
-          </div>
-          <div style="padding: 20px;background: #d8d8d8;margin: 90px -75px -40px -40px;">
-            <p style="text-align: center;">
-              <a target="_blank" rel="noopener noreferrer"
-                href="https://img.shields.io/chrome-web-store/users/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&logo=google-chrome&logoColor=white"><img
-                  src="https://img.shields.io/chrome-web-store/users/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&logo=google-chrome&logoColor=white"
-                  alt="Chrome Web Store"
-                  data-canonical-src="https://img.shields.io/chrome-web-store/users/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&logo=google-chrome&logoColor=white"
-                  style="max-width:100%;"></a>
-              <a target="_blank" rel="noopener noreferrer"
-                href="https://img.shields.io/chrome-web-store/v/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&logo=google-chrome&logoColor=white"><img
-                  src="https://img.shields.io/chrome-web-store/v/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&logo=google-chrome&logoColor=white"
-                  alt="Chrome Web Store"
-                  data-canonical-src="https://img.shields.io/chrome-web-store/v/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&logo=google-chrome&logoColor=white"
-                  style="max-width:100%;"></a>
-              <a target="_blank" rel="noopener noreferrer"
-                href="https://img.shields.io/chrome-web-store/rating/anlikcnbgdeidpacdbdljnabclhahhmd?color=orange&style=for-the-badge&logo=google-chrome&logoColor=white"><img
-                  src="https://img.shields.io/chrome-web-store/rating/anlikcnbgdeidpacdbdljnabclhahhmd?color=orange&style=for-the-badge&logo=google-chrome&logoColor=white"
-                  alt="Chrome Web Store"
-                  data-canonical-src="https://img.shields.io/chrome-web-store/rating/anlikcnbgdeidpacdbdljnabclhahhmd?color=orange&style=for-the-badge&logo=google-chrome&logoColor=white"
-                  style="max-width:100%;"></a>
-            </p>
           </div>
         </div>
       </div>
