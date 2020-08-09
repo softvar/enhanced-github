@@ -15,6 +15,9 @@
 
 [![Build Status](http://img.shields.io/travis/softvar/enhanced-github/master.svg?style=for-the-badge)](http://travis-ci.org/softvar/enhanced-github)
 
+<a href="https://www.producthunt.com/posts/github-plus?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-github-plus" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=72611&theme=dark" alt="github-plus - Chrome Extension to display file size, download & copy link | Product Hunt Embed" style="width: 250px; height: 54px;" width="250px" height="54px" /></a>
+
+
 ## Supported Browsers
 
 <img alt="Chrome" src="https://img.icons8.com/fluent/24/000000/chrome.png" align="center"/> Install extension from [Chrome Web Store](https://chrome.google.com/webstore/detail/enhanced-github/anlikcnbgdeidpacdbdljnabclhahhmd)
@@ -23,9 +26,11 @@
 
 <img alt="Microsoft Edge" src="https://img.icons8.com/fluent/24/000000/ms-edge-new.png" align="center"/> Install extension from [Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/enhanced-github/eibibhailjcnbpjmemmcaakcookdleon)
 
+
 ## Website
 
 [Home](https://varunmalhotra.xyz/enhanced-github/)
+
 
 ## Features
 
@@ -45,10 +50,6 @@ The extension handles the SPA behavior of GitHub website from `v3.0.0` onwards :
 - `storage` - for storing GitHub access token on your local system. GitHub Access token is required for private repos and for handling API rate-limiting issues.
 - `webRequest` - to support GitHub being a single-page-application now. Read this [detailed blog](https://medium.com/@softvar/making-chrome-extension-smart-by-supporting-spa-websites-1f76593637e8).
 - `webNavigation` - to support GitHub being a single-page-application now. Read this [detailed blog](https://medium.com/@softvar/making-chrome-extension-smart-by-supporting-spa-websites-1f76593637e8).
-
-[Featured on ProductHunt](https://www.producthunt.com/tech/github-plus)
-
-<img src="screenshots/product_hunt.png" height="300" />
 
 ## Author
 
