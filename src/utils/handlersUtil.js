@@ -51,9 +51,14 @@ let handlersUtil = {
       );
 
       let actualDataIndex = 0;
+      let startIndex = 0;
 
-      for (var i = 0; i < containerItems.length; i++) {
-        const commitElem = containerItems[i].querySelector('.commit-message');
+      if (window.location.href && window.location.href.indexOf('tree/' + commonUtil.getBranch()) > -1) {
+        startIndex = 1;
+      }
+
+      for (var i = startIndex; i < containerItems.length; i++) {
+        const commitElem = containerItems[i].querySelector('div:nth-of-type(3)');
 
         if (commitElem) {
           containerItems[i].querySelector('div:nth-of-type(2)').classList.remove('col-md-2', 'mr-3');
