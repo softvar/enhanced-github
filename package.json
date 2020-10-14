@@ -35,6 +35,6 @@
     "jshint": "^2.9.2"
   },
   "dependencies": {
-    "clipboard": "^1.6.1"
+    "clipboard": "^2.0.6"
   }
 }
