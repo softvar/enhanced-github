@@ -57,6 +57,15 @@ let handlersUtil = {
         startIndex = 1;
       }
 
+
+      const repoPath = commonUtil.getUsernameWithReponameFromGithubURL();
+
+      if (window.location.pathname !== `/${repoPath.user}/${repoPath.repo}` &&
+        window.location.href.indexOf('tree/' + commonUtil.getBranch()) === -1) {
+          return;
+      }
+
+
       for (var i = startIndex; i < containerItems.length; i++) {
         const commitElem = containerItems[i].querySelector('div:nth-of-type(3)');
 
