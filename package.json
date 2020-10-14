@@ -30,7 +30,7 @@
     "file-download"
   ],
   "dependencies": {
-    "clipboard": "^1.6.1"
+    "clipboard": "^2.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
