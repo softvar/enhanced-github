@@ -4,14 +4,13 @@
 
 <br/>
 
-![Chrome Web Store](https://img.shields.io/chrome-web-store/d/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&label=Chrome%20users&ogo=google-chrome&logoColor=white)
-![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/anlikcnbgdeidpacdbdljnabclhahhmd?style=for-the-badge&logo=google-chrome&color=orange&logoColor=white)
-![Chrome Web Store](https://img.shields.io/chrome-web-store/v/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&logo=google-chrome&logoColor=white)
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/d/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&label=Chrome%20users&ogo=google-chrome&logoColor=white)][chrome]
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&logo=google-chrome&logoColor=white)][chrome]
 
-![Firefox Users](https://img.shields.io/amo/dw/enhanced-github?color=blue&label=Firefox%20Add-on%20Downloads&logo=firefox&style=for-the-badge)
-![Firefox Add-on](https://img.shields.io/amo/v/enhanced-github?logo=firefox&style=for-the-badge&label=Firefox%20add-on)
+[![Firefox Users](https://img.shields.io/amo/dw/enhanced-github?color=blue&label=Firefox%20Add-on%20Downloads&logo=firefox&style=for-the-badge)][firefox]
+[![Firefox Add-on](https://img.shields.io/amo/v/enhanced-github?logo=firefox&style=for-the-badge&label=Firefox%20add-on)][firefox]
 
-![Microsoft Edge Add-on](https://img.shields.io/badge/dynamic/json?style=for-the-badge&logo=microsoft-edge&label=microsoft%20edge%20add-on&query=%24.version&url=https%3A%2F%2Fmicrosoftedge.microsoft.com%2Faddons%2Fgetproductdetailsbycrxid%2Feibibhailjcnbpjmemmcaakcookdleon)
+[![Microsoft Edge Add-on](https://img.shields.io/badge/dynamic/json?style=for-the-badge&logo=microsoft-edge&label=microsoft%20edge%20add-on&query=%24.version&url=https%3A%2F%2Fmicrosoftedge.microsoft.com%2Faddons%2Fgetproductdetailsbycrxid%2Feibibhailjcnbpjmemmcaakcookdleon)][edge]
 
 [![Build Status](http://img.shields.io/travis/softvar/enhanced-github/master.svg?style=for-the-badge)](http://travis-ci.org/softvar/enhanced-github)
 
@@ -20,11 +19,11 @@
 
 ## Supported Browsers
 
-<img alt="Chrome" src="https://img.icons8.com/fluent/24/000000/chrome.png" align="center"/> Install extension from [Chrome Web Store](https://chrome.google.com/webstore/detail/enhanced-github/anlikcnbgdeidpacdbdljnabclhahhmd)
+<img alt="Chrome" src="https://img.icons8.com/fluent/24/000000/chrome.png" align="center"/> Install extension from [Chrome Web Store][chrome]
 
-<img alt="Firefox" src="screenshots/firefox.png" align="center"/> Install add-on from [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/enhanced-github/)
+<img alt="Firefox" src="screenshots/firefox.png" align="center"/> Install add-on from [Firefox Add-ons][firefox]
 
-<img alt="Microsoft Edge" src="https://img.icons8.com/fluent/24/000000/ms-edge-new.png" align="center"/> Install extension from [Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/enhanced-github/eibibhailjcnbpjmemmcaakcookdleon)
+<img alt="Microsoft Edge" src="https://img.icons8.com/fluent/24/000000/ms-edge-new.png" align="center"/> Install extension from [Microsoft Edge Add-ons][edge]
 
 
 ## Website
@@ -171,3 +170,9 @@ Refer [Privacy Policy](https://varunmalhotra.xyz/enhanced-github/#privacy-policy
 > The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 >
 > THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+<!-- Links -->
+
+[chrome]: https://chrome.google.com/webstore/detail/enhanced-github/anlikcnbgdeidpacdbdljnabclhahhmd
+[firefox]: https://addons.mozilla.org/en-US/firefox/addon/enhanced-github/
+[edge]: https://microsoftedge.microsoft.com/addons/detail/enhanced-github/eibibhailjcnbpjmemmcaakcookdleon
