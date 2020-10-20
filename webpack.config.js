@@ -24,7 +24,7 @@ ${license} License, Copyright Varun Malhotra
 Dependencies used - ${deps}`;
 
 function addPlugins(argv) {
-  let plugins = [];
+  const plugins = [];
 
   plugins.push(
     new webpack.BannerPlugin({
