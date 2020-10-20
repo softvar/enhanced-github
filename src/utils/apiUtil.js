@@ -4,7 +4,7 @@ const CommonEnum = require('../enums/CommonEnum');
 
 const GITHUB_API_REPOS_BASE_URI = 'https://api.github.com/repos/';
 
-let apiUtil = {
+const apiUtil = {
   checkStatus: function(response) {
     if (response.status >= 200 && response.status < 300) {
       return response;
@@ -18,16 +18,16 @@ let apiUtil = {
     return response === null ? null : response.json();
   },
   getRepoContent: function(callback, contentPath, isRepoMetaData) {
-    let path = commonUtil.getUsernameWithReponameFromGithubURL();
+    const path = commonUtil.getUsernameWithReponameFromGithubURL();
     if (!path.user || !path.repo) {
       return;
     }
 
-    let userRepo = path.user + '/' + path.repo;
+    const userRepo = path.user + '/' + path.repo;
     contentPath = contentPath || commonUtil.getContentPath() || '';
-    let token = storageUtil.get(CommonEnum.TOKEN) || localStorage.getItem('x-github-token');
+    const token = storageUtil.get(CommonEnum.TOKEN) || localStorage.getItem('x-github-token');
     let headers = {};
-    let branch = commonUtil.getBranch() || storageUtil.get('defaultBranch') || 'master';
+    const branch = commonUtil.getBranch() || storageUtil.get('defaultBranch') || 'master';
     let contentParams = '';
 
     if (!isRepoMetaData) {

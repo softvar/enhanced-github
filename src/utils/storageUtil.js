@@ -1,4 +1,4 @@
-let storageUtil = {
+const storageUtil = {
   set: (key, value) => {
     storageUtil[key] = value;
   },

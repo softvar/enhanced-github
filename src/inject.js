@@ -14,7 +14,7 @@ const CommonEnum = require('./enums/CommonEnum');
     config: {}
   };
 
-  let readyStateCheckInterval = setInterval(function() {
+  const readyStateCheckInterval = setInterval(function() {
     if (document.readyState === 'complete') {
       clearInterval(readyStateCheckInterval);
 

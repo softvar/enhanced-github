@@ -1,18 +1,18 @@
-let commonUtil = {
+const commonUtil = {
   getContentPath: function() {
-    let str = window.location.href;
-    let result = str.match(/.*[bt][lr][oe][be]\/[^//]+\/(.*)/); // blob/tree :D
+    const str = window.location.href;
+    const result = str.match(/.*[bt][lr][oe][be]\/[^//]+\/(.*)/); // blob/tree :D
     return result && result.length && result[1];
   },
   getBranch: function() {
-    let str = window.location.href;
-    let result = str.match(/.*(blob|tree|commits)\/([^//]+).*$/); // just after blob/tree
+    const str = window.location.href;
+    const result = str.match(/.*(blob|tree|commits)\/([^//]+).*$/); // just after blob/tree
     return result && result.length && result[2];
   },
   getUsernameWithReponameFromGithubURL: function() {
-    let pathnames = window.location.pathname.split('/');
-    let user = pathnames[1];
-    let repo = pathnames[2];
+    const pathnames = window.location.pathname.split('/');
+    const user = pathnames[1];
+    const repo = pathnames[2];
 
     return {
       user: user,
@@ -80,9 +80,9 @@ let commonUtil = {
     };
   },
   getFileSizeAndUnit: function(data) {
-    let formatBytes = commonUtil.convertSizeToHumanReadableFormat(data.size);
-    let size = formatBytes.size;
-    let unit = formatBytes.measure;
+    const formatBytes = commonUtil.convertSizeToHumanReadableFormat(data.size);
+    const size = formatBytes.size;
+    const unit = formatBytes.measure;
 
     return size + ' ' + unit;
   },

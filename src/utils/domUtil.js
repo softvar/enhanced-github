@@ -10,32 +10,32 @@ function fetchDataAndCreateDOMElements() {
   domUtil.addFileSizeAndDownloadLink();
 }
 
-let domUtil = {
+const domUtil = {
   selectText: function() {
-    let container = 'tbody';
+    const container = 'tbody';
     if (document.selection) {
-      let range = document.body.createTextRange();
+      const range = document.body.createTextRange();
       range.moveToElementText(document.querySelectorAll(container)[0]);
       range.select();
     } else if (window.getSelection) {
-      let range = document.createRange();
+      const range = document.createRange();
       range.selectNode(document.querySelectorAll(container)[0]);
       window.getSelection().addRange(range);
     }
   },
   hasClass: function(elem, className) {
-    let elemClass = elem.getAttribute('class') || '';
+    const elemClass = elem.getAttribute('class') || '';
 
     return elemClass.split(' ').indexOf(className) > -1;
   },
   appendRepoSizeElement: function() {
     commonUtil.removePrevInstancesOf('.eg-repo-size');
 
-    let formattedFileSize = commonUtil.convertSizeToHumanReadableFormat(storageUtil.get('repoSize') * 1024); // GitHub API return size in KB for repo
-    let elem = document.querySelector('a[href="#readme"]');
+    const formattedFileSize = commonUtil.convertSizeToHumanReadableFormat(storageUtil.get('repoSize') * 1024); // GitHub API return size in KB for repo
+    const elem = document.querySelector('a[href="#readme"]');
 
     if (elem) {
-      let html = `
+      const html = `
         <div class="mt-3 eg-repo-size">
           <a href="javascript:void(0)" class="muted-link">
             <svg class="octicon octicon-database mr-2" mr="2" aria-hidden="true" height="16" version="1.1" viewBox="0 0 12 16" width="16">
@@ -52,8 +52,8 @@ let domUtil = {
   },
   addRepoData: function() {
     setTimeout(() => {
-      let path = commonUtil.getUsernameWithReponameFromGithubURL();
-      let userRepo = `${path.user}/${path.repo}`;
+      const path = commonUtil.getUsernameWithReponameFromGithubURL();
+      const userRepo = `${path.user}/${path.repo}`;
 
       if (
         storageUtil.get('defaultBranch') &&
@@ -88,7 +88,7 @@ let domUtil = {
     }, 0);
   },
   addCopyAndDownloadButton: function() {
-    let btnGroup = document.querySelectorAll('.BtnGroup:not(.d-md-none)')[0];
+    const btnGroup = document.querySelectorAll('.BtnGroup:not(.d-md-none)')[0];
 
     if (btnGroup && window.location.href && window.location.href.indexOf('blob/' + commonUtil.getBranch()) > -1) {
       // instantiate copy to clipborad

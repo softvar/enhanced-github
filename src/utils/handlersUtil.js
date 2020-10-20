@@ -1,13 +1,13 @@
 const commonUtil = require('./commonUtil');
 
-let handlersUtil = {
+const handlersUtil = {
   onPathContentFetchedForBtns: data => {
-    let formattedFileSize = commonUtil.getFileSizeAndUnit(data);
+    const formattedFileSize = commonUtil.getFileSizeAndUnit(data);
 
     commonUtil.removePrevInstancesOf('.js-file-clipboard');
     commonUtil.removePrevInstancesOf('.js-file-download');
 
-    let btnGroupHtml = `
+    const btnGroupHtml = `
       <button aria-label="Copy file contents to clipboard" class="js-file-clipboard btn btn-sm BtnGroup-item file-clipboard-button tooltipped tooltipped-s js-enhanced-github-copy-btn" data-copied-hint="Copied!" type="button" click="selectText()" data-clipboard-target="tbody">
         Copy File
       </button>
@@ -19,7 +19,7 @@ let handlersUtil = {
         </svg>
       </a>`;
 
-    let btnGroup = document.querySelectorAll('.BtnGroup:not(.d-md-none)')[0];
+    const btnGroup = document.querySelectorAll('.BtnGroup:not(.d-md-none)')[0];
 
     btnGroup.insertAdjacentHTML('beforeend', btnGroupHtml);
   },
@@ -57,14 +57,14 @@ let handlersUtil = {
         startIndex = 1;
       }
 
-
       const repoPath = commonUtil.getUsernameWithReponameFromGithubURL();
 
-      if (window.location.pathname !== `/${repoPath.user}/${repoPath.repo}` &&
-        window.location.href.indexOf('tree/' + commonUtil.getBranch()) === -1) {
-          return;
+      if (
+        window.location.pathname !== `/${repoPath.user}/${repoPath.repo}` &&
+        window.location.href.indexOf('tree/' + commonUtil.getBranch()) === -1
+      ) {
+        return;
       }
-
 
       for (var i = startIndex; i < containerItems.length; i++) {
         const commitElem = containerItems[i].querySelector('div:nth-of-type(3)');
@@ -74,9 +74,9 @@ let handlersUtil = {
           containerItems[i].querySelector('div:nth-of-type(2)').classList.add('col-md-1', 'mr-2');
 
           if (data[actualDataIndex].type === 'file') {
-            let formattedFileSize = commonUtil.getFileSizeAndUnit(data[actualDataIndex]);
+            const formattedFileSize = commonUtil.getFileSizeAndUnit(data[actualDataIndex]);
 
-            let html = `
+            const html = `
               <div role="gridcell" class="mr-1 text-gray-light eg-download" style="width: 95px;">
                 <span class="css-truncate css-truncate-target d-block">
                   <span style="margin-right: 5px;">
