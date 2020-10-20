@@ -35,9 +35,9 @@
 
 - Displays repo size.
 - Displays each file size for every active branch (not applicable for folder / symlink).
-- Show download link for each individual file (not applicable for folder / symlink).
+- Show download link for each file (not applicable for folder / symlink).
 - Copy file's contents directly to Clipboard (just won't work for markdown files).
-- Download file while viewing it's contents.
+- Download file while viewing its contents.
 
 The extension handles the SPA behavior of GitHub website from `v3.0.0` onwards :)
 
@@ -73,7 +73,7 @@ To tackle this, create a new GitHub Access Token.
 
    OR
 
-   Right click on enhanced-github extension and and click on `Options` in the dropdown menu.
+   Right-click on enhanced-github extension and click on `Options` in the dropdown menu.
 
    <img src="screenshots/extension-options-page.png" width="380" />
 
@@ -90,7 +90,7 @@ This browser extension will automatically pick this valid access token and Bingo
 
 <img src="screenshots/github-repo-home-new.png">
 
-#### Screenshot of Copy fle contents and download link
+#### Screenshot of Copy file contents and download link
 
 <img src="screenshots/github-file-new.png">
 
@@ -152,7 +152,7 @@ Support this project with your organization. Your logo will show up here with a 
 
 Refer [Privacy Policy](https://varunmalhotra.xyz/enhanced-github/#privacy-policy).
 
-> Enahanced GitHub Extension doesn't collect/share/care about your data at all.
+> Enhanced GitHub Extension doesn't collect/share/care about your data at all.
 >
 > Asks for GitHub Access Token for private repos and if Rate Limiting is your concern.
 
