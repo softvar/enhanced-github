@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## **v5.0.4** - 09th Dec, 2020
+
+- Handle symlinks and show size and download link correctly. Fixes [#75](https://github.com/softvar/enhanced-github/issues/75)
+
 ## **v5.0.3** - 19th Oct, 2020
 
 - Update `clipboard` library to `2.0.6`. PR - #70

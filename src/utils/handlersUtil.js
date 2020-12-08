@@ -73,7 +73,7 @@ const handlersUtil = {
           containerItems[i].querySelector('div:nth-of-type(2)').classList.remove('col-md-2', 'mr-3');
           containerItems[i].querySelector('div:nth-of-type(2)').classList.add('col-md-1', 'mr-2');
 
-          if (data[actualDataIndex].type === 'file') {
+          if (data[actualDataIndex].type === 'file' || data[actualDataIndex].type === 'symlink') {
             const formattedFileSize = commonUtil.getFileSizeAndUnit(data[actualDataIndex]);
 
             const html = `

@@ -43,7 +43,7 @@ const commonUtil = {
     data.forEach(function(item) {
       if (item.type === 'dir') {
         folders.push(item);
-      } else if (item.type === 'file') {
+      } else if (item.type === 'file' || item.type === 'symlink') {
         files.push(item);
       } else {
         others.push(item);
