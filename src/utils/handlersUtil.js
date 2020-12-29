@@ -53,7 +53,12 @@ const handlersUtil = {
       let actualDataIndex = 0;
       let startIndex = 0;
 
-      if (window.location.href && window.location.href.indexOf('tree/' + commonUtil.getBranch()) > -1) {
+      if (
+        window.location.pathname &&
+        window.location.pathname.indexOf(`tree/${commonUtil.getBranch()}`) > -1 &&
+        !window.location.pathname.endsWith(`tree/${commonUtil.getBranch()}`) &&
+        !window.location.pathname.endsWith(`tree/${commonUtil.getBranch()}/`)
+      ) {
         startIndex = 1;
       }
 
