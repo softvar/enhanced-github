@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## **v5.0.6** - 02nd Jan, 2021
 
-- Update logic which was causing offset of 1. Issue [#79](https://github.com/softvar/enhanced-github/issues/79)
+- Fix displaying of files having size `0` i.e. pointing to other repositories. FIxes - [#78](https://github.com/softvar/enhanced-github/issues/78)
 
 ## **v5.0.5** - 30th Dec, 2020
 
