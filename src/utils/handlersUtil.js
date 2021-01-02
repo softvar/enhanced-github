@@ -73,12 +73,14 @@ const handlersUtil = {
 
       for (var i = startIndex; i < containerItems.length; i++) {
         const commitElem = containerItems[i].querySelector('div:nth-of-type(3)');
+        const isValidFile = data[actualDataIndex].type === 'file' && data[actualDataIndex].size !== 0;
 
         if (commitElem) {
           containerItems[i].querySelector('div:nth-of-type(2)').classList.remove('col-md-2', 'mr-3');
           containerItems[i].querySelector('div:nth-of-type(2)').classList.add('col-md-1', 'mr-2');
 
-          if (data[actualDataIndex].type === 'file' || data[actualDataIndex].type === 'symlink') {
+
+          if (isValidFile || data[actualDataIndex].type === 'symlink') {
             const formattedFileSize = commonUtil.getFileSizeAndUnit(data[actualDataIndex]);
 
             const html = `
