@@ -1,6 +1,6 @@
 {
   "name": "enhanced-github",
-  "version": "5.0.9",
+  "version": "5.0.10",
   "description": "Add-ons for GitHub website - Repo size, Download File, display size of each file and Copy file contents",
   "main": "src/inject.js",
   "scripts": {
