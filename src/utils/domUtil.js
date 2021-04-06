@@ -32,7 +32,13 @@ const domUtil = {
     commonUtil.removePrevInstancesOf('.eg-repo-size');
 
     const formattedFileSize = commonUtil.convertSizeToHumanReadableFormat(storageUtil.get('repoSize') * 1024); // GitHub API return size in KB for repo
-    const elem = document.querySelector('a[href="#readme"]:not(#user-content-readme)');
+    let elem;
+
+    if (document.querySelector('readme-toc') && document.querySelectorAll('readme-toc').length) {
+      elem = document.querySelectorAll('a[href="#readme"]:not(#user-content-readme)')[1];
+    } else {
+      elem = document.querySelector('a[href="#readme"]:not(#user-content-readme)');
+    }
 
     if (elem) {
       const html = `
