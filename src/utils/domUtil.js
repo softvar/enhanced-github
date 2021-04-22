@@ -37,7 +37,12 @@ const domUtil = {
     if (document.querySelector('readme-toc') && document.querySelectorAll('readme-toc').length) {
       elem = document.querySelectorAll('a[href="#readme"]:not(#user-content-readme)')[1];
     } else {
-      elem = document.querySelector('a[href="#readme"]:not(#user-content-readme)');
+      const readmeEls = document.querySelectorAll('a[href="#readme"]:not(#user-content-readme)');
+      if (readmeEls && readmeEls.length && readmeEls.length === 2) {
+        elem = readmeEls[1];
+      } else {
+        elem = readmeEls[0];
+      }
     }
 
     if (elem) {
