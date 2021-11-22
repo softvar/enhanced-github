@@ -6,6 +6,19 @@
 
 ***onPathContentFetchedForBtns***
 
+gets container item using query slector of the 'box' where the files are directories are in.
+
+'.js-navigation-container.js-active-navigation-container .js-navigation-item'
+
+For pulls page, think it's the same
+
+'.js-navigation-container.js-active-navigattion-container
+
+How to ge the above info
+
+Hover over area on webpage. Right click and inspect. Move up and down until part you want highlights, in case the box with data
+
+onPathContentFetch
 1. removes clipboard data
 2. vote-icon commit - button, defines < a href ..<svg ... >
 3. insertsAdjecentHTML 'beforeend'
@@ -113,4 +126,10 @@ File
 github.com/$user/$repo/tree/$branch/dir
 
 Dir
-github.com/$user/$repo/blob/$branch/$dir/file
+github.com/$user/$repo/blob/$branch/$[dir file](dir/file)
+
+Hover over element, and then do inspect.
+<div class="js-details-container Details open Details--on"
+
+<div class="Box mb-3"> == $0
+  <div Class="Box-header position-relative
