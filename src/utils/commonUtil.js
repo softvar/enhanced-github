@@ -1,14 +1,19 @@
 const commonUtil = {
   getContentPath: function() {
     const str = window.location.href;
-    const result = str.match(/.*[bt][lr][oe][be]\/[^//]+\/(.*)/); // blob/tree :D
+    // New definition
+    const result = tr.match(/.*[p][ul][l][l]\/(.*)/); // pull :D
+    // Previous definition
+    //const result = str.match(/.*[bt][lr][oe][be]\/[^//]+\/(.*)/); // blob/tree :D
     return result && result.length && result[1];
   },
-  getBranch: function() {
+  // There is no branch in pulls path (window.location.href)
+  /*getBranch: function() {
     const str = window.location.href;
     const result = str.match(/.*(blob|tree|commits)\/([^//]+).*$/); // just after blob/tree
     return result && result.length && result[2];
   },
+  */
   getUsernameWithReponameFromGithubURL: function() {
     const pathnames = window.location.pathname.split('/');
     const user = pathnames[1];
