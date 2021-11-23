@@ -105,7 +105,7 @@ const domUtil = {
     // Previous conditional
     //if (btnGroup && window.location.href && window.location.href.indexOf('blob/' + commonUtil.getBranch()) > -1) {
     // New conditional
-    if (btnGroup && window.location.href && window.location.href.indexOf('pulls) > -1) {
+    if (btnGroup && window.location.href && window.location.href.indexOf('pulls') > -1) {
       // instantiate copy to clipborad
       new ClipboardLib('.js-file-clipboard'); // eslint-disable-line no-new
 
