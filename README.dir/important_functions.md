@@ -6,22 +6,13 @@
 
 ***onPathContentFetchedForBtns***
 
-gets container item using query slector of the 'box' where the files are directories are in.
-
-'.js-navigation-container.js-active-navigation-container .js-navigation-item'
-
-For pulls page, think it's the same
-
-'.js-navigation-container.js-active-navigattion-container
-
-How to ge the above info
-
-Hover over area on webpage. Right click and inspect. Move up and down until part you want highlights, in case the box with data
-
-onPathContentFetch
 1. removes clipboard data
 2. vote-icon commit - button, defines < a href ..<svg ... >
 3. insertsAdjecentHTML 'beforeend'
+
+### getContentPath / apiUtil.js
+
+https://api.github.com/repos/{owner}/{repo}/contents
 
 
 ### addCopyAndDownloadButton
@@ -117,19 +108,26 @@ What happens if you rename window.enhancedGithub to window.turboSrc in inject.js
 ## Notes
 
 Open pull requests in json by latest order.
+
 https://api.github.com/repos/softvar/enhanced-github/pulls
 
 Get specific pull request, including closed.
+
 https://api.github.com/repos/softvar/enhanced-github/pulls/102
+
+https://api.github.com/repos/{owner}/{repo}/pulls
 
 File
 github.com/$user/$repo/tree/$branch/dir
 
 Dir
-github.com/$user/$repo/blob/$branch/$[dir file](dir/file)
+github.com/$user/$repo/blob/$branch/$dir/file
 
-Hover over element, and then do inspect.
-<div class="js-details-container Details open Details--on"
+Dir
+https://api.github.com/repos/turbo-src/extension/contents/src?ref=master
 
-<div class="Box mb-3"> == $0
-  <div Class="Box-header position-relative
+https://api.github.com/repos/{owner}/{repo}/contents/{dir}?ref={branch}
+
+Which on is unique to pull request, sha or merge_commit_sha?
+
+Don't thing merge commit sha is the same when the owner merges (i.e. timestamp and different gitconfig)
