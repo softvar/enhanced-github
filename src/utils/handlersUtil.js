@@ -53,7 +53,8 @@ const handlersUtil = {
       //const containerItems = document.documentElement.firstChild
       //const containerItems = document.querySelectorAll(
       const containerItems = document.querySelector(
-        '.js-navigation-container.js-active-navigation-container .js-navigation-item'
+        '.js-issue-row'
+        //'.js-navigation-container.js-active-navigation-container .js-navigation-item'
         //'.js-navigation-container.js-active-navigation-container .js-navigation-item'
       );
 
@@ -80,7 +81,7 @@ const handlersUtil = {
       }
       //const commitElem = containerItems[i].querySelector('.issue_102');
       //containerItems = containerItems.querySelector('.issue_102');
-      containerItems.insertAdjacentHTML('beforebegin', 'Hola');
+      containerItems/*.querySelector('.js-issue-row')*/.insertAdjacentHTML('afterend', 'Hola');
 
       //for (var i = startIndex; i < containerItems.length; i++) {
       //  const commitElem = containerItems[i].querySelector('div:nth-of-type(3)');
