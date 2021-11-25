@@ -69,6 +69,14 @@ Actual work in parsing and sorting files and putting in file size
 
 Gets a json representation repo contents from api.github.com
 
+### getFileSize / commonUtils
+
+Gets the file size. Can replace with other value if repurposed for other stat.
+
+### getRepoSize / commonUtils
+
+Gets the size of the repo. Can replace with other value if repurposed for other stat.
+
 #### Variables important
 
 GITHUB_API_REPOS_BASE_URI + userRepo + contentParams
