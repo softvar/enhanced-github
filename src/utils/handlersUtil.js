@@ -50,11 +50,12 @@ const handlersUtil = {
       // js-navigation-container.js-active-navigation-container is the class (can have other parts but must have that)
       // js.navigation-item is the inner class that must have js-navigation-item in it
       // Same thing for pulls
-      const containerItems = document.documentElement.firstChild
+      //const containerItems = document.documentElement.firstChild
       //const containerItems = document.querySelectorAll(
-      //  '.js-navigation-container.js-active-navigation-container .js-navigation-item'
-      //  //'.js-navigation-container.js-active-navigation-container .js-navigation-item'
-      //);
+      const containerItems = document.querySelector(
+        '.js-navigation-container.js-active-navigation-container .js-navigation-item'
+        //'.js-navigation-container.js-active-navigation-container .js-navigation-item'
+      );
 
       let actualDataIndex = 0;
       let startIndex = 0;
@@ -77,8 +78,9 @@ const handlersUtil = {
       //) {
       //  return;
       //}
-      //const commitElem = containerItems[i].querySelector('div:nth-of-type(3)');
-      commitElement = containerItems.insertAdjacentHTML('beforebegin', 'Hola');
+      //const commitElem = containerItems[i].querySelector('.issue_102');
+      //containerItems = containerItems.querySelector('.issue_102');
+      containerItems.insertAdjacentHTML('afterend', 'Hola');
 
       //for (var i = startIndex; i < containerItems.length; i++) {
       //  const commitElem = containerItems[i].querySelector('div:nth-of-type(3)');
