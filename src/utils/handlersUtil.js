@@ -72,12 +72,12 @@ const handlersUtil = {
 
       const repoPath = commonUtil.getUsernameWithReponameFromGithubURL();
 
-      //if (
-      //  window.location.pathname !== `/${repoPath.user}/${repoPath.repo}/pull`
-      //  //window.location.href.indexOf('tree/' + commonUtil.getBranch()) === -1
-      //) {
-      //  return;
-      //}
+      if (
+        window.location.pathname !== `/${repoPath.user}/${repoPath.repo}/pulls`
+        //window.location.href.indexOf('tree/' + commonUtil.getBranch()) === -1
+      ) {
+        return;
+      }
       //const commitElem = containerItems[i].querySelector('.issue_102');
       //containerItems = containerItems.querySelector('.issue_102');
       containerItems.insertAdjacentHTML('afterend', 'Hola');
