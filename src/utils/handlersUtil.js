@@ -81,7 +81,7 @@ const handlersUtil = {
       }
       //const commitElem = containerItems[i].querySelector('.issue_102');
       //containerItems = containerItems.querySelector('.issue_102');
-      containerItems[1]/*.querySelector('.js-issue-row')*/.insertAdjacentHTML('afterend', 'Hola');
+      containerItems[1]/*.querySelector('.js-issue-row')*/.insertAdjacentHTML('beforebegin', 'Hola');
 
       //for (var i = startIndex; i < containerItems.length; i++) {
       //  const commitElem = containerItems[i].querySelector('div:nth-of-type(3)');
