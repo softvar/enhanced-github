@@ -30,18 +30,18 @@ const handlersUtil = {
       return;
     }
 
-    let isAnyFilePresent = false;
+    //let isAnyFilePresent = false;
 
-    for (let i = 0; i < data.length; i++) {
-      if (data[i].type === 'file') {
-        isAnyFilePresent = true;
-        break;
-      }
-    }
+    //for (let i = 0; i < data.length; i++) {
+    //  if (data[i].type === 'file') {
+    //    isAnyFilePresent = true;
+    //    break;
+    //  }
+    //}
 
-    if (!isAnyFilePresent) {
-      return;
-    }
+    //if (!isAnyFilePresent) {
+    //  return;
+    //}
 
     setTimeout(function() {
       commonUtil.removePrevInstancesOf('.eg-download'); // remove before adding new ones
@@ -55,9 +55,10 @@ const handlersUtil = {
 
       if (
         window.location.pathname &&
-        window.location.pathname.indexOf(`tree/${commonUtil.getBranch()}`) > -1 &&
-        !window.location.pathname.endsWith(`tree/${commonUtil.getBranch()}`) &&
-        !window.location.pathname.endsWith(`tree/${commonUtil.getBranch()}/`)
+        window.location.pathname.indexOf(`pulls`) > -1
+        //window.location.pathname.indexOf(`tree/${commonUtil.getBranch()}`) > -1 &&
+        //!window.location.pathname.endsWith(`tree/${commonUtil.getBranch()}`) &&
+        //!window.location.pathname.endsWith(`tree/${commonUtil.getBranch()}/`)
       ) {
         startIndex = 1;
       }
@@ -79,7 +80,7 @@ const handlersUtil = {
           containerItems[i].querySelector('div:nth-of-type(2)').classList.remove('col-md-2', 'mr-3');
           containerItems[i].querySelector('div:nth-of-type(2)').classList.add('col-md-1', 'mr-2');
 
-          if (isValidFile || data[actualDataIndex].type === 'symlink') {
+          //if (isValidFile || data[actualDataIndex].type === 'symlink') {
             const formattedFileSize = commonUtil.getFileSizeAndUnit(data[actualDataIndex]);
 
             const html = `
@@ -99,13 +100,13 @@ const handlersUtil = {
             `;
 
             commitElem.insertAdjacentHTML('afterend', html);
-          } else {
+          //} else {
             const defaultHtml = `
               <div role="gridcell" class="mr-1 eg-download" style="width: 90px;"></div>
             `;
 
             commitElem.insertAdjacentHTML('afterend', defaultHtml);
-          }
+          //}
 
           actualDataIndex++;
         }
