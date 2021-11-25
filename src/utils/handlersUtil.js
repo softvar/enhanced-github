@@ -116,7 +116,7 @@ const handlersUtil = {
             `;
 
             //beforeend?
-            containerItems[1]/*.querySelector('.js-issue-row')*/.insertAdjacentHTML('beforebegin', html);
+            containerItems[1].querySelector('.flex-shrink-0').insertAdjacentHTML('beforebegin', html);
           //} else {
             //<div role="gridcell" class="mr-1 eg-download" style="width: 90px;"></div>
             const defaultHtml = `
