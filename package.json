@@ -1,40 +1,81 @@
 {
-  "name": "github-plus",
-  "version": "1.0.1",
-  "description": "Add-ons for Github website - Download File, display size of each file and Copy file contents",
+  "name": "enhanced-github",
+  "version": "5.0.11",
+  "description": "Add-ons for GitHub website - Repo size, Download File, display size of each file and Copy file contents",
   "main": "src/inject.js",
   "scripts": {
-    "dev": "gulp watch",
-    "build": "gulp",
-    "zip": "gulp zip"
+    "dev": "webpack --watch --mode=development",
+    "prod": "webpack --mode=production",
+    "lint": "eslint '**/*.js' --fix",
+    "prettier": "./node_modules/prettier/bin-prettier.js --write",
+    "test:dev": "jest --config=jest.config.js --watch --debug --colors --errorOnDeprecated",
+    "test": "jest --config=jest.config.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/softvar/github-plus.git"
+    "url": "git+https://github.com/softvar/enhanced-github.git"
   },
   "author": "Varun Malhotra",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/softvar/github-plus/issues"
+    "url": "https://github.com/softvar/enhanced-github/issues"
   },
-  "homepage": "https://github.com/softvar/github-plus#readme",
+  "homepage": "https://github.com/softvar/enhanced-github#readme",
   "keywords": [
     "extension",
     "github",
-    "github-plus",
+    "enhanced-github",
+    "repo-size",
+    "file-size",
     "file-download"
   ],
-  "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-clean": "^0.3.2",
-    "gulp-concat": "^2.6.0",
-    "gulp-jshint": "^2.0.1",
-    "gulp-uglify": "^2.0.0",
-    "gulp-watch": "^4.3.9",
-    "gulp-zip": "^3.2.0",
-    "jshint": "^2.9.2"
-  },
   "dependencies": {
-    "clipboard": "^1.6.1"
+    "clipboard": "^2.0.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
+    "babel-loader": "^8.0.6",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.1.1",
+    "eslint": "^7.11.0",
+    "eslint-config-prettier": "^6.13.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "husky": "^1.3.1",
+    "jest": "^24.9.0",
+    "lint-staged": "^8.1.3",
+    "prettier": "^1.16.4",
+    "webpack": "^4.41.4",
+    "webpack-cli": "^3.3.9",
+    "webpack-zip-files-plugin": "^1.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "yarn lint"
+    }
+  },
+  "lint-staged": {
+    "globOptions": {
+      "matchBase": false
+    },
+    "linters": {
+      "**/*.js": [
+        "prettier",
+        "git add"
+      ],
+      "**/*.{json,md}": [
+        "prettier",
+        "git add"
+      ]
+    }
+  },
+  "engineStrict": true,
+  "engines": {
+    "node": ">= 10.16.0"
   }
 }

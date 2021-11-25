@@ -1,140 +1,178 @@
-## <img src="icons/gplus48.png"> Github Plus - A useful Chrome Extension
+## <img src="icons/enhanced-github128.png" align="center"> Enhanced GitHub
 
-![Chrome Web Store](https://img.shields.io/chrome-web-store/d/anlikcnbgdeidpacdbdljnabclhahhmd.svg)
-![Chrome Web Store](https://img.shields.io/chrome-web-store/v/anlikcnbgdeidpacdbdljnabclhahhmd.svg)
+> Browser extension that adds useful features on GitHub website
 
-❗️ This extension is not sponsored by, endorsed by, or an official project of GitHub. This is a personal project and is developed solely for providing additional functionalities on Github website.
+<br/>
 
-## Link
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/d/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&label=Chrome%20users&ogo=google-chrome&logoColor=white)][chrome]
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/anlikcnbgdeidpacdbdljnabclhahhmd.svg?style=for-the-badge&logo=google-chrome&logoColor=white)][chrome]
 
-🚀 Install extension from [Chrome Web Store](https://chrome.google.com/webstore/detail/github-pluse/anlikcnbgdeidpacdbdljnabclhahhmd)
+[![Firefox Users](https://img.shields.io/amo/dw/enhanced-github?color=blue&label=Firefox%20Add-on%20Downloads&logo=firefox&style=for-the-badge)][firefox]
+[![Firefox Add-on](https://img.shields.io/amo/v/enhanced-github?logo=firefox&style=for-the-badge&label=Firefox%20add-on)][firefox]
+
+[![Microsoft Edge Add-on](https://img.shields.io/badge/dynamic/json?style=for-the-badge&logo=microsoft-edge&label=microsoft%20edge%20add-on&query=%24.version&url=https%3A%2F%2Fmicrosoftedge.microsoft.com%2Faddons%2Fgetproductdetailsbycrxid%2Feibibhailjcnbpjmemmcaakcookdleon)][edge]
+
+[![Build Status](http://img.shields.io/travis/softvar/enhanced-github/master.svg?style=for-the-badge)](http://travis-ci.org/softvar/enhanced-github)
+
+<a href="https://www.producthunt.com/posts/github-plus?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-github-plus" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=72611&theme=dark" alt="github-plus - Chrome Extension to display file size, download & copy link | Product Hunt Embed" style="width: 250px; height: 54px;" width="250px" height="54px" /></a>
+
+
+## Supported Browsers
+
+<img alt="Chrome" src="https://img.icons8.com/fluent/24/000000/chrome.png" align="center"/> Install extension from [Chrome Web Store][chrome]
+
+<img alt="Firefox" src="screenshots/firefox.png" align="center"/> Install add-on from [Firefox Add-ons][firefox]
+
+<img alt="Microsoft Edge" src="https://img.icons8.com/fluent/24/000000/ms-edge-new.png" align="center"/> Install extension from [Microsoft Edge Add-ons][edge]
+
+
+## Website
+
+[Home](https://varunmalhotra.xyz/enhanced-github/)
+
 
 ## Features
 
-* Displays repo size.
-* Displays each file size for every active branch (not applicable for folder / symlink).
-* Show download link for each individual file (not applicable for folder / symlink).
-* Copy file's contents directly to Clipboard (just won't work for markdown files).
-* Download file while viewing it's contents.
+- Displays repo size.
+- Displays each file size for every active branch (not applicable for folder / symlink).
+- Show download link for each file (not applicable for folder / symlink).
+- Copy file's contents directly to Clipboard (just won't work for markdown files).
+- Download file while viewing its contents.
 
-***Note:*** For private repos([Issue #6](https://github.com/softvar/github-plus/issues/6)), Github Access Token is required. Follow the steps [mentioned below](#github-api-rate-limiting) to add your Github Access Token.
+The extension handles the SPA behavior of GitHub website from `v3.0.0` onwards :)
 
-[Featured on ProductHunt](https://www.producthunt.com/tech/github-plus)
+**_Note:_** For private repos([Issue #6](https://github.com/softvar/enhanced-github/issues/6)), GitHub Access Token is required. Follow the steps [mentioned below](#github-api-rate-limiting) to add your GitHub Access Token.
 
-<img src="screenshots/product_hunt.png" height="300" />
+### Permissions required
+
+- `"*://*.github.com/*"` - for running on `github.com` domain.
+- `storage` - for storing GitHub access token on your local system. GitHub Access token is required for private repos and for handling API rate-limiting issues.
+- `webRequest` - to support GitHub being a single-page-application now. Read this [detailed blog](https://medium.com/@softvar/making-chrome-extension-smart-by-supporting-spa-websites-1f76593637e8).
+- `webNavigation` - to support GitHub being a single-page-application now. Read this [detailed blog](https://medium.com/@softvar/making-chrome-extension-smart-by-supporting-spa-websites-1f76593637e8).
 
 ## Author
 
-| Author | [Varun Malhotra](http://varunmalhotra.xyz) |
-|--------|--------------------------------------------|
+Varun Malhotra
+<a href="https://varunmalhotra.xyz"><img align="center" alt="Varun Malhotra Website" src="https://img.icons8.com/material/24/000000/domain--v1.png"/></a>
+<a href="https://twitter.com/s0ftvar"><img align="center" alt="twitter" src="https://img.icons8.com/fluent/24/000000/twitter.png"/></a>
+<a href="https://stackoverflow.com/users/2494535/softvar"><img align="center" alt="StackOverflow" src="https://img.icons8.com/color/24/000000/stackoverflow.png" /></a>
+<a href="https://www.linkedin.com/in/softvar/"><img align="center" alt="LinkedIn" src="https://img.icons8.com/color/24/000000/linkedin.png" /></a>
+<a href="https://github.com/softvar"><img align="center" alt="GitHub" src="https://img.icons8.com/fluent/24/000000/github.png"/></a>
 
-## Github API Rate Limiting
+## GitHub API Rate Limiting
 
-Since this extension fetches data using Github public v3 API for showing file *size* and *download_url*, it consumes free quota which is very less [Github API Rate Limiting](https://developer.github.com/v3/rate_limit/).
+Since this extension fetches data using GitHub public v3 API for showing file _size_ and _download_url_, it consumes free quota which is very less [GitHub API Rate Limiting](https://developer.github.com/v3/rate_limit/).
 
-To tackle this, create a new Github Access Token.
+To tackle this, create a new GitHub Access Token.
 
 1. If logged-in, visit [https://github.com/settings/tokens](https://github.com/settings/tokens)
 2. Generate a new token, select `repo` scope and create a one.
 3. Copy and store the generated token which looks something like: `17c1a8d5b399d66b6212382d98d4c67a94d58955` (a fake one :P).
 4. Click on extension icon and then on `Settings-Options` on top right.
-	<img src="screenshots/extension-popup-screenshot.png" width="380" />
+   <img src="screenshots/extension-popup-screenshot.png" width="380" />
 
-	OR
+   OR
 
-	Go to [chrome://extensions](http://chrome://extensions), find github-plus and click on `Options`.
+   Right-click on enhanced-github extension and click on `Options` in the dropdown menu.
 
-	<img src="screenshots/extension-options-link.png" />
-	<img src="screenshots/extension-options-page.png" width="380" />
+   <img src="screenshots/extension-options-page.png" width="380" />
 
-5. Enter the valid Github Access Token
+5. Enter the valid GitHub Access Token
 6. Click on `SAVE` and Enjoy the benefits.
 
-This Chrome extension will automatically pick this valid access token and Bingo!
+This browser extension will automatically pick this valid access token and Bingo!
 
 ## Screenshots
 
+### New GitHub Design - [Blog](https://github.blog/changelog/2020-06-23-design-updates-to-repositories-and-github-ui/)
+
 #### Screenshot of each file size and it's download link
 
-<img src="screenshots/screenshot-home.png">
+<img src="screenshots/github-repo-home-new.png">
+
+#### Screenshot of Copy file contents and download link
+
+<img src="screenshots/github-file-new.png">
+
+
+### Old GitHub Design
+
+#### Screenshot of each file size and it's download link
+
+<img src="screenshots/github-repo-home.png">
 
 #### Screenshot of Copy fle contents and download link
 
-<img src="screenshots/screenshot-file.png">
-
+<img src="screenshots/github-file.png">
 
 ## Libraries Used
 
-* Thanks to [@zenorocha](https://github.com/zenorocha/) for [Clipboard.js](https://github.com/zenorocha/clipboard.js) - Modern copy to clipboard. No Flash. Just 3kb gzipped.
+- Thanks to [@zenorocha](https://github.com/zenorocha/) for [Clipboard.js](https://github.com/zenorocha/clipboard.js) - Modern copy to clipboard. No Flash. Just 3kb gzipped.
 
 
 ## Development
 
 1. Clone this repo
-2. Run `gulp` for generating packaged folder specifically for extension stuff.
-2. Go to chrome extensions [chrome://extensions](chrome://extensions)
-3. Enable developer mode
+2. Run `yarn dev` for generating packaged folder specifically for extension stuff.
+3. Go to extension page. For chrome extensions [chrome://extensions](chrome://extensions), Firefox Add-ons [about:debugging](about:debugging), and Microsoft Edge Extensions [edge://extensions/](edge://extensions/).
+4. Enable developer mode
 5. Click on load unpacked extension and select the generated folder.
-6. [Admin Access Only] - run `gulp zip` for generating zip file to be uploaded on *Chrome Web Store*.
+6. [Admin Access Only] - run `yarn build` for generating zip file to be uploaded on _Chrome Web Store_, _Firefox Add-ons_, and _Microsoft Edge Addons_.
 
 PRs are most welcome :)
 
 ## Changelog
 
-* **v0.1.1** *- 13th Aug, 2016*
+[CHANGELOG.md](https://github.com/softvar/enhanced-github/blob/master/CHANGELOG.md)
 
-	* Initial Launch
+## Contributors
 
-* **v0.1.2** *- 14th Aug, 2016*
+**Author:** [Varun Malhotra](https://varunmalhotra.xyz)([@softvar](https://github.com/softvar))
 
-	* Fix :: fix bug file on commits/<branch> url
+### Code Contributors
 
-* **v0.1.3** *- 14th Aug, 2016*
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/softvar/enhanced-github/graphs/contributors"><img src="https://opencollective.com/enhanced-github/contributors.svg?width=890&button=false" /></a>
 
-	* Fix :: fix focus effect on up-tree not removing blank td while navigating [#3](https://github.com/softvar/github-plus/pull/3)
+### Financial Contributors
 
-* **v0.1.4** *- 20th Aug, 2016*
+Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/enhanced-github/contribute)]
 
-	* Improvement :: Better way of adding Github Access token - click extension or click options - Github Plus after opening *chrome://extension*
+#### Individuals
 
-* **v0.1.5** *- 22nd Aug, 2016*
+<a href="https://opencollective.com/enhanced-github"><img src="https://opencollective.com/enhanced-github/individuals.svg?width=890"></a>
 
-	* Feature :: Show repo size on Github's repo homepage
-	* Fix :: bugfix of default branch other than **master**
+#### Organizations
 
-* **v0.1.6** *- 27th Aug, 2016*
+Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/enhanced-github/contribute)]
 
-	* Fix :: not showing repo size when navigating back; fix no hash change detection
+<a href="https://opencollective.com/enhanced-github/organization/0/website"><img src="https://opencollective.com/enhanced-github/organization/0/avatar.svg"></a>
 
-* **v0.1.7** *- 10th Mar, 2017*
+## Policy
 
-	* Fix :: Add proper toggle class [github changed class names] which fixes flickering while hover
-	* Fix :: Dont add `td` when there's no file present.
+Refer [Privacy Policy](https://varunmalhotra.xyz/enhanced-github/#privacy-policy).
 
-* **v0.1.8** *- 10th Mar, 2017*
+> Enhanced GitHub Extension doesn't collect/share/care about your data at all.
+>
+> Asks for GitHub Access Token for private repos and if Rate Limiting is your concern.
 
-	* Imporvemnt :: Use `clipboard` as a dependency and use it via `manifest.json`
 
-* **v1.0.8** *- 1st May, 2018*
-
-	* Fix :: Update classes to fix download. (Cmd/Ctr + Click) to download file
-
-* **v1.1.8** *- 05th Aug, 2018*
-
-	* Improvement :: Update logos/icons to adhere with [Github logo policy](https://github.com/logos)
-	* Improvement :: Show Github-styled tooltip when hovering hover file download link
-
-## Credits
-
-Thanks to [Eduardo Cermeno](https://www.pinterest.com/wolf1827/) for the icons/logos.
 ## Copyright and License
 
->The [MIT license](https://opensource.org/licenses/MIT) (MIT)
+❗️ This extension is not sponsored by, endorsed by, or an official project of GitHub. This is a personal project and is developed solely for providing additional functionalities on GitHub website.
+
+> The [MIT license](https://opensource.org/licenses/MIT) (MIT)
 >
->Copyright (c) 2016 Varun Malhotra
+> Copyright (c) 2016-2021 Varun Malhotra
 >
->Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+> Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 >
->The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+> The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 >
->THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+<!-- Links -->
+
+[chrome]: https://chrome.google.com/webstore/detail/enhanced-github/anlikcnbgdeidpacdbdljnabclhahhmd
+[firefox]: https://addons.mozilla.org/en-US/firefox/addon/enhanced-github/
+[edge]: https://microsoftedge.microsoft.com/addons/detail/enhanced-github/eibibhailjcnbpjmemmcaakcookdleon

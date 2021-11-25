@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - 10.16.0
+  - node
+install:
+  - yarn install
+after_success: 'yarn test'
+cache:
+  yarn: true
+  directories:
+    - node_modules
