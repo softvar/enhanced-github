@@ -52,7 +52,7 @@ const handlersUtil = {
       // Same thing for pulls
       //const containerItems = document.documentElement.firstChild
       //const containerItems = document.querySelectorAll(
-      const containerItems = document.querySelector(
+      const containerItems = document.querySelectorAll(
         '.js-issue-row'
         //'.js-navigation-container.js-active-navigation-container .js-navigation-item'
         //'.js-navigation-container.js-active-navigation-container .js-navigation-item'
@@ -63,7 +63,7 @@ const handlersUtil = {
 
       //if (
       //  window.location.pathname &&
-      //  window.location.pathname.indexOf(`pull`) > -1
+      //  window.location.pathname.indexOf(`pulls`) > -1
       //  //window.location.pathname.indexOf(`tree/${commonUtil.getBranch()}`) > -1 &&
       //  //!window.location.pathname.endsWith(`tree/${commonUtil.getBranch()}`) &&
       //  //!window.location.pathname.endsWith(`tree/${commonUtil.getBranch()}/`)
@@ -81,7 +81,7 @@ const handlersUtil = {
       }
       //const commitElem = containerItems[i].querySelector('.issue_102');
       //containerItems = containerItems.querySelector('.issue_102');
-      containerItems/*.querySelector('.js-issue-row')*/.insertAdjacentHTML('afterend', 'Hola');
+      containerItems[1]/*.querySelector('.js-issue-row')*/.insertAdjacentHTML('afterend', 'Hola');
 
       //for (var i = startIndex; i < containerItems.length; i++) {
       //  const commitElem = containerItems[i].querySelector('div:nth-of-type(3)');
