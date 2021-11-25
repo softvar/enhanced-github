@@ -87,9 +87,10 @@ const commonUtil = {
     };
   },
   getFileSizeAndUnit: function(data) {
-    const formatBytes = commonUtil.convertSizeToHumanReadableFormat(data.size);
-    const size = formatBytes.size;
-    const unit = formatBytes.measure;
+    // We don't care anymore about file sizes
+    //const formatBytes = commonUtil.convertSizeToHumanReadableFormat(data.size);
+    const size = 10;
+    const unit = 'votes';
 
     return size + ' ' + unit;
   },
