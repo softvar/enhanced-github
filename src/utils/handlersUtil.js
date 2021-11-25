@@ -81,7 +81,7 @@ const handlersUtil = {
       }
       //const commitElem = containerItems[i].querySelector('.issue_102');
       //containerItems = containerItems.querySelector('.issue_102');
-      containerItems[1]/*.querySelector('.js-issue-row')*/.insertAdjacentHTML('beforebegin', 'Hola');
+      //containerItems[1]/*.querySelector('.js-issue-row')*/.insertAdjacentHTML('beforebegin', 'Hola');
 
       //for (var i = startIndex; i < containerItems.length; i++) {
       //  const commitElem = containerItems[i].querySelector('div:nth-of-type(3)');
@@ -99,33 +99,33 @@ const handlersUtil = {
       //      // number is variable, so lock in here maybe
       //      // div class="flex-shrink-0 pt-2 pl-3"
 
-      //      const html = `
-      //        <div id="issue_102" class="mr-2 text-gray-light eg-download" style="width: 95px;">
-      //          <span class="css-truncate css-truncate-target d-block">
-      //            <span style="margin-right: 5px;">
-      //             100
-      //            </span>
-      //            <a style="float: right" href="${/*data[actualDataIndex].download_url*/'https://github/com/turbo-src/pulls'}" title="(Alt/Option/Ctrl + Click) to download File" aria-label="(Alt/Option/Ctrl + Click) to download File" class="tooltipped tooltipped-s"
-      //              download="pulls}">
-      //              <svg class="octicon octicon-cloud-download" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-      //                <path d="M9 12h2l-3 3-3-3h2V7h2v5zm3-8c0-.44-.91-3-4.5-3C5.08 1 3 2.92 3 5 1.02 5 0 6.52 0 8c0 1.53 1 3 3 3h3V9.7H3C1.38 9.7 1.3 8.28 1.3 8c0-.17.05-1.7 1.7-1.7h1.3V5c0-1.39 1.56-2.7 3.2-2.7 2.55 0 3.13 1.55 3.2 1.8v1.2H12c.81 0 2.7.22 2.7 2.2 0 2.09-2.25 2.2-2.7 2.2h-2V11h2c2.08 0 4-1.16 4-3.5C16 5.06 14.08 4 12 4z"></path>
-      //              </svg>
-      //            </a>
-      //          </span>
-      //        </div>
-      //      `;
+            const html = `
+              <div id="gridcell" class="mr-2 text-gray-light eg-download" style="width: 95px;">
+                <span class="css-truncate css-truncate-target d-block">
+                  <span style="margin-right: 5px;">
+                   100
+                  </span>
+                  <a style="float: right" href="${/*data[actualDataIndex].download_url*/'https://github/com/turbo-src/pulls'}" title="(Alt/Option/Ctrl + Click) to download File" aria-label="(Alt/Option/Ctrl + Click) to download File" class="tooltipped tooltipped-s"
+                    download="pulls}">
+                    <svg class="octicon octicon-cloud-download" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16">
+                      <path d="M9 12h2l-3 3-3-3h2V7h2v5zm3-8c0-.44-.91-3-4.5-3C5.08 1 3 2.92 3 5 1.02 5 0 6.52 0 8c0 1.53 1 3 3 3h3V9.7H3C1.38 9.7 1.3 8.28 1.3 8c0-.17.05-1.7 1.7-1.7h1.3V5c0-1.39 1.56-2.7 3.2-2.7 2.55 0 3.13 1.55 3.2 1.8v1.2H12c.81 0 2.7.22 2.7 2.2 0 2.09-2.25 2.2-2.7 2.2h-2V11h2c2.08 0 4-1.16 4-3.5C16 5.06 14.08 4 12 4z"></path>
+                    </svg>
+                  </a>
+                </span>
+              </div>
+            `;
 
-      //      //beforeend?
-      //      commitElem.insertAdjacentHTML('beforebegin', html);
-      //    //} else {
-      //      //<div role="gridcell" class="mr-1 eg-download" style="width: 90px;"></div>
-      //      const defaultHtml = `
-      //        <div id=issue_102 "" class="mr-1 eg-download" style="width: 90px;"></div>
-      //      `;
+            //beforeend?
+            containerItems[1]/*.querySelector('.js-issue-row')*/.insertAdjacentHTML('beforebegin', html);
+          //} else {
+            //<div role="gridcell" class="mr-1 eg-download" style="width: 90px;"></div>
+            const defaultHtml = `
+              <div id=issue_102 "" class="mr-1 eg-download" style="width: 90px;"></div>
+            `;
 
-      //      //beforeend?
-      //      commitElem.insertAdjacentHTML('beforebegin', defaultHtml);
-      //    //}
+            //beforeend?
+            //commitElem.insertAdjacentHTML('beforebegin', defaultHtml);
+          //}
 
       //    actualDataIndex++;
       //  }
