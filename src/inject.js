@@ -38,7 +38,7 @@ const CommonEnum = require('./enums/CommonEnum');
           if (storedData) {
             storageUtil.set(CommonEnum.TOKEN, storedData['x-github-token']);
           }
-          //domUtil.addRepoData();
+          domUtil.addRepoData();
         }
       );
     }

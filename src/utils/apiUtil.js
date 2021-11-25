@@ -30,7 +30,8 @@ const apiUtil = {
     let headers = {};
     // No need for branch, as it's irrelevant to pulls page.
     //const branch = commonUtil.getBranch() || storageUtil.get('defaultBranch') || 'master';
-    let contentParams = '';
+    //let contentParams = '';
+    let contentParams = '/pulls'
 
     if (!isRepoMetaData) {
       /*How it used to be
@@ -38,7 +39,7 @@ const apiUtil = {
         What it is now
         https://api.github.com/repos/{owner}/{repo}/pulls
       */
-      contentParams = '/pulls'
+      //contentParams = '/pulls'
     }
 
     if (token) {

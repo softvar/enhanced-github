@@ -75,11 +75,11 @@ const domUtil = {
         return;
       }
 
-      if (storageUtil.get('repoSize')) {
-        fetchDataAndCreateDOMElements();
-        domUtil.appendRepoSizeElement();
-        return;
-      }
+      //if (storageUtil.get('repoSize')) {
+      //  fetchDataAndCreateDOMElements();
+      //  domUtil.appendRepoSizeElement();
+      //  return;
+      //}
 
       apiUtil.getRepoContent(
         function(data) {
@@ -87,11 +87,11 @@ const domUtil = {
             return;
           }
 
-          storageUtil.set('repoSize', data.size);
-          storageUtil.set('defaultBranch', data.default_branch);
+          //storageUtil.set('repoSize', data.size);
+          //storageUtil.set('defaultBranch', data.default_branch);
 
           fetchDataAndCreateDOMElements();
-          domUtil.appendRepoSizeElement();
+          //domUtil.appendRepoSizeElement();
         },
         '',
         true
