@@ -24,11 +24,11 @@ const handlersUtil = {
     btnGroup.insertAdjacentHTML('beforeend', btnGroupHtml);
   },
   onPathContentFetched: (data = []) => {
-    data = commonUtil.sortFileStructureAsOnSite(data);
+    //data = commonUtil.sortFileStructureAsOnSite(data);
 
-    if (!data) {
-      return;
-    }
+    //if (!data) {
+    //  return;
+    //}
 
     //let isAnyFilePresent = false;
 
