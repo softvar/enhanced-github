@@ -2,7 +2,6 @@ const commonUtil = require('./commonUtil');
 
 const handlersUtil = {
   onPathContentFetchedForBtns: data => {
-    //const formattedFileSize = commonUtil.getFileSizeAndUnit(data);
 
     commonUtil.removePrevInstancesOf('.js-file-clipboard');
     commonUtil.removePrevInstancesOf('.js-file-download');
@@ -24,76 +23,26 @@ const handlersUtil = {
     btnGroup.insertAdjacentHTML('beforeend', btnGroupHtml);
   },
   onPathContentFetched: (data = []) => {
-    //data = commonUtil.sortFileStructureAsOnSite(data);
-
-    //if (!data) {
-    //  return;
-    //}
-
-    //let isAnyFilePresent = false;
-
-    //for (let i = 0; i < data.length; i++) {
-    //  if (data[i].type === 'file') {
-    //    isAnyFilePresent = true;
-    //    break;
-    //  }
-    //}
-
-    //if (!isAnyFilePresent) {
-    //  return;
-    //}
 
     setTimeout(function() {
       commonUtil.removePrevInstancesOf('.eg-download'); // remove before adding new ones
 
-      // The table of files and folders, but is the table of pull requests for our purpose.
-      // js-navigation-container.js-active-navigation-container is the class (can have other parts but must have that)
-      // js.navigation-item is the inner class that must have js-navigation-item in it
-      // Same thing for pulls
-      //const containerItems = document.documentElement.firstChild
-      //const containerItems = document.querySelectorAll(
       const containerItems = document.querySelectorAll(
         '.js-issue-row'
-        //'.js-navigation-container.js-active-navigation-container .js-navigation-item'
-        //'.js-navigation-container.js-active-navigation-container .js-navigation-item'
       );
 
       let actualDataIndex = 0;
       let startIndex = 0;
 
-      //if (
-      //  window.location.pathname &&
-      //  window.location.pathname.indexOf(`pulls`) > -1
-      //) {
-      //  startIndex = 1;
-      //}
-
       const repoPath = commonUtil.getUsernameWithReponameFromGithubURL();
 
       if (
         window.location.pathname !== `/${repoPath.user}/${repoPath.repo}/pulls`
-        //window.location.href.indexOf('tree/' + commonUtil.getBranch()) === -1
       ) {
         return;
       }
 
-
       for (var i = startIndex; i < containerItems.length; i++) {
-      //  const commitElem = containerItems[i].querySelector('div:nth-of-type(3)');
-      //  //const isValidFile = data[actualDataIndex].type === 'file' && data[actualDataIndex].size !== 0;
-
-      //  if (commitElem) {
-      //    containerItems[i].querySelector('div:nth-of-type(2)').classList.remove('col-md-2', 'mr-3');
-      //    containerItems[i].querySelector('div:nth-of-type(2)').classList.add('col-md-1', 'mr-2');
-
-      //    //if (isValidFile || data[actualDataIndex].type === 'symlink') {
-      //      //const formattedFileSize = commonUtil.getFileSizeAndUnit(data[actualDataIndex]);
-
-      //      // inserts into container items' div role="gridcell"
-      //      // div id="issue_$number"
-      //      // number is variable, so lock in here maybe
-      //      // div class="flex-shrink-0 pt-2 pl-3"
-
             const html = `
               <div id="gridcell" class="mr-2 text-gray-light eg-download" style="width: 95px;">
                 <span class="css-truncate css-truncate-target d-block">
@@ -110,20 +59,7 @@ const handlersUtil = {
               </div>
             `;
 
-            //beforeend?
             containerItems[i].querySelector('.flex-shrink-0').insertAdjacentHTML('beforebegin', html);
-          //} else {
-            //<div role="gridcell" class="mr-1 eg-download" style="width: 90px;"></div>
-            const defaultHtml = `
-              <div id=issue_102 "" class="mr-1 eg-download" style="width: 90px;"></div>
-            `;
-
-            //beforeend?
-            //commitElem.insertAdjacentHTML('beforebegin', defaultHtml);
-          //}
-
-      //    actualDataIndex++;
-      //  }
       }
     }, 1000);
   }
