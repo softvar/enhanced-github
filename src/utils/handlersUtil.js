@@ -76,11 +76,9 @@ const handlersUtil = {
       ) {
         return;
       }
-      //const commitElem = containerItems[i].querySelector('.issue_102');
-      //containerItems = containerItems.querySelector('.issue_102');
-      //containerItems[1]/*.querySelector('.js-issue-row')*/.insertAdjacentHTML('beforebegin', 'Hola');
 
-      //for (var i = startIndex; i < containerItems.length; i++) {
+
+      for (var i = startIndex; i < containerItems.length; i++) {
       //  const commitElem = containerItems[i].querySelector('div:nth-of-type(3)');
       //  //const isValidFile = data[actualDataIndex].type === 'file' && data[actualDataIndex].size !== 0;
 
@@ -113,7 +111,7 @@ const handlersUtil = {
             `;
 
             //beforeend?
-            containerItems[1].querySelector('.flex-shrink-0').insertAdjacentHTML('beforebegin', html);
+            containerItems[i].querySelector('.flex-shrink-0').insertAdjacentHTML('beforebegin', html);
           //} else {
             //<div role="gridcell" class="mr-1 eg-download" style="width: 90px;"></div>
             const defaultHtml = `
@@ -126,7 +124,7 @@ const handlersUtil = {
 
       //    actualDataIndex++;
       //  }
-      //}
+      }
     }, 1000);
   }
 };
