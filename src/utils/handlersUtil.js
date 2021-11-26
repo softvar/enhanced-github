@@ -44,10 +44,10 @@ const handlersUtil = {
 
       for (var i = startIndex; i < containerItems.length; i++) {
             const html = `
-              <div id="gridcell" class="mr-2 text-gray-light eg-download" style="width: 95px;">
+              <div id="gridcell" class="mr-2 text-gray-light eg-download" style="width: 55px;">
                 <span class="css-truncate css-truncate-target d-block">
                   <span style="margin-right: 5px;">
-                   100
+                   70%
                   </span>
                   <a style="float: right" href="${/*data[actualDataIndex].download_url*/'https://github.com/turbo-src'}" title="(Alt/Option/Ctrl + Click) to download File" aria-label="(Alt/Option/Ctrl + Click) to download File" class="tooltipped tooltipped-s"
                     }">
