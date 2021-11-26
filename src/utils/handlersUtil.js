@@ -44,11 +44,8 @@ const handlersUtil = {
 
       for (var i = startIndex; i < containerItems.length; i++) {
             const html = `
-              <div id="gridcell" class="mr-2 text-gray-light eg-download" style="width: 55px;">
+              <div id="gridcell" class="mr-2 text-gray-light eg-download" style="width: 40px;">
                 <span class="css-truncate css-truncate-target d-block">
-                  <span style="margin-right: 5px;">
-                   70%
-                  </span>
                   <a style="float: right" href="${/*data[actualDataIndex].download_url*/'https://github.com/turbo-src'}" title="(Alt/Option/Ctrl + Click) to download File" aria-label="(Alt/Option/Ctrl + Click) to download File" class="tooltipped tooltipped-s"
                     }">
                     <svg class="octicon octicon-cloud-download" aria-hidden="true" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">  <image id="image0" width="24" height="24" x="0" y="0"
