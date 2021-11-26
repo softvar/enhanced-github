@@ -61,15 +61,12 @@ const handlersUtil = {
       let actualDataIndex = 0;
       let startIndex = 0;
 
-      //if (
-      //  window.location.pathname &&
-      //  window.location.pathname.indexOf(`pulls`) > -1
-      //  //window.location.pathname.indexOf(`tree/${commonUtil.getBranch()}`) > -1 &&
-      //  //!window.location.pathname.endsWith(`tree/${commonUtil.getBranch()}`) &&
-      //  //!window.location.pathname.endsWith(`tree/${commonUtil.getBranch()}/`)
-      //) {
-      //  startIndex = 1;
-      //}
+      if (
+        window.location.pathname &&
+        window.location.pathname.indexOf(`pulls`) > -1
+      ) {
+        startIndex = 1;
+      }
 
       const repoPath = commonUtil.getUsernameWithReponameFromGithubURL();
 
