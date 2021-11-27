@@ -1,11 +1,11 @@
 {
-  "name": "Enhanced GitHub",
-  "short_name": "Enhanced GitHub",
-  "version": "5.0.11",
+  "name": "turbo-src",
+  "short_name": "turbo-src",
+  "version": "0.0.1",
   "manifest_version": 2,
-  "description": "Display repo size, size of each file, download link and option to copy file contents",
+  "description": "Vote on pull requests.",
   "homepage_url": "https://github.com/softvar/enhanced-github",
-  "author": "Varun Malhotra",
+  "author": "turbo-src",
   "icons": {
     "16": "icons/enhanced-github16.png",
     "48": "icons/enhanced-github48.png",
@@ -14,9 +14,10 @@
   "browser_action": {
     "default_icon": "icons/enhanced-github48.png",
     "default_popup": "popup.html",
-    "default_title": "Enhanced GitHub"
+    "default_title": "turbo-src"
   },
-  "permissions": ["*://*.github.com/*", "storage", "webRequest", "webNavigation"],
+    "permissions": ["*://*.github.com/*", "storage", "webRequest", "webNavigation"],
+    "content_security_policy": "script-src 'self' 'unsafe-eval' https://unpkg.com/react@17/umd/react.development.js https://unpkg.com/react-dom@17/umd/react-dom.development.js 'unsafe-inline'; object-src 'self'",
   "content_scripts": [
     {
       "matches": ["*://*.github.com/*"],
