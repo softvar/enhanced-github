@@ -24,14 +24,22 @@ const apiUtil = {
     }
 
     const userRepo = path.user + '/' + path.repo;
-    contentPath = contentPath || commonUtil.getContentPath() || '';
+    // No longer needed, put keep in function args.
+    //contentPath = contentPath || commonUtil.getContentPath() || '';
     const token = storageUtil.get(CommonEnum.TOKEN) || localStorage.getItem('x-github-token');
     let headers = {};
-    const branch = commonUtil.getBranch() || storageUtil.get('defaultBranch') || 'master';
-    let contentParams = '';
+    // No need for branch, as it's irrelevant to pulls page.
+    //const branch = commonUtil.getBranch() || storageUtil.get('defaultBranch') || 'master';
+    //let contentParams = '';
+    let contentParams = '/pulls'
 
     if (!isRepoMetaData) {
-      contentParams = '/contents/' + contentPath + '?ref=' + branch;
+      /*How it used to be
+        https://api.github.com/repos/{owner}/{repo}/contents/{dir}?ref={branch}
+        What it is now
+        https://api.github.com/repos/{owner}/{repo}/pulls
+      */
+      //contentParams = '/pulls'
     }
 
     if (token) {

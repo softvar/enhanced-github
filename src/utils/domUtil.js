@@ -75,11 +75,11 @@ const domUtil = {
         return;
       }
 
-      if (storageUtil.get('repoSize')) {
-        fetchDataAndCreateDOMElements();
-        domUtil.appendRepoSizeElement();
-        return;
-      }
+      //if (storageUtil.get('repoSize')) {
+      //  fetchDataAndCreateDOMElements();
+      //  domUtil.appendRepoSizeElement();
+      //  return;
+      //}
 
       apiUtil.getRepoContent(
         function(data) {
@@ -87,11 +87,11 @@ const domUtil = {
             return;
           }
 
-          storageUtil.set('repoSize', data.size);
-          storageUtil.set('defaultBranch', data.default_branch);
+          //storageUtil.set('repoSize', data.size);
+          //storageUtil.set('defaultBranch', data.default_branch);
 
           fetchDataAndCreateDOMElements();
-          domUtil.appendRepoSizeElement();
+          //domUtil.appendRepoSizeElement();
         },
         '',
         true
@@ -101,7 +101,11 @@ const domUtil = {
   addCopyAndDownloadButton: function() {
     const btnGroup = document.querySelectorAll('.BtnGroup:not(.d-md-none)')[0];
 
-    if (btnGroup && window.location.href && window.location.href.indexOf('blob/' + commonUtil.getBranch()) > -1) {
+    //https://github.com/turbo-src/extension/blob/master/src/inject.js
+    // Previous conditional
+    //if (btnGroup && window.location.href && window.location.href.indexOf('blob/' + commonUtil.getBranch()) > -1) {
+    // New conditional
+    if (btnGroup && window.location.href && window.location.href.indexOf('pulls') > -1) {
       // instantiate copy to clipborad
       new ClipboardLib('.js-file-clipboard'); // eslint-disable-line no-new
 
