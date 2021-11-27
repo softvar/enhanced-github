@@ -1,6 +1,6 @@
 {
-  "name": "enhanced-github",
-  "version": "5.0.11",
+  "name": "turbo-src",
+  "version": "0.0.1",
   "description": "Add-ons for GitHub website - Repo size, Download File, display size of each file and Copy file contents",
   "main": "src/inject.js",
   "scripts": {
@@ -13,21 +13,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/softvar/enhanced-github.git"
+    "url": "git+https://github.com/turbo-src/extension.git"
   },
-  "author": "Varun Malhotra",
+  "author": "turbo-src",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/softvar/enhanced-github/issues"
+    "url": "https://github.com/softvar/turbo-src/extension/issues"
   },
-  "homepage": "https://github.com/softvar/enhanced-github#readme",
+  "homepage": "https://github.com/turbo-src/extension#readme",
   "keywords": [
     "extension",
     "github",
-    "enhanced-github",
-    "repo-size",
-    "file-size",
-    "file-download"
+    "turbo-src",
+    "tokens",
+    "vote"
   ],
   "dependencies": {
     "clipboard": "^2.0.6"
