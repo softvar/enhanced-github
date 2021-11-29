@@ -6,11 +6,11 @@ const ZipFilesPlugin = require('webpack-zip-files-plugin');
 const path = require('path');
 const packageFile = require('./package.json');
 
-const libraryName = 'enhanced-github';
+const libraryName = 'extension';
 const libVersion = packageFile.version;
 const license = packageFile.license;
 const destination = path.resolve(__dirname, 'dist');
-const zipDestination = path.resolve(__dirname, 'enhanced-github');
+const zipDestination = path.resolve(__dirname, 'extension');
 
 let deps = '';
 Object.keys(packageFile.dependencies).map((key, index) => {
@@ -18,8 +18,8 @@ Object.keys(packageFile.dependencies).map((key, index) => {
 });
 
 const libraryHeaderComment = `${libraryName} - v${libVersion}\n
-URL - https://github.com/softvar/ehanced-github\n
-${license} License, Copyright Varun Malhotra
+URL - https://github.com/turbo-src/extension\n
+${license} License, Copyright turbo-src
 
 Dependencies used - ${deps}`;
 
@@ -34,7 +34,7 @@ function addPlugins(argv) {
   );
   plugins.push(
     new CleanWebpackPlugin({
-      default: [destination, path.resolve(__dirname, 'enhanced-github'), path.resolve(__dirname, 'enhanced-github.zip')]
+      default: [destination, path.resolve(__dirname, 'extension'), path.resolve(__dirname, 'extension.zip')]
     })
   );
   plugins.push(
@@ -55,7 +55,7 @@ function addPlugins(argv) {
   if (argv.mode === 'production') {
     plugins.push(
       new ZipFilesPlugin({
-        entries: [{ src: destination, dist: '/enhanced-github' }],
+        entries: [{ src: destination, dist: '/extension' }],
         output: zipDestination,
         format: 'zip'
       })
