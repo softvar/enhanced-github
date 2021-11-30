@@ -1,9 +1,53 @@
 var ClipboardLib = require('clipboard');
+var https = require('https');
 
 const apiUtil = require('./apiUtil');
 const commonUtil = require('./commonUtil');
 const handlersUtil = require('./handlersUtil');
 const storageUtil = require('./storageUtil');
+
+function getVote() {
+  const data = JSON.stringify({
+    query: `{
+      characters(isMonster:true) {
+        name
+        episode {
+          name
+        }
+      }
+    }`,
+  });
+  
+  const options = {
+    hostname: 'localhost',
+    path: '/graphql',
+    port: 4000,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Length': data.length
+    },
+  };
+  
+  const req = https.request(options, (res) => {
+    let data = '';
+    console.log(`statusCode: ${res.statusCode}`);
+  
+    res.on('data', (d) => {
+      data += d;
+    });
+    res.on('end', () => {
+      console.log(JSON.parse(data).data);
+    });
+  });
+  
+  req.on('error', (error) => {
+    console.error(error);
+  });
+  
+  req.write(data);
+  req.end();
+}
 
 function fetchDataAndCreateDOMElements() {
   domUtil.addCopyAndDownloadButton();
