@@ -41,6 +41,8 @@ function getVote() {
 
   req.write(data);
   req.end();
+
+  return "hello";
 }
 
 function fetchDataAndCreateDOMElements() {

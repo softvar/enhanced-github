@@ -18,6 +18,8 @@ const CommonEnum = require('./enums/CommonEnum');
     if (document.readyState === 'complete') {
       clearInterval(readyStateCheckInterval);
 
+      var vote_result = "not_hello";
+
       document.addEventListener(
         'click',
         function(e) {
@@ -26,9 +28,9 @@ const CommonEnum = require('./enums/CommonEnum');
           // maybe gets vote side from chrome.storage that onPathContentFetched saved.
 
           // const vote = chrome.storage("vote")
-          const vote_result = getVote();
+          vote_result = getVote();
 
-          //if vote_result.status === true {
+          if (vote_result !== "hello") {
 
             // if status is good, continue.
 
@@ -38,24 +40,27 @@ const CommonEnum = require('./enums/CommonEnum');
           //} else {
           //   // maybe remove from chrome.storage the last vote.
           //}
+          }
 
         },
         false
       );
 
-      messageListenerUtil.addListners();
+      if (vote_result !== "hello") {
+          messageListenerUtil.addListners();
 
-      chrome.storage.sync.get(
-        {
-          'x-github-token': ''
-        },
-        function(storedData) {
-          if (storedData) {
-            storageUtil.set(CommonEnum.TOKEN, storedData['x-github-token']);
-          }
-          domUtil.addRepoData();
-        }
-      );
+          chrome.storage.sync.get(
+            {
+              'x-github-token': ''
+            },
+            function(storedData) {
+              if (storedData) {
+                storageUtil.set(CommonEnum.TOKEN, storedData['x-github-token']);
+              }
+              domUtil.addRepoData();
+            }
+          );
+      }
     }
   }, 10);
 })();
