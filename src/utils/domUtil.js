@@ -9,15 +9,10 @@ const storageUtil = require('./storageUtil');
 function getVote() {
   const data = JSON.stringify({
     query: `{
-      characters(isMonster:true) {
-        name
-        episode {
-          name
-        }
-      }
+      vote(way: true)
     }`,
   });
-  
+
   const options = {
     hostname: 'localhost',
     path: '/graphql',
@@ -28,11 +23,10 @@ function getVote() {
       'Content-Length': data.length
     },
   };
-  
   const req = https.request(options, (res) => {
     let data = '';
     console.log(`statusCode: ${res.statusCode}`);
-  
+
     res.on('data', (d) => {
       data += d;
     });
@@ -40,11 +34,11 @@ function getVote() {
       console.log(JSON.parse(data).data);
     });
   });
-  
+
   req.on('error', (error) => {
     console.error(error);
   });
-  
+
   req.write(data);
   req.end();
 }

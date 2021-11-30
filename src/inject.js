@@ -21,9 +21,24 @@ const CommonEnum = require('./enums/CommonEnum');
       document.addEventListener(
         'click',
         function(e) {
-          if (domUtil.hasClass(e.target, 'js-file-clipboard')) {
-            domUtil.selectText();
-          }
+
+          // graphql poste vote.
+          // maybe gets vote side from chrome.storage that onPathContentFetched saved.
+
+          // const vote = chrome.storage("vote")
+          const vote_result = getVote();
+
+          //if vote_result.status === true {
+
+            // if status is good, continue.
+
+            if (domUtil.hasClass(e.target, 'js-file-clipboard')) {
+              domUtil.selectText();
+            }
+          //} else {
+          //   // maybe remove from chrome.storage the last vote.
+          //}
+
         },
         false
       );
