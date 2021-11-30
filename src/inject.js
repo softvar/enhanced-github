@@ -7,7 +7,6 @@
 const messageListenerUtil = require('./utils/messageListenerUtil');
 const domUtil = require('./utils/domUtil');
 const storageUtil = require('./utils/storageUtil');
-//const getVote = require('./utils/graphqlReq')
 const CommonEnum = require('./enums/CommonEnum');
 
 (function() {
@@ -30,8 +29,6 @@ const CommonEnum = require('./enums/CommonEnum');
       );
 
       messageListenerUtil.addListners();
-
-      domUtil.getVote();
 
       chrome.storage.sync.get(
         {
