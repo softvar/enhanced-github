@@ -1,5 +1,6 @@
 'use strict';
 
+// Button react component
 const e = React.createElement;
 
 class LikeButton extends React.Component {

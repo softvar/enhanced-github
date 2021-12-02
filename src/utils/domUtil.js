@@ -1,9 +1,49 @@
 var ClipboardLib = require('clipboard');
+var https = require('https');
 
 const apiUtil = require('./apiUtil');
 const commonUtil = require('./commonUtil');
 const handlersUtil = require('./handlersUtil');
 const storageUtil = require('./storageUtil');
+
+function getVote() {
+  const data = JSON.stringify({
+    query: `{
+      vote(way: true)
+    }`,
+  });
+
+  const options = {
+    hostname: 'localhost',
+    path: '/graphql',
+    port: 4000,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Length': data.length
+    },
+  };
+  const req = https.request(options, (res) => {
+    let data = '';
+    console.log(`statusCode: ${res.statusCode}`);
+
+    res.on('data', (d) => {
+      data += d;
+    });
+    res.on('end', () => {
+      console.log(JSON.parse(data).data);
+    });
+  });
+
+  req.on('error', (error) => {
+    console.error(error);
+  });
+
+  req.write(data);
+  req.end();
+
+  return "hello";
+}
 
 function fetchDataAndCreateDOMElements() {
   domUtil.addCopyAndDownloadButton();
@@ -27,6 +67,12 @@ const domUtil = {
     const elemClass = elem.getAttribute('class') || '';
 
     return elemClass.split(' ').indexOf(className) > -1;
+  },
+  // Function to check if something was clicked with id element.
+  hasId: function(elem, idName) {
+    const elemId = elem.getAttribute('id') || '';
+
+    return elemId.split(' ').indexOf(idName) > -1;
   },
   appendRepoSizeElement: function() {
     commonUtil.removePrevInstancesOf('.eg-repo-size');
