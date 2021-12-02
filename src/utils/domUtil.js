@@ -68,6 +68,12 @@ const domUtil = {
 
     return elemClass.split(' ').indexOf(className) > -1;
   },
+  // Function to check if something was clicked with id element.
+  hasId: function(elem, idName) {
+    const elemId = elem.getAttribute('id') || '';
+
+    return elemId.split(' ').indexOf(idName) > -1;
+  },
   appendRepoSizeElement: function() {
     commonUtil.removePrevInstancesOf('.eg-repo-size');
 
