@@ -27,8 +27,6 @@ function post() {
     });
 }
 
-var voted = false;
-
 (function() {
   window.enhancedGithub = {
     config: {}
@@ -38,29 +36,22 @@ var voted = false;
     if (document.readyState === 'complete') {
       clearInterval(readyStateCheckInterval);
 
-      var vote_result = "not_hello";
-
       document.addEventListener(
         'click',
         function(e) {
 
           // graphql poste vote.
           // maybe gets vote side from chrome.storage that onPathContentFetched saved.
-
           // const vote = chrome.storage("vote")
-          vote_result = post();
+          // if status is good, continue.
+          //console.log(e.target)
+          if (domUtil.hasId(e.target, 'image0')) {
+            post();
+          }
 
-          voted = true;
-
-
-            // if status is good, continue.
-
-            if (domUtil.hasClass(e.target, 'js-file-clipboard')) {
-              domUtil.selectText();
-            }
-          //} else {
-          //   // maybe remove from chrome.storage the last vote.
-          //}
+          if (domUtil.hasClass(e.target, 'js-file-download')) {
+            domUtil.selectText();
+          }
 
         },
         false
