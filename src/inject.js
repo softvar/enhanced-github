@@ -9,7 +9,7 @@ const domUtil = require('./utils/domUtil');
 const storageUtil = require('./utils/storageUtil');
 const CommonEnum = require('./enums/CommonEnum');
 const superagent = require('superagent');
-function post(side) {
+function post(issue_id, side) {
   superagent
     .post('http://localhost:4000/graphql')
     .send(
@@ -18,7 +18,7 @@ function post(side) {
       //{ query: '{ getVote(pr_id: "default", contributor_id: 1) {side} }' }
       //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
       //{ query: `{ getVoteEverything }` }
-      { query: `{ setVote(pr_id: "default" contributor_id: "1", side: ${side}) }` }
+      { query: `{ setVote(pr_id: "${issue_id}" contributor_id: "1", side: ${side}) }` }
       //{ query: '{ setVote(pr_id: "default" contributor_id: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body
     .set('accept', 'json')
@@ -46,9 +46,11 @@ function post(side) {
           // if status is good, continue.
           //console.log(e.target)
           if (domUtil.hasId(e.target, 'image0')) {
-            post(1);
+            var issue_id = domUtil.getId(e.target, 'issue');
+            post(issue_id, 1);
           } else if (domUtil.hasId(e.target, 'image1')) {
-            post(0);
+            var issue_id = domUtil.getId(e.target, 'issue');
+            post(issue_id, 0);
           }
 
           if (domUtil.hasClass(e.target, 'js-file-download')) {
