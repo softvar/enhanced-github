@@ -1,3 +1,5 @@
+See graphql_express_server tags to see which versions are compatible.
+
 ### Permissions required
 
 - `"*://*.github.com/*"` - for running on `github.com` domain.
