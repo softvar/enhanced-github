@@ -34,8 +34,10 @@ const handlersUtil = {
       }
 
       for (var i = startIndex; i < containerItems.length; i++) {
+            var issue_id = containerItems[i].getAttribute('id');
+
             const html = `
-              <div id="gridcell" class="mr-2 text-gray-light eg-download" style="width: 24px;">
+              <div id="gridcell" class="mr-2 text-gray-light eg-download ${issue_id} style="width: 24px;">
                 <span class="css-truncate css-truncate-target d-block">
                   <a style="float: right" title="Vote Yes" aria-label="(Alt/Option/Ctrl + Click) to download File" class="tooltipped tooltipped-s"
                     }">
@@ -60,7 +62,7 @@ const handlersUtil = {
             `;
 
             const html2 = `
-              <div id="gridcell2" class="mr-2 text-gray-light eg-download" style="width: 24px;">
+              <div id="gridcell2" class="mr-2 text-gray-light eg-download ${issue_id} style="width: 24px;">
                 <span class="css-truncate css-truncate-target d-block">
                   <a style="float: right" title="Vote No" aria-label="(Alt/Option/Ctrl + Click) to download File" class="tooltipped tooltipped-s"
                     }">
