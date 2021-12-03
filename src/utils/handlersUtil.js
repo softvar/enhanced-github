@@ -35,9 +35,9 @@ const handlersUtil = {
 
       for (var i = startIndex; i < containerItems.length; i++) {
             const html = `
-              <div id="gridcell" class="mr-2 text-gray-light eg-download" style="width: 40px;">
+              <div id="gridcell" class="mr-2 text-gray-light eg-download" style="width: 24px;">
                 <span class="css-truncate css-truncate-target d-block">
-                  <a style="float: right" title="(Alt/Option/Ctrl + Click) to download File" aria-label="(Alt/Option/Ctrl + Click) to download File" class="tooltipped tooltipped-s"
+                  <a style="float: right" title="Vote Yes" aria-label="(Alt/Option/Ctrl + Click) to download File" class="tooltipped tooltipped-s"
                     }">
                     <svg class="octicon octicon-cloud-download" aria-hidden="true" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">  <image id="image0" width="24" height="24" x="0" y="0"
                     href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
@@ -60,9 +60,9 @@ const handlersUtil = {
             `;
 
             const html2 = `
-              <div id="gridcell2" class="mr-2 text-gray-light eg-download" style="width: 40px;">
+              <div id="gridcell2" class="mr-2 text-gray-light eg-download" style="width: 24px;">
                 <span class="css-truncate css-truncate-target d-block">
-                  <a style="float: right" title="(Alt/Option/Ctrl + Click) to download File" aria-label="(Alt/Option/Ctrl + Click) to download File" class="tooltipped tooltipped-s"
+                  <a style="float: right" title="Vote No" aria-label="(Alt/Option/Ctrl + Click) to download File" class="tooltipped tooltipped-s"
                     }">
                     <svg class="octicon octicon-cloud-download" aria-hidden="true" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">  <image id="image0" width="24" height="24" x="0" y="0"
                     href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
