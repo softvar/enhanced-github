@@ -9,17 +9,17 @@ const domUtil = require('./utils/domUtil');
 const storageUtil = require('./utils/storageUtil');
 const CommonEnum = require('./enums/CommonEnum');
 const superagent = require('superagent');
-function post() {
+function post(arg) {
   superagent
     .post('http://localhost:4000/graphql')
     .send(
       //{ query: '{ name: 'Manny', species: 'cat' }' }
-      //{ query: '{ newPullRequest(pr_id: "b", contributor_id: "2", side: 1) { vote_code } }' }
-      //{ query: '{ getVote(pr_id: "a", contributor_id: 1) {side} }' }
-      //{ query: '{ getVoteAll(pr_id: "a") { vote_code } }' }
-      { query: '{ getVoteEverything }' }
-      //{ query: '{ setVote(pr_id: "b" contributor_id: "1", side: 0 ) { vote_code } }' }
-      //{ query: '{ setVote(pr_id: "c" contributor_id: "2", side: 1 ) { vote_code }' }
+      //{ query: '{ newPullRequest(pr_id: "first", contributor_id: "1", side: 1) { vote_code } }' }
+      //{ query: '{ getVote(pr_id: "default", contributor_id: 1) {side} }' }
+      //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
+      //{ query: '{ getVoteEverything }' }
+      { query: '{ setVote(pr_id: "default" contributor_id: "1", side: 0 ) { vote_code } }' }
+      //{ query: '{ setVote(pr_id: "default" contributor_id: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body
     .set('accept', 'json')
     .end((err, res) => {
