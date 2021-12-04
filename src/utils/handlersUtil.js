@@ -34,17 +34,17 @@ const handlersUtil = {
       }
 
       // Get contributor_id from chain web wallet extension
-      const contributor_id = "turbo-src-dev"
+      const contributor_id = "turbo-src-dev";
 
       for (var i = startIndex; i < containerItems.length; i++) {
             var issue_id = containerItems[i].getAttribute('id');
 
-            const html = `
+            const voteYesHtml = `
               <div id="gridcell" class="mr-2 text-gray-light eg-download style="width: 24px;">
                 <span class="css-truncate css-truncate-target d-block">
                   <a style="float: right" title="Vote Yes" aria-label="(Alt/Option/Ctrl + Click) to download File" class="tooltipped tooltipped-s"
                     }">
-                    <svg class="octicon octicon-cloud-download" aria-hidden="true" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">  <image id="image0" width="24" height="24" x="0" y="0" issue="${issue_id}" contributor_id=${contributor_id}
+                    <svg class="octicon octicon-cloud-download" aria-hidden="true" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">  <image id="voteYes" width="24" height="24" x="0" y="0" issue_id="${issue_id}" contributor_id="${contributor_id}"
                     href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
                 AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAJcEhZ
                 cwAADsQAAA7EAZUrDhsAAAAHdElNRQflCxQEJyIqWooVAAABsklEQVQ4y53UwUtUURgF8J+jm1rI
@@ -64,12 +64,12 @@ const handlersUtil = {
               </div>
             `;
 
-            const html2 = `
+            const voteNoHtml = `
               <div id="gridcell2" class="mr-2 text-gray-light eg-download style="width: 24px;">
                 <span class="css-truncate css-truncate-target d-block">
                   <a style="float: right" title="Vote No" aria-label="(Alt/Option/Ctrl + Click) to download File" class="tooltipped tooltipped-s"
                     }">
-                    <svg class="octicon octicon-cloud-download" aria-hidden="true" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">  <image id="image1" width="24" height="24" x="0" y="0" issue="${issue_id}" contributor_id=${contributor_id}
+                    <svg class="octicon octicon-cloud-download" aria-hidden="true" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">  <image id="voteNo" width="24" height="24" x="0" y="0" issue_id="${issue_id}" contributor_id="${contributor_id}"
                     href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
                 AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAJcEhZ
                 cwAADsQAAA7EAZUrDhsAAAAHdElNRQflCxQEJyIqWooVAAABsklEQVQ4y53UwUtUURgF8J+jm1rI
@@ -88,8 +88,8 @@ const handlersUtil = {
                 </span>
               </div>
             `;
-            containerItems[i].querySelector('.flex-shrink-0').insertAdjacentHTML('beforebegin', html);
-            containerItems[i].querySelector('.flex-shrink-0').insertAdjacentHTML('beforebegin', html2);
+            containerItems[i].querySelector('.flex-shrink-0').insertAdjacentHTML('beforebegin', voteYesHtml);
+            containerItems[i].querySelector('.flex-shrink-0').insertAdjacentHTML('beforebegin', voteNoHtml);
       }
     }, 1000);
   }
