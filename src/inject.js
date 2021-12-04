@@ -9,17 +9,17 @@ const domUtil = require('./utils/domUtil');
 const storageUtil = require('./utils/storageUtil');
 const CommonEnum = require('./enums/CommonEnum');
 const superagent = require('superagent');
-function post(side) {
+function post(issue_id, contributor_id, side) {
   superagent
     .post('http://localhost:4000/graphql')
     .send(
       //{ query: '{ name: 'Manny', species: 'cat' }' }
-      //{ query: '{ newPullRequest(pr_id: "first", contributor_id: "1", side: 1) { vote_code } }' }
-      //{ query: '{ getVote(pr_id: "default", contributor_id: 1) {side} }' }
+      //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
+      //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
       //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
       //{ query: `{ getVoteEverything }` }
-      { query: `{ setVote(pr_id: "default" contributor_id: "1", side: ${side}) }` }
-      //{ query: '{ setVote(pr_id: "default" contributor_id: "2", side: 1 ) { vote_code }' }
+      { query: `{ setVote(pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }` }
+      //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body
     .set('accept', 'json')
     .end((err, res) => {
@@ -44,12 +44,18 @@ function post(side) {
           // maybe gets vote side from chrome.storage that onPathContentFetched saved.
           // const vote = chrome.storage("vote")
           // if status is good, continue.
+
           //console.log(e.target)
-          if (domUtil.hasId(e.target, 'image0')) {
-            post(1);
-          } else if (domUtil.hasId(e.target, 'image1')) {
-            post(0);
+          var side = 1;
+          if (domUtil.hasId(e.target, 'voteYes')) {
+            side = "yes";
+          } else if (domUtil.hasId(e.target, 'voteNo')) {
+            side = "no";
           }
+          const issue_id = domUtil.getId(e.target, 'issue_id');
+          const contributor_id = domUtil.getId(e.target, 'contributor_id');
+
+          post(issue_id, contributor_id, side);
 
           if (domUtil.hasClass(e.target, 'js-file-download')) {
             domUtil.selectText();

@@ -74,6 +74,9 @@ const domUtil = {
 
     return elemId.split(' ').indexOf(idName) > -1;
   },
+  getId: function(elem, idName) {
+    return elem.getAttribute(idName);
+  },
   appendRepoSizeElement: function() {
     commonUtil.removePrevInstancesOf('.eg-repo-size');
 
