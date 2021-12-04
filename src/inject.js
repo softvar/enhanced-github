@@ -46,16 +46,18 @@ function post(issue_id, contributor_id, side) {
           // if status is good, continue.
 
           //console.log(e.target)
-          var side = 1;
+          var side = "undefined";
           if (domUtil.hasId(e.target, 'voteYes')) {
             side = "yes";
           } else if (domUtil.hasId(e.target, 'voteNo')) {
             side = "no";
           }
-          const issue_id = domUtil.getId(e.target, 'issue_id');
-          const contributor_id = domUtil.getId(e.target, 'contributor_id');
+          if (side !== "undefined" ) {
+            const issue_id = domUtil.getId(e.target, 'issue_id');
+            const contributor_id = domUtil.getId(e.target, 'contributor_id');
 
-          post(issue_id, contributor_id, side);
+            post(issue_id, contributor_id, side);
+          }
 
           if (domUtil.hasClass(e.target, 'js-file-download')) {
             domUtil.selectText();
