@@ -6,6 +6,9 @@
  */
 const React = require("react");
 const { render } =require("react-dom");
+const { createClient } = require('graphql-ws');
+//const WebSocket = require('ws');
+
 const messageListenerUtil = require('./utils/messageListenerUtil');
 const domUtil = require('./utils/domUtil');
 const storageUtil = require('./utils/storageUtil');
@@ -14,6 +17,61 @@ const superagent = require('superagent');
 
 let like_button_container = document.querySelectorAll('#like_button_container');
 if (like_button_container.length) {
+
+  const client = createClient({
+    url: 'ws://localhost:3000/graphql',
+    //webSocketImpl: WebSocket
+  });
+
+
+  // query
+  //(async () => {
+  //  const result = await new Promise((resolve, reject) => {
+  //    let result;
+  //    client.subscribe(
+  //      {
+  //        query: '{ hello }',
+  //      },
+  //      {
+  //        next: (data) => (result = data),
+  //        error: reject,
+  //        complete: () => resolve(result),
+  //      },
+  //    );
+  //  });
+  //
+  //  expect(result).toEqual({ hello: 'Hello World!' });
+  //})();
+
+  // subscription
+  (async () => {
+    const onNext = (data) => {
+      /* handle incoming values */
+      console.log(data);
+    };
+
+    let unsubscribe = () => {
+      /* complete the subscription */
+    };
+
+    await new Promise((resolve, reject) => {
+      unsubscribe = client.subscribe(
+        {
+          query: 'subscription { greetings }',
+        },
+        {
+          next: onNext,
+          error: reject,
+          complete: resolve,
+        },
+      );
+    });
+
+    //expect(onNext).toBeCalledTimes(5); // we say "Hi" in 5 languages
+  })();
+
+  console.log('hello');
+
 //if (window.opener && window.opener !== window) {
   // you are in a popup
   // Button react component
