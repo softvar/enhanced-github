@@ -4,14 +4,42 @@
  *
  * Licensed MIT (c) Varun Malhotra
  */
+const React = require("react");
+const { render } =require("react-dom");
 const messageListenerUtil = require('./utils/messageListenerUtil');
 const domUtil = require('./utils/domUtil');
 const storageUtil = require('./utils/storageUtil');
 const CommonEnum = require('./enums/CommonEnum');
 const superagent = require('superagent');
 
-if (window.opener && window.opener !== window) {
+let like_button_container = document.querySelectorAll('#like_button_container');
+if (like_button_container.length) {
+//if (window.opener && window.opener !== window) {
   // you are in a popup
+  // Button react component
+  const e = React.createElement;
+
+  class LikeButton extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = { liked: false };
+    }
+
+    render() {
+      if (this.state.liked) {
+        return 'You liked this.';
+      }
+
+      return e(
+        'button',
+        { onClick: () => this.setState({ liked: true }) },
+        'Like'
+      );
+    }
+  }
+
+const domContainer = document.querySelector('#like_button_container');
+render(e(LikeButton), domContainer);
 } else {
   function post(issue_id, contributor_id, side) {
     superagent
@@ -30,25 +58,25 @@ if (window.opener && window.opener !== window) {
         // Calling the end function will send the request
       });
   }
-  
+
   (function() {
     window.enhancedGithub = {
       config: {}
     };
-  
+
     const readyStateCheckInterval = setInterval(function() {
       if (document.readyState === 'complete') {
         clearInterval(readyStateCheckInterval);
-  
+
         document.addEventListener(
           'click',
           function(e) {
-  
+
             // graphql poste vote.
             // maybe gets vote side from chrome.storage that onPathContentFetched saved.
             // const vote = chrome.storage("vote")
             // if status is good, continue.
-  
+
             //console.log(e.target)
             var side = "undefined";
             if (domUtil.hasId(e.target, 'voteYes')) {
@@ -59,21 +87,21 @@ if (window.opener && window.opener !== window) {
             if (side !== "undefined" ) {
               const issue_id = domUtil.getId(e.target, 'issue_id');
               const contributor_id = domUtil.getId(e.target, 'contributor_id');
-  
+
               post(issue_id, contributor_id, side);
             }
-  
+
             if (domUtil.hasClass(e.target, 'js-file-download')) {
               domUtil.selectText();
             }
-  
+
           },
           false
         );
-  
+
         //if (voted === true) {
             messageListenerUtil.addListners();
-  
+
             chrome.storage.sync.get(
               {
                 'x-github-token': ''
