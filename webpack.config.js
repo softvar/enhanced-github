@@ -75,7 +75,7 @@ module.exports = function(_env, argv) {
       path: destination,
       filename: 'src/inject.js',
       library: libraryName,
-      libraryTarget: 'global'
+      //libraryTarget: 'global'
     },
     module: {
       rules: [
