@@ -105,11 +105,11 @@ const handlersUtil = {
             var issue_id = containerItems[i].getAttribute('id');
 
             const voteYesHtml = `
-              <div id="gridcell" class="mr-2 text-gray-light eg-download style="width: 24px;">
+              <div id="gridcell" class="mr-2 text-gray-light eg-download style="width: 18px;">
                 <span class="css-truncate css-truncate-target d-block">
-                  <a style="float: right" title="Vote Yes" aria-label="(Alt/Option/Ctrl + Click) to download File" class="tooltipped tooltipped-s"
+                  <a style="float: right" title="Vote Yes" class="tooltipped tooltipped-s"
                     }">
-                    <svg class="octicon octicon-cloud-download" aria-hidden="true" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">  <image id="voteYes" width="24" height="24" x="0" y="0" issue_id="${issue_id}" contributor_id="${contributor_id}"` +
+                    <svg class="octicon octicon-cloud-download" aria-hidden="true" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="18px" height="18px" viewBox="0 0 18 18" enable-background="new 0 0 18 18" xml:space="preserve">  <image id="voteYes" width="18" height="18" x="0" y="0" issue_id="${issue_id}" contributor_id="${contributor_id}"` +
                     svg_vote_yes + `
                 </svg
                   </a>
@@ -118,19 +118,19 @@ const handlersUtil = {
             `;
 
             const voteNoHtml = `
-              <div id="gridcell2" class="mr-2 text-gray-light eg-download style="width: 24px;">
+              <div id="gridcell" class="mr-2 text-gray-light eg-download style="width: 18px;">
                 <span class="css-truncate css-truncate-target d-block">
-                  <a style="float: right" title="Vote No" aria-label="(Alt/Option/Ctrl + Click) to download File" class="tooltipped tooltipped-s"
+                  <a style="float: right" title="Vote No"" class="tooltipped tooltipped-s"
                     }">
-                    <svg class="octicon octicon-cloud-download" aria-hidden="true" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">  <image id="voteNo" width="24" height="24" x="0" y="0" issue_id="${issue_id}" contributor_id="${contributor_id}"` +
+                    <svg class="octicon octicon-cloud-download" aria-hidden="true" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="18px" height="18px" viewBox="0 0 18 18" enable-background="new 0 0 18 18" xml:space="preserve">  <image id="voteNo" width="18" height="18" x="0" y="0" issue_id="${issue_id}" contributor_id="${contributor_id}"` +
                     svg_vote_no + `
                 </svg
                   </a>
                 </span>
               </div>
             `;
-            containerItems[i].querySelector('.flex-shrink-0').insertAdjacentHTML('beforebegin', voteYesHtml);
-            containerItems[i].querySelector('.flex-shrink-0').insertAdjacentHTML('beforebegin', voteNoHtml);
+            containerItems[i].querySelector('.flex-shrink-0').insertAdjacentHTML('beforeend', voteYesHtml + voteNoHtml);
+            //containerItems[i].querySelector('.flex-shrink-0').insertAdjacentHTML('beforebegin', voteNoHtml);
       }
     }, 1000);
   }
