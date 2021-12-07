@@ -14,6 +14,9 @@ const domUtil = require('./utils/domUtil');
 const storageUtil = require('./utils/storageUtil');
 const CommonEnum = require('./enums/CommonEnum');
 const superagent = require('superagent');
+const commonUtil = require("./utils/commonUtil");
+
+var isRepoTurboSrcToken = false;
 
 let like_button_container = document.querySelectorAll('#like_button_container');
 if (like_button_container.length) {
@@ -99,8 +102,27 @@ if (like_button_container.length) {
 const domContainer = document.querySelector('#like_button_container');
 render(e(LikeButton), domContainer);
 } else {
-  function post(issue_id, contributor_id, side) {
-    superagent
+
+  async function get_repo_status(repo_id) {
+      return await superagent
+      .post('http://localhost:4000/graphql')
+      .send(
+      { query: `{ getRepoStatus(repo_id: "${repo_id}") }` }
+      ).set('accept', 'json')
+      //.end((err, res) => {
+      //  //console.log(repo_id)
+      //  //console.log('hey')
+      //  //console.log('res: ' + res['body']['data']['getRepoStatus'])
+      //  //const text= res['text'];
+      //  //console.log(text);
+      //  //isRepoTurboSrcToken = res;
+      //  // Calling the end function will send the request
+      //  return res
+      //})
+  }
+
+  async function post(issue_id, contributor_id, side) {
+    return await superagent
       .post('http://localhost:4000/graphql')
       .send(
         //{ query: '{ name: 'Manny', species: 'cat' }' }
@@ -117,18 +139,25 @@ render(e(LikeButton), domContainer);
       });
   }
 
-  (function() {
+  (async function() {
     window.enhancedGithub = {
       config: {}
     };
 
+    const path = commonUtil.getUsernameWithReponameFromGithubURL();
+    const repo_id = `${path.user}/${path.repo}`;
+    console.log(`repo id: ` + repo_id)
+
+    const isRepoTurboSrcToken = await get_repo_status(repo_id);
+    console.log('repo status: ' + isRepoTurboSrcToken['body']['data']['getRepoStatus']);
+
     const readyStateCheckInterval = setInterval(function() {
-      if (document.readyState === 'complete') {
+      if (document.readyState === 'complete' & isRepoTurboSrcToken === true) {
         clearInterval(readyStateCheckInterval);
 
         document.addEventListener(
           'click',
-          function(e) {
+          async function(e) {
 
             // graphql poste vote.
             // maybe gets vote side from chrome.storage that onPathContentFetched saved.
@@ -146,7 +175,7 @@ render(e(LikeButton), domContainer);
               const issue_id = domUtil.getId(e.target, 'issue_id');
               const contributor_id = domUtil.getId(e.target, 'contributor_id');
 
-              post(issue_id, contributor_id, side);
+              await post(issue_id, contributor_id, side);
             }
 
             if (domUtil.hasClass(e.target, 'js-file-download')) {
