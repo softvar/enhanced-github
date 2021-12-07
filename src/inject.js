@@ -73,8 +73,6 @@ if (like_button_container.length) {
     //expect(onNext).toBeCalledTimes(5); // we say "Hi" in 5 languages
   })();
 
-  console.log('hello');
-
 //if (window.opener && window.opener !== window) {
   // you are in a popup
   // Button react component
@@ -107,7 +105,7 @@ render(e(LikeButton), domContainer);
       return await superagent
       .post('http://localhost:4000/graphql')
       .send(
-      { query: `{ getRepoStatus(repo_id: "${repo_id}") }` }
+      { query: `{ getRepoStatus(repo_id: "${repo_id}") }`}
       ).set('accept', 'json')
       //.end((err, res) => {
       //  //console.log(repo_id)
@@ -146,13 +144,12 @@ render(e(LikeButton), domContainer);
 
     const path = commonUtil.getUsernameWithReponameFromGithubURL();
     const repo_id = `${path.user}/${path.repo}`;
-    console.log(`repo id: ` + repo_id)
 
-    const isRepoTurboSrcToken = await get_repo_status(repo_id);
-    console.log('repo status: ' + isRepoTurboSrcToken['body']['data']['getRepoStatus']);
+    const result = await get_repo_status(repo_id);
+    const isRepoTurboSrcToken = result['body']['data']['getRepoStatus'];
 
     const readyStateCheckInterval = setInterval(function() {
-      if (document.readyState === 'complete' & isRepoTurboSrcToken === true) {
+      if (document.readyState === 'complete'  & isRepoTurboSrcToken === true) {
         clearInterval(readyStateCheckInterval);
 
         document.addEventListener(
