@@ -15,6 +15,7 @@ const storageUtil = require('./utils/storageUtil');
 const CommonEnum = require('./enums/CommonEnum');
 const superagent = require('superagent');
 const commonUtil = require("./utils/commonUtil");
+const authContributor = require("./authorizedContributor");
 
 var isRepoTurboSrcToken = false;
 
@@ -119,6 +120,14 @@ render(e(LikeButton), domContainer);
       //})
   }
 
+  async function get_authorized_contributor(repo_id, contributor_id) {
+      return await superagent
+      .post('http://localhost:4000/graphql')
+      .send(
+      { query: `{ getAuthorizedContributor(contributor_id: "${contributor_id}", repo_id: "${repo_id}") }`}
+      ).set('accept', 'json')
+  }
+
   function post(issue_id, contributor_id, side) {
     superagent
       .post('http://localhost:4000/graphql')
@@ -145,11 +154,16 @@ render(e(LikeButton), domContainer);
     const path = commonUtil.getUsernameWithReponameFromGithubURL();
     const repo_id = `${path.user}/${path.repo}`;
 
-    const result = await get_repo_status(repo_id);
-    const isRepoTurboSrcToken = result['body']['data']['getRepoStatus'];
+    const res_get_repo_status = await get_repo_status(repo_id);
+    const isRepoTurboSrcToken = res_get_repo_status['body']['data']['getRepoStatus'];
+    const contributor_id =  authContributor.getAuthContributor();
+    const res_get_authorized_contributor =  await get_authorized_contributor(contributor_id, repo_id);
+    const isAuthorizedContributor = res_get_authorized_contributor['body']['data']['getAuthorizedContributor'];
+
+    console.log('isAuthorizedContributor: ' + isAuthorizedContributor);
 
     const readyStateCheckInterval = setInterval(function() {
-      if (document.readyState === 'complete'  & isRepoTurboSrcToken === true) {
+      if (document.readyState === 'complete'  & isRepoTurboSrcToken === true & isAuthorizedContributor === true) {
         clearInterval(readyStateCheckInterval);
 
         document.addEventListener(
