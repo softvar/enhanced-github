@@ -119,8 +119,8 @@ render(e(LikeButton), domContainer);
       //})
   }
 
-  async function post(issue_id, contributor_id, side) {
-    return await superagent
+  function post(issue_id, contributor_id, side) {
+    superagent
       .post('http://localhost:4000/graphql')
       .send(
         //{ query: '{ name: 'Manny', species: 'cat' }' }
@@ -172,7 +172,7 @@ render(e(LikeButton), domContainer);
               const issue_id = domUtil.getId(e.target, 'issue_id');
               const contributor_id = domUtil.getId(e.target, 'contributor_id');
 
-              await post(issue_id, contributor_id, side);
+              post(issue_id, contributor_id, side);
             }
 
             if (domUtil.hasClass(e.target, 'js-file-download')) {
