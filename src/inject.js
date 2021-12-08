@@ -14,6 +14,10 @@ const domUtil = require('./utils/domUtil');
 const storageUtil = require('./utils/storageUtil');
 const CommonEnum = require('./enums/CommonEnum');
 const superagent = require('superagent');
+const commonUtil = require("./utils/commonUtil");
+const authContributor = require("./authorizedContributor");
+
+var isRepoTurboSrcToken = false;
 
 let like_button_container = document.querySelectorAll('#like_button_container');
 if (like_button_container.length) {
@@ -70,8 +74,6 @@ if (like_button_container.length) {
     //expect(onNext).toBeCalledTimes(5); // we say "Hi" in 5 languages
   })();
 
-  console.log('hello');
-
 //if (window.opener && window.opener !== window) {
   // you are in a popup
   // Button react component
@@ -99,6 +101,33 @@ if (like_button_container.length) {
 const domContainer = document.querySelector('#like_button_container');
 render(e(LikeButton), domContainer);
 } else {
+
+  async function get_repo_status(repo_id) {
+      return await superagent
+      .post('http://localhost:4000/graphql')
+      .send(
+      { query: `{ getRepoStatus(repo_id: "${repo_id}") }`}
+      ).set('accept', 'json')
+      //.end((err, res) => {
+      //  //console.log(repo_id)
+      //  //console.log('hey')
+      //  //console.log('res: ' + res['body']['data']['getRepoStatus'])
+      //  //const text= res['text'];
+      //  //console.log(text);
+      //  //isRepoTurboSrcToken = res;
+      //  // Calling the end function will send the request
+      //  return res
+      //})
+  }
+
+  async function get_authorized_contributor(repo_id, contributor_id) {
+      return await superagent
+      .post('http://localhost:4000/graphql')
+      .send(
+      { query: `{ getAuthorizedContributor(contributor_id: "${contributor_id}", repo_id: "${repo_id}") }`}
+      ).set('accept', 'json')
+  }
+
   function post(issue_id, contributor_id, side) {
     superagent
       .post('http://localhost:4000/graphql')
@@ -117,18 +146,29 @@ render(e(LikeButton), domContainer);
       });
   }
 
-  (function() {
+  (async function() {
     window.enhancedGithub = {
       config: {}
     };
 
+    const path = commonUtil.getUsernameWithReponameFromGithubURL();
+    const repo_id = `${path.user}/${path.repo}`;
+
+    const res_get_repo_status = await get_repo_status(repo_id);
+    const isRepoTurboSrcToken = res_get_repo_status['body']['data']['getRepoStatus'];
+    const contributor_id =  authContributor.getAuthContributor();
+    const res_get_authorized_contributor =  await get_authorized_contributor(contributor_id, repo_id);
+    const isAuthorizedContributor = res_get_authorized_contributor['body']['data']['getAuthorizedContributor'];
+
+    console.log('isAuthorizedContributor: ' + isAuthorizedContributor);
+
     const readyStateCheckInterval = setInterval(function() {
-      if (document.readyState === 'complete') {
+      if (document.readyState === 'complete'  & isRepoTurboSrcToken === true & isAuthorizedContributor === true) {
         clearInterval(readyStateCheckInterval);
 
         document.addEventListener(
           'click',
-          function(e) {
+          async function(e) {
 
             // graphql poste vote.
             // maybe gets vote side from chrome.storage that onPathContentFetched saved.
