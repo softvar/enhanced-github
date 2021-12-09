@@ -7,6 +7,7 @@
 const React = require("react");
 const { render } =require("react-dom");
 const { createClient } = require('graphql-ws');
+//const { createClient: redisCreateClient } = require('redis');
 //const WebSocket = require('ws');
 
 const messageListenerUtil = require('./utils/messageListenerUtil');
@@ -61,7 +62,7 @@ if (like_button_container.length) {
     await new Promise((resolve, reject) => {
       unsubscribe = client.subscribe(
         {
-          query: 'subscription { greetings }',
+          query: 'subscription { newVotes }',
         },
         {
           next: onNext,
