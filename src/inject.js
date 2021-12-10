@@ -5,7 +5,9 @@
  * Licensed MIT (c) Varun Malhotra
  */
 const React = require("react");
+const {useState} = require("react");
 const { render } =require("react-dom");
+const { useDispatch } = require('react-redux')
 const { createClient } = require('graphql-ws');
 //const { createClient: redisCreateClient } = require('redis');
 //const WebSocket = require('ws');
@@ -52,7 +54,7 @@ if (like_button_container.length) {
   (async () => {
     const onNext = (data) => {
       /* handle incoming values */
-      console.log(data);
+      //console.log(data);
     };
 
     let unsubscribe = () => {
@@ -80,21 +82,46 @@ if (like_button_container.length) {
   // Button react component
   const e = React.createElement;
 
+  //function like() {
+  //  const dispatch = useDispatch();
+  //  const [input, setInput] = useState('');
+
+  //  useEffect(() => {
+  //    client.on('message',(data) => {
+  //     dispatch({input: data});
+  //    })
+  //  })
+  //}
+
   class LikeButton extends React.Component {
     constructor(props) {
       super(props);
-      this.state = { liked: false };
+      this.state = { vote: '' };
+    }
+
+    componentDidMount() {
+      client.on('message',(data) => {
+        console.log('mount')
+        console.log(data)
+        this.state.vote = data;
+      })
+    }
+
+    componentDidUpdate() {
+      client.on('message',(data) => {
+        console.log('update')
+        console.log(data)
+        this.state.vote = data
+      })
     }
 
     render() {
-      if (this.state.liked) {
-        return 'You liked this.';
+      if (this.state.vote) {
+        return "none"
       }
-
       return e(
-        'button',
-        { onClick: () => this.setState({ liked: true }) },
-        'Like'
+        'output',
+        this.state.vote
       );
     }
   }
