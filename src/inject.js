@@ -96,31 +96,31 @@ if (like_button_container.length) {
   class LikeButton extends React.Component {
     constructor(props) {
       super(props);
-      this.state = { vote: '' };
+      this.state = {
+        vote: 'none' };
     }
 
     componentDidMount() {
       client.on('message',(data) => {
         console.log('mount')
-        console.log(data)
-        this.state.vote = data;
+        this.setState({vote: data})
       })
     }
 
     componentDidUpdate() {
       client.on('message',(data) => {
         console.log('update')
-        console.log(data)
-        this.state.vote = data
+        this.setState({vote: data})
       })
     }
 
     render() {
-      if (this.state.vote) {
-        return "none"
-      }
+      //if (this.state.vote) {
+      //  return "none"
+      //}
       return e(
-        'output',
+        'button',
+        null,
         this.state.vote
       );
     }
