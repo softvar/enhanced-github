@@ -103,14 +103,15 @@ if (like_button_container.length) {
     componentDidMount() {
       client.on('message',(data) => {
         console.log('mount')
-        this.setState({vote: data})
+        this.setState({vote: data.newVotes})
       })
     }
 
     componentDidUpdate() {
       client.on('message',(data) => {
         console.log('update')
-        this.setState({vote: data})
+        //this.setState({vote: data.newVotes})
+        this.setState({vote: "update"})
       })
     }
 
