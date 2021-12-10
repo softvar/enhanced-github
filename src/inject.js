@@ -109,9 +109,15 @@ if (like_button_container.length) {
 
     componentDidUpdate() {
       client.on('message',(data) => {
-        console.log('update')
-        //this.setState({vote: data.newVotes})
-        this.setState({vote: "update"})
+        var data_str = data.payload.data.newVotes
+        var data_str_list = data_str.split(': ')
+        var issue_id_dirty = data_str.split(': ')[0]
+        var vote_code = data_str_list[1].split('%')
+        var contributor = vote_code[0]
+        var issue_id = issue_id_dirty.replace("{", '')
+        var side_dirty = vote_code[1]
+        var side = side_dirty.replace('}', '')
+        this.setState({vote: issue_id})
       })
     }
 
