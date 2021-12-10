@@ -1,4 +1,5 @@
 const commonUtil = require('./commonUtil');
+const authContributor =  require("../authorizedContributor")
 
 const handlersUtil = {
   onPathContentFetchedForBtns: data => {
@@ -34,7 +35,7 @@ const handlersUtil = {
       }
 
       // Get contributor_id from chain web wallet extension
-      const contributor_id = "turbo-src-dev";
+      const contributor_id =  authContributor.getAuthContributor();
       const svg_vote_yes = `
              href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
          AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAC1lBMVEUAAACKPb2EQdCJPrqI

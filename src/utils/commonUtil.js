@@ -12,7 +12,7 @@ const commonUtil = {
         }
       }`,
     });
-    
+
     const options = {
       hostname: 'localhost',
       path: '/graphql',
@@ -23,11 +23,11 @@ const commonUtil = {
         'Content-Length': data.length
       },
     };
-    
+
     const req = https.request(options, (res) => {
       let data = '';
       console.log(`statusCode: ${res.statusCode}`);
-    
+
       res.on('data', (d) => {
         data += d;
       });
@@ -35,18 +35,18 @@ const commonUtil = {
         console.log(JSON.parse(data).data);
       });
     });
-    
+
     req.on('error', (error) => {
       console.error(error);
     });
-    
+
     req.write(data);
     req.end();
   },
   getContentPath: function() {
     const str = window.location.href;
     // New definition
-    const result = tr.match(/.*[p][ul][l][l]\/(.*)/); // pull :D
+    const result = str.match(/.*[p][ul][l][l]\/(.*)/); // pull :D
     // Previous definition
     //const result = str.match(/.*[bt][lr][oe][be]\/[^//]+\/(.*)/); // blob/tree :D
     return result && result.length && result[1];
