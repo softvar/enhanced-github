@@ -50,12 +50,23 @@ if (like_button_container.length) {
   //  expect(result).toEqual({ hello: 'Hello World!' });
   //})();
 
+  var votes = [];
+
   // subscription
   (async () => {
     const onNext = (data) => {
-      /* handle incoming values */
-      //console.log(data);
-    };
+      var data_str = data.data.newVotes;
+      var data_str_list = data_str.split(': ')
+      var issue_id_dirty = data_str.split(': ')[0]
+      var vote_code = data_str_list[1].split('%')
+      var contributor = vote_code[0]
+      var issue_id = issue_id_dirty.replace("{", '')
+      var side_dirty = vote_code[1]
+      var side = side_dirty.replace('}', '')
+      votes.push(issue_id)
+        /* handle incoming values */
+        //console.log(data);
+      };
 
     let unsubscribe = () => {
       /* complete the subscription */
@@ -93,32 +104,28 @@ if (like_button_container.length) {
   //  })
   //}
 
+  var issueId = 'waiting...';
   class LikeButton extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        vote: 'none' };
+        vote: 'waiting...' };
     }
 
     componentDidMount() {
       client.on('message',(data) => {
         console.log('mount')
-        this.setState({vote: data.newVotes})
+        this.setState({vote: issueId})
       })
     }
 
     componentDidUpdate() {
-      client.on('message',(data) => {
-        var data_str = data.payload.data.newVotes
-        var data_str_list = data_str.split(': ')
-        var issue_id_dirty = data_str.split(': ')[0]
-        var vote_code = data_str_list[1].split('%')
-        var contributor = vote_code[0]
-        var issue_id = issue_id_dirty.replace("{", '')
-        var side_dirty = vote_code[1]
-        var side = side_dirty.replace('}', '')
-        this.setState({vote: issue_id})
-      })
+      if (votes.length !== 0) {
+        issueId = votes.pop();
+        this.setState({vote: issueId});
+      } else {
+        //this.setState({vote: issueId})
+      }
     }
 
     render() {
