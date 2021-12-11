@@ -126,7 +126,7 @@ if (like_button_container.length) {
       //  return "none"
       //}
       return e(
-        'button',
+        'output',
         null,
         this.state.vote
       );
