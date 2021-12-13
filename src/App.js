@@ -1,6 +1,49 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useTable, useBlockLayout, useRowSelect } from 'react-table'
+const { createClient } = require('graphql-ws');
+
+const client = createClient({
+  url: 'ws://localhost:3000/graphql',
+  //webSocketImpl: WebSocket
+});
+
+var votes = [];
+
+// subscription
+(async () => {
+  const onNext = (data) => {
+    var data_str = data.data.newVotes;
+    var data_str_list = data_str.split(': ')
+    var issue_id_dirty = data_str.split(': ')[0]
+    var vote_code = data_str_list[1].split('%')
+    var contributor = vote_code[0]
+    var issue_id = issue_id_dirty.replace("{", '')
+    var side_dirty = vote_code[1]
+    var side = side_dirty.replace('}', '')
+    votes.push(issue_id)
+      /* handle incoming values */
+      //console.log(data);
+    };
+
+  let unsubscribe = () => {
+    /* complete the subscription */
+  };
+
+  await new Promise((resolve, reject) => {
+    unsubscribe = client.subscribe(
+      {
+        query: 'subscription { newVotes }',
+      },
+      {
+        next: onNext,
+        error: reject,
+        complete: resolve,
+      },
+    );
+  });
+
+})();
 
 const Styles = styled.div`
   padding: 1rem;
