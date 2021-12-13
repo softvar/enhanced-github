@@ -9,6 +9,8 @@ const {useState} = require("react");
 const { render } =require("react-dom");
 const { useDispatch } = require('react-redux')
 const { createClient } = require('graphql-ws');
+import './index.css';
+import App from './App';
 //const { createClient: redisCreateClient } = require('redis');
 //const WebSocket = require('ws');
 
@@ -22,8 +24,8 @@ const authContributor = require("./authorizedContributor");
 
 var isRepoTurboSrcToken = false;
 
-let like_button_container = document.querySelectorAll('#like_button_container');
-if (like_button_container.length) {
+let rootcontainer = document.querySelectorAll('#rootcontainer');
+if (rootcontainer.length) {
 
   const client = createClient({
     url: 'ws://localhost:3000/graphql',
@@ -140,7 +142,7 @@ if (like_button_container.length) {
     }
   }
 
-const domContainer = document.querySelector('#like_button_container');
+const domContainer = document.querySelector('#rootcontainer');
 render(e(LikeButton), domContainer);
 } else {
 
