@@ -218,47 +218,14 @@ function App() {
 }
 
 function makeRow(id) {
-  let r = Math.floor(Math.random() * 3) + 1
-  if (r === 0) {
     return {
       Id: id,
       pull: issue_id,
-      age: 12,
-      user: 'male',
-      msg: 95,
-      def_1: 'red',
-      def_2: '14/05/2010',
-    }
-  } else if (r === 1) {
-    return {
-      Id: id,
-      pull: issue_id,
-      side: 42,
-      user: 'female',
-      msg: 142,
-      def_1: 'blue',
-      def_2: '30/07/1954',
-    }
-  } else if (r === 2) {
-    return {
-      Id: id,
-      pull: issue_id,
-      side: 35,
-      user: 'male',
-      msg: 176,
-      def_1: 'green',
-      def_2: '04/11/1982',
-    }
-  } else if (r === 3) {
-    return {
-      Id: id,
-      pull: issue_id,
-      side: 35,
-      user: 'male',
-      msg: 176,
-      def_1: 'green',
-      def_2: '04/11/1982',
-    }
+      side: side,
+      user: contributor,
+      msg: 'tbd',
+      def_1: 'tbd',
+      def_2: 'tbd',
   }
 }
 export default App
