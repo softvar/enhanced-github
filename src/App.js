@@ -10,6 +10,10 @@ const client = createClient({
 
 var votes = [];
 
+var contributor
+var issue_id
+var side
+
 // subscription
 (async () => {
   const onNext = (data) => {
@@ -17,10 +21,10 @@ var votes = [];
     var data_str_list = data_str.split(': ')
     var issue_id_dirty = data_str.split(': ')[0]
     var vote_code = data_str_list[1].split('%')
-    var contributor = vote_code[0]
-    var issue_id = issue_id_dirty.replace("{", '')
+    contributor = vote_code[0]
+    issue_id = issue_id_dirty.replace("{", '')
     var side_dirty = vote_code[1]
-    var side = side_dirty.replace('}', '')
+    side = side_dirty.replace('}', '')
     votes.push(issue_id)
       /* handle incoming values */
       //console.log(data);
@@ -218,7 +222,7 @@ function makeRow(id) {
   if (r === 0) {
     return {
       Id: id,
-      pull: 'Billy Bob',
+      pull: issue_id,
       age: 12,
       user: 'male',
       msg: 95,
@@ -228,7 +232,7 @@ function makeRow(id) {
   } else if (r === 1) {
     return {
       Id: id,
-      pull: 'Jenny Jane',
+      pull: issue_id,
       side: 42,
       user: 'female',
       msg: 142,
@@ -238,7 +242,7 @@ function makeRow(id) {
   } else if (r === 2) {
     return {
       Id: id,
-      pull: 'Steve McAlistaire',
+      pull: issue_id,
       side: 35,
       user: 'male',
       msg: 176,
@@ -248,7 +252,7 @@ function makeRow(id) {
   } else if (r === 3) {
     return {
       Id: id,
-      pull: 'Jeff Joe',
+      pull: issue_id,
       side: 35,
       user: 'male',
       msg: 176,
