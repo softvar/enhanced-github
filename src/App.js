@@ -179,28 +179,28 @@ function App() {
         accessor: 'id',
       },
       {
-        Header: 'Name',
-        accessor: 'name',
+        Header: 'Pull',
+        accessor: 'pull',
       },
       {
-        Header: 'age',
-        accessor: 'age',
+        Header: 'side',
+        accessor: 'side',
       },
       {
-        Header: 'gender',
-        accessor: 'gender',
+        Header: 'user',
+        accessor: 'user',
       },
       {
-        Header: 'height',
-        accessor: 'height',
+        Header: 'msg',
+        accessor: 'msg',
       },
       {
-        Header: 'color',
-        accessor: 'col',
+        Header: 'def_1',
+        accessor: 'def_1',
       },
       {
-        Header: 'dob',
-        accessor: 'dob',
+        Header: 'def_2',
+        accessor: 'def_2',
       },
     ],
     []
@@ -218,42 +218,42 @@ function makeRow(id) {
   if (r === 0) {
     return {
       Id: id,
-      name: 'Billy Bob',
+      pull: 'Billy Bob',
       age: 12,
-      gender: 'male',
-      height: 95,
-      col: 'red',
-      dob: '14/05/2010',
+      user: 'male',
+      msg: 95,
+      def_1: 'red',
+      def_2: '14/05/2010',
     }
   } else if (r === 1) {
     return {
       Id: id,
-      name: 'Jenny Jane',
-      age: 42,
-      gender: 'female',
-      height: 142,
-      col: 'blue',
-      dob: '30/07/1954',
+      pull: 'Jenny Jane',
+      side: 42,
+      user: 'female',
+      msg: 142,
+      def_1: 'blue',
+      def_2: '30/07/1954',
     }
   } else if (r === 2) {
     return {
       Id: id,
-      name: 'Steve McAlistaire',
-      age: 35,
-      gender: 'male',
-      height: 176,
-      col: 'green',
-      dob: '04/11/1982',
+      pull: 'Steve McAlistaire',
+      side: 35,
+      user: 'male',
+      msg: 176,
+      def_1: 'green',
+      def_2: '04/11/1982',
     }
   } else if (r === 3) {
     return {
       Id: id,
-      name: 'Jeff Joe',
-      age: 35,
-      gender: 'male',
-      height: 176,
-      col: 'green',
-      dob: '04/11/1982',
+      pull: 'Jeff Joe',
+      side: 35,
+      user: 'male',
+      msg: 176,
+      def_1: 'green',
+      def_2: '04/11/1982',
     }
   }
 }
