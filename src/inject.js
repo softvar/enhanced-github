@@ -143,7 +143,9 @@ if (rootcontainer.length) {
   }
 
 const domContainer = document.querySelector('#rootcontainer');
+const domContainerLikeButton = document.querySelector('#like_button_container');
 render(e(App), domContainer);
+render(e(LikeButton), domContainerLikeButton);
 } else {
 
   async function get_repo_status(repo_id) {
