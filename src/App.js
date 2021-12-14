@@ -12,6 +12,7 @@ var votes = [];
 
 var contributor
 var issue_id
+var last_issue_id
 var side
 
 // subscription
@@ -87,16 +88,15 @@ function Table({ columns }) {
 
   const [data, setData] = React.useState([])
   const timerRunning = React.useRef()
-
-  if (!timerRunning.current) {
-    timerRunning.current = true
-    setInterval(() => {
-      sourceGridData.push(makeRow(sourceGridData.length))
-      let newData = [...sourceGridData]
-
-      setData(newData)
-    }, updateRateMS)
-  }
+  client.on("message", (data) => {
+    if (votes.length !== 0) {
+      issue_id = votes.pop();
+        sourceGridData.push(makeRow('tbd', issue_id, side, contributor))
+        let newData = [...sourceGridData]
+        setData(newData)
+    }
+  })
+    //this.setState({vote: issueId})
 
   const defaultColumn = React.useMemo(
     () => ({
@@ -217,12 +217,12 @@ function App() {
   )
 }
 
-function makeRow(id) {
+function makeRow(id, newIssueId, newSide, newContributor) {
     return {
       Id: id,
-      pull: issue_id,
-      side: side,
-      user: contributor,
+      pull: newIssueId,
+      side: newSide,
+      user: newContributor,
       msg: 'tbd',
       def_1: 'tbd',
       def_2: 'tbd',
