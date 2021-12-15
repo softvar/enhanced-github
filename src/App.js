@@ -15,6 +15,8 @@ var issue_id
 var last_issue_id
 var side
 
+
+(async () => {
 // subscription
   const onNext = (data) => {
     console.log(data)
@@ -34,8 +36,6 @@ var side
   let unsubscribe = () => {
     /* complete the subscription */
   };
-
-(async () => {
   await new Promise((resolve, reject) => {
     unsubscribe = client.subscribe(
       {
@@ -84,23 +84,29 @@ const Styles = styled.div`
 let sourceGridData = []
 const updateRateMS = 10
 
+
 function Table({ columns }) {
   // Use the state and functions returned from useTable to build your UI
 
   const [data, setData] = React.useState([])
-  client.on('message',(data) => {
-    if (data.type !==  'connection_ack') {
-      console.log('on message')
-      while (votes.length !== 0) {
-        var issue_id = votes.pop();
-        //sourceGridData.push(makeRow(sourceGridData.length))
-        sourceGridData.push(makeRow('tbd', issue_id, side, contributor))
-      }
-    }
-    let newData = [...sourceGridData]
+  const timerRunning = React.useRef()
 
-    setData(newData)
-  })
+  if (!timerRunning.current) {
+    timerRunning.current = true
+    setInterval(() => {
+      if (votes.length !== 0) {
+        while (votes.length !== 0) {
+          var issue_id = votes.pop();
+          console.log('new pull: ' + issue_id)
+          //sourceGridData.push(makeRow(sourceGridData.length))
+          sourceGridData.push(makeRow('tbd', issue_id, side, contributor))
+        }
+      }
+
+      let newData = [...sourceGridData]
+      setData(newData)
+    }, updateRateMS)
+  }
 
 
   const defaultColumn = React.useMemo(
