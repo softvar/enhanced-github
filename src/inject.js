@@ -27,68 +27,49 @@ var isRepoTurboSrcToken = false;
 let rootcontainer = document.querySelectorAll('#rootcontainer');
 if (rootcontainer.length) {
 
-  const client = createClient({
-    url: 'ws://localhost:3000/graphql',
-    //webSocketImpl: WebSocket
-  });
+  //const client = createClient({
+  //  url: 'ws://localhost:3000/graphql',
+  //  //webSocketImpl: WebSocket
+  //});
 
 
-  // query
+  //var votes = [];
+
+  //// subscription
   //(async () => {
-  //  const result = await new Promise((resolve, reject) => {
-  //    let result;
-  //    client.subscribe(
+  //  const onNext = (data) => {
+  //    var data_str = data.data.newVotes;
+  //    var data_str_list = data_str.split(': ')
+  //    var issue_id_dirty = data_str.split(': ')[0]
+  //    var vote_code = data_str_list[1].split('%')
+  //    var contributor = vote_code[0]
+  //    var issue_id = issue_id_dirty.replace("{", '')
+  //    var side_dirty = vote_code[1]
+  //    var side = side_dirty.replace('}', '')
+  //    votes.push(issue_id)
+  //      /* handle incoming values */
+  //      //console.log(data);
+  //    };
+
+  //  let unsubscribe = () => {
+  //    /* complete the subscription */
+  //  };
+
+  //  await new Promise((resolve, reject) => {
+  //    unsubscribe = client.subscribe(
   //      {
-  //        query: '{ hello }',
+  //        query: 'subscription { newVotes }',
   //      },
   //      {
-  //        next: (data) => (result = data),
+  //        next: onNext,
   //        error: reject,
-  //        complete: () => resolve(result),
+  //        complete: resolve,
   //      },
   //    );
   //  });
-  //
-  //  expect(result).toEqual({ hello: 'Hello World!' });
-  //})();
-
-  var votes = [];
-
-  // subscription
-  (async () => {
-    const onNext = (data) => {
-      var data_str = data.data.newVotes;
-      var data_str_list = data_str.split(': ')
-      var issue_id_dirty = data_str.split(': ')[0]
-      var vote_code = data_str_list[1].split('%')
-      var contributor = vote_code[0]
-      var issue_id = issue_id_dirty.replace("{", '')
-      var side_dirty = vote_code[1]
-      var side = side_dirty.replace('}', '')
-      votes.push(issue_id)
-        /* handle incoming values */
-        //console.log(data);
-      };
-
-    let unsubscribe = () => {
-      /* complete the subscription */
-    };
-
-    await new Promise((resolve, reject) => {
-      unsubscribe = client.subscribe(
-        {
-          query: 'subscription { newVotes }',
-        },
-        {
-          next: onNext,
-          error: reject,
-          complete: resolve,
-        },
-      );
-    });
 
     //expect(onNext).toBeCalledTimes(5); // we say "Hi" in 5 languages
-  })();
+  //})();
 
 //if (window.opener && window.opener !== window) {
   // you are in a popup
@@ -143,9 +124,9 @@ if (rootcontainer.length) {
   }
 
 const domContainer = document.querySelector('#rootcontainer');
-const domContainerLikeButton = document.querySelector('#like_button_container');
+//const domContainerLikeButton = document.querySelector('#like_button_container');
 render(e(App), domContainer);
-render(e(LikeButton), domContainerLikeButton);
+//render(e(LikeButton), domContainerLikeButton);
 } else {
 
   async function get_repo_status(repo_id) {

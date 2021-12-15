@@ -16,8 +16,8 @@ var last_issue_id
 var side
 
 // subscription
-(async () => {
   const onNext = (data) => {
+    console.log(data)
     var data_str = data.data.newVotes;
     var data_str_list = data_str.split(': ')
     var issue_id_dirty = data_str.split(': ')[0]
@@ -27,14 +27,15 @@ var side
     var side_dirty = vote_code[1]
     side = side_dirty.replace('}', '')
     votes.push(issue_id)
-      /* handle incoming values */
-      //console.log(data);
+    /* handle incoming values */
+    //console.log(data);
     };
 
   let unsubscribe = () => {
     /* complete the subscription */
   };
 
+(async () => {
   await new Promise((resolve, reject) => {
     unsubscribe = client.subscribe(
       {
@@ -81,22 +82,26 @@ const Styles = styled.div`
 `
 
 let sourceGridData = []
-const updateRateMS = 1000
+const updateRateMS = 10
 
 function Table({ columns }) {
   // Use the state and functions returned from useTable to build your UI
 
   const [data, setData] = React.useState([])
-  const timerRunning = React.useRef()
-  client.on("message", (data) => {
-    if (votes.length !== 0) {
-      issue_id = votes.pop();
+  client.on('message',(data) => {
+    if (data.type !==  'connection_ack') {
+      console.log('on message')
+      while (votes.length !== 0) {
+        var issue_id = votes.pop();
+        //sourceGridData.push(makeRow(sourceGridData.length))
         sourceGridData.push(makeRow('tbd', issue_id, side, contributor))
-        let newData = [...sourceGridData]
-        setData(newData)
+      }
     }
+    let newData = [...sourceGridData]
+
+    setData(newData)
   })
-    //this.setState({vote: issueId})
+
 
   const defaultColumn = React.useMemo(
     () => ({
