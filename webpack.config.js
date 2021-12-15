@@ -82,9 +82,19 @@ module.exports = function(_env, argv) {
         {
           test: /\.js$/,
           exclude: /node_modules|dist/,
-          use: {
-            loader: 'babel-loader'
-          }
+          use: [
+            {
+              loader: 'babel-loader',
+              options: {
+                presets: ['react-app'],
+                plugins: ['@babel/plugin-syntax-jsx', 'styled-components']
+              }
+            }
+          ]
+        },
+        {
+          test: /\.css$/i,
+          use: ["style-loader", "css-loader"],
         }
       ]
     },
