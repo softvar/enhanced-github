@@ -99,7 +99,7 @@ function Table({ columns }) {
           var issue_id = votes.pop();
           console.log('new pull: ' + issue_id)
           //sourceGridData.push(makeRow(sourceGridData.length))
-          sourceGridData.push(makeRow('tbd', issue_id, side, contributor))
+          sourceGridData.push(makeRow('open', issue_id, side, contributor))
         }
       }
 
@@ -190,11 +190,11 @@ function App() {
   const columns = React.useMemo(
     () => [
       {
-        Header: 'ID',
-        accessor: 'id',
+        Header: 'status',
+        accessor: 'status',
       },
       {
-        Header: 'Pull',
+        Header: 'pull',
         accessor: 'pull',
       },
       {
@@ -208,15 +208,7 @@ function App() {
       {
         Header: 'msg',
         accessor: 'msg',
-      },
-      {
-        Header: 'def_1',
-        accessor: 'def_1',
-      },
-      {
-        Header: 'def_2',
-        accessor: 'def_2',
-      },
+      }
     ],
     []
   )
@@ -228,15 +220,13 @@ function App() {
   )
 }
 
-function makeRow(id, newIssueId, newSide, newContributor) {
+function makeRow(newStatus, newIssueId, newSide, newContributor) {
     return {
-      Id: id,
+      status: newStatus,
       pull: newIssueId,
       side: newSide,
       user: newContributor,
       msg: 'tbd',
-      def_1: 'tbd',
-      def_2: 'tbd',
   }
 }
 export default App
