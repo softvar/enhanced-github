@@ -101,10 +101,10 @@ function Table({ columns }) {
           //sourceGridData.push(makeRow(sourceGridData.length))
           sourceGridData.push(makeRow('open', issue_id, side, contributor))
         }
+        let newData = [...sourceGridData]
+        setData(newData)
       }
 
-      let newData = [...sourceGridData]
-      setData(newData)
     }, updateRateMS)
   }
 
@@ -229,4 +229,5 @@ function makeRow(newStatus, newIssueId, newSide, newContributor) {
       msg: 'tbd',
   }
 }
+
 export default App
