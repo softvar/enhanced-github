@@ -45,3 +45,7 @@ This browser extension will automatically pick this valid access token and Bingo
 4. Enable developer mode
 5. Click on load unpacked extension and select the generated folder.
 6. [Admin Access Only] - run `yarn build` for generating zip file to be uploaded on _Chrome Web Store_, _Firefox Add-ons_, and _Microsoft Edge Addons_.
+
+### Pitfalls
+
+After the backend has been running for awhile, it appears the redis client loses connection with the redis server. As a result, the schema resolver won't unlock from brop of the newvoteschemalock.
