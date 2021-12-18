@@ -216,10 +216,6 @@ render(e(App), domContainer);
               post(issue_id, contributor_id, side);
             }
 
-            if (domUtil.hasClass(e.target, 'js-file-download')) {
-              domUtil.selectText();
-            }
-
           },
           false
         );
