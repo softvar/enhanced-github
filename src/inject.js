@@ -155,7 +155,7 @@ render(e(App), domContainer);
       ).set('accept', 'json')
   }
 
-  function post(issue_id, contributor_id, side) {
+  function post(owner, repo, issue_id, contributor_id, side) {
     superagent
       .post('http://localhost:4000/graphql')
       .send(
@@ -164,7 +164,7 @@ render(e(App), domContainer);
         //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
         //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
         //{ query: `{ getVoteEverything }` }
-        { query: `{ setVote(pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }` }
+        { query: `{ setVote(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }` }
         //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
       ) // sends a JSON post body
       .set('accept', 'json')
@@ -213,7 +213,8 @@ render(e(App), domContainer);
               const issue_id = domUtil.getId(e.target, 'issue_id');
               const contributor_id = domUtil.getId(e.target, 'contributor_id');
 
-              post(issue_id, contributor_id, side);
+              const path = commonUtil.getUsernameWithReponameFromGithubURL();
+              post(path.user, path.repo, issue_id, contributor_id, side);
             }
 
           },
