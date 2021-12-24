@@ -147,7 +147,7 @@ render(e(App), domContainer);
       //})
   }
 
-  async function get_authorized_contributor(repo_id, contributor_id) {
+  async function get_authorized_contributor(contributor_id, repo_id) {
       return await superagent
       .post('http://localhost:4000/graphql')
       .send(
