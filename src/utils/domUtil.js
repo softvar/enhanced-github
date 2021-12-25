@@ -99,7 +99,7 @@ const domUtil = {
     }, 0);
   },
   addCopyAndDownloadButton: function() {
-    const btnGroup = document.querySelectorAll('.BtnGroup:not(.d-md-none)')[0];
+    const btnGroup = document.querySelectorAll('.BtnGroup:not(.d-md-none)')[1];
 
     if (btnGroup && window.location.href && window.location.href.indexOf('blob/' + commonUtil.getBranch()) > -1) {
       // instantiate copy to clipborad

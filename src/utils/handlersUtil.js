@@ -19,7 +19,7 @@ const handlersUtil = {
         </svg>
       </a>`;
 
-    const btnGroup = document.querySelectorAll('.BtnGroup:not(.d-md-none)')[0];
+    const btnGroup = document.querySelectorAll('.BtnGroup:not(.d-md-none)')[1];
 
     btnGroup.insertAdjacentHTML('beforeend', btnGroupHtml);
   },

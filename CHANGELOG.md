@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## **v5.0.11** - 2021-12-25
+
+- Fix selector path as per new UI design for showing copy file and download options at the correct location.
+
 ## **v5.0.11** - 22nd April, 2021
 
 - Fix [93](https://github.com/softvar/enhanced-github/issues/93) i.e. repo size not appearing properly because of Readme TOC feature.
