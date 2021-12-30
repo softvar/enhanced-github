@@ -278,13 +278,15 @@ render(e(App), domContainer);
             //if (e.target === "button#myBtn") {
               if (e.target.id === "myBtn") {
                 console.log('modal')
+                modal.style.display = "block";
               } else {
                 console.log('not modal')
+                modal.style.display = "none";
               }
-              console.log(e.isTrusted)
-              console.log(e.altKey)
-              console.log(e.target)
-              console.log(e)
+              //console.log(e.isTrusted)
+              //console.log(e.altKey)
+              //console.log(e.target)
+              //console.log(e)
             //} else {
             //  console.log('not clicked')
             //}
