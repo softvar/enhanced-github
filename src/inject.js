@@ -200,7 +200,7 @@ render(e(App), domContainer);
               var issue_id = containerItems[i].getAttribute('id');
 
               var html = createButtonHtml(issue_id, contributor_id, "voteYes")
-              containerItems[i].querySelector('.flex-shrink-0').insertAdjacentHTML('beforeend', html);
+              containerItems[i].querySelector('.flex-shrink-0').insertAdjacentHTML('beforeEnd', html);
               //containerItems[i].querySelector('.flex-shrink-0').insertAdjacentHTML('beforeend', voteYesHtml + voteNoHtml);
               //containerItems[i].querySelector('.flex-shrink-0').insertAdjacentHTML('beforebegin', voteNoHtml);
         }
@@ -290,7 +290,9 @@ function createButtonHtml(issue_id, contributor_id, side) {
   return  `
     <!-- Trigger/Open The Modal -->
 
-    <button id="myBtn">T</button>
+    <button id="myBtn" style="height: 25px; width: 20px; padding: 0px;">
+      <p>T</p>
+    </button>
     <!-- The Modal -->
     <style>
       body {font-family: Arial, Helvetica, sans-serif;}
