@@ -74,7 +74,7 @@ if (rootcontainer.length) {
 //if (window.opener && window.opener !== window) {
   // you are in a popup
   // Button react component
-  //const e = React.createElement;
+  const e = React.createElement;
 
   //function like() {
   //  const dispatch = useDispatch();
@@ -216,40 +216,41 @@ render(e(App), domContainer);
         //var span = document.getElementsByClassName("close")[0];
 
         // When the user clicks the button, open the modal
+        class LikeButton extends React.Component {
+          constructor(props) {
+            super(props);
+            this.state = { liked: false };
+          }
 
+          render() {
+            if (this.state.liked) {
+              return 'You liked this.';
+            }
+
+            return ce(
+              'button',
+              { onClick: () => this.setState({ liked: true }) },
+              'Like'
+            );
+          }
+        }
+
+        const ce = React.createElement;
         document.addEventListener(
           'click',
-          async function(e) {
+          async function(event) {
 
             // graphql poste vote.
             // maybe gets vote side from chrome.storage that onPathContentFetched saved.
             // const vote = chrome.storage("vote")
             // if status is good, continue.
 
-            //console.log(e.target)
+            if (event.path[1].id === "like_button_container") {
+              console.log("like button container")
+            }
             //if (e.target === "button#myBtn") {
-              if (e.target.id === "myBtn") {
+              if (event.target.id === "myBtn" || event.path[1].id === "like_button_container") {
 
-                const ce = React.createElement;
-
-                class LikeButton extends React.Component {
-                  constructor(props) {
-                    super(props);
-                    this.state = { liked: false };
-                  }
-
-                  render() {
-                    if (this.state.liked) {
-                      return 'You liked this.';
-                    }
-
-                    return ce(
-                      'button',
-                      { onClick: () => this.setState({ liked: true }) },
-                      'Like'
-                    );
-                  }
-                }
 
                 modal.style.display = "block";
 
@@ -261,14 +262,14 @@ render(e(App), domContainer);
               }
 
               var side = "undefined";
-              if (domUtil.hasId(e.target, 'voteYes')) {
+              if (domUtil.hasId(event.target, 'voteYes')) {
                 side = "yes";
-              } else if (domUtil.hasId(e.target, 'voteNo')) {
+              } else if (domUtil.hasId(event.target, 'voteNo')) {
                 side = "no";
               }
               if (side !== "undefined" ) {
-                const issue_id = domUtil.getId(e.target, 'issue_id');
-                const contributor_id = domUtil.getId(e.target, 'contributor_id');
+                const issue_id = domUtil.getId(event.target, 'issue_id');
+                const contributor_id = domUtil.getId(event.target, 'contributor_id');
 
                 const path = commonUtil.getUsernameWithReponameFromGithubURL();
                 post(path.user, path.repo, issue_id, contributor_id, side);
