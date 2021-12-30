@@ -290,9 +290,7 @@ function createButtonHtml(issue_id, contributor_id, side) {
   return  `
     <!-- Trigger/Open The Modal -->
 
-    <button id="myBtn" style="height: 25px; width: 20px; padding: 0px;">
-      <p>T</p>
-    </button>
+    <button id="myBtn" style="height: 20px; width: 16px; padding: 0px;">T</button>
     <!-- The Modal -->
     <style>
       body {font-family: Arial, Helvetica, sans-serif;}
