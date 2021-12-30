@@ -74,7 +74,7 @@ if (rootcontainer.length) {
 //if (window.opener && window.opener !== window) {
   // you are in a popup
   // Button react component
-  const e = React.createElement;
+  //const e = React.createElement;
 
   //function like() {
   //  const dispatch = useDispatch();
@@ -88,40 +88,6 @@ if (rootcontainer.length) {
   //}
 
   var issueId = 'waiting...';
-  class LikeButton extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        vote: 'waiting...' };
-    }
-
-    componentDidMount() {
-      client.on('message',(data) => {
-        console.log('mount')
-        this.setState({vote: issueId})
-      })
-    }
-
-    componentDidUpdate() {
-      if (votes.length !== 0) {
-        issueId = votes.pop();
-        this.setState({vote: issueId});
-      } else {
-        //this.setState({vote: issueId})
-      }
-    }
-
-    render() {
-      //if (this.state.vote) {
-      //  return "none"
-      //}
-      return e(
-        'output',
-        null,
-        this.state.vote
-      );
-    }
-  }
 
 const domContainer = document.querySelector('#rootcontainer');
 //const domContainerLikeButton = document.querySelector('#like_button_container');
@@ -230,6 +196,8 @@ render(e(App), domContainer);
 
           <!-- Modal content -->
           <div class="modal-content">
+            <div id="like_button_container">
+            </div>
             <p>Some text in the Modal..</p>
           </div>
 
@@ -261,7 +229,33 @@ render(e(App), domContainer);
             //console.log(e.target)
             //if (e.target === "button#myBtn") {
               if (e.target.id === "myBtn") {
+
+                const ce = React.createElement;
+
+                class LikeButton extends React.Component {
+                  constructor(props) {
+                    super(props);
+                    this.state = { liked: false };
+                  }
+
+                  render() {
+                    if (this.state.liked) {
+                      return 'You liked this.';
+                    }
+
+                    return ce(
+                      'button',
+                      { onClick: () => this.setState({ liked: true }) },
+                      'Like'
+                    );
+                  }
+                }
+
                 modal.style.display = "block";
+
+                const domContainerLikeButton = document.querySelector('#like_button_container');
+                render(ce(LikeButton), domContainerLikeButton);
+
               } else {
                 modal.style.display = "none";
               }
