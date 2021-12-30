@@ -275,9 +275,21 @@ render(e(App), domContainer);
             // if status is good, continue.
 
             //console.log(e.target)
-            console.log(e.target)
+            //if (e.target === "button#myBtn") {
+              if (e.target.id === "myBtn") {
+                console.log('modal')
+              } else {
+                console.log('not modal')
+              }
+              console.log(e.isTrusted)
+              console.log(e.altKey)
+              console.log(e.target)
+              console.log(e)
+            //} else {
+            //  console.log('not clicked')
+            //}
                 //btn.onclick = function() {
-                  modal.style.display = "block";
+                  //modal.style.display = "block";
                 //}
 
                 // When the user clicks on <span> (x), close the modal
