@@ -222,22 +222,7 @@ render(e(App), domContainer);
             margin: auto;
             padding: 20px;
             border: 1px solid #888;
-            width: 80%;
-          }
-
-          /* The Close Button */
-          .close {
-            color: #aaaaaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-          }
-
-          .close:hover,
-          .close:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
+            width: 33%;
           }
         </style>
         <div id="myModal" class="modal">
@@ -245,7 +230,6 @@ render(e(App), domContainer);
 
           <!-- Modal content -->
           <div class="modal-content">
-            <span class="close">&times;</span>
             <p>Some text in the Modal..</p>
           </div>
 
@@ -261,7 +245,7 @@ render(e(App), domContainer);
         var btn = document.getElementById("myBtn");
 
         // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
+        //var span = document.getElementsByClassName("close")[0];
 
         // When the user clicks the button, open the modal
 
