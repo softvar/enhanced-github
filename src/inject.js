@@ -24,6 +24,11 @@ const authContributor = require("./authorizedContributor");
 
 var isRepoTurboSrcToken = false;
 
+var repo_id
+var issue_id;
+var side
+var contributor_id;
+
 let rootcontainer = document.querySelectorAll('#rootcontainer');
 if (rootcontainer.length) {
 
@@ -143,13 +148,30 @@ render(e(App), domContainer);
     window.enhancedGithub = {
       config: {}
     };
+    const getStorageData = key =>
+      new Promise((resolve, reject) =>
+        chrome.storage.sync.get(key, result =>
+          chrome.runtime.lastError
+            ? reject(Error(chrome.runtime.lastError.message))
+            : resolve(result)
+        )
+      )
+
+    const setStorageData = data =>
+      new Promise((resolve, reject) =>
+        chrome.storage.sync.set(data, () =>
+          chrome.runtime.lastError
+            ? reject(Error(chrome.runtime.lastError.message))
+            : resolve()
+        )
+      )
 
     const path = commonUtil.getUsernameWithReponameFromGithubURL();
-    const repo_id = `${path.user}/${path.repo}`;
+    repo_id = `${path.user}/${path.repo}`;
 
     const res_get_repo_status = await get_repo_status(repo_id);
     const isRepoTurboSrcToken = res_get_repo_status['body']['data']['getRepoStatus'];
-    const contributor_id =  authContributor.getAuthContributor();
+    contributor_id =  authContributor.getAuthContributor();
     const res_get_authorized_contributor =  await get_authorized_contributor(contributor_id, repo_id);
     const isAuthorizedContributor = res_get_authorized_contributor['body']['data']['getAuthorizedContributor'];
 
@@ -166,7 +188,8 @@ render(e(App), domContainer);
 
           render() {
             if (this.state.liked) {
-              return 'You liked this.';
+              //return turboBtnData['turbo-btn-data']['issue_id']
+              return issue_id
             }
 
             return ce(
@@ -195,12 +218,25 @@ render(e(App), domContainer);
         }
 
         // Get contributor_id from chain web wallet extension
-        const contributor_id =  authContributor.getAuthContributor();
+        contributor_id =  authContributor.getAuthContributor();
         for (var i = startIndex; i < containerItems.length; i++) {
-              var issue_id = containerItems[i].getAttribute('id');
+              issue_id = containerItems[i].getAttribute('id');
 
-              var html = createButtonHtml(issue_id, contributor_id, "yes")
+              side = "yes"
+              var html = createButtonHtml(issue_id, contributor_id, side)
               containerItems[i].querySelector('.flex-shrink-0').insertAdjacentHTML('beforeEnd', html);
+
+              (async () => {
+                await setStorageData(
+                  {
+                    'turbo-btn-data': {
+                      'issue_id': `${issue_id}`,
+                      'side': `${side}`,
+                      'contributor': `${contributor_id}`
+                     }
+                  }
+                )
+              })()
               //containerItems[i].querySelector('.flex-shrink-0').insertAdjacentHTML('beforeend', voteYesHtml + voteNoHtml);
               //containerItems[i].querySelector('.flex-shrink-0').insertAdjacentHTML('beforebegin', voteNoHtml);
         }
@@ -219,6 +255,9 @@ render(e(App), domContainer);
         document.addEventListener(
           'click',
           async function(event) {
+
+          //var turboBtnData = await getStorageData('turbo-btn-data')
+          //console.log(turboBtnData['turbo-btn-data']['issue_id'])
 
             // graphql poste vote.
             // maybe gets vote side from chrome.storage that onPathContentFetched saved.
