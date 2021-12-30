@@ -261,47 +261,24 @@ render(e(App), domContainer);
             //console.log(e.target)
             //if (e.target === "button#myBtn") {
               if (e.target.id === "myBtn") {
-                console.log('modal')
                 modal.style.display = "block";
               } else {
-                console.log('not modal')
                 modal.style.display = "none";
               }
-              //console.log(e.isTrusted)
-              //console.log(e.altKey)
-              //console.log(e.target)
-              //console.log(e)
-            //} else {
-            //  console.log('not clicked')
-            //}
-                //btn.onclick = function() {
-                  //modal.style.display = "block";
-                //}
 
-                // When the user clicks on <span> (x), close the modal
-                //span.onclick = function() {
-                //  modal.style.display = "none";
-                //}
+              var side = "undefined";
+              if (domUtil.hasId(e.target, 'voteYes')) {
+                side = "yes";
+              } else if (domUtil.hasId(e.target, 'voteNo')) {
+                side = "no";
+              }
+              if (side !== "undefined" ) {
+                const issue_id = domUtil.getId(e.target, 'issue_id');
+                const contributor_id = domUtil.getId(e.target, 'contributor_id');
 
-                //// When the user clicks anywhere outside of the modal, close it
-                //window.onclick = function(event) {
-                //  if (event.target == modal) {
-                //    modal.style.display = "none";
-                //  }
-                //}
-            //var side = "undefined";
-            //if (domUtil.hasId(e.target, 'voteYes')) {
-            //  side = "yes";
-            //} else if (domUtil.hasId(e.target, 'voteNo')) {
-            //  side = "no";
-            //}
-            //if (side !== "undefined" ) {
-            //  const issue_id = domUtil.getId(e.target, 'issue_id');
-            //  const contributor_id = domUtil.getId(e.target, 'contributor_id');
-
-            //  const path = commonUtil.getUsernameWithReponameFromGithubURL();
-            //  post(path.user, path.repo, issue_id, contributor_id, side);
-            //}
+                const path = commonUtil.getUsernameWithReponameFromGithubURL();
+                post(path.user, path.repo, issue_id, contributor_id, side);
+              }
 
           },
           false
@@ -318,8 +295,7 @@ render(e(App), domContainer);
                 if (storedData) {
                   storageUtil.set(CommonEnum.TOKEN, storedData['x-github-token']);
                 }
-                //domUtil.addRepoData();
-
+                domUtil.addRepoData();
               }
             );
         //}
