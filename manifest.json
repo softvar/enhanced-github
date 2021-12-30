@@ -21,6 +21,7 @@
   "content_scripts": [
     {
       "matches": ["*://*.github.com/*"],
+      "css": ["./modal.css"],
       "js": ["src/inject.js"]
     }
   ],
