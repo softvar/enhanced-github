@@ -199,7 +199,7 @@ render(e(App), domContainer);
         for (var i = startIndex; i < containerItems.length; i++) {
               var issue_id = containerItems[i].getAttribute('id');
 
-              var html = createButtonHtml(issue_id, contributor_id, "voteYes")
+              var html = createButtonHtml(issue_id, contributor_id, "yes")
               containerItems[i].querySelector('.flex-shrink-0').insertAdjacentHTML('beforeEnd', html);
               //containerItems[i].querySelector('.flex-shrink-0').insertAdjacentHTML('beforeend', voteYesHtml + voteNoHtml);
               //containerItems[i].querySelector('.flex-shrink-0').insertAdjacentHTML('beforebegin', voteNoHtml);
@@ -320,7 +320,7 @@ function createButtonHtml(issue_id, contributor_id, side) {
       }
     </style>
     <div id="myModal" class="modal">
-      <a ref data-vote="{issue_id: ${issue_id}, side: ${voteWay}, contributor: ${contributor_id}}
+      <a ref data-vote="{issue_id: ${issue_id}, side: ${voteWay}, contributor: ${contributor_id}}"></a>
 
       <!-- Modal content -->
       <div class="modal-content">

@@ -1,6 +1,10 @@
 const commonUtil = require('./commonUtil');
 const authContributor =  require("../authorizedContributor")
 
+function createButtonHtml(issue_id, contributor_id, side) {
+  return `deprecated see inject function by same name`
+}
+
 const handlersUtil = {
   onPathContentFetchedForBtns: data => {
 
