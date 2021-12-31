@@ -250,6 +250,43 @@ render(e(App), domContainer);
             // const vote = chrome.storage("vote")
             // if status is good, continue.
            const ce = React.createElement;
+           class LikeButton extends React.Component {
+             constructor(props) {
+               super(props);
+               this.state = { liked: false };
+             }
+
+             render() {
+               if (this.state.liked) {
+                 //const voteData = votes.closest("[data-index]")
+                 const voteString = event.target.attributes.value.textContent//.outerHTML)
+
+                 const voteJSON = JSON.parse(voteString)
+                 console.log(voteJSON)
+                 console.log(user)
+                 console.log(repo)
+                 //console.log(JSON.parse(voteJSON).issue_id)
+
+                 //return turboBtnData['turbo-btn-data']['issue_id']
+                   post(user, repo, voteJSON.issue_id, voteJSON.contributor_id, voteJSON.side);
+                   return "hello"
+                   //return `${voteData.issue_id}`
+                   //return `
+                   //user: ${user}
+                   //repo: ${repo}
+                   //issue_id: ${voteData.issue_id}
+                   //contributor: ${voteData.contributor_id}
+                   //side: ${voteData.side}
+                   //`
+               }
+
+               return ce(
+                 'button',
+                 { onClick: () => this.setState({ liked: true }) },
+                 'Like'
+               );
+             }
+           }
 
             if (event.path[1].id === "like_button_container") {
               console.log("like button container")
@@ -262,35 +299,6 @@ render(e(App), domContainer);
 
                 const domContainerLikeButton = document.querySelector('#like_button_container');
 
-           class LikeButton extends React.Component {
-             constructor(props) {
-               super(props);
-               this.state = { liked: false };
-             }
-
-             render() {
-               if (this.state.liked) {
-                 //const voteData = votes.closest("[data-index]")
-                 const voteData = event.target.attributes.value.textContent//.outerHTML)
-                 //console.log(virtualDoc)
-
-                 //return turboBtnData['turbo-btn-data']['issue_id']
-                   post(user, repo, voteData.issue_id, voteData.contributor_id, voteData.side);
-                   return `
-                   repo: ${repo}
-                   issue_id: ${issue_id}
-                   contributor: ${contributor_id}
-                   side: ${side}
-                   `
-               }
-
-               return ce(
-                 'button',
-                 { onClick: () => this.setState({ liked: true }) },
-                 'Like'
-               );
-             }
-           }
                 render(ce(LikeButton), domContainerLikeButton);
 
 
@@ -347,7 +355,7 @@ function createButtonHtml(index, issue_id, contributor_id, side) {
   return  `
     <!-- Trigger/Open The Modal -->
 
-    <button id="myBtn" style="height: 20px; width: 16px; padding: 0px;" data value="{index: ${index}, issue_id: ${issue_id},side: ${side}, contributor: ${contributor_id}}"
+    <button id="myBtn" style="height: 20px; width: 16px; padding: 0px;" data value='{"index": "${index}", "issue_id": "${issue_id}", "side": "${side}", "contributor": "${contributor_id}"}'
     >T</button>
     <!-- The Modal -->
     <style>
