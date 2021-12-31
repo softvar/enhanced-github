@@ -24,6 +24,9 @@ const authContributor = require("./authorizedContributor");
 
 var isRepoTurboSrcToken = false;
 
+var user;
+var repo;
+// This is the github convention of $owner/$repo.
 var repo_id
 var issue_id;
 var side
@@ -168,6 +171,8 @@ render(e(App), domContainer);
 
     const path = commonUtil.getUsernameWithReponameFromGithubURL();
     repo_id = `${path.user}/${path.repo}`;
+    repo = path.repo;
+    user = path.user;
 
     const res_get_repo_status = await get_repo_status(repo_id);
     const isRepoTurboSrcToken = res_get_repo_status['body']['data']['getRepoStatus'];
@@ -189,7 +194,13 @@ render(e(App), domContainer);
           render() {
             if (this.state.liked) {
               //return turboBtnData['turbo-btn-data']['issue_id']
-              return issue_id
+                post(user, repo, issue_id, contributor_id, side);
+                return `
+                repo: ${repo}
+                issue_id: ${issue_id}
+                contributor: ${contributor_id}
+                side: ${side}
+                `
             }
 
             return ce(
@@ -227,6 +238,7 @@ render(e(App), domContainer);
               containerItems[i].querySelector('.flex-shrink-0').insertAdjacentHTML('beforeEnd', html);
 
               (async () => {
+                // not needed but keeping for an example.
                 await setStorageData(
                   {
                     'turbo-btn-data': {
@@ -280,19 +292,19 @@ render(e(App), domContainer);
                 modal.style.display = "none";
               }
 
-              var side = "undefined";
-              if (domUtil.hasId(event.target, 'voteYes')) {
-                side = "yes";
-              } else if (domUtil.hasId(event.target, 'voteNo')) {
-                side = "no";
-              }
-              if (side !== "undefined" ) {
-                const issue_id = domUtil.getId(event.target, 'issue_id');
-                const contributor_id = domUtil.getId(event.target, 'contributor_id');
+              //var side = "undefined";
+              //if (domUtil.hasId(event.target, 'voteYes')) {
+              //  side = "yes";
+              //} else if (domUtil.hasId(event.target, 'voteNo')) {
+              //  side = "no";
+              //}
+              //if (side !== "undefined" ) {
+              //  const issue_id = domUtil.getId(event.target, 'issue_id');
+              //  const contributor_id = domUtil.getId(event.target, 'contributor_id');
 
-                const path = commonUtil.getUsernameWithReponameFromGithubURL();
-                post(path.user, path.repo, issue_id, contributor_id, side);
-              }
+              //  const path = commonUtil.getUsernameWithReponameFromGithubURL();
+              //  post(path.user, path.repo, issue_id, contributor_id, side);
+              //}
 
           },
           false
