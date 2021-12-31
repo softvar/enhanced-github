@@ -181,11 +181,18 @@ render(e(App), domContainer);
 
         // Get contributor_id from chain web wallet extension
         contributor_id =  authContributor.getAuthContributor();
-        var index = 0;
+        var html
         for (var i = startIndex; i < containerItems.length; i++) {
               issue_id = containerItems[i].getAttribute('id');
               side = "yes"
-              var html = createButtonHtml(index++, issue_id, contributor_id, side)
+              var btnHtml = createButtonHtml(i, issue_id, contributor_id, side)
+              var modalHtml = createModal()
+              if (i < 1) {
+                console.log(i)
+                html = btnHtml + modalHtml
+              } else {
+                html = btnHtml
+              }
               containerItems[i].querySelector('.flex-shrink-0').insertAdjacentHTML('beforeEnd', html);
 
               (async () => {
@@ -244,8 +251,9 @@ render(e(App), domContainer);
                 const outerBtnHtml = parser.parseFromString(htmlString, 'text/html')
 
                 const currentModal = outerBtnHtml.getElementById('myModal')
+                // There is only one modal that all the buttons share, so all but 1 button don't have a modal in outerHTML.
                 console.log(currentModal)
-                console.log(modal)
+                //console.log(modal)
 
                 const currentLikeButton = outerBtnHtml.getElementById('myModal')
 
@@ -293,20 +301,8 @@ render(e(App), domContainer);
   })();
 }
 
-function createButtonHtml(index, issue_id, contributor_id, side) {
-  var voteWay = ''
-  if (side === "yes") {
-    voteWay = 'voteYes'
-  } else (
-    voteWay = 'voteNo'
-  )
-
-  return  `
-    <!-- Trigger/Open The Modal -->
-
-    <button id="myBtn" style="height: 20px; width: 16px; padding: 0px;" data value='{"index": "${index}", "issue_id": "${issue_id}", "side": "${side}", "contributor_id": "${contributor_id}"}'
-    >T</button>
-    <!-- The Modal -->
+function createModal() {
+    return `<!-- The Modal -->
     <style>
       body {font-family: Arial, Helvetica, sans-serif;}
 
@@ -338,12 +334,28 @@ function createButtonHtml(index, issue_id, contributor_id, side) {
 
       <!-- Modal content -->
       <div class="modal-content">
-        <div id="like_button_container" data value='{"index": "${index}", "issue_id": "${issue_id}", "side": "${side}", "contributor_id": "${contributor_id}"}'>
+        <div id="like_button_container">
 
         </div>
         <p>Some text in the Modal..</p>
       </div>
 
     </div>
+    `
+}
+
+function createButtonHtml(index, issue_id, contributor_id, side) {
+  var voteWay = ''
+  if (side === "yes") {
+    voteWay = 'voteYes'
+  } else (
+    voteWay = 'voteNo'
+  )
+
+  return  `
+    <!-- Trigger/Open The Modal -->
+
+    <button id="myBtn" style="height: 20px; width: 16px; padding: 0px;" data value='{"index": "${index}", "issue_id": "${issue_id}", "side": "${side}", "contributor_id": "${contributor_id}"}'
+    >T</button>
     `
 }
