@@ -40,9 +40,9 @@ const e = React.createElement;
 var issueId = 'waiting...';
 
 const domContainer = document.querySelector('#rootcontainer');
-//const domContainerLikeButton = document.querySelector('#like_button_container');
+//const domContainerVoteButton = document.querySelector('#yes_vote_button');
 render(e(App), domContainer);
-//render(e(LikeButton), domContainerLikeButton);
+//render(e(VoteButton), domContainerVoteButton);
 } else {
 
   async function get_repo_status(repo_id) {
@@ -129,14 +129,15 @@ render(e(App), domContainer);
       if (document.readyState === 'complete'  & isRepoTurboSrcToken === true & isAuthorizedContributor === true) {
         // When the user clicks the button, open the modal
         const ce = React.createElement;
-        class LikeButton extends React.Component {
+        var sideText;
+        class VoteButton extends React.Component {
           constructor(props) {
             super(props);
-            this.state = { liked: false, lastIssueId: "" };
+            this.state = { voted: false, lastIssueId: "", side: sideText };
           }
 
           render() {
-            if (this.state.liked === true || issue_id === this.state.lastIssueId) {
+            if (this.state.voted === true || issue_id === this.state.lastIssueId) {
               //const voteData = votes.closest("[data-index]")
               //console.log(JSON.parse(voteJSON).issue_id)
 
@@ -146,19 +147,19 @@ render(e(App), domContainer);
               repo: ${repo}
               issue_id: ${issue_id}
               contributor: ${contributor_id}
-              side: ${side}
+              side: ${this.state.side}
               `
             }
 
             return ce(
               'button',
               { onClick: () => {
-                this.setState({ liked: true, lastIssueId: issue_id })
-                post(user, repo, issue_id, contributor_id, side);
-                this.setState({ liked: false, lastIssueId: issue_id })
+                this.setState({ voted: true, lastIssueId: issue_id, side: this.state.side })
+                post(user, repo, issue_id, contributor_id, this.state.side);
+                this.setState({ voted: false, lastIssueId: issue_id, side: this.state.side })
               }
               },
-              'Like'
+              sideText
             );
           }
         }
@@ -184,7 +185,7 @@ render(e(App), domContainer);
         var html
         for (var i = startIndex; i < containerItems.length; i++) {
               issue_id = containerItems[i].getAttribute('id');
-              side = "yes"
+              side = "NA"
               var btnHtml = createButtonHtml(i, issue_id, contributor_id, side)
               var modalHtml = createModal()
               if (i < 1) {
@@ -255,7 +256,7 @@ render(e(App), domContainer);
                 console.log(currentModal)
                 //console.log(modal)
 
-                const currentLikeButton = outerBtnHtml.getElementById('myModal')
+                const currentVoteButton = outerBtnHtml.getElementById('myModal')
 
                 const voteJSON = JSON.parse(voteString)
                 console.log(voteJSON)
@@ -266,17 +267,19 @@ render(e(App), domContainer);
                 side = voteJSON.side
 
 
-                const domContainerLikeButton = document.querySelector('#like_button_container');
-                const domContainerLikeButton2 = document.querySelector('#like_button_container_2');
+                const domContainerVoteButton = document.querySelector('#yes_vote_button');
+                const domContainerVoteButton2 = document.querySelector('#no_vote_button');
 
                 modal.style.display = "block";
 
-                render(ce(LikeButton), domContainerLikeButton);
-                render(ce(LikeButton), domContainerLikeButton2);
+                sideText = "yes"
+                render(ce(VoteButton), domContainerVoteButton);
+                sideText = "no"
+                render(ce(VoteButton), domContainerVoteButton2);
 
-              } else if(event.path[1].id === "like_button_container") {
+              } else if(event.path[1].id === "yes_vote_button") {
                  console.log("like button container")
-              } else if(event.path[1].id === "like_button_container_2") {
+              } else if(event.path[1].id === "no_vote_button") {
                  console.log("like button container 2")
               } else {
                 modal.style.display = "none";
@@ -339,12 +342,12 @@ function createModal() {
       <!-- Modal content -->
       <div class="modal-content">
       <style>
-      #like_button_container, #like_button_container_2 {
+      #yes_vote_button, #no_vote_button {
         display: inline-block;
       }
       </style>
-        <div id="like_button_container"></div>
-        <div id="like_button_container_2"></div>
+        <div id="yes_vote_button"></div>
+        <div id="no_vote_button"></div>
         <p>Some text in the Modal..</p>
       </div>
 
