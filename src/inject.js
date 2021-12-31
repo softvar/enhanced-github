@@ -6,11 +6,12 @@
  */
 const React = require("react");
 const {useState} = require("react");
-const { render } =require("react-dom");
+const { unmountComponentAtNode, render } =require("react-dom");
 const { useDispatch } = require('react-redux')
 const { createClient } = require('graphql-ws');
 import './index.css';
 import App from './App';
+import { Parser } from 'graphql/language/parser';
 //const { createClient: redisCreateClient } = require('redis');
 //const WebSocket = require('ws');
 
@@ -140,7 +141,6 @@ render(e(App), domContainer);
               //console.log(JSON.parse(voteJSON).issue_id)
 
               //return turboBtnData['turbo-btn-data']['issue_id']
-              post(user, repo, issue_id, contributor_id, side);
               return `
               user: ${user}
               repo: ${repo}
@@ -217,6 +217,8 @@ render(e(App), domContainer);
         document.addEventListener(
           'click',
           async function(event) {
+            console.log('new event')
+            console.log(event.target)
 
           //var turboBtnData = await getStorageData('turbo-btn-data')
           //console.log(turboBtnData['turbo-btn-data']['issue_id'])
@@ -225,14 +227,26 @@ render(e(App), domContainer);
             // maybe gets vote side from chrome.storage that onPathContentFetched saved.
             // const vote = chrome.storage("vote")
             // if status is good, continue.
-            if (event.path[1].id === "like_button_container") {
-              console.log("like button container")
-            }
             //if (e.target === "button#myBtn") {
-              if (event.target.id === "myBtn" || event.path[1].id === "like_button_container") {
+              if (event.target.id === "myBtn") {
 
-                console.log(event.target)
+                //Using current modal below
+                //modal.style.display = "block";
                 const voteString = event.target.attributes.value.textContent//.outerHTML)
+                const debug = event.target.attributes.value.textContent.outerHTML
+                console.log('here')
+                //console.log(event.path[3].outHTML)
+                const html = event.path[1]
+                const htmlString = event.path[3].outerHTML
+                console.log(typeof htmlString)
+                const parser = new DOMParser;
+                const outerBtnHtml = parser.parseFromString(htmlString, 'text/html')
+
+                const currentModal = outerBtnHtml.getElementById('myModal')
+                console.log(currentModal)
+                console.log(modal)
+
+                const currentLikeButton = outerBtnHtml.getElementById('myModal')
 
                 const voteJSON = JSON.parse(voteString)
                 console.log(voteJSON)
@@ -243,15 +257,15 @@ render(e(App), domContainer);
                 side = voteJSON.side
 
 
-                modal.style.display = "block";
-
                 const domContainerLikeButton = document.querySelector('#like_button_container');
 
+                modal.style.display = "block";
 
                 render(ce(LikeButton), domContainerLikeButton);
 
-
-              } else {
+              } else if(event.path[1].id === "like_button_container") {
+                 console.log("like button container")
+              }else {
                 modal.style.display = "none";
               }
           },
