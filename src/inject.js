@@ -268,16 +268,16 @@ render(e(App), domContainer);
                  //console.log(JSON.parse(voteJSON).issue_id)
 
                  //return turboBtnData['turbo-btn-data']['issue_id']
-                   post(user, repo, voteJSON.issue_id, voteJSON.contributor_id, voteJSON.side);
-                   return "hello"
-                   //return `${voteData.issue_id}`
-                   //return `
-                   //user: ${user}
-                   //repo: ${repo}
-                   //issue_id: ${voteData.issue_id}
-                   //contributor: ${voteData.contributor_id}
-                   //side: ${voteData.side}
-                   //`
+                 post(user, repo, voteJSON.issue_id, voteJSON.contributor_id, voteJSON.side);
+                 return "hello"
+                 //return `${voteData.issue_id}`
+                 //return `
+                 //user: ${user}
+                 //repo: ${repo}
+                 //issue_id: ${voteData.issue_id}
+                 //contributor: ${voteData.contributor_id}
+                 //side: ${voteData.side}
+                 //`
                }
 
                return ce(
@@ -355,7 +355,7 @@ function createButtonHtml(index, issue_id, contributor_id, side) {
   return  `
     <!-- Trigger/Open The Modal -->
 
-    <button id="myBtn" style="height: 20px; width: 16px; padding: 0px;" data value='{"index": "${index}", "issue_id": "${issue_id}", "side": "${side}", "contributor": "${contributor_id}"}'
+    <button id="myBtn" style="height: 20px; width: 16px; padding: 0px;" data value='{"index": "${index}", "issue_id": "${issue_id}", "side": "${side}", "contributor_id": "${contributor_id}"}'
     >T</button>
     <!-- The Modal -->
     <style>
