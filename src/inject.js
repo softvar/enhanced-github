@@ -185,33 +185,6 @@ render(e(App), domContainer);
     const readyStateCheckInterval = setInterval(function() {
       if (document.readyState === 'complete'  & isRepoTurboSrcToken === true & isAuthorizedContributor === true) {
         // When the user clicks the button, open the modal
-        class LikeButton extends React.Component {
-          constructor(props) {
-            super(props);
-            this.state = { liked: false };
-          }
-
-          render() {
-            if (this.state.liked) {
-              //return turboBtnData['turbo-btn-data']['issue_id']
-                post(user, repo, issue_id, contributor_id, side);
-                return `
-                repo: ${repo}
-                issue_id: ${issue_id}
-                contributor: ${contributor_id}
-                side: ${side}
-                `
-            }
-
-            return ce(
-              'button',
-              { onClick: () => this.setState({ liked: true }) },
-              'Like'
-            );
-          }
-        }
-
-        const ce = React.createElement;
 
         const containerItems = document.querySelectorAll(
           '.js-issue-row'
@@ -228,13 +201,14 @@ render(e(App), domContainer);
           return;
         }
 
+
         // Get contributor_id from chain web wallet extension
         contributor_id =  authContributor.getAuthContributor();
+        var index = 0;
         for (var i = startIndex; i < containerItems.length; i++) {
               issue_id = containerItems[i].getAttribute('id');
-
               side = "yes"
-              var html = createButtonHtml(issue_id, contributor_id, side)
+              var html = createButtonHtml(index++, issue_id, contributor_id, side)
               containerItems[i].querySelector('.flex-shrink-0').insertAdjacentHTML('beforeEnd', html);
 
               (async () => {
@@ -275,6 +249,7 @@ render(e(App), domContainer);
             // maybe gets vote side from chrome.storage that onPathContentFetched saved.
             // const vote = chrome.storage("vote")
             // if status is good, continue.
+           const ce = React.createElement;
 
             if (event.path[1].id === "like_button_container") {
               console.log("like button container")
@@ -286,7 +261,38 @@ render(e(App), domContainer);
                 modal.style.display = "block";
 
                 const domContainerLikeButton = document.querySelector('#like_button_container');
+
+           class LikeButton extends React.Component {
+             constructor(props) {
+               super(props);
+               this.state = { liked: false };
+             }
+
+             render() {
+               if (this.state.liked) {
+                 //const voteData = votes.closest("[data-index]")
+                 const voteData = event.target.attributes.value.textContent//.outerHTML)
+                 //console.log(virtualDoc)
+
+                 //return turboBtnData['turbo-btn-data']['issue_id']
+                   post(user, repo, voteData.issue_id, voteData.contributor_id, voteData.side);
+                   return `
+                   repo: ${repo}
+                   issue_id: ${issue_id}
+                   contributor: ${contributor_id}
+                   side: ${side}
+                   `
+               }
+
+               return ce(
+                 'button',
+                 { onClick: () => this.setState({ liked: true }) },
+                 'Like'
+               );
+             }
+           }
                 render(ce(LikeButton), domContainerLikeButton);
+
 
               } else {
                 modal.style.display = "none";
@@ -330,7 +336,7 @@ render(e(App), domContainer);
   })();
 }
 
-function createButtonHtml(issue_id, contributor_id, side) {
+function createButtonHtml(index, issue_id, contributor_id, side) {
   var voteWay = ''
   if (side === "yes") {
     voteWay = 'voteYes'
@@ -341,7 +347,8 @@ function createButtonHtml(issue_id, contributor_id, side) {
   return  `
     <!-- Trigger/Open The Modal -->
 
-    <button id="myBtn" style="height: 20px; width: 16px; padding: 0px;">T</button>
+    <button id="myBtn" style="height: 20px; width: 16px; padding: 0px;" data value="{index: ${index}, issue_id: ${issue_id},side: ${side}, contributor: ${contributor_id}}"
+    >T</button>
     <!-- The Modal -->
     <style>
       body {font-family: Arial, Helvetica, sans-serif;}
@@ -371,7 +378,6 @@ function createButtonHtml(issue_id, contributor_id, side) {
       }
     </style>
     <div id="myModal" class="modal">
-      <a ref data-vote="{issue_id: ${issue_id}, side: ${voteWay}, contributor: ${contributor_id}}"></a>
 
       <!-- Modal content -->
       <div class="modal-content">
