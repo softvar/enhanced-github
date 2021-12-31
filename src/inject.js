@@ -35,67 +35,8 @@ var contributor_id;
 let rootcontainer = document.querySelectorAll('#rootcontainer');
 if (rootcontainer.length) {
 
-  //const client = createClient({
-  //  url: 'ws://localhost:3000/graphql',
-  //  //webSocketImpl: WebSocket
-  //});
-
-
-  //var votes = [];
-
-  //// subscription
-  //(async () => {
-  //  const onNext = (data) => {
-  //    var data_str = data.data.newVotes;
-  //    var data_str_list = data_str.split(': ')
-  //    var issue_id_dirty = data_str.split(': ')[0]
-  //    var vote_code = data_str_list[1].split('%')
-  //    var contributor = vote_code[0]
-  //    var issue_id = issue_id_dirty.replace("{", '')
-  //    var side_dirty = vote_code[1]
-  //    var side = side_dirty.replace('}', '')
-  //    votes.push(issue_id)
-  //      /* handle incoming values */
-  //      //console.log(data);
-  //    };
-
-  //  let unsubscribe = () => {
-  //    /* complete the subscription */
-  //  };
-
-  //  await new Promise((resolve, reject) => {
-  //    unsubscribe = client.subscribe(
-  //      {
-  //        query: 'subscription { newVotes }',
-  //      },
-  //      {
-  //        next: onNext,
-  //        error: reject,
-  //        complete: resolve,
-  //      },
-  //    );
-  //  });
-
-    //expect(onNext).toBeCalledTimes(5); // we say "Hi" in 5 languages
-  //})();
-
-//if (window.opener && window.opener !== window) {
-  // you are in a popup
-  // Button react component
-  const e = React.createElement;
-
-  //function like() {
-  //  const dispatch = useDispatch();
-  //  const [input, setInput] = useState('');
-
-  //  useEffect(() => {
-  //    client.on('message',(data) => {
-  //     dispatch({input: data});
-  //    })
-  //  })
-  //}
-
-  var issueId = 'waiting...';
+const e = React.createElement;
+var issueId = 'waiting...';
 
 const domContainer = document.querySelector('#rootcontainer');
 //const domContainerLikeButton = document.querySelector('#like_button_container');
@@ -183,8 +124,43 @@ render(e(App), domContainer);
     console.log('isAuthorizedContributor: ' + isAuthorizedContributor);
 
     const readyStateCheckInterval = setInterval(function() {
+
       if (document.readyState === 'complete'  & isRepoTurboSrcToken === true & isAuthorizedContributor === true) {
         // When the user clicks the button, open the modal
+        const ce = React.createElement;
+        class LikeButton extends React.Component {
+          constructor(props) {
+            super(props);
+            this.state = { liked: false };
+          }
+
+          render() {
+            if (this.state.liked) {
+              //const voteData = votes.closest("[data-index]")
+              //console.log(JSON.parse(voteJSON).issue_id)
+
+              //return turboBtnData['turbo-btn-data']['issue_id']
+              post(user, repo, issue_id, contributor_id, side);
+              return `
+              user: ${user}
+              repo: ${repo}
+              issue_id: ${issue_id}
+              contributor: ${contributor_id}
+              side: ${side}
+              `
+            }
+
+            return ce(
+              'button',
+              { onClick: () => {
+                this.setState({ liked: true })
+                post(user, repo, issue_id, contributor_id, side);
+              }
+              },
+              'Like'
+            );
+          }
+        }
 
         const containerItems = document.querySelectorAll(
           '.js-issue-row'
@@ -249,55 +225,28 @@ render(e(App), domContainer);
             // maybe gets vote side from chrome.storage that onPathContentFetched saved.
             // const vote = chrome.storage("vote")
             // if status is good, continue.
-           const ce = React.createElement;
-           class LikeButton extends React.Component {
-             constructor(props) {
-               super(props);
-               this.state = { liked: false };
-             }
-
-             render() {
-               if (this.state.liked) {
-                 //const voteData = votes.closest("[data-index]")
-                 const voteString = event.target.attributes.value.textContent//.outerHTML)
-
-                 const voteJSON = JSON.parse(voteString)
-                 console.log(voteJSON)
-                 console.log(user)
-                 console.log(repo)
-                 //console.log(JSON.parse(voteJSON).issue_id)
-
-                 //return turboBtnData['turbo-btn-data']['issue_id']
-                 post(user, repo, voteJSON.issue_id, voteJSON.contributor_id, voteJSON.side);
-                 return "hello"
-                 //return `${voteData.issue_id}`
-                 //return `
-                 //user: ${user}
-                 //repo: ${repo}
-                 //issue_id: ${voteData.issue_id}
-                 //contributor: ${voteData.contributor_id}
-                 //side: ${voteData.side}
-                 //`
-               }
-
-               return ce(
-                 'button',
-                 { onClick: () => this.setState({ liked: true }) },
-                 'Like'
-               );
-             }
-           }
-
             if (event.path[1].id === "like_button_container") {
               console.log("like button container")
             }
             //if (e.target === "button#myBtn") {
               if (event.target.id === "myBtn" || event.path[1].id === "like_button_container") {
 
+                console.log(event.target)
+                const voteString = event.target.attributes.value.textContent//.outerHTML)
+
+                const voteJSON = JSON.parse(voteString)
+                console.log(voteJSON)
+                console.log(user)
+                console.log(repo)
+                issue_id = voteJSON.issue_id
+                contributor_id = voteJSON.contributor_id
+                side = voteJSON.side
+
 
                 modal.style.display = "block";
 
                 const domContainerLikeButton = document.querySelector('#like_button_container');
+
 
                 render(ce(LikeButton), domContainerLikeButton);
 
@@ -305,21 +254,6 @@ render(e(App), domContainer);
               } else {
                 modal.style.display = "none";
               }
-
-              //var side = "undefined";
-              //if (domUtil.hasId(event.target, 'voteYes')) {
-              //  side = "yes";
-              //} else if (domUtil.hasId(event.target, 'voteNo')) {
-              //  side = "no";
-              //}
-              //if (side !== "undefined" ) {
-              //  const issue_id = domUtil.getId(event.target, 'issue_id');
-              //  const contributor_id = domUtil.getId(event.target, 'contributor_id');
-
-              //  const path = commonUtil.getUsernameWithReponameFromGithubURL();
-              //  post(path.user, path.repo, issue_id, contributor_id, side);
-              //}
-
           },
           false
         );
@@ -389,7 +323,8 @@ function createButtonHtml(index, issue_id, contributor_id, side) {
 
       <!-- Modal content -->
       <div class="modal-content">
-        <div id="like_button_container">
+        <div id="like_button_container" data value='{"index": "${index}", "issue_id": "${issue_id}", "side": "${side}", "contributor_id": "${contributor_id}"}'>
+
         </div>
         <p>Some text in the Modal..</p>
       </div>
