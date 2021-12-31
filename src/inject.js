@@ -267,14 +267,18 @@ render(e(App), domContainer);
 
 
                 const domContainerLikeButton = document.querySelector('#like_button_container');
+                const domContainerLikeButton2 = document.querySelector('#like_button_container_2');
 
                 modal.style.display = "block";
 
                 render(ce(LikeButton), domContainerLikeButton);
+                render(ce(LikeButton), domContainerLikeButton2);
 
               } else if(event.path[1].id === "like_button_container") {
                  console.log("like button container")
-              }else {
+              } else if(event.path[1].id === "like_button_container_2") {
+                 console.log("like button container 2")
+              } else {
                 modal.style.display = "none";
               }
           },
@@ -334,9 +338,13 @@ function createModal() {
 
       <!-- Modal content -->
       <div class="modal-content">
-        <div id="like_button_container">
-
-        </div>
+      <style>
+      #like_button_container, #like_button_container_2 {
+        display: inline-block;
+      }
+      </style>
+        <div id="like_button_container"></div>
+        <div id="like_button_container_2"></div>
         <p>Some text in the Modal..</p>
       </div>
 
