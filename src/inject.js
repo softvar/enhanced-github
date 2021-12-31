@@ -132,11 +132,11 @@ render(e(App), domContainer);
         class LikeButton extends React.Component {
           constructor(props) {
             super(props);
-            this.state = { liked: false };
+            this.state = { liked: false, lastIssueId: "" };
           }
 
           render() {
-            if (this.state.liked) {
+            if (this.state.liked === true || issue_id === this.state.lastIssueId) {
               //const voteData = votes.closest("[data-index]")
               //console.log(JSON.parse(voteJSON).issue_id)
 
@@ -153,8 +153,9 @@ render(e(App), domContainer);
             return ce(
               'button',
               { onClick: () => {
-                this.setState({ liked: true })
+                this.setState({ liked: true, lastIssueId: issue_id })
                 post(user, repo, issue_id, contributor_id, side);
+                this.setState({ liked: false, lastIssueId: issue_id })
               }
               },
               'Like'
