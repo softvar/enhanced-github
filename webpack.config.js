@@ -41,6 +41,7 @@ function addPlugins(argv) {
     new CopyPlugin(
       [
         { from: 'options.js', to: destination },
+        { from: 'modal.css', to: destination },
         { from: 'popup.js', to: destination },
         { from: '*html', to: destination },
         { from: 'manifest.json', to: destination },

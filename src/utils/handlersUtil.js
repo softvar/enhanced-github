@@ -1,26 +1,8 @@
 const commonUtil = require('./commonUtil');
 const authContributor =  require("../authorizedContributor")
 
-function createButtonHtml(issue_id, contributor_id, side, svg_vote) {
-  var voteWay = ''
-  if (side === "yes") {
-    voteWay = 'voteYes'
-  } else (
-    voteWay = 'voteNo'
-  )
-  return `
-    <div id="gridcell" class="mr-2 text-gray-light eg-download style="width: 18px;">
-      <span class="css-truncate css-truncate-target d-block">
-        <a style="float: right" title="Vote Yes" class="tooltipped tooltipped-s"
-          }">
-          <svg class="octicon octicon-cloud-download" aria-hidden="true" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="18px" height="18px" viewBox="0 0 18 18" enable-background="new 0 0 18 18" xml:space="preserve">  <image id="${voteWay}" width="18" height="18" x="0" y="0" issue_id="${issue_id}" contributor_id="${contributor_id}"` +
-          svg_vote + `
-      </svg
-        </a>
-      </span>
-    </div>
-  `;
-
+function createButtonHtml(issue_id, contributor_id, side) {
+  return `deprecated see inject function by same name`
 }
 
 const handlersUtil = {

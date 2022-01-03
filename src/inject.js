@@ -6,11 +6,12 @@
  */
 const React = require("react");
 const {useState} = require("react");
-const { render } =require("react-dom");
+const { unmountComponentAtNode, render } =require("react-dom");
 const { useDispatch } = require('react-redux')
 const { createClient } = require('graphql-ws');
 import './index.css';
 import App from './App';
+import { Parser } from 'graphql/language/parser';
 //const { createClient: redisCreateClient } = require('redis');
 //const WebSocket = require('ws');
 
@@ -24,109 +25,24 @@ const authContributor = require("./authorizedContributor");
 
 var isRepoTurboSrcToken = false;
 
+var user;
+var repo;
+// This is the github convention of $owner/$repo.
+var repo_id
+var issue_id;
+var side
+var contributor_id;
+
 let rootcontainer = document.querySelectorAll('#rootcontainer');
 if (rootcontainer.length) {
 
-  //const client = createClient({
-  //  url: 'ws://localhost:3000/graphql',
-  //  //webSocketImpl: WebSocket
-  //});
-
-
-  //var votes = [];
-
-  //// subscription
-  //(async () => {
-  //  const onNext = (data) => {
-  //    var data_str = data.data.newVotes;
-  //    var data_str_list = data_str.split(': ')
-  //    var issue_id_dirty = data_str.split(': ')[0]
-  //    var vote_code = data_str_list[1].split('%')
-  //    var contributor = vote_code[0]
-  //    var issue_id = issue_id_dirty.replace("{", '')
-  //    var side_dirty = vote_code[1]
-  //    var side = side_dirty.replace('}', '')
-  //    votes.push(issue_id)
-  //      /* handle incoming values */
-  //      //console.log(data);
-  //    };
-
-  //  let unsubscribe = () => {
-  //    /* complete the subscription */
-  //  };
-
-  //  await new Promise((resolve, reject) => {
-  //    unsubscribe = client.subscribe(
-  //      {
-  //        query: 'subscription { newVotes }',
-  //      },
-  //      {
-  //        next: onNext,
-  //        error: reject,
-  //        complete: resolve,
-  //      },
-  //    );
-  //  });
-
-    //expect(onNext).toBeCalledTimes(5); // we say "Hi" in 5 languages
-  //})();
-
-//if (window.opener && window.opener !== window) {
-  // you are in a popup
-  // Button react component
-  const e = React.createElement;
-
-  //function like() {
-  //  const dispatch = useDispatch();
-  //  const [input, setInput] = useState('');
-
-  //  useEffect(() => {
-  //    client.on('message',(data) => {
-  //     dispatch({input: data});
-  //    })
-  //  })
-  //}
-
-  var issueId = 'waiting...';
-  class LikeButton extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        vote: 'waiting...' };
-    }
-
-    componentDidMount() {
-      client.on('message',(data) => {
-        console.log('mount')
-        this.setState({vote: issueId})
-      })
-    }
-
-    componentDidUpdate() {
-      if (votes.length !== 0) {
-        issueId = votes.pop();
-        this.setState({vote: issueId});
-      } else {
-        //this.setState({vote: issueId})
-      }
-    }
-
-    render() {
-      //if (this.state.vote) {
-      //  return "none"
-      //}
-      return e(
-        'output',
-        null,
-        this.state.vote
-      );
-    }
-  }
+const e = React.createElement;
+var issueId = 'waiting...';
 
 const domContainer = document.querySelector('#rootcontainer');
-//const domContainerLikeButton = document.querySelector('#like_button_container');
+//const domContainerVoteButton = document.querySelector('#yes_vote_button');
 render(e(App), domContainer);
-//render(e(LikeButton), domContainerLikeButton);
+//render(e(VoteButton), domContainerVoteButton);
 } else {
 
   async function get_repo_status(repo_id) {
@@ -177,46 +93,197 @@ render(e(App), domContainer);
     window.enhancedGithub = {
       config: {}
     };
+    const getStorageData = key =>
+      new Promise((resolve, reject) =>
+        chrome.storage.sync.get(key, result =>
+          chrome.runtime.lastError
+            ? reject(Error(chrome.runtime.lastError.message))
+            : resolve(result)
+        )
+      )
+
+    const setStorageData = data =>
+      new Promise((resolve, reject) =>
+        chrome.storage.sync.set(data, () =>
+          chrome.runtime.lastError
+            ? reject(Error(chrome.runtime.lastError.message))
+            : resolve()
+        )
+      )
 
     const path = commonUtil.getUsernameWithReponameFromGithubURL();
-    const repo_id = `${path.user}/${path.repo}`;
+    repo_id = `${path.user}/${path.repo}`;
+    repo = path.repo;
+    user = path.user;
 
     const res_get_repo_status = await get_repo_status(repo_id);
     const isRepoTurboSrcToken = res_get_repo_status['body']['data']['getRepoStatus'];
-    const contributor_id =  authContributor.getAuthContributor();
+    contributor_id =  authContributor.getAuthContributor();
     const res_get_authorized_contributor =  await get_authorized_contributor(contributor_id, repo_id);
     const isAuthorizedContributor = res_get_authorized_contributor['body']['data']['getAuthorizedContributor'];
 
     console.log('isAuthorizedContributor: ' + isAuthorizedContributor);
 
     const readyStateCheckInterval = setInterval(function() {
+
       if (document.readyState === 'complete'  & isRepoTurboSrcToken === true & isAuthorizedContributor === true) {
+        // When the user clicks the button, open the modal
+        const ce = React.createElement;
+        var sideText;
+        class VoteButton extends React.Component {
+          constructor(props) {
+            super(props);
+            this.state = { voted: false, lastIssueId: "", side: sideText };
+          }
+
+          render() {
+            if (this.state.voted === true || issue_id === this.state.lastIssueId) {
+              //const voteData = votes.closest("[data-index]")
+              //console.log(JSON.parse(voteJSON).issue_id)
+
+              //return turboBtnData['turbo-btn-data']['issue_id']
+              return `
+              user: ${user}
+              repo: ${repo}
+              issue_id: ${issue_id}
+              contributor: ${contributor_id}
+              side: ${this.state.side}
+              `
+            }
+
+            return ce(
+              'button',
+              { onClick: () => {
+                this.setState({ voted: true, lastIssueId: issue_id, side: this.state.side })
+                post(user, repo, issue_id, contributor_id, this.state.side);
+                this.setState({ voted: false, lastIssueId: issue_id, side: this.state.side })
+              }
+              },
+              sideText
+            );
+          }
+        }
+
+        const containerItems = document.querySelectorAll(
+          '.js-issue-row'
+        );
+
+        let actualDataIndex = 0;
+        let startIndex = 0;
+
+        const repoPath = commonUtil.getUsernameWithReponameFromGithubURL();
+
+        if (
+          window.location.pathname !== `/${repoPath.user}/${repoPath.repo}/pulls`
+        ) {
+          return;
+        }
+
+
+        // Get contributor_id from chain web wallet extension
+        contributor_id =  authContributor.getAuthContributor();
+        var html
+        for (var i = startIndex; i < containerItems.length; i++) {
+              issue_id = containerItems[i].getAttribute('id');
+              side = "NA"
+              var btnHtml = createButtonHtml(i, issue_id, contributor_id, side)
+              var modalHtml = createModal()
+              if (i < 1) {
+                console.log(i)
+                html = btnHtml + modalHtml
+              } else {
+                html = btnHtml
+              }
+              containerItems[i].querySelector('.flex-shrink-0').insertAdjacentHTML('beforeEnd', html);
+
+              (async () => {
+                // not needed but keeping for an example.
+                await setStorageData(
+                  {
+                    'turbo-btn-data': {
+                      'issue_id': `${issue_id}`,
+                      'side': `${side}`,
+                      'contributor': `${contributor_id}`
+                     }
+                  }
+                )
+              })()
+              //containerItems[i].querySelector('.flex-shrink-0').insertAdjacentHTML('beforeend', voteYesHtml + voteNoHtml);
+              //containerItems[i].querySelector('.flex-shrink-0').insertAdjacentHTML('beforebegin', voteNoHtml);
+        }
+
+
         clearInterval(readyStateCheckInterval);
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+        //var span = document.getElementsByClassName("close")[0];
 
         document.addEventListener(
           'click',
-          async function(e) {
+          async function(event) {
+            console.log('new event')
+            console.log(event.target)
+
+          //var turboBtnData = await getStorageData('turbo-btn-data')
+          //console.log(turboBtnData['turbo-btn-data']['issue_id'])
 
             // graphql poste vote.
             // maybe gets vote side from chrome.storage that onPathContentFetched saved.
             // const vote = chrome.storage("vote")
             // if status is good, continue.
+            //if (e.target === "button#myBtn") {
+              if (event.target.id === "myBtn") {
 
-            //console.log(e.target)
-            var side = "undefined";
-            if (domUtil.hasId(e.target, 'voteYes')) {
-              side = "yes";
-            } else if (domUtil.hasId(e.target, 'voteNo')) {
-              side = "no";
-            }
-            if (side !== "undefined" ) {
-              const issue_id = domUtil.getId(e.target, 'issue_id');
-              const contributor_id = domUtil.getId(e.target, 'contributor_id');
+                //Using current modal below
+                //modal.style.display = "block";
+                const voteString = event.target.attributes.value.textContent//.outerHTML)
+                const debug = event.target.attributes.value.textContent.outerHTML
+                console.log('here')
+                //console.log(event.path[3].outHTML)
+                const html = event.path[1]
+                const htmlString = event.path[3].outerHTML
+                console.log(typeof htmlString)
+                const parser = new DOMParser;
+                const outerBtnHtml = parser.parseFromString(htmlString, 'text/html')
 
-              const path = commonUtil.getUsernameWithReponameFromGithubURL();
-              post(path.user, path.repo, issue_id, contributor_id, side);
-            }
+                const currentModal = outerBtnHtml.getElementById('myModal')
+                // There is only one modal that all the buttons share, so all but 1 button don't have a modal in outerHTML.
+                console.log(currentModal)
+                //console.log(modal)
 
+                const currentVoteButton = outerBtnHtml.getElementById('myModal')
+
+                const voteJSON = JSON.parse(voteString)
+                console.log(voteJSON)
+                console.log(user)
+                console.log(repo)
+                issue_id = voteJSON.issue_id
+                contributor_id = voteJSON.contributor_id
+                side = voteJSON.side
+
+
+                const domContainerVoteButton = document.querySelector('#yes_vote_button');
+                const domContainerVoteButton2 = document.querySelector('#no_vote_button');
+
+                modal.style.display = "block";
+
+                sideText = "yes"
+                render(ce(VoteButton), domContainerVoteButton);
+                sideText = "no"
+                render(ce(VoteButton), domContainerVoteButton2);
+
+              } else if(event.path[1].id === "yes_vote_button") {
+                 console.log("like button container")
+              } else if(event.path[1].id === "no_vote_button") {
+                 console.log("like button container 2")
+              } else {
+                modal.style.display = "none";
+              }
           },
           false
         );
@@ -232,11 +299,74 @@ render(e(App), domContainer);
                 if (storedData) {
                   storageUtil.set(CommonEnum.TOKEN, storedData['x-github-token']);
                 }
-                domUtil.addRepoData();
+                //domUtil.addRepoData();
               }
             );
         //}
       }
     }, 10);
   })();
+}
+
+function createModal() {
+    return `<!-- The Modal -->
+    <style>
+      body {font-family: Arial, Helvetica, sans-serif;}
+
+      /* The Modal (background) */
+      .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+      }
+
+      /* Modal Content */
+      .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 33%;
+      }
+    </style>
+    <div id="myModal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+      <style>
+      #yes_vote_button, #no_vote_button {
+        display: inline-block;
+      }
+      </style>
+        <div id="yes_vote_button"></div>
+        <div id="no_vote_button"></div>
+        <p>Some text in the Modal..</p>
+      </div>
+
+    </div>
+    `
+}
+
+function createButtonHtml(index, issue_id, contributor_id, side) {
+  var voteWay = ''
+  if (side === "yes") {
+    voteWay = 'voteYes'
+  } else (
+    voteWay = 'voteNo'
+  )
+
+  return  `
+    <!-- Trigger/Open The Modal -->
+
+    <button id="myBtn" style="height: 20px; width: 16px; padding: 0px;" data value='{"index": "${index}", "issue_id": "${issue_id}", "side": "${side}", "contributor_id": "${contributor_id}"}'
+    >T</button>
+    `
 }
