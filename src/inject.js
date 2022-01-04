@@ -75,7 +75,7 @@ render(e(App), domContainer);
     return await superagent
       .post('http://localhost:4001/graphql')
       .send(
-        { query: `{ pullFork(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}") }` }
+        { query: `{ getPRfork(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}") }` }
       ) // sends a JSON post body
       .set('accept', 'json')
   }
@@ -160,16 +160,16 @@ render(e(App), domContainer);
           }
 
           render() {
-            if (this.state.voted === 'pull' || issue_id === this.state.lastIssueId) {
+            if (this.state.voted === 'pull' && issue_id === this.state.lastIssueId) {
               return "Verifying. This may take a few a couple minutes..."
             }
-            if (this.state.voted === 'problem' || issue_id === this.state.lastIssueId) {
+            if (this.state.voted === 'problem' && issue_id === this.state.lastIssueId) {
               return "Something went wrong"
             }
-            if (this.state.voted === 'notOnGithub' || issue_id === this.state.lastIssueId) {
+            if (this.state.voted === 'notOnGithub' && issue_id === this.state.lastIssueId) {
               return "Pull request isn't valid on github (path to fork doesn't exist)."
             }
-            if (this.state.voted === 'done' || issue_id === this.state.lastIssueId) {
+            if (this.state.voted === 'done' && issue_id === this.state.lastIssueId) {
               //const voteData = votes.closest("[data-index]")
               //console.log(JSON.parse(voteJSON).issue_id)
 
@@ -193,13 +193,11 @@ render(e(App), domContainer);
                   if (forkStatus === 'notOnGithub') {
                     console.log('notOnGithub')
                     this.setState({ voted: 'notOnGithub', lastIssueId: issue_id, side: this.state.side })
-                  }
-                  if (forkStatus === 'valid') {
+                  } else if (forkStatus === 'valid') {
                     console.log('valid')
                     await postSetVote(user, repo, issue_id, contributor_id, this.state.side);
                     this.setState({ voted: 'done', lastIssueId: issue_id, side: this.state.side })
-                  }
-                  if (forkStatus === 'pull') {
+                  } else if (forkStatus === 'pull') {
                     console.log('pull')
                     this.setState({ voted: 'pull', lastIssueId: issue_id, side: this.state.side })
                     await postPullFork(user, repo, issue_id, contributor_id, this.state.side);
@@ -211,6 +209,8 @@ render(e(App), domContainer);
                     } else {
                       this.setState({ voted: 'problem', lastIssueId: issue_id, side: this.state.side })
                     }
+                  } else {
+                    this.setState({ voted: 'problem', lastIssueId: issue_id, side: this.state.side })
                   }
                 })();
               }
