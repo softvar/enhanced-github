@@ -10,6 +10,7 @@ const client = createClient({
 
 var votes = [];
 
+var repo
 var contributor
 var issue_id
 var last_issue_id
@@ -25,11 +26,17 @@ var tokens
     var data_str_list = data_str.split(': ')
     var issue_id_dirty = data_str.split(': ')[0]
     var vote_code = data_str_list[1].split('%')
-    contributor = vote_code[0]
-    tokens = vote_code[1]
+    repo = vote_code[0]
+    contributor = vote_code[1]
+    tokens = vote_code[2]
     issue_id = issue_id_dirty.replace("{", '')
-    var side_dirty = vote_code[2]
+    var side_dirty = vote_code[3]
     side = side_dirty.replace('}', '')
+    console.log(vote_code)
+    console.log(repo)
+    console.log(contributor)
+    console.log(tokens)
+    console.log(issue_id)
     votes.push(issue_id)
     /* handle incoming values */
     //console.log(data);
@@ -101,7 +108,7 @@ function Table({ columns }) {
           var issue_id = votes.pop();
           console.log('new pull: ' + issue_id)
           //sourceGridData.push(makeRow(sourceGridData.length))
-          sourceGridData.push(makeRow('open', issue_id, side, contributor, tokens))
+          sourceGridData.push(makeRow(repo,'open', issue_id, side, contributor, tokens))
         }
         let newData = [...sourceGridData]
         setData(newData)
@@ -192,6 +199,10 @@ function App() {
   const columns = React.useMemo(
     () => [
       {
+        Header: 'repo',
+        accessor: 'repo',
+      },
+      {
         Header: 'status',
         accessor: 'status',
       },
@@ -211,10 +222,6 @@ function App() {
         Header: 'votes',
         accessor: 'votes',
       },
-      {
-        Header: 'msg',
-        accessor: 'msg',
-      }
     ],
     []
   )
@@ -226,14 +233,14 @@ function App() {
   )
 }
 
-function makeRow(newStatus, newIssueId, newSide, newContributor, newTokens) {
+function makeRow(newRepo, newStatus, newIssueId, newSide, newContributor, newTokens) {
     return {
+      repo: newRepo,
       status: newStatus,
       pull: newIssueId,
       side: newSide,
       user: newContributor,
       votes: newTokens,
-      msg: 'tbd',
   }
 }
 
