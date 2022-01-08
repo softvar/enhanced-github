@@ -16,6 +16,7 @@ var issue_id
 var last_issue_id
 var side
 var tokens
+var status
 
 
 (async () => {
@@ -26,11 +27,12 @@ var tokens
     var data_str_list = data_str.split(': ')
     var issue_id_dirty = data_str.split(': ')[0]
     var vote_code = data_str_list[1].split('%')
-    repo = vote_code[0]
-    contributor = vote_code[1]
-    tokens = vote_code[2]
+    status = vote_code[0]
+    repo = vote_code[1]
+    contributor = vote_code[2]
+    tokens = vote_code[3]
     issue_id = issue_id_dirty.replace("{", '')
-    var side_dirty = vote_code[3]
+    var side_dirty = vote_code[4]
     side = side_dirty.replace('}', '')
     console.log(vote_code)
     console.log(repo)
@@ -108,7 +110,7 @@ function Table({ columns }) {
           var issue_id = votes.pop();
           console.log('new pull: ' + issue_id)
           //sourceGridData.push(makeRow(sourceGridData.length))
-          sourceGridData.push(makeRow(repo,'open', issue_id, side, contributor, tokens))
+          sourceGridData.push(makeRow(repo, status, issue_id, side, contributor, tokens))
         }
         let newData = [...sourceGridData]
         setData(newData)
