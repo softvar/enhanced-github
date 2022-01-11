@@ -1,5 +1,5 @@
 function getAuthContributor() {
-    return "7db9a"
+    return "mary"
 }
 
 module.exports.getAuthContributor = getAuthContributor;

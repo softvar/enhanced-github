@@ -198,10 +198,19 @@ render(e(App), domContainer);
                     await postSetVote(user, repo, issue_id, contributor_id, this.state.side);
                     this.setState({ voted: 'done', lastIssueId: issue_id, side: this.state.side })
                   } else if (forkStatus === 'pull') {
-                    console.log('pull')
+                    console.log('i 201')
                     this.setState({ voted: 'pull', lastIssueId: issue_id, side: this.state.side })
+                    console.log('i 203')
+                    console.log(user)
+                    console.log(repo)
+                    console.log(issue_id)
+                    console.log(contributor_id)
+                    console.log(this.state.side)
+                    console.log('i 209')
                     await postPullFork(user, repo, issue_id, contributor_id, this.state.side);
+                    console.log('i 211')
                     forkStatus = await postGetPRforkStatus(user, repo, issue_id, contributor_id, this.state.side);
+                    console.log('i 213')
                     if (forkStatus === 'valid') {
                       this.setState({ voted: 'valid', lastIssueId: issue_id, side: this.state.side })
                       await postSetVote(user, repo, issue_id, contributor_id, this.state.side);
