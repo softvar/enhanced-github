@@ -164,7 +164,12 @@ render(e(App), domContainer);
           render() {
             const handleClick=(e)=>{
               console.log('handleClick')
-              console.log(e)
+              console.log(e.target.parentElement)
+              const divHTML = e.target.parentElement
+              var idName = divHTML.id
+              console.log(idName)
+              const idNameSplit = idName.split('-')
+              console.log(idNameSplit)
             }
             return (
                 <Button
@@ -326,7 +331,7 @@ render(e(App), domContainer);
         for (var i = startIndex; i < containerItems.length; i++) {
           issue_id = containerItems[i].getAttribute('id');
           //if (i < 2) {
-          domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}`);
+          domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}-${contributor_id}`);
           render(ce(TurboSrcButton), domContainerTurboSrcButton);
         }
 
@@ -463,8 +468,8 @@ function createModal() {
     `
 }
 
-function createButtonHtml(index, issue_id, contrib) {
-  return  `
-      <div id="turbo-src-btn-${issue_id}"></div>
+function createButtonHtml(index, issue_id, contributor_id, side) {
+  return `
+      <div id='turbo-src-btn-${issue_id}-${contributor_id}'></div>
     `
 }
