@@ -153,14 +153,14 @@ render(e(App), domContainer);
 
     console.log('isAuthorizedContributor: ' + isAuthorizedContributor);
 
-    const readyStateCheckInterval = setInterval(function() {
+    const readyStateCheckInterval = setInterval(async function() {
 
       if (document.readyState === 'complete'  & isRepoTurboSrcToken === true & isAuthorizedContributor === true) {
         // When the user clicks the button, open the modal
         const ce = React.createElement;
         var sideText;
 
-        class TurboSrcButton extends React.Component {
+        class TurboSrcButtonOpen extends React.Component {
           render() {
             const handleClick=(e)=>{
               console.log('handleClick')
@@ -168,20 +168,26 @@ render(e(App), domContainer);
             }
             return (
                 <Button
-                  variant="default" className="textColor bgColor"
-                  //style={{ color: "white", background: "silver" }}
+                 // variant="open" className="textColor bgColor"
+                  style={{ color: "white", background: "green" }}
                   onClick={handleClick}
-                  //onClick={
-                  //  const domContainerVoteButton = document.querySelector('#yes_vote_button');
-                  //  const domContainerVoteButton2 = document.querySelector('#no_vote_button');
+                >T</Button>
+            );
+          }
 
-                  //  modal.style.display = "block";
+        }
 
-                  //  sideText = "yes"
-                  //  render(ce(VoteButton), domContainerVoteButton);
-                  //  sideText = "no"
-                  //  render(ce(VoteButton), domContainerVoteButton2);
-                  //}
+        class TurboSrcButtonClosed extends React.Component {
+          render() {
+            const handleClick=(e)=>{
+              console.log('handleClick')
+              //modal.style.display = "none";
+            }
+            return (
+                <Button
+                 // variant="open" className="textColor bgColor"
+                  style={{ color: "white", background: "red" }}
+                  onClick={handleClick}
                 >T</Button>
             );
           }
@@ -323,11 +329,19 @@ render(e(App), domContainer);
         // Get the <span> element that closes the modal
         //var span = document.getElementsByClassName("close")[0];
         var domContainerTurboSrcButton
+        var status
+        var displayOpenStatus
         for (var i = startIndex; i < containerItems.length; i++) {
           issue_id = containerItems[i].getAttribute('id');
           //if (i < 2) {
+          await postGetPRforkStatus(user, repo, issue_id, contributor_id);
+          displayOpenStatus = (status === 'none' || status === 'open')
           domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}-${contributor_id}`);
-          render(ce(TurboSrcButton), domContainerTurboSrcButton);
+          if (displayOpenStatus) {
+           render(ce(TurboSrcButtonOpen), domContainerTurboSrcButton);
+          } else {
+           render(ce(TurboSrcButtonClosed), domContainerTurboSrcButton);
+          }
         }
 
         document.addEventListener(
@@ -429,7 +443,7 @@ function createModal() {
     `
 }
 
-function createButtonHtml(index, issue_id, contributor_id, side) {
+function createButtonHtml(index, issue_id, contributor_id) {
   return `
       <div id='turbo-src-btn-${issue_id}-${contributor_id}'></div>
     `
