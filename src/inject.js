@@ -12,6 +12,10 @@ const { createClient } = require('graphql-ws');
 import './index.css';
 import App from './App';
 import { Parser } from 'graphql/language/parser';
+const {Button } = require("react-bootstrap")
+import "bootstrap/dist/css/bootstrap.min.css"
+import './turboSrcButton.css'
+import './index.css'
 //const { createClient: redisCreateClient } = require('redis');
 //const WebSocket = require('ws');
 
@@ -153,6 +157,19 @@ render(e(App), domContainer);
         // When the user clicks the button, open the modal
         const ce = React.createElement;
         var sideText;
+
+        class TurboSrcButton extends React.Component {
+          render() {
+            return (
+                <Button
+                  variant="default"
+                  style={{ color: "white", background: "silver" }}
+                >T</Button>
+            );
+          }
+
+        }
+
         class VoteButton extends React.Component {
           constructor(props) {
             super(props);
@@ -287,6 +304,12 @@ render(e(App), domContainer);
 
         // Get the <span> element that closes the modal
         //var span = document.getElementsByClassName("close")[0];
+        var domContainerTurboSrcButton
+
+              issue_id = containerItems[1].getAttribute('id');
+              //if (i < 2) {
+              domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}`);
+              render(ce(TurboSrcButton), domContainerTurboSrcButton);
 
         document.addEventListener(
           'click',
@@ -420,18 +443,8 @@ function createModal() {
     `
 }
 
-function createButtonHtml(index, issue_id, contributor_id, side) {
-  var voteWay = ''
-  if (side === "yes") {
-    voteWay = 'voteYes'
-  } else (
-    voteWay = 'voteNo'
-  )
-
+function createButtonHtml(index, issue_id, contrib) {
   return  `
-    <!-- Trigger/Open The Modal -->
-
-    <button id="myBtn" style="height: 20px; width: 16px; padding: 0px;" data value='{"index": "${index}", "issue_id": "${issue_id}", "side": "${side}", "contributor_id": "${contributor_id}"}'
-    >T</button>
+      <div id="turbo-src-btn-${issue_id}"></div>
     `
 }
