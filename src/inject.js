@@ -29,6 +29,8 @@ const authContributor = require("./authorizedContributor");
 
 var isRepoTurboSrcToken = false;
 
+var modal;
+
 var user;
 var repo;
 // This is the github convention of $owner/$repo.
@@ -160,10 +162,26 @@ render(e(App), domContainer);
 
         class TurboSrcButton extends React.Component {
           render() {
+            const handleClick=(e)=>{
+              console.log('handleClick')
+              console.log(e)
+            }
             return (
                 <Button
                   variant="default"
                   style={{ color: "white", background: "silver" }}
+                  onClick={handleClick}
+                  //onClick={
+                  //  const domContainerVoteButton = document.querySelector('#yes_vote_button');
+                  //  const domContainerVoteButton2 = document.querySelector('#no_vote_button');
+
+                  //  modal.style.display = "block";
+
+                  //  sideText = "yes"
+                  //  render(ce(VoteButton), domContainerVoteButton);
+                  //  sideText = "no"
+                  //  render(ce(VoteButton), domContainerVoteButton2);
+                  //}
                 >T</Button>
             );
           }
@@ -297,7 +315,7 @@ render(e(App), domContainer);
 
         clearInterval(readyStateCheckInterval);
         // Get the modal
-        var modal = document.getElementById("myModal");
+        modal = document.getElementById("myModal");
 
         // Get the button that opens the modal
         var btn = document.getElementById("myBtn");
@@ -317,6 +335,7 @@ render(e(App), domContainer);
           async function(event) {
             console.log('new event')
             console.log(event.target)
+            issue_id = event.path[4].id
 
           //var turboBtnData = await getStorageData('turbo-btn-data')
           //console.log(turboBtnData['turbo-btn-data']['issue_id'])
