@@ -342,8 +342,8 @@ render(e(App), domContainer);
             if (idBtnSplit.length > 1) {
               console.log('turbo-src button click')
               const idNameSplit = idName.split('-')
-              issue_id = idNameSplit[2]
-              contributor_id = idNameSplit[3]
+              issue_id = idNameSplit[3]
+              contributor_id = idNameSplit[4]
               console.log(issue_id)
               console.log(contributor_id)
               const domContainerVoteButton = document.querySelector('#yes_vote_button');
