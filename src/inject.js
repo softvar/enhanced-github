@@ -168,8 +168,8 @@ render(e(App), domContainer);
             }
             return (
                 <Button
-                  variant="default"
-                  style={{ color: "white", background: "silver" }}
+                  variant="default" className="textColor bgColor"
+                  //style={{ color: "white", background: "silver" }}
                   onClick={handleClick}
                   //onClick={
                   //  const domContainerVoteButton = document.querySelector('#yes_vote_button');
