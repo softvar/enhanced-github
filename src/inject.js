@@ -164,13 +164,7 @@ render(e(App), domContainer);
           render() {
             const handleClick=(e)=>{
               console.log('handleClick')
-              const divHTML = e.target.parentElement
-              var idName = divHTML.id
-              const idNameSplit = idName.split('-')
-              issue_id = idNameSplit[3]
-              contributor_id = idNameSplit[4]
-              console.log(issue_id)
-              console.log(contributor_id)
+              //modal.style.display = "none";
             }
             return (
                 <Button
@@ -340,61 +334,27 @@ render(e(App), domContainer);
           'click',
           async function(event) {
             console.log('new event')
-            console.log(event.target)
-            issue_id = event.path[4].id
+            console.log(event.target.parentElement.id)
+            const divHTML = event.target.parentElement
+            var idName = divHTML.id
+            const idBtnSplit = idName.split('turbo-src-btn')
+            console.log(idBtnSplit)
+            if (idBtnSplit.length > 1) {
+              console.log('turbo-src button click')
+              const idNameSplit = idName.split('-')
+              issue_id = idNameSplit[2]
+              contributor_id = idNameSplit[3]
+              console.log(issue_id)
+              console.log(contributor_id)
+              const domContainerVoteButton = document.querySelector('#yes_vote_button');
+              const domContainerVoteButton1 = document.querySelector('#no_vote_button');
 
-          //var turboBtnData = await getStorageData('turbo-btn-data')
-          //console.log(turboBtnData['turbo-btn-data']['issue_id'])
+              modal.style.display = "block";
 
-            // graphql poste vote.
-            // maybe gets vote side from chrome.storage that onPathContentFetched saved.
-            // const vote = chrome.storage("vote")
-            // if status is good, continue.
-            //if (e.target === "button#myBtn") {
-              if (event.target.id === "myBtn") {
-
-                //Using current modal below
-                //modal.style.display = "block";
-                const voteString = event.target.attributes.value.textContent//.outerHTML)
-                const debug = event.target.attributes.value.textContent.outerHTML
-                console.log('here')
-                //console.log(event.path[3].outHTML)
-                const html = event.path[1]
-                const htmlString = event.path[3].outerHTML
-                console.log(typeof htmlString)
-                const parser = new DOMParser;
-                const outerBtnHtml = parser.parseFromString(htmlString, 'text/html')
-
-                const currentModal = outerBtnHtml.getElementById('myModal')
-                // There is only one modal that all the buttons share, so all but 1 button don't have a modal in outerHTML.
-                console.log(currentModal)
-                //console.log(modal)
-
-                const currentVoteButton = outerBtnHtml.getElementById('myModal')
-
-                const voteJSON = JSON.parse(voteString)
-                console.log(voteJSON)
-                console.log(user)
-                console.log(repo)
-                issue_id = voteJSON.issue_id
-                contributor_id = voteJSON.contributor_id
-                side = voteJSON.side
-
-
-                const domContainerVoteButton = document.querySelector('#yes_vote_button');
-                const domContainerVoteButton2 = document.querySelector('#no_vote_button');
-
-                modal.style.display = "block";
-
-                sideText = "yes"
-                render(ce(VoteButton), domContainerVoteButton);
-                sideText = "no"
-                render(ce(VoteButton), domContainerVoteButton2);
-
-              } else if(event.path[1].id === "yes_vote_button") {
-                 console.log("like button container")
-              } else if(event.path[1].id === "no_vote_button") {
-                 console.log("like button container 2")
+              sideText = "yes"
+              render(ce(VoteButton), domContainerVoteButton);
+              sideText = "no"
+              render(ce(VoteButton), domContainerVoteButton1);
               } else {
                 modal.style.display = "none";
               }
