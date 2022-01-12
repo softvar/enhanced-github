@@ -305,11 +305,12 @@ render(e(App), domContainer);
         // Get the <span> element that closes the modal
         //var span = document.getElementsByClassName("close")[0];
         var domContainerTurboSrcButton
-
-              issue_id = containerItems[1].getAttribute('id');
-              //if (i < 2) {
-              domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}`);
-              render(ce(TurboSrcButton), domContainerTurboSrcButton);
+        for (var i = startIndex; i < containerItems.length; i++) {
+          issue_id = containerItems[i].getAttribute('id');
+          //if (i < 2) {
+          domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}`);
+          render(ce(TurboSrcButton), domContainerTurboSrcButton);
+        }
 
         document.addEventListener(
           'click',
