@@ -100,6 +100,25 @@ render(e(App), domContainer);
     return json.data.getPRforkStatus
   }
 
+  async function postGetPRvoteStatus(owner, repo, issue_id, contributor_id, side) {
+    const res = await superagent
+      .post('http://localhost:4000/graphql')
+      .send(
+        //{ query: '{ name: 'Manny', species: 'cat' }' }
+        //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
+        //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
+        //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
+        //{ query: `{ getVoteEverything }` }
+        { query: `{ getPRvoteStatus(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }` }
+        //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
+      ) // sends a JSON post body
+      .set('accept', 'json')
+      //.end((err, res) => {
+        // Calling the end function will send the request
+      //});
+      return res
+  }
+
   async function postSetVote(owner, repo, issue_id, contributor_id, side) {
     superagent
       .post('http://localhost:4000/graphql')
@@ -334,7 +353,8 @@ render(e(App), domContainer);
         for (var i = startIndex; i < containerItems.length; i++) {
           issue_id = containerItems[i].getAttribute('id');
           //if (i < 2) {
-          await postGetPRforkStatus(user, repo, issue_id, contributor_id);
+          status = await postGetPRvoteStatus(user, repo, issue_id, contributor_id, side);
+          console.log('status: ' + status)
           displayOpenStatus = (status === 'none' || status === 'open')
           domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}-${contributor_id}`);
           if (displayOpenStatus) {
