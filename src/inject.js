@@ -164,12 +164,13 @@ render(e(App), domContainer);
           render() {
             const handleClick=(e)=>{
               console.log('handleClick')
-              console.log(e.target.parentElement)
               const divHTML = e.target.parentElement
               var idName = divHTML.id
-              console.log(idName)
               const idNameSplit = idName.split('-')
-              console.log(idNameSplit)
+              issue_id = idNameSplit[3]
+              contributor_id = idNameSplit[4]
+              console.log(issue_id)
+              console.log(contributor_id)
             }
             return (
                 <Button
