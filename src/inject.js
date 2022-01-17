@@ -116,7 +116,9 @@ render(e(App), domContainer);
       //.end((err, res) => {
         // Calling the end function will send the request
       //});
-      return res
+    const json = JSON.parse(res.text)
+    console.log(json)
+    return json.data.getPRvoteStatus
   }
 
   async function postSetVote(owner, repo, issue_id, contributor_id, side) {
