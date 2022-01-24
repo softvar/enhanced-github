@@ -436,9 +436,9 @@ render(e(App), domContainer);
               render(ce(VoteButton), domContainerVoteButton);
               sideText = "no"
               render(ce(VoteButton), domContainerVoteButton1);
-              } else {
-                modal.style.display = "none";
-              }
+            } else if (idName === "") {
+              modal.style.display = "none";
+            }
           },
           false
         );
