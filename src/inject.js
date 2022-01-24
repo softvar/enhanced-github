@@ -489,16 +489,27 @@ function createModal() {
         margin: auto;
         padding: 20px;
         border: 1px solid #888;
+        height: 100%;
         width: 33%;
+      }
+      .modal-center {
+        margin: 0;
+        position: absolute;
+        top: 15%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
       }
     </style>
     <div id="myModal" class="modal">
 
       <!-- Modal content -->
       <div class="modal-content">
+      <div class="modal-center">
       <style>
       #yes_vote_button, #no_vote_button {
         display: inline-block;
+        padding: 20px;
       }
       </style>
         <div id="yes_vote_button"></div>
