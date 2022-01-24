@@ -182,6 +182,39 @@ render(e(App), domContainer);
         var sideText;
 
         class TurboSrcButtonOpen extends React.Component {
+          constructor(props) {
+            super(props);
+            this.state = {
+              user: user,
+              repo: repo,
+              issueID: issue_id,
+              contributorID: contributor_id,
+              background: "green"
+            }
+          }
+
+          componentDidMount() {
+            setTimeout(() => {
+              (async () => {
+                const statusReact = await postGetPRvoteStatus(
+                  this.state.user,
+                  this.state.repo,
+                  this.state.issueID,
+                  this.state.contributorID,
+                  this.state.side
+                );
+                console.log('status CDM: ' + statusReact)
+                const displayOpenStatusReact = (statusReact === 'none' || statusReact === 'open')
+                if (displayOpenStatusReact) {
+                 this.setState({background: "green"})
+                } else {
+                 this.setState({background: "red"})
+                }
+              })()
+                //this.setState({background: "yellow"})
+            }, 1000)
+
+          }
           render() {
             const handleClick=(e)=>{
               console.log('handleClick')
@@ -190,7 +223,7 @@ render(e(App), domContainer);
             return (
                 <Button
                  // variant="open" className="textColor bgColor"
-                  style={{ color: "white", background: "green" }}
+                  style={{ color: "white", background: this.state.background }}
                   onClick={handleClick}
                 >T</Button>
             );
@@ -359,11 +392,10 @@ render(e(App), domContainer);
           console.log('status: ' + status)
           displayOpenStatus = (status === 'none' || status === 'open')
           domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}-${contributor_id}`);
-          if (displayOpenStatus) {
-           render(ce(TurboSrcButtonOpen), domContainerTurboSrcButton);
-          } else {
-           render(ce(TurboSrcButtonClosed), domContainerTurboSrcButton);
-          }
+          //if (displayOpenStatus) {
+           render(ce(TurboSrcButtonOpen), domContainerTurboSrcButton); //} else {
+          // render(ce(TurboSrcButtonClosed), domContainerTurboSrcButton);
+          //}
         }
 
         document.addEventListener(
