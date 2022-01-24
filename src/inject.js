@@ -337,6 +337,86 @@ render(e(App), domContainer);
           }
         }
 
+        class VoteTotalMain extends React.Component {
+          constructor(props) {
+            super(props);
+            this.state = {
+              user: user,
+              repo: repo,
+              issueID: issue_id,
+              contributorID: contributor_id,
+              background: "green",
+              dynamicBool: true,
+            }
+          }
+
+          componentDidMount() {
+            setTimeout(() => {
+              (async () => {
+                const statusReact = await postGetPRvoteStatus(
+                  this.state.user,
+                  this.state.repo,
+                  this.state.issueID,
+                  this.state.contributorID,
+                  this.state.side
+                );
+                console.log('status CDM: ' + statusReact)
+                const displayOpenStatusReact = (statusReact === 'none' || statusReact === 'open')
+                if (displayOpenStatusReact) {
+                 this.setState({background: "green"})
+                } else {
+                 this.setState({background: "red"})
+                }
+                //console.log("dBool: " + this.state.dynamicBool)
+                //if (this.state.dynamicBool) {
+                //  this.setState({dynamicBool: false})
+                //  console.log("dBool: " + this.state.dynamicBool)
+                //} else {
+                //  this.setState({dynamicBool: true})
+                //  console.log("dBool: " + this.state.dynamicBool)
+                //}
+              })()
+                //this.setState({background: "yellow"})
+            }, 1000)
+          }
+
+          componentDidUpdate() {
+            setTimeout(() => {
+              (async () => {
+                const statusReact = await postGetPRvoteStatus(
+                  this.state.user,
+                  this.state.repo,
+                  this.state.issueID,
+                  this.state.contributorID,
+                  this.state.side
+                );
+                console.log('status CDU: ' + statusReact)
+                const displayOpenStatusReact = (statusReact === 'none' || statusReact === 'open')
+                if (displayOpenStatusReact) {
+                 this.setState({background: "green"})
+                } else {
+                 this.setState({background: "red"})
+                }
+              })()
+            }, 1000)
+
+          }
+          render() {
+            const handleClick=(e)=>{
+              console.log('handleClick')
+              //modal.style.display = "none";
+            }
+            return (
+                <Button
+                 // variant="open" className="textColor bgColor"
+                  style={{ color: "white", background: this.state.background }}
+                  onClick={handleClick}
+                >T</Button>
+            );
+          }
+
+        }
+
         const containerItems = document.querySelectorAll(
           '.js-issue-row'
         );
@@ -427,12 +507,14 @@ render(e(App), domContainer);
               contributor_id = idNameSplit[4]
               console.log(issue_id)
               console.log(contributor_id)
+              const domContainerVoteTotalMain = document.querySelector('#vote-total-main');
               const domContainerVoteButton = document.querySelector('#yes_vote_button');
               const domContainerVoteButton1 = document.querySelector('#no_vote_button');
 
               modal.style.display = "block";
 
               sideText = "yes"
+              render(ce(VoteTotalMain), domContainerVoteTotalMain);
               render(ce(VoteButton), domContainerVoteButton);
               sideText = "no"
               render(ce(VoteButton), domContainerVoteButton1);
@@ -491,32 +573,40 @@ function createModal() {
         border: 1px solid #888;
         height: 100%;
         width: 33%;
+        text-align: center
       }
-      .modal-center {
-        margin: 0;
-        position: absolute;
-        top: 15%;
-        left: 50%;
-        -ms-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
+      .btn-group-vote button {
+        background-color: #04AA6D; /* Green background */
+        border: 1px solid green; /* Green border */
+        color: white; /* White text */
+        padding: 10px 24px; /* Some padding */
+        cursor: pointer; /* Pointer/hand icon */
+        float: left; /* Float the buttons side by side */
+      }
+      /* Clear floats (clearfix hack) */
+      .btn-group-vote:after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+
+      .btn-group-vote button:not(:last-child) {
+        border-right: none; /* Prevent double borders */
       }
     </style>
     <div id="myModal" class="modal">
 
       <!-- Modal content -->
       <div class="modal-content">
-      <div class="modal-center">
-      <style>
-      #yes_vote_button, #no_vote_button {
-        display: inline-block;
-        padding: 20px;
-      }
-      </style>
-        <div id="yes_vote_button"></div>
-        <div id="no_vote_button"></div>
-        <p>Some text in the Modal..</p>
+        <style>
+        </style>
+          <div id="vote-total-main"></div>
+        <div class="btn-group-vote">
+          <div id="yes_vote_button"></div>
+          <div id="no_vote_button"></div>
+        </div>
+          <p>Some text in the Modal..</p>
       </div>
-
     </div>
     `
 }
@@ -526,3 +616,16 @@ function createButtonHtml(index, issue_id, contributor_id) {
       <div id='turbo-src-btn-${issue_id}-${contributor_id}'></div>
     `
 }
+      //#yes_vote_button, #no_vote_button {
+      //  display: inline-block;
+      //  padding: 20px;
+      //}
+
+      //.modal-center {
+      //  margin: 0;
+      //  position: absolute;
+      //  top: 15%;
+      //  left: 50%;
+      //  -ms-transform: translate(-50%, -50%);
+      //  transform: translate(-50%, -50%);
+      //}
