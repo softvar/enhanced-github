@@ -189,7 +189,8 @@ render(e(App), domContainer);
               repo: repo,
               issueID: issue_id,
               contributorID: contributor_id,
-              background: "green"
+              background: "green",
+              dynamicBool: true,
             }
           }
 
@@ -210,6 +211,44 @@ render(e(App), domContainer);
                 } else {
                  this.setState({background: "red"})
                 }
+                //console.log("dBool: " + this.state.dynamicBool)
+                //if (this.state.dynamicBool) {
+                //  this.setState({dynamicBool: false})
+                //  console.log("dBool: " + this.state.dynamicBool)
+                //} else {
+                //  this.setState({dynamicBool: true})
+                //  console.log("dBool: " + this.state.dynamicBool)
+                //}
+              })()
+                //this.setState({background: "yellow"})
+            }, 1000)
+          }
+
+          componentDidUpdate() {
+            setTimeout(() => {
+              (async () => {
+                const statusReact = await postGetPRvoteStatus(
+                  this.state.user,
+                  this.state.repo,
+                  this.state.issueID,
+                  this.state.contributorID,
+                  this.state.side
+                );
+                console.log('status CDU: ' + statusReact)
+                const displayOpenStatusReact = (statusReact === 'none' || statusReact === 'open')
+                if (displayOpenStatusReact) {
+                 this.setState({background: "green"})
+                } else {
+                 this.setState({background: "red"})
+                }
+                //console.log("dBool: " + this.state.dynamicBool)
+                //if (this.state.dynamicBool) {
+                //  this.setState({dynamicBool: false})
+                //  console.log("dBool: " + this.state.dynamicBool)
+                //} else {
+                //  this.setState({dynamicBool: true})
+                //  console.log("dBool: " + this.state.dynamicBool)
+                //}
               })()
                 //this.setState({background: "yellow"})
             }, 1000)
