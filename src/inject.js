@@ -241,16 +241,7 @@ render(e(App), domContainer);
                 } else {
                  this.setState({background: "red"})
                 }
-                //console.log("dBool: " + this.state.dynamicBool)
-                //if (this.state.dynamicBool) {
-                //  this.setState({dynamicBool: false})
-                //  console.log("dBool: " + this.state.dynamicBool)
-                //} else {
-                //  this.setState({dynamicBool: true})
-                //  console.log("dBool: " + this.state.dynamicBool)
-                //}
               })()
-                //this.setState({background: "yellow"})
             }, 1000)
 
           }
@@ -263,23 +254,6 @@ render(e(App), domContainer);
                 <Button
                  // variant="open" className="textColor bgColor"
                   style={{ color: "white", background: this.state.background }}
-                  onClick={handleClick}
-                >T</Button>
-            );
-          }
-
-        }
-
-        class TurboSrcButtonClosed extends React.Component {
-          render() {
-            const handleClick=(e)=>{
-              console.log('handleClick')
-              //modal.style.display = "none";
-            }
-            return (
-                <Button
-                 // variant="open" className="textColor bgColor"
-                  style={{ color: "white", background: "red" }}
                   onClick={handleClick}
                 >T</Button>
             );
