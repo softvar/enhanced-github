@@ -38,6 +38,7 @@ var repo_id
 var issue_id;
 var side
 var contributor_id;
+var voteTotals
 
 let rootcontainer = document.querySelectorAll('#rootcontainer');
 if (rootcontainer.length) {
@@ -119,6 +120,27 @@ render(e(App), domContainer);
     const json = JSON.parse(res.text)
     console.log(json)
     return json.data.getPRvoteStatus
+  }
+
+  async function postGetPRvoteTotals(owner, repo, issue_id, contributor_id, side) {
+    const res = await superagent
+      .post('http://localhost:4000/graphql')
+      .send(
+        //{ query: '{ name: 'Manny', species: 'cat' }' }
+        //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
+        //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
+        //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
+        //{ query: `{ getVoteEverything }` }
+        { query: `{ getPRvoteTotals(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }` }
+        //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
+      ) // sends a JSON post body
+      .set('accept', 'json')
+      //.end((err, res) => {
+        // Calling the end function will send the request
+      //});
+    const json = JSON.parse(res.text)
+    console.log(json)
+    return json.data.getPRvoteTotals
   }
 
   async function postSetVote(owner, repo, issue_id, contributor_id, side) {
@@ -204,7 +226,7 @@ render(e(App), domContainer);
                   this.state.contributorID,
                   this.state.side
                 );
-                console.log('status CDM: ' + statusReact)
+                //console.log('status CDM: ' + statusReact)
                 const displayOpenStatusReact = (statusReact === 'none' || statusReact === 'open')
                 if (displayOpenStatusReact) {
                  this.setState({background: "green"})
@@ -234,7 +256,7 @@ render(e(App), domContainer);
                   this.state.contributorID,
                   this.state.side
                 );
-                console.log('status CDU: ' + statusReact)
+                //console.log('status CDU: ' + statusReact)
                 const displayOpenStatusReact = (statusReact === 'none' || statusReact === 'open')
                 if (displayOpenStatusReact) {
                  this.setState({background: "green"})
@@ -345,36 +367,26 @@ render(e(App), domContainer);
               repo: repo,
               issueID: issue_id,
               contributorID: contributor_id,
-              background: "green",
-              dynamicBool: true,
+              voteTotals: "0%"
             }
           }
 
           componentDidMount() {
             setTimeout(() => {
               (async () => {
-                const statusReact = await postGetPRvoteStatus(
+                const voteTotalsReact = await postGetPRvoteTotals(
                   this.state.user,
                   this.state.repo,
                   this.state.issueID,
                   this.state.contributorID,
                   this.state.side
                 );
-                console.log('status CDM: ' + statusReact)
-                const displayOpenStatusReact = (statusReact === 'none' || statusReact === 'open')
-                if (displayOpenStatusReact) {
-                 this.setState({background: "green"})
+                if (voteTotalsReact) {
+                   this.setState({voteTotals: voteTotalsReact})
                 } else {
-                 this.setState({background: "red"})
+                   this.setState({voteTotals: "0%"})
                 }
-                //console.log("dBool: " + this.state.dynamicBool)
-                //if (this.state.dynamicBool) {
-                //  this.setState({dynamicBool: false})
-                //  console.log("dBool: " + this.state.dynamicBool)
-                //} else {
-                //  this.setState({dynamicBool: true})
-                //  console.log("dBool: " + this.state.dynamicBool)
-                //}
+                console.log('status CDMV: ' + voteTotalsReact)
               })()
                 //this.setState({background: "yellow"})
             }, 1000)
@@ -383,20 +395,19 @@ render(e(App), domContainer);
           componentDidUpdate() {
             setTimeout(() => {
               (async () => {
-                const statusReact = await postGetPRvoteStatus(
+                const voteTotalsReact = await postGetPRvoteTotals(
                   this.state.user,
                   this.state.repo,
                   this.state.issueID,
                   this.state.contributorID,
                   this.state.side
                 );
-                console.log('status CDU: ' + statusReact)
-                const displayOpenStatusReact = (statusReact === 'none' || statusReact === 'open')
-                if (displayOpenStatusReact) {
-                 this.setState({background: "green"})
+                if (voteTotalsReact) {
+                   this.setState({voteTotals: voteTotalsReact})
                 } else {
-                 this.setState({background: "red"})
+                   this.setState({voteTotals: "0%"})
                 }
+                console.log('status CDUV: ' + voteTotalsReact)
               })()
             }, 1000)
 
@@ -411,7 +422,7 @@ render(e(App), domContainer);
                  // variant="open" className="textColor bgColor"
                   style={{ color: "white", background: this.state.background }}
                   onClick={handleClick}
-                >T</Button>
+                >{this.state.voteTotals}</Button>
             );
           }
 
@@ -482,6 +493,7 @@ render(e(App), domContainer);
           issue_id = containerItems[i].getAttribute('id');
           //if (i < 2) {
           status = await postGetPRvoteStatus(user, repo, issue_id, contributor_id, side);
+
           console.log('status: ' + status)
           displayOpenStatus = (status === 'none' || status === 'open')
           domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}-${contributor_id}`);
@@ -512,6 +524,8 @@ render(e(App), domContainer);
               const domContainerVoteButton1 = document.querySelector('#no_vote_button');
 
               modal.style.display = "block";
+
+              voteTotals = await postGetPRvoteTotals(user, repo, issue_id, contributor_id, side);
 
               sideText = "yes"
               render(ce(VoteTotalMain), domContainerVoteTotalMain);
