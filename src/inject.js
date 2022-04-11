@@ -227,11 +227,12 @@ render(e(App), domContainer);
                   this.state.side
                 );
                 //console.log('status CDM: ' + statusReact)
-                const displayOpenStatusReact = (statusReact === 'none' || statusReact === 'open')
-                if (displayOpenStatusReact) {
+                if (statusReact === 'open') {
                  this.setState({background: "green"})
-                } else {
+                } else if (statusReact === 'closed') {
                  this.setState({background: "red"})
+                } else {
+                 this.setState({background: "white"})
                 }
                 //console.log("dBool: " + this.state.dynamicBool)
                 //if (this.state.dynamicBool) {
@@ -257,11 +258,12 @@ render(e(App), domContainer);
                   this.state.side
                 );
                 //console.log('status CDU: ' + statusReact)
-                const displayOpenStatusReact = (statusReact === 'none' || statusReact === 'open')
-                if (displayOpenStatusReact) {
+                if (statusReact === 'open') {
                  this.setState({background: "green"})
-                } else {
+                } else if (statusReact === 'closed') {
                  this.setState({background: "red"})
+                } else {
+                 this.setState({background: "white"})
                 }
               })()
             }, 1000)
