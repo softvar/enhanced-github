@@ -211,7 +211,7 @@ render(e(App), domContainer);
               repo: repo,
               issueID: issue_id,
               contributorID: contributor_id,
-              background: "green",
+              background: "white",
               dynamicBool: true,
             }
           }
@@ -228,11 +228,11 @@ render(e(App), domContainer);
                 );
                 //console.log('status CDM: ' + statusReact)
                 if (statusReact === 'open') {
-                 this.setState({background: "green"})
-                } else if (statusReact === 'closed') {
-                 this.setState({background: "red"})
-                } else {
                  this.setState({background: "white"})
+                } else if (statusReact === "merge") {
+                 this.setState({background: "green"})
+                } else if (statusReact === "closed ") {
+                 this.setState({background: "red"})
                 }
                 //console.log("dBool: " + this.state.dynamicBool)
                 //if (this.state.dynamicBool) {
@@ -259,11 +259,11 @@ render(e(App), domContainer);
                 );
                 //console.log('status CDU: ' + statusReact)
                 if (statusReact === 'open') {
-                 this.setState({background: "green"})
-                } else if (statusReact === 'closed') {
-                 this.setState({background: "red"})
-                } else {
                  this.setState({background: "white"})
+                } else if (statusReact === "merge") {
+                 this.setState({background: "green"})
+                } else if (statusReact === "closed ") {
+                 this.setState({background: "red"})
                 }
               })()
             }, 1000)
@@ -277,7 +277,7 @@ render(e(App), domContainer);
             return (
                 <Button
                  // variant="open" className="textColor bgColor"
-                  style={{ color: "white", background: this.state.background }}
+                  style={{ color: "black", background: this.state.background }}
                   onClick={handleClick}
                 >T</Button>
             );
