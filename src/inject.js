@@ -213,6 +213,7 @@ render(e(App), domContainer);
               contributorID: contributor_id,
               background: "white",
               dynamicBool: true,
+              status: "none"
             }
           }
 
@@ -227,6 +228,7 @@ render(e(App), domContainer);
                   this.state.side
                 );
                 //console.log('status CDM: ' + statusReact)
+                this.setState({status: statusReact})
                 if (statusReact === 'open') {
                  this.setState({background: "white"})
                 } else if (statusReact === "merge") {
@@ -260,6 +262,7 @@ render(e(App), domContainer);
                   this.state.side
                 );
                 //console.log('status CDU: ' + statusReact)
+                this.setState({status: statusReact})
                 if (statusReact === 'open') {
                  this.setState({background: "white"})
                 } else if (statusReact === "merge") {
@@ -283,7 +286,7 @@ render(e(App), domContainer);
                  // variant="open" className="textColor bgColor"
                   style={{ color: "black", background: this.state.background }}
                   onClick={handleClick}
-                >T</Button>
+                >{this.state.status}</Button>
             );
           }
 
