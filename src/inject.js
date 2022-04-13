@@ -233,6 +233,8 @@ render(e(App), domContainer);
                  this.setState({background: "green"})
                 } else if (statusReact === "closed") {
                  this.setState({background: "red"})
+                } else {
+                 this.setState({background: "blue"})
                 }
                 //console.log("dBool: " + this.state.dynamicBool)
                 //if (this.state.dynamicBool) {
@@ -264,6 +266,8 @@ render(e(App), domContainer);
                  this.setState({background: "green"})
                 } else if (statusReact === "closed") {
                  this.setState({background: "red"})
+                } else {
+                 this.setState({background: "blue"})
                 }
               })()
             }, 1000)
