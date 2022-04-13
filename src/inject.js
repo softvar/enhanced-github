@@ -262,7 +262,7 @@ render(e(App), domContainer);
                  this.setState({background: "white"})
                 } else if (statusReact === "merge") {
                  this.setState({background: "green"})
-                } else if (statusReact === "closed ") {
+                } else if (statusReact === "closed") {
                  this.setState({background: "red"})
                 }
               })()
@@ -369,24 +369,25 @@ render(e(App), domContainer);
               repo: repo,
               issueID: issue_id,
               contributorID: contributor_id,
-              voteTotals: "0%"
+              voteTotals: "0.0"
             }
           }
 
           componentDidMount() {
             setTimeout(() => {
               (async () => {
-                const voteTotalsReact = await postGetPRvoteTotals(
+                var voteTotalsReact = await postGetPRvoteTotals(
                   this.state.user,
                   this.state.repo,
                   this.state.issueID,
                   this.state.contributorID,
                   this.state.side
                 );
+                voteTotalsReact = (Number(voteTotalsReact)*100).toFixed(1).toString()
                 if (voteTotalsReact) {
                    this.setState({voteTotals: voteTotalsReact})
                 } else {
-                   this.setState({voteTotals: "0%"})
+                   this.setState({voteTotals: "0.0"})
                 }
                 console.log('status CDMV: ' + voteTotalsReact)
               })()
@@ -397,17 +398,18 @@ render(e(App), domContainer);
           componentDidUpdate() {
             setTimeout(() => {
               (async () => {
-                const voteTotalsReact = await postGetPRvoteTotals(
+                var voteTotalsReact = await postGetPRvoteTotals(
                   this.state.user,
                   this.state.repo,
                   this.state.issueID,
                   this.state.contributorID,
                   this.state.side
                 );
+                voteTotalsReact = (Number(voteTotalsReact)*100).toFixed(1).toString()
                 if (voteTotalsReact) {
                    this.setState({voteTotals: voteTotalsReact})
                 } else {
-                   this.setState({voteTotals: "0%"})
+                   this.setState({voteTotals: "0.0"})
                 }
                 console.log('status CDUV: ' + voteTotalsReact)
               })()
@@ -424,7 +426,7 @@ render(e(App), domContainer);
                  // variant="open" className="textColor bgColor"
                   style={{ color: "white", background: this.state.background }}
                   onClick={handleClick}
-                >{this.state.voteTotals}</Button>
+                >{this.state.voteTotals}%</Button>
             );
           }
 
