@@ -231,7 +231,7 @@ render(e(App), domContainer);
                  this.setState({background: "white"})
                 } else if (statusReact === "merge") {
                  this.setState({background: "green"})
-                } else if (statusReact === "closed ") {
+                } else if (statusReact === "closed") {
                  this.setState({background: "red"})
                 }
                 //console.log("dBool: " + this.state.dynamicBool)
