@@ -445,15 +445,25 @@ render(e(App), domContainer);
                   this.state.contributorID,
                   this.state.side
                 );
+                var voteNoTotals = await postGetPRvoteNoTotals(
+                  this.state.user,
+                  this.state.repo,
+                  this.state.issueID,
+                  this.state.contributorID,
+                  this.state.side
+                );
 
                 voteTotalsReact = (Number(voteTotalsReact)*100).toFixed(1).toString()
-                voteYesTotals = (Number(voteYesTotals))
+                voteYesTotals = (Number(voteYesTotals)).toFixed(1)
+                voteNoTotals = (Number(voteNoTotals)).toFixed(1)
                 if (voteTotalsReact) {
                    this.setState({voteTotals: voteTotalsReact})
                    this.setState({voteYesTotals: voteYesTotals})
+                   this.setState({voteNoTotals: voteNoTotals})
                 } else {
                    this.setState({voteTotals: "0.0"})
                    this.setState({voteYesTotals: "0.0"})
+                   this.setState({voteNoTotals: "0.0"})
                 }
                 console.log('status CDMV: ' + voteTotalsReact)
               })()
@@ -478,15 +488,25 @@ render(e(App), domContainer);
                   this.state.contributorID,
                   this.state.side
                 );
+                var voteNoTotals = await postGetPRvoteNoTotals(
+                  this.state.user,
+                  this.state.repo,
+                  this.state.issueID,
+                  this.state.contributorID,
+                  this.state.side
+                );
 
                 voteTotalsReact = (Number(voteTotalsReact)*100).toFixed(1).toString()
-                voteYesTotals = (Number(voteYesTotals))
+                voteYesTotals = (Number(voteYesTotals)).toFixed(1)
+                voteNoTotals = (Number(voteNoTotals)).toFixed(1)
                 if (voteTotalsReact) {
                    this.setState({voteTotals: voteTotalsReact})
                    this.setState({voteYesTotals: voteYesTotals})
+                   this.setState({voteNoTotals: voteNoTotals})
                 } else {
                    this.setState({voteTotals: "0.0"})
                    this.setState({voteYesTotals: "0.0"})
+                   this.setState({voteNoTotals: "0.0"})
                 }
                 console.log('status CDUV: ' + voteTotalsReact)
               })()
