@@ -423,8 +423,7 @@ render(e(App), domContainer);
               repo: repo,
               issueID: issue_id,
               contributorID: contributor_id,
-              voteTotals: "0.0",
-              voteYesTotals: ["0.0", "0.0"]
+              votes: ["0.0", "0.0"]
             }
           }
 
@@ -461,11 +460,11 @@ render(e(App), domContainer);
                    //voteYesTotals = ((voteYesTotals / (voteYesTotals + voteNoTotals))*100).toFixed(1)
                    //voteNoTotals = (100 - voteYesTotals).toFixed(1)
                    //this.setState({voteTotals: voteTotalsReact})
-                   this.setState({voteYesTotals: voteArray})
+                   this.setState({votes: voteArray})
                    //this.setState({voteNoTotals: voteNoTotals})
                 } else {
                    //this.setState({voteTotals: "0.0"})
-                   this.setState({voteYesTotals: ["0.0", "0.0"]})
+                   this.setState({votes: ["0.0", "0.0"]})
                    //this.setState({voteNoTotals: "0.0"})
                 }
                 console.log('status CDMV: ' + voteTotalsReact)
@@ -507,11 +506,11 @@ render(e(App), domContainer);
                    //voteYesTotals = ((voteYesTotals / (voteYesTotals + voteNoTotals))*100).toFixed(1)
                    //voteNoTotals = (100 - voteYesTotals).toFixed(1)
                    //this.setState({voteTotals: voteTotalsReact})
-                   this.setState({voteYesTotals: voteArray})
+                   this.setState({votes: voteArray})
                    //this.setState({voteNoTotals: voteNoTotals})
                 } else {
                    //this.setState({voteTotals: "0.0"})
-                   this.setState({voteYesTotals: ["0.0", "0.0"]})
+                   this.setState({votes: ["0.0", "0.0"]})
                    //this.setState({voteNoTotals: "0.0"})
                 }
                 console.log('status CDUV: ' + voteTotalsReact)
@@ -529,7 +528,7 @@ render(e(App), domContainer);
                  // variant="open" className="textColor bgColor"
                   style={{ color: "white", background: this.state.background }}
                   onClick={handleClick}
-                >{this.state.voteYesTotals[0]}%  |  {this.state.voteYesTotals[1]}</Button>
+                >{this.state.votes[0]}%  |  {this.state.votes[1]}</Button>
             );
           }
 
