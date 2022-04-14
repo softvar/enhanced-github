@@ -454,16 +454,18 @@ render(e(App), domContainer);
                 );
 
                 voteTotalsReact = (Number(voteTotalsReact)*100).toFixed(1).toString()
-                voteYesTotals = (Number(voteYesTotals)).toFixed(1)
-                voteNoTotals = (Number(voteNoTotals)).toFixed(1)
                 if (voteTotalsReact) {
+                   voteYesTotals = (Number(voteYesTotals)).toFixed(1).toString()
+                   //voteNoTotals = (Number(voteNoTotals))
+                   //voteYesTotals = ((voteYesTotals / (voteYesTotals + voteNoTotals))*100).toFixed(1)
+                   //voteNoTotals = (100 - voteYesTotals).toFixed(1)
                    this.setState({voteTotals: voteTotalsReact})
                    this.setState({voteYesTotals: voteYesTotals})
-                   this.setState({voteNoTotals: voteNoTotals})
+                   //this.setState({voteNoTotals: voteNoTotals})
                 } else {
-                   this.setState({voteTotals: "0.0"})
+                   //this.setState({voteTotals: "0.0"})
                    this.setState({voteYesTotals: "0.0"})
-                   this.setState({voteNoTotals: "0.0"})
+                   //this.setState({voteNoTotals: "0.0"})
                 }
                 console.log('status CDMV: ' + voteTotalsReact)
               })()
@@ -497,16 +499,18 @@ render(e(App), domContainer);
                 );
 
                 voteTotalsReact = (Number(voteTotalsReact)*100).toFixed(1).toString()
-                voteYesTotals = (Number(voteYesTotals)).toFixed(1)
-                voteNoTotals = (Number(voteNoTotals)).toFixed(1)
                 if (voteTotalsReact) {
-                   this.setState({voteTotals: voteTotalsReact})
+                   voteYesTotals = (Number(voteYesTotals)).toFixed(1).toString()
+                   //voteNoTotals = (Number(voteNoTotals))
+                   //voteYesTotals = ((voteYesTotals / (voteYesTotals + voteNoTotals))*100).toFixed(1)
+                   //voteNoTotals = (100 - voteYesTotals).toFixed(1)
+                   //this.setState({voteTotals: voteTotalsReact})
                    this.setState({voteYesTotals: voteYesTotals})
-                   this.setState({voteNoTotals: voteNoTotals})
+                   //this.setState({voteNoTotals: voteNoTotals})
                 } else {
-                   this.setState({voteTotals: "0.0"})
+                   //this.setState({voteTotals: "0.0"})
                    this.setState({voteYesTotals: "0.0"})
-                   this.setState({voteNoTotals: "0.0"})
+                   //this.setState({voteNoTotals: "0.0"})
                 }
                 console.log('status CDUV: ' + voteTotalsReact)
               })()
@@ -523,7 +527,7 @@ render(e(App), domContainer);
                  // variant="open" className="textColor bgColor"
                   style={{ color: "white", background: this.state.background }}
                   onClick={handleClick}
-                >{this.state.voteYesTotals}%  |  {this.state.voteTotals}%</Button>
+                >{this.state.voteYesTotals}%</Button>
             );
           }
 
