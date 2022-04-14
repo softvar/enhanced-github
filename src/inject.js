@@ -235,13 +235,13 @@ render(e(App), domContainer);
                 );
                 //console.log('status CDM: ' + statusReact)
                 if (statusReact === 'open') {
-                 this.setState({background: "white"})
+                 this.setState({background: "SkyBlue"})
                 } else if (statusReact === "merge") {
                  this.setState({background: "green"})
                 } else if (statusReact === "closed") {
                  this.setState({background: "red"})
                 } else {
-                 this.setState({background: "blue"})
+                 this.setState({background: "white"})
                 }
                 //console.log("dBool: " + this.state.dynamicBool)
                 //if (this.state.dynamicBool) {
@@ -268,13 +268,13 @@ render(e(App), domContainer);
                 );
                 //console.log('status CDU: ' + statusReact)
                 if (statusReact === 'open') {
-                 this.setState({background: "white"})
+                 this.setState({background: "SkyBlue"})
                 } else if (statusReact === "merge") {
                  this.setState({background: "green"})
                 } else if (statusReact === "closed") {
                  this.setState({background: "red"})
                 } else {
-                 this.setState({background: "blue"})
+                 this.setState({background: "white"})
                 }
               })()
             }, 1000)
