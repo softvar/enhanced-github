@@ -454,12 +454,12 @@ render(e(App), domContainer);
                 );
 
                 voteTotalsReact = (Number(voteTotalsReact)*100).toFixed(1).toString()
-                if (voteTotalsReact) {
+                if (voteYesTotals && voteNoTotals) {
                    voteYesTotals = (Number(voteYesTotals)).toFixed(1).toString()
-                   //voteNoTotals = (Number(voteNoTotals))
+                   voteNoTotals = (Number(voteNoTotals)).toFixed(1).toString()
                    //voteYesTotals = ((voteYesTotals / (voteYesTotals + voteNoTotals))*100).toFixed(1)
                    //voteNoTotals = (100 - voteYesTotals).toFixed(1)
-                   this.setState({voteTotals: voteTotalsReact})
+                   //this.setState({voteTotals: voteTotalsReact})
                    this.setState({voteYesTotals: voteYesTotals})
                    //this.setState({voteNoTotals: voteNoTotals})
                 } else {
@@ -470,7 +470,7 @@ render(e(App), domContainer);
                 console.log('status CDMV: ' + voteTotalsReact)
               })()
                 //this.setState({background: "yellow"})
-            }, 1000)
+            }, 5000)
           }
 
           componentDidUpdate() {
@@ -499,9 +499,9 @@ render(e(App), domContainer);
                 );
 
                 voteTotalsReact = (Number(voteTotalsReact)*100).toFixed(1).toString()
-                if (voteTotalsReact) {
+                if (voteYesTotals && voteNoTotals) {
                    voteYesTotals = (Number(voteYesTotals)).toFixed(1).toString()
-                   //voteNoTotals = (Number(voteNoTotals))
+                   voteNoTotals = (Number(voteNoTotals)).toFixed(1).toString()
                    //voteYesTotals = ((voteYesTotals / (voteYesTotals + voteNoTotals))*100).toFixed(1)
                    //voteNoTotals = (100 - voteYesTotals).toFixed(1)
                    //this.setState({voteTotals: voteTotalsReact})
@@ -514,7 +514,7 @@ render(e(App), domContainer);
                 }
                 console.log('status CDUV: ' + voteTotalsReact)
               })()
-            }, 1000)
+            }, 5000)
 
           }
           render() {
@@ -527,7 +527,7 @@ render(e(App), domContainer);
                  // variant="open" className="textColor bgColor"
                   style={{ color: "white", background: this.state.background }}
                   onClick={handleClick}
-                >{this.state.voteYesTotals}%</Button>
+                >{this.state.voteYesTotals}% | {this.state.voteNoTotals}%</Button>
             );
           }
 
