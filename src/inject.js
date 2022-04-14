@@ -187,6 +187,13 @@ render(e(App), domContainer);
     repo_id = `${path.user}/${path.repo}`;
     repo = path.repo;
     user = path.user;
+    var statusReact = await postGetPRvoteStatus(
+      user,
+      repo,
+      issue_id,
+      contributor_id,
+      side
+    );
 
     const res_get_repo_status = await get_repo_status(repo_id);
     const isRepoTurboSrcToken = res_get_repo_status['body']['data']['getRepoStatus'];
@@ -213,14 +220,13 @@ render(e(App), domContainer);
               contributorID: contributor_id,
               background: "white",
               dynamicBool: true,
-              status: "none"
             }
           }
 
           componentDidMount() {
             setTimeout(() => {
               (async () => {
-                const statusReact = await postGetPRvoteStatus(
+                statusReact = await postGetPRvoteStatus(
                   this.state.user,
                   this.state.repo,
                   this.state.issueID,
@@ -228,7 +234,6 @@ render(e(App), domContainer);
                   this.state.side
                 );
                 //console.log('status CDM: ' + statusReact)
-                this.setState({status: statusReact})
                 if (statusReact === 'open') {
                  this.setState({background: "white"})
                 } else if (statusReact === "merge") {
@@ -254,7 +259,7 @@ render(e(App), domContainer);
           componentDidUpdate() {
             setTimeout(() => {
               (async () => {
-                const statusReact = await postGetPRvoteStatus(
+                statusReact = await postGetPRvoteStatus(
                   this.state.user,
                   this.state.repo,
                   this.state.issueID,
@@ -262,7 +267,6 @@ render(e(App), domContainer);
                   this.state.side
                 );
                 //console.log('status CDU: ' + statusReact)
-                this.setState({status: statusReact})
                 if (statusReact === 'open') {
                  this.setState({background: "white"})
                 } else if (statusReact === "merge") {
@@ -286,7 +290,7 @@ render(e(App), domContainer);
                  // variant="open" className="textColor bgColor"
                   style={{ color: "black", background: this.state.background }}
                   onClick={handleClick}
-                >{this.state.status}</Button>
+                >{statusReact}</Button>
             );
           }
 
