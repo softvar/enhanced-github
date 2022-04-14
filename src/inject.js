@@ -454,12 +454,12 @@ render(e(App), domContainer);
 
                 voteTotalsReact = (Number(voteTotalsReact)*100).toFixed(1).toString()
                 if (voteYesTotals && voteNoTotals) {
-                   voteYesTotals = (Number(voteYesTotals)).toFixed(1).toString()
-                   voteNoTotals = (Number(voteNoTotals)).toFixed(1).toString()
-                   const voteArray = [voteYesTotals, voteNoTotals]
-                   //voteYesTotals = ((voteYesTotals / (voteYesTotals + voteNoTotals))*100).toFixed(1)
-                   //voteNoTotals = (100 - voteYesTotals).toFixed(1)
+                   voteYesTotals = Number(voteYesTotals)
+                   voteNoTotals = Number(voteNoTotals)
+                   voteYesTotals = ((voteYesTotals / (voteYesTotals + voteNoTotals))*100).toFixed(1)
+                   voteNoTotals = (100 - voteYesTotals).toFixed(1)
                    //this.setState({voteTotals: voteTotalsReact})
+                   const voteArray = [voteYesTotals.toString(), voteNoTotals.toString(), voteTotalsReact]
                    this.setState({votes: voteArray})
                    //this.setState({voteNoTotals: voteNoTotals})
                 } else {
@@ -500,12 +500,12 @@ render(e(App), domContainer);
 
                 voteTotalsReact = (Number(voteTotalsReact)*100).toFixed(1).toString()
                 if (voteYesTotals && voteNoTotals) {
-                   voteYesTotals = (Number(voteYesTotals)).toFixed(1).toString()
-                   voteNoTotals = (Number(voteNoTotals)).toFixed(1).toString()
-                   const voteArray = [voteYesTotals, voteNoTotals]
-                   //voteYesTotals = ((voteYesTotals / (voteYesTotals + voteNoTotals))*100).toFixed(1)
-                   //voteNoTotals = (100 - voteYesTotals).toFixed(1)
+                   voteYesTotals = Number(voteYesTotals)
+                   voteNoTotals = Number(voteNoTotals)
+                   voteYesTotals = ((voteYesTotals / (voteYesTotals + voteNoTotals))*100).toFixed(1)
+                   voteNoTotals = (100 - voteYesTotals).toFixed(1)
                    //this.setState({voteTotals: voteTotalsReact})
+                   const voteArray = [voteYesTotals.toString(), voteNoTotals.toString(), voteTotalsReact]
                    this.setState({votes: voteArray})
                    //this.setState({voteNoTotals: voteNoTotals})
                 } else {
@@ -528,7 +528,7 @@ render(e(App), domContainer);
                  // variant="open" className="textColor bgColor"
                   style={{ color: "white", background: this.state.background }}
                   onClick={handleClick}
-                >{this.state.votes[0]}%  |  {this.state.votes[1]}</Button>
+                >Yes {this.state.votes[0]}%  |  No {this.state.votes[1]}%  |  Total Voted {this.state.votes[2]}%</Button>
             );
           }
 
