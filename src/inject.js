@@ -503,7 +503,7 @@ render(e(App), domContainer);
                  // variant="open" className="textColor bgColor"
                   style={{ color: "white", background: this.state.background }}
                   onClick={handleClick}
-                >{this.state.voteTotals}%</Button>
+                >{this.state.voteYesTotals}%  |  {this.state.voteTotals}%</Button>
             );
           }
 
