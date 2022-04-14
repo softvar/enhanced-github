@@ -524,11 +524,13 @@ render(e(App), domContainer);
               //modal.style.display = "none";
             }
             return (
+               <div>
                 <Button
                  // variant="open" className="textColor bgColor"
                   style={{ color: "white", background: this.state.background }}
                   onClick={handleClick}
                 >Yes {this.state.votes[0]}%  |  No {this.state.votes[1]}%  |  Total Voted {this.state.votes[2]}%</Button>
+              </div>
             );
           }
 
