@@ -328,12 +328,22 @@ render(e(App), domContainer);
               console.log('handleClick')
               //modal.style.display = "none";
             }
+            var buttonDisplay
+            if (statusReact === 'open') {
+              buttonDisplay = "open"
+            } else if (statusReact === "merge") {
+              buttonDisplay = "merged"
+            } else if (statusReact === "closed") {
+              buttonDisplay = "closed"
+            } else {
+              buttonDisplay = "vote"
+            }
             return (
                 <Button
                  // variant="open" className="textColor bgColor"
                   style={{ color: "black", background: this.state.background }}
                   onClick={handleClick}
-                >{statusReact}</Button>
+                >{buttonDisplay}</Button>
             );
           }
 
