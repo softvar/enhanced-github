@@ -7,12 +7,12 @@
   "homepage_url": "https://github.com/softvar/enhanced-github",
   "author": "turbo-src",
   "icons": {
-    "16": "icons/enhanced-github16.png",
-    "48": "icons/enhanced-github48.png",
-    "128": "icons/enhanced-github128.png"
+    "16": "icons/turbo-src16.png",
+    "48": "icons/turbo-src48.png",
+    "128": "icons/turbo-src128.png"
   },
   "browser_action": {
-    "default_icon": "icons/enhanced-github48.png",
+    "default_icon": "icons/turbo-src48.png",
     "default_popup": "popup.html",
     "default_title": "turbo-src"
   },
