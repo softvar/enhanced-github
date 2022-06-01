@@ -523,14 +523,14 @@ render(e(App), domContainer);
                    this.setState({votes: ["0.0", "0.0"]})
                    //this.setState({voteNoTotals: "0.0"})
                 }
-                console.log('status CDUV: ' + voteTotalsReact)
+                //console.log('status CDUV: ' + voteTotalsReact)
               })()
             }, 5000)
 
           }
           render() {
             const handleClick=(e)=>{
-              console.log('handleClick')
+              //console.log('handleClick')
               //modal.style.display = "none";
             }
             return (
@@ -568,7 +568,7 @@ render(e(App), domContainer);
               var btnHtml = createButtonHtml(i, issue_id, contributor_id, side)
               var modalHtml = createModal()
               if (i < 1) {
-                console.log(i)
+                //console.log(i)
                 html = btnHtml + modalHtml
               } else {
                 html = btnHtml
@@ -609,7 +609,7 @@ render(e(App), domContainer);
           //if (i < 2) {
           status = await postGetPRvoteStatus(user, repo, issue_id, contributor_id, side);
 
-          console.log('status: ' + status)
+          //console.log('status: ' + status)
           displayOpenStatus = (status === 'none' || status === 'open')
           domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}-${contributor_id}`);
           //if (displayOpenStatus) {
@@ -621,19 +621,19 @@ render(e(App), domContainer);
         document.addEventListener(
           'click',
           async function(event) {
-            console.log('new event')
-            console.log(event.target.parentElement.id)
+            //console.log('new event')
+            //console.log(event.target.parentElement.id)
             const divHTML = event.target.parentElement
             var idName = divHTML.id
             const idBtnSplit = idName.split('turbo-src-btn')
-            console.log(idBtnSplit)
+            //console.log(idBtnSplit)
             if (idBtnSplit.length > 1) {
-              console.log('turbo-src button click')
+              //console.log('turbo-src button click')
               const idNameSplit = idName.split('-')
               issue_id = idNameSplit[3]
               contributor_id = idNameSplit[4]
-              console.log(issue_id)
-              console.log(contributor_id)
+              //console.log(issue_id)
+              //console.log(contributor_id)
               const domContainerVoteTotalMain = document.querySelector('#vote-total-main');
               const domContainerVoteButton = document.querySelector('#yes_vote_button');
               const domContainerVoteButton1 = document.querySelector('#no_vote_button');
