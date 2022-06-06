@@ -39,7 +39,7 @@ https://www.youtube.com/watch?v=9c75aMLMUng
 
 ## Development
 
-1. Clone this repo
+1. `git clone https://github.com/turbo-src/extension turbo-src-extension`
 2. Run `yarn dev` for generating packaged folder specifically for extension stuff.
 3. Go to extension page. For chrome extensions [chrome://extensions](chrome://extensions), Firefox Add-ons [about:debugging](about:debugging), and Microsoft Edge Extensions [edge://extensions/](edge://extensions/).
 4. Enable developer mode
