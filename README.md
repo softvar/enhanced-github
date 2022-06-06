@@ -1,6 +1,34 @@
 See graphql_express_server tags to see which versions are compatible.
 
-### Permissions required
+## extension install
+
+Clone the repo.
+
+```
+git clone https://github.com/turbo-src/extension turbosrc-extension`
+```
+
+Install.
+
+```
+yarn install
+```
+
+Build everything.
+
+`yarn dev`
+
+The above command will create or update a `dist/` directory, which is used to load the extension.
+
+## load the extension
+
+1. Go to extension page. For chrome extensions [chrome://extensions](chrome://extensions).
+
+2. Enable developer mode.
+
+3. Click on load unpacked extension and select the generated folder.
+
+## Permissions required
 
 - `"*://*.github.com/*"` - for running on `github.com` domain.
 - `storage` - for storing GitHub access token on your local system. GitHub Access token is required for private repos and for handling API rate-limiting issues.
