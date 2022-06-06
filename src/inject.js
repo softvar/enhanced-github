@@ -480,7 +480,7 @@ render(e(App), domContainer);
                 console.log('status CDMV: ' + voteTotalsReact)
               })()
                 //this.setState({background: "yellow"})
-            }, 5000)
+            }, 1000)
           }
 
           componentDidUpdate() {
@@ -525,7 +525,7 @@ render(e(App), domContainer);
                 }
                 //console.log('status CDUV: ' + voteTotalsReact)
               })()
-            }, 5000)
+            }, 1000)
 
           }
           render() {
