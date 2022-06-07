@@ -711,7 +711,7 @@ function createModal() {
         flex-direction: row; /* Display buttons horizontally in flexbox */
       }
       .btn-group-vote button {
-        background-color: #04aa6d; /* Green background */
+        background-color: #04AA6D; /* Green background */
         border: 1px solid green; /* Green border */
         color: white; /* White text */
         padding: 10px 24px; /* Some padding */
