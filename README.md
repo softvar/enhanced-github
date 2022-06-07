@@ -1,4 +1,7 @@
-See graphql_express_server tags to see which versions are compatible.
+See service tags to see which versions are compatible.
+
+Please make sure you're signed into Github when using this extension for the time being. Working on it so you don't have to.
+
 
 ## extension install
 
