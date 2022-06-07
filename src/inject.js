@@ -716,6 +716,7 @@ function createModal() {
         color: white; /* White text */
         padding: 10px 24px; /* Some padding */
         cursor: pointer; /* Pointer/hand icon */
+        float: left; /* Float the buttons side by side - Still needed ? */
         margin: 1rem;
       }
       /* Clear floats (clearfix hack) */
