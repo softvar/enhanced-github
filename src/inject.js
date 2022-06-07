@@ -677,11 +677,12 @@ render(e(App), domContainer);
 function createModal() {
     return `<!-- The Modal -->
     <style>
-      body {font-family: Arial, Helvetica, sans-serif;}
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
 
       /* The Modal (background) */
       .modal {
-        display: none; /* Hidden by default */
         position: fixed; /* Stay in place */
         z-index: 1; /* Sit on top */
         padding-top: 100px; /* Location of the box */
@@ -690,8 +691,8 @@ function createModal() {
         width: 100%; /* Full width */
         height: 100%; /* Full height */
         overflow: auto; /* Enable scroll if needed */
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        background-color: rgb(0, 0, 0); /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
       }
 
       /* Modal Content */
@@ -702,15 +703,21 @@ function createModal() {
         border: 1px solid #888;
         height: 100%;
         width: 33%;
-        text-align: center
+        text-align: center;
+      }
+      .btn-group-vote {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        flex-direction: row; /* Display buttons horizontally in flexbox */
       }
       .btn-group-vote button {
-        background-color: #04AA6D; /* Green background */
+        background-color: #04aa6d; /* Green background */
         border: 1px solid green; /* Green border */
         color: white; /* White text */
         padding: 10px 24px; /* Some padding */
         cursor: pointer; /* Pointer/hand icon */
-        float: left; /* Float the buttons side by side */
+        margin: 1rem;
       }
       /* Clear floats (clearfix hack) */
       .btn-group-vote:after {
