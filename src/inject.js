@@ -702,7 +702,13 @@ function createModal() {
         border: 1px solid #888;
         height: 100%;
         width: 33%;
-        text-align: center
+        text-align: center;
+      }
+      .btn-group-vote {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        flex-direction: row; /* Display buttons horizontally in flexbox */
       }
       .btn-group-vote button {
         background-color: #04AA6D; /* Green background */
@@ -710,7 +716,8 @@ function createModal() {
         color: white; /* White text */
         padding: 10px 24px; /* Some padding */
         cursor: pointer; /* Pointer/hand icon */
-        float: left; /* Float the buttons side by side */
+        float: left; /* Float the buttons side by side - Still needed ? */
+        margin: 1rem;
       }
       /* Clear floats (clearfix hack) */
       .btn-group-vote:after {
