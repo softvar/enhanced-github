@@ -11,18 +11,22 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+:root {
+  --primary: #000;
+  --secondary: #333;
+}
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 .container {
+  padding: 1rem;
   width: 25rem;
-  height: 35rem;
+  height: 30rem;
   border: 1px solid #CCC;
 }
 .header {
-  padding: .5rem;
   width: 25rem;
   height: 4rem;
   display: flex;
@@ -31,22 +35,73 @@ code {
 .auth {
   padding: 1rem;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   height: 100%;
   width: 100%;
+  justify-content: center;
+}
+.auth form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.auth button {
+  margin-bottom: 1rem;
+}
+.auth form input{
+  width: 20rem;
+  margin-bottom: 1rem;
+}
+.startButton {
+  width: 20rem;
+  background-color: #22c55e;
+  border-radius: 10px;
+ padding: .2rem 0 .2rem 0;
+  border: none;
+  color: #FFF;
 }
 .login {
   height: 2rem; 
-  width: 60%;
+  width: 20rem;
   padding: .2rem;
   border: 2px solid #000;
   display: flex;
   justify-content: center;
   background-color: #FFF;
+  margin-bottom: 5rem;
+}
+.create {
+  padding: 4rem;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+}
+.bigText {
+  margin-bottom: 2rem;
+  font-size: 28px;
+}
+.create form label {
+color: var(--secondary);
+margin-bottom: 1rem;
+}
+.create form input {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid #CCC;
 }
 .nav {
   height: 5rem;
   display: flex;
   justify-content: space-between;
+}
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2rem;
+  font-size: 10px;
+  padding: .5rem;
 }

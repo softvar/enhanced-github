@@ -7,6 +7,7 @@ import Auth from './Components/Auth';
 import Create from './Components/Create';
 import ApiKey from './Components/ApiKey';
 import Transfer from './Components/Transfer';
+import Footer from './Components/Footer';
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
           <Route exact path="/apikey" element={<ApiKey />} />
           <Route exact path="/transfer" element={<Transfer />} />
         </Routes>
+        <Footer />
       </div>
     </BrowserRouter>
   );
