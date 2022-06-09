@@ -8,7 +8,7 @@ import Create from './Components/Create';
 import ApiKey from './Components/ApiKey';
 import Transfer from './Components/Transfer';
 import Footer from './Components/Footer';
-
+import Success from './Components/Success';
 export default function App() {
   return (
     <BrowserRouter>
@@ -20,6 +20,7 @@ export default function App() {
           <Route exact path="/create" element={<Create />} />
           <Route exact path="/apikey" element={<ApiKey />} />
           <Route exact path="/transfer" element={<Transfer />} />
+          <Route exact path="/success" element={<Success />} />
         </Routes>
         <Footer />
       </div>
