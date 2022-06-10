@@ -34,8 +34,8 @@ code {
 }
 .headerIcon {
   cursor: pointer;
-  width: 48px;
-  height: 48px;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 .content {
   width: 100%;
@@ -97,35 +97,60 @@ code {
   color: #FFF;
 }
 .login {
+  cursor: pointer;
   height: 2rem; 
   width: 20rem;
   padding: .2rem;
-  border: 2px solid #000;
+  border: 2px solid var(--secondary);
   display: flex;
   justify-content: center;
   background-color: #FFF;
-  margin-bottom: 5rem;
-  text-decoration: none;
 }
-.section {
-  padding: 4rem;
-  display: flex;
-  height: 100%;
-  width: 100%;
-  flex-direction: column;
-  align-items: center;
+.login img {
+  justify-self: flex-end;
+  align-items: flex-end;
 }
 .bold {
   font-weight: bold;
 }
 .bigText {
-  font-size: 22px;
+  font-size: 28px;
+}
+.secondary {
+  color: var(--secondary);
+}
+.tokensInput {
+  flex-direction: row;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+}
+.tokensInput input {
+  width: 50%;
+  margin: 0 1rem 0 0;
+}
+.section {
+  justify-content: center;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
 }
 .section div {
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 .section span {
+  width: 100%;
   margin-bottom: 2rem;
+}
+.items-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.items-start {
+  align-items: center;
 }
 .section > img {
   max-width: 8rem;
@@ -141,8 +166,21 @@ margin-bottom: 1rem;
   border-bottom: 1px solid #CCC;
   margin-bottom: 1rem;
 }
+.section form{
+  margin-bottom: 1rem;
+}
 .success {
   width: 6rem;
+}
+.small {
+  font-size: 10px;
+  color: var(--secondary);
+}
+.small a {
+  font-size: 10px;
+}
+.italic {
+  font-style: italic;
 }
 .support {
   height: 1.5rem;

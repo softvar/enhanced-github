@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 export default function Fail(props) {
-  let { repo, setFailed, setApiKey } = props;
-
+  let { repo, setFailed, setApiKey, apiKey } = props;
+  console.log(props);
   const clickHandler = e => {
     setFailed(false);
     setApiKey('');
@@ -10,15 +10,15 @@ export default function Fail(props) {
 
   return (
     <div className="section content">
-      <div className="bigText">
-        <p>Your Api Key:</p>
-        <p></p>
-        <p>is invalid for {repo}</p>
-      </div>
+      <p className="items-center">The Personal Access Token you entered:</p>
+      <p className="italic secondary items-center">{apiKey}</p>
+      <span classNam="items-center">is not a valid Personal Access Token for {repo}.</span>
 
-      <div className="" onClick={e => clickHandler(e)}>
-        Click here to try again
-      </div>
+      <span className="items-center">
+        <button type="button" className="startButton" onClick={e => clickHandler(e)}>
+          Click here to try again
+        </button>
+      </span>
     </div>
   );
 }

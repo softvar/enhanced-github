@@ -5,12 +5,13 @@ export default function Success() {
   let { amount, currency, repo } = props;
 
   return (
-    <div className="section content">
-      <span className="bigText">{`${amount} ${currency}`}</span>
-      <span>
+    <div className="content section">
+      <span className="bigText items-center">{`${amount} ${currency}`}</span>
+
+      <span className="items-center">
         <img src="../../icons/success.png" className="success" />
       </span>
-      <span className="">{repo} Successfully Tokenized!</span>
+      <span className="items-center">{repo} Successfully Tokenized!</span>
     </div>
   );
 }

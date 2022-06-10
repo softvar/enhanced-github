@@ -24,18 +24,37 @@ export default function ApiKey() {
   };
 
   if (failed) {
-    return <Fail apikey={apiKey} setApiKey={setApiKey} setFailed={setFailed} repo={repo} />;
+    return <Fail apiKey={apiKey} setApiKey={setApiKey} setFailed={setFailed} repo={repo} />;
   }
   return (
     <div className="section content">
-      <span className="bigText">Enter ApiKey for Nixpkgs</span>
+      <span className="bigText items-center">Enter your Personal Access Token (PAT) for Nixpkgs</span>
       <form name="apikey" onSubmit={() => submitHandler()}>
-        <input type="text" name="apikey" placeholder="ghp_123" onChange={e => changeHandler(e)} required></input>
-
-        <button type="submit" className="startButton">
-          Submit
-        </button>
+        <span className="items-center">
+          <input
+            type="text"
+            name="apikey"
+            placeholder="ghp_123"
+            value={apiKey}
+            onChange={e => changeHandler(e)}
+            required
+          ></input>
+        </span>
+        <span className="items-center">
+          <button type="submit" className="startButton">
+            Submit
+          </button>
+        </span>
       </form>
+      <span className="small italic">
+        Not sure about Personal Access Tokens? See:{' '}
+        <a
+          href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token"
+          target="_blank"
+        >
+          https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
+        </a>
+      </span>
     </div>
   );
 }
