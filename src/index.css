@@ -5,6 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding: .5rem;
+  width: 25rem;
+  height: 35rem;
 }
 
 code {
@@ -13,23 +16,19 @@ code {
 }
 :root {
   --primary: #000;
-  --secondary: #333;
+  --secondary: #666666;
   --green: #22c55e;
+  --violet: #5b21b6;
 }
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-}
-.container {
-  padding: 1rem;
-  width: 25rem;
-  height: 30rem;
-  border: 1px solid #CCC;
+  overflow: hidden;
 }
 .header {
-  width: 25rem;
-  height: 4rem;
+  width: 100%;
+  height: 3rem;
   display: flex;
   justify-content: space-between;
 }
@@ -37,6 +36,36 @@ code {
   cursor: pointer;
   width: 48px;
   height: 48px;
+}
+.content {
+  width: 100%;
+  min-height: 28rem;
+  overflow-y:auto;
+  overflow-x:hidden;
+}
+.nav {
+  height: 3rem;
+  color: var(--secondary);
+  flex-direction: row;
+  justify-content: space-between;
+}
+.navIcon {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  height: 3rem;
+  width: 5rem;
+  font-weight: bold;
+  color: var(--secondary);
+  text-transform: uppercase;
+  font-size: 10px;
+}
+.navIcon img {
+  height: 1.5rem;
+  width: 1.5rem;
+  margin-bottom: .5rem
 }
 .auth {
   padding: 1rem;
@@ -76,8 +105,9 @@ code {
   justify-content: center;
   background-color: #FFF;
   margin-bottom: 5rem;
+  text-decoration: none;
 }
-.create {
+.section {
   padding: 4rem;
   display: flex;
   height: 100%;
@@ -88,37 +118,43 @@ code {
 .bold {
   font-weight: bold;
 }
-.create div {
+.bigText {
+  font-size: 22px;
+}
+.section div {
   margin-bottom: 3rem;
 }
-.create div img {
-  width: 8rem;
-}
-.bigText {
+.section span {
   margin-bottom: 2rem;
-  font-size: 28px;
 }
-.create form label {
+.section > img {
+  max-width: 8rem;
+}
+.section form label {
 color: var(--secondary);
 margin-bottom: 1rem;
 }
-.create form input {
+.section form input {
   border-top: none;
   border-left: none;
   border-right: none;
   border-bottom: 1px solid #CCC;
   margin-bottom: 1rem;
 }
-.nav {
-  height: 5rem;
-  display: flex;
-  justify-content: space-between;
+.success {
+  width: 6rem;
 }
-.footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 2rem;
-  font-size: 10px;
-  padding: .5rem;
+.support {
+  height: 1.5rem;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--secondary);
+}
+.support:hover {
+  border-bottom: 1px solid var(--secondary);
+}
+.support img {
+  margin-right: .3rem;
+  width: 16px;
+  height: 16px;
 }

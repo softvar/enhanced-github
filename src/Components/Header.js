@@ -7,6 +7,9 @@ export default function Header() {
   return (
     <div className="header">
       <img src="../../icons/turbo-src48.png" onClick={e => navigate('popup.html')} className="headerIcon" />
+      <span className="support">
+        <img src="../icons/help.png" /> Get Help
+      </span>
     </div>
   );
 }

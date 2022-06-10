@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function Create() {
   return (
-    <div className="create">
+    <div className="section content">
       <span className="bigText">Create Tokens for Nixpkgs</span>
       <form name="tokens">
         <label htmlFor="amount">How many tokens would you like to create?</label>

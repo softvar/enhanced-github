@@ -6,7 +6,7 @@ const onSuccess = response => console.log(response);
 const onFailure = response => console.error(response);
 export default function Auth() {
   return (
-    <div className="auth">
+    <div className="auth content">
       <div>
         <Link to="/create">
           <button type="button" className="login">

@@ -27,7 +27,7 @@ export default function ApiKey() {
     return <Fail apikey={apiKey} setApiKey={setApiKey} setFailed={setFailed} repo={repo} />;
   }
   return (
-    <div className="create">
+    <div className="section content">
       <span className="bigText">Enter ApiKey for Nixpkgs</span>
       <form name="apikey" onSubmit={() => submitHandler()}>
         <input type="text" name="apikey" placeholder="ghp_123" onChange={e => changeHandler(e)} required></input>

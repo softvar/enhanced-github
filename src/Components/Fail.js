@@ -9,7 +9,7 @@ export default function Fail(props) {
   };
 
   return (
-    <div className="create">
+    <div className="section content">
       <div className="bigText">
         <p>Your Api Key:</p>
         <p></p>
