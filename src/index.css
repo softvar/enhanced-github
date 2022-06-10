@@ -14,6 +14,7 @@ code {
 :root {
   --primary: #000;
   --secondary: #333;
+  --green: #22c55e;
 }
 * {
   box-sizing: border-box;
@@ -77,6 +78,16 @@ code {
   height: 100%;
   width: 100%;
   flex-direction: column;
+  align-items: center;
+}
+.bold {
+  font-weight: bold;
+}
+.create div {
+  margin-bottom: 3rem;
+}
+.create div img {
+  width: 8rem;
 }
 .bigText {
   margin-bottom: 2rem;
