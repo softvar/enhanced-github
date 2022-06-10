@@ -3,26 +3,33 @@ import '../index.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Fail from './Fail';
+import Loader from './Loader';
 export default function ApiKey() {
   let repo = 'nixpckgs';
   const navigate = useNavigate();
   //For testing
   let [failed, setFailed] = useState(false);
   let [apiKey, setApiKey] = useState('');
-
+  let [loader, setLoader] = useState(false);
   const submitHandler = () => {
-    if (apiKey !== 'ghp_123') {
-      setFailed(true);
-    } else {
-      navigate('/success');
-    }
+    setLoader(true);
+    setTimeout(() => {
+      setLoader(false);
+      if (apiKey !== 'ghp_123') {
+        setFailed(true);
+      } else {
+        navigate('/success');
+      }
+    }, 2000);
   };
 
   const changeHandler = e => {
     e.preventDefault();
     setApiKey(e.target.value);
   };
-
+  if (loader) {
+    return <Loader />;
+  }
   if (failed) {
     return <Fail apiKey={apiKey} setApiKey={setApiKey} setFailed={setFailed} repo={repo} />;
   }

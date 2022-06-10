@@ -19,6 +19,7 @@ code {
   --secondary: #666666;
   --green: #22c55e;
   --violet: #5b21b6;
+  --light: #CCC;
 }
 * {
   box-sizing: border-box;
@@ -39,15 +40,17 @@ code {
 }
 .content {
   width: 100%;
-  min-height: 28rem;
+  min-height: 27rem;
   overflow-y:auto;
   overflow-x:hidden;
 }
 .nav {
-  height: 3rem;
+  height: 4rem;
   color: var(--secondary);
   flex-direction: row;
   justify-content: space-between;
+  border-top: 1px solid #CCC;
+  padding-top: .5rem;
 }
 .navIcon {
   cursor: pointer;
@@ -84,9 +87,19 @@ code {
 .auth button {
   margin-bottom: 1rem;
 }
-.auth form input{
+.auth span {
+  margin-bottom: 1rem;
+}
+.auth form input {
   width: 20rem;
   margin-bottom: 1rem;
+}
+.line {
+  background-color: var(--light);
+  height: 2px;
+  display: block;
+  width: 8rem;
+  margin: 0 1rem 0 1rem;
 }
 .startButton {
   width: 20rem;
@@ -107,6 +120,7 @@ code {
   background-color: #FFF;
 }
 .login img {
+  margin-right: 2rem;
   justify-self: flex-end;
   align-items: flex-end;
 }
@@ -118,6 +132,9 @@ code {
 }
 .secondary {
   color: var(--secondary);
+}
+.light {
+  color: var(--light);
 }
 .tokensInput {
   flex-direction: row;

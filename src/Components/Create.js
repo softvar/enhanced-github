@@ -8,16 +8,20 @@ export default function Create() {
   };
   return (
     <div className="section content">
-      <span className="bigText">Create Tokens for Nixpkgs</span>
+      <span className="bigText items-center">Create Tokens for Nixpkgs</span>
       <form name="tokens" onSubmit={() => submitHandler()}>
-        <label htmlFor="amount">How many tokens would you like to create?</label>
+        <label htmlFor="amount" className="items-center">
+          How many tokens would you like to create?
+        </label>
         <span className="tokensInput">
           <input type="text" name="amount" placeholder="" required></input>
           <label htmlFor="amount">nix</label>
         </span>
-        <button type="submit" className="startButton">
-          Go
-        </button>
+        <span className="items-center">
+          <button type="submit" className="startButton">
+            Go
+          </button>
+        </span>
       </form>
     </div>
   );

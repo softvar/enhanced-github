@@ -15,11 +15,15 @@ export default function Auth() {
     <div className="auth content">
       <form>
         <span onClick={e => clickHandler(e)} className="login">
-          Login with Github
           <img src="../icons/github.png" />
+          Continue with Github
         </span>
 
-        <span className="items-center bold">or</span>
+        <span className="items-center bold light">
+          <div className="line"></div>
+          or
+          <div className="line"></div>
+        </span>
         <span className="items-center">
           <label htmlFor="name">Continue with just your name instead:</label>
         </span>
