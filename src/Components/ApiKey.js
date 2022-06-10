@@ -30,7 +30,7 @@ export default function ApiKey() {
     <div className="create">
       <span className="bigText">Enter ApiKey for Nixpkgs</span>
       <form name="apikey" onSubmit={() => submitHandler()}>
-        <input type="text" name="apikey" placeholder="ghp_123" onChange={e => changeHandler(e)}></input>
+        <input type="text" name="apikey" placeholder="ghp_123" onChange={e => changeHandler(e)} required></input>
 
         <button type="submit" className="startButton">
           Submit

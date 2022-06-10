@@ -33,6 +33,11 @@ code {
   display: flex;
   justify-content: space-between;
 }
+.headerIcon {
+  cursor: pointer;
+  width: 48px;
+  height: 48px;
+}
 .auth {
   padding: 1rem;
   display: flex;
