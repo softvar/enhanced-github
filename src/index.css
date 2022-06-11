@@ -286,10 +286,13 @@ width: .5rem;
 .data {
   color: var(--secondary);
   margin: 1rem 0 1rem 0;
-  height: 7rem;
+  height: 10rem;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: var(--lightbg);
+}
+.data span {
+  position: absolute;
 }
