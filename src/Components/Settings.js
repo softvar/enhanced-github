@@ -34,7 +34,6 @@ export default function Settings() {
           </li>
         </ul>
       </div>
-      <div className="data"></div>
     </div>
   );
 }

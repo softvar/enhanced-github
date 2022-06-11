@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding: .5rem;
+  padding: .5rem 0 .5rem 0;
   width: 25rem;
   height: 35rem;
   overflow: hidden;
@@ -45,8 +45,16 @@ code {
 .content {
   width: 100%;
   height: 27rem;
+  display: flex;
+  justify-content: center;
   overflow-y:auto;
   overflow-x: hidden;
+}
+.items-center {
+  align-items: center;
+}
+.flex-col {
+  flex-direction: column;
 }
 .nav {
   position: fixed;
@@ -162,7 +170,7 @@ code {
 .section {
   justify-content: center;
   display: flex;
-  height: 100%;
+  height: min-content;
   width: 100%;
   flex-direction: column;
 }
@@ -254,7 +262,7 @@ margin-bottom: 1rem;
   border-bottom: 1px solid var(--lightbg);
   height: 3rem;
   cursor:pointer;
-  padding: .2rem;
+  padding: .5rem;
   align-items: center;
 }
 .settingsCard:hover {
@@ -274,4 +282,14 @@ width: .5rem;
 .settings ul {
   margin: 1rem 0 0 0;
   padding: 0;
+}
+.data {
+  color: var(--secondary);
+  margin: 1rem 0 1rem 0;
+  height: 7rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--lightbg);
 }

@@ -1,7 +1,9 @@
 import React from 'react';
 import '../index.css';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 export default function Nav() {
+  const navigate = useNavigate();
   return (
     <div className="nav">
       <span className="navIcon">
@@ -22,14 +24,13 @@ export default function Nav() {
         </span>
         <span>Transfer</span>
       </span>
-      <Link to="account">
-        <span className="navIcon">
-          <span>
-            <img src="../icons/account.png" />
-          </span>
-          Account
+
+      <span className="navIcon" onClick={() => navigate('/account')}>
+        <span>
+          <img src="../icons/account.png" />
         </span>
-      </Link>
+        Account
+      </span>
     </div>
   );
 }
