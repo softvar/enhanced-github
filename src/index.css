@@ -8,6 +8,7 @@ body {
   padding: .5rem;
   width: 25rem;
   height: 35rem;
+  overflow: hidden;
 }
 
 code {
@@ -19,13 +20,16 @@ code {
   --secondary: #666666;
   --green: #22c55e;
   --violet: #5b21b6;
-  --light: #CCC;
+  --light: #94a3b8;
+  --lightbg: #e2e8f0;
 }
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  overflow: hidden;
+}
+* ul li{
+  list-style-type: none;
 }
 .header {
   width: 100%;
@@ -40,17 +44,22 @@ code {
 }
 .content {
   width: 100%;
-  min-height: 27rem;
+  height: 27rem;
   overflow-y:auto;
-  overflow-x:hidden;
+  overflow-x: hidden;
 }
 .nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
   height: 4rem;
   color: var(--secondary);
   flex-direction: row;
   justify-content: space-between;
   border-top: 1px solid #CCC;
   padding-top: .5rem;
+  background-color: #FFF;
 }
 .navIcon {
   cursor: pointer;
@@ -123,6 +132,9 @@ code {
   margin-right: 2rem;
   justify-self: flex-end;
   align-items: flex-end;
+}
+.login:hover {
+  background-color: var(--lightbg);
 }
 .bold {
   font-weight: bold;
@@ -212,4 +224,54 @@ margin-bottom: 1rem;
   margin-right: .3rem;
   width: 16px;
   height: 16px;
+}
+.profile {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.profilePicture {
+  height: 5rem;
+  width: 5rem;
+  display: block;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 1rem;
+  background-color: var(--lightbg);
+}
+.settings {
+  width: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+}
+.settingsCard {
+  width: inherit;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  border-bottom: 1px solid var(--lightbg);
+  height: 3rem;
+  cursor:pointer;
+  padding: .2rem;
+  align-items: center;
+}
+.settingsCard:hover {
+  background-color: var(--lightbg);
+}
+.settingsCard div span {
+  font-weight: bold;
+  font-size: 12px;
+}
+.settingsCard div p {
+  font-size: 10px;
+}
+.settingsCard img {
+height: .5rem;
+width: .5rem;
+}
+.settings ul {
+  margin: 1rem 0 0 0;
+  padding: 0;
 }

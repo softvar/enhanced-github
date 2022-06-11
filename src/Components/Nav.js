@@ -1,5 +1,6 @@
 import React from 'react';
 import '../index.css';
+import { Link } from 'react-router-dom';
 export default function Nav() {
   return (
     <div className="nav">
@@ -21,12 +22,14 @@ export default function Nav() {
         </span>
         <span>Transfer</span>
       </span>
-      <span className="navIcon">
-        <span>
-          <img src="../icons/account.png" />
+      <Link to="account">
+        <span className="navIcon">
+          <span>
+            <img src="../icons/account.png" />
+          </span>
+          Account
         </span>
-        Account
-      </span>
+      </Link>
     </div>
   );
 }
