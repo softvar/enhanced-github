@@ -5,7 +5,10 @@ export default function Loader() {
     <div className="content items-center">
       <div className="section items-center">
         <span className="bigText items-center">Verifying...</span>
-        <img src="../../icons/loader.png" alt="loading..." />
+        <span className="items-center">
+          <img src="../../icons/loader.png" className="loader" alt="loading..." />
+        </span>
+        <span className="items-center">This will just take a second</span>
       </div>
     </div>
   );

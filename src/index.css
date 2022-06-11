@@ -220,6 +220,9 @@ margin-bottom: 1rem;
 .italic {
   font-style: italic;
 }
+.loader {
+  width: 6rem;
+}
 .support {
   height: 1.5rem;
   cursor: pointer;
