@@ -9,7 +9,7 @@ export default function Auth() {
   const navigate = useNavigate();
   const clickHandler = e => {
     e.preventDefault();
-    navigate('/create');
+    navigate('/onboard');
   };
   return (
     <div className="content items-center">
@@ -30,7 +30,7 @@ export default function Auth() {
           </span>
           <span>
             <input type="text" name="name"></input>
-            <Link to="/create">
+            <Link to="/onboard">
               <button type="button" className="startButton">
                 Start
               </button>

@@ -11,6 +11,7 @@ import Footer from './Components/Footer';
 import Success from './Components/Success';
 import Nav from './Components/Nav';
 import Account from './Components/Account';
+import Onboard from './Components/Onboard';
 export default function App() {
   return (
     <BrowserRouter>
@@ -19,6 +20,7 @@ export default function App() {
         <Routes>
           <Route exact path="/popup.html" element={<Auth />} />
           <Route exact path="/home" element={<Account />} />
+          <Route exact path="/onboard" element={<Onboard />} />
           <Route exact path="/account" element={<Account />} />
           <Route exact path="/create" element={<Create />} />
           <Route exact path="/apikey" element={<ApiKey />} />
