@@ -11,12 +11,11 @@ export default function Auth(props) {
     e.preventDefault();
     navigate('/onboard');
   };
-  console.log(props.username);
   return (
     <div className="content items-center">
       <div className="auth">
         <form>
-          <span onClick={e => clickHandler(e)} className="login">
+          <span onClick={e => clickHandler(e)} className="login items-center">
             <img src="../icons/github.png" />
             Continue with Github
           </span>
@@ -29,8 +28,9 @@ export default function Auth(props) {
           <span className="items-center">
             <label htmlFor="name">Continue with just your name instead:</label>
           </span>
-          <span>
-            <input type="text" name="name"></input>
+
+          <input type="text" name="name"></input>
+          <span className="items-center">
             <Link to="/onboard">
               <button type="button" className="startButton">
                 Start

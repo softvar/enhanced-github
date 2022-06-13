@@ -130,7 +130,7 @@ code {
 .login {
   cursor: pointer;
   height: 2rem; 
-  width: 20rem;
+  width: 100%;
   padding: .2rem;
   border: 2px solid var(--secondary);
   display: flex;
@@ -256,7 +256,6 @@ margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-
 }
 .settingsCard {
   width: inherit;
