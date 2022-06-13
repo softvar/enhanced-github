@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ZipFilesPlugin = require('webpack-zip-files-plugin');
-const Dotenv = require('dotenv-webpack');
+const Dotenv = require('dotenv-webpack'); //For using env variables in React components, See Plugins below
 const path = require('path');
 const packageFile = require('./package.json');
 
