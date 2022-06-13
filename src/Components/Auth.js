@@ -5,12 +5,13 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 const onSuccess = response => console.log(response);
 const onFailure = response => console.error(response);
-export default function Auth() {
+export default function Auth(props) {
   const navigate = useNavigate();
   const clickHandler = e => {
     e.preventDefault();
     navigate('/onboard');
   };
+  console.log(props.username);
   return (
     <div className="content items-center">
       <div className="auth">

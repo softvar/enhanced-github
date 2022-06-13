@@ -7,7 +7,7 @@ export default function Create() {
     navigate('/apikey');
   };
   return (
-    <div className="content  items-center">
+    <div className="content items-center">
       <div className="section">
         <span className="bigText items-center">Create Tokens for Nixpkgs</span>
         <form name="tokens" onSubmit={() => submitHandler()}>

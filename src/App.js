@@ -1,17 +1,15 @@
 import React from 'react';
-import * as ReactDOM from 'react-dom';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './Components/Header';
-import Home from './Components/Home';
 import Auth from './Components/Auth';
 import Create from './Components/Create';
 import ApiKey from './Components/ApiKey';
 import Transfer from './Components/Transfer';
-import Footer from './Components/Footer';
 import Success from './Components/Success';
 import Nav from './Components/Nav';
 import Account from './Components/Account';
 import Onboard from './Components/Onboard';
+
 export default function App() {
   return (
     <BrowserRouter>
