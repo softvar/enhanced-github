@@ -17,11 +17,15 @@ app.use((req, res, next) => {
   next();
 });
 
+//This is the redirect URL supplied to Github in turbo-src's Github Oauth App settings.
+//Localhost:5000/authenticated in development mode.
+//From that page the post request is made below with the code supplied from Github.
 app.use('/authenticated', express.static('authenticated'));
 
 app.post('/authenticate', async (req, res) => {
   const { code } = req.body;
-  console.log('bingo', process.env.GITHUB_CLIENT_ID);
+  //The code supplied by Github is exchanged for an access token which is used to
+  //authenticate the user and return their profile.
   const data = new FormData();
   data.append('client_id', process.env.GITHUB_CLIENT_ID);
   data.append('client_secret', process.env.GITHUB_CLIENT_SECRET);
@@ -37,7 +41,7 @@ app.post('/authenticate', async (req, res) => {
     .then(paramsString => {
       let params = new URLSearchParams(paramsString);
       const access_token = params.get('access_token');
-      console.log('access_token', access_token);
+
       // Request to return data of a user that has been authenticated
       return fetch(`https://api.github.com/user`, {
         headers: {

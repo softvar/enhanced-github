@@ -11,14 +11,14 @@ const loginUser = data => {
 };
 
 const setAuth = data => {
-  return { type, data: data };
+  return { type: SETAUTH, data: data };
 };
 
-export const me = () => {
-  if (localStorage.getItem('isLoggedIn') === true) {
-    let user = localStorage.user;
-    return dispatch(setAuth({ user: user, isLoggedIn: true }));
+export const me = () => dispatch => {
+  if (JSON.parse(localStorage.getItem('isLoggedIn')) === true) {
+    let user = JSON.parse(localStorage.getItem('user'));
   }
+  return dispatch(setAuth({ user: user, isLoggedIn: true }));
 };
 
 const initialState = {
@@ -32,7 +32,7 @@ const initialState = {
 
 export default function userReducer(state = initialState, action) {
   switch (action.type) {
-    case 'SETAUTH': {
+    case SETAUTH: {
       return {
         ...state,
         isLoggedIn: action.data.isLoggedIn,

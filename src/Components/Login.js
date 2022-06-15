@@ -1,10 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import React from 'react';
 
 export default function Login() {
-  let user = useSelector(state => state.user);
-
   return (
     <div className="">
       <a

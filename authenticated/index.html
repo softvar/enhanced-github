@@ -7,22 +7,29 @@
     <title>Turbo-Src</title>
     <script>
       const newUrl = window.location.href.split('?code=');
+      //Send code from url which Github supplied to Github API for an access token
       const reqBody = { code: newUrl[1] };
+      //The access token is then exchanged for the user's profile. Done on server side.
+      //On localhost:50000, Should be turbo-src.org/authenticate in production env.
       fetch('http://localhost:5000/authenticate', {
         method: 'POST',
         body: JSON.stringify(reqBody)
       })
+        //Response is Github profile - username, avatar url, repos etc.
         .then(response => response.json())
-        .then(data => {
-          localStorage.setItem('user', data).then(() => localStorage.setItem('isLoggedIn', true));
-        })
+        // .then(data => {
+        //   localStorage.setItem('user', JSON.stringify(data));
+        // })
+        // .then(localStorage.setItem('isLoggedIn', JSON.stringify({ isLoggedIn: true })))
         .catch(error => {
           console.log(error);
         });
+      setTimeout(() => {
+        window.close();
+      }, 2000);
     </script>
   </head>
   <body>
-    You are logged in
-    <div id="app"></div>
+    <p>You have successfully authenticated using Github. This page will close automatically.</p>
   </body>
 </html>

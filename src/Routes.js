@@ -9,8 +9,14 @@ import Success from './Components/Success';
 import Nav from './Components/Nav';
 import Account from './Components/Account';
 import Onboard from './Components/Onboard';
+import { useDispatch, useSelector } from 'react-redux';
+import { me } from './store/user';
 
 export default function Routes() {
+  const user = useSelector(state => state.user);
+  const dispatch = useDispatch();
+  // me();
+  // console.log('user', user);
   return (
     <BrowserRouter>
       <div className="container">

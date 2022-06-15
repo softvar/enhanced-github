@@ -10,7 +10,6 @@ import Login from './Login';
 export default function Auth(props) {
   let user = useSelector(state => state.user);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   if (user.isLoggedIn) {
     navigate('/onboard');
