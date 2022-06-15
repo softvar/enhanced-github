@@ -1,28 +1,26 @@
 import React from 'react';
-import LoginGithub from 'react-login-github';
 import '../index.css';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-const onSuccess = response => console.log(response);
-const onFailure = response => console.error(response);
+import { useDispatch } from 'react-redux';
+import { fetchUser } from '../store/user';
+import { useEffect } from 'react';
+import Login from './Login';
 export default function Auth(props) {
   let user = useSelector(state => state.user);
   const navigate = useNavigate();
-  const clickHandler = e => {
-    e.preventDefault();
+  const dispatch = useDispatch();
+
+  if (user.isLoggedIn) {
     navigate('/onboard');
-  };
-  console.log(user);
+  }
+
   return (
     <div className="content items-center">
       <div className="auth">
         <form>
-          <span onClick={e => clickHandler(e)} className="login items-center">
-            <img src="../icons/github.png" />
-            Continue with Github
-          </span>
-
+          <Login />
           <span className="items-center bold light">
             <div className="line"></div>
             or

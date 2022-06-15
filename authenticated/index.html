@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Turbo-Src</title>
+    <script>
+      const newUrl = window.location.href.split('?code=');
+      const reqBody = { code: newUrl[1] };
+      fetch('http://localhost:5000/authenticate', {
+        method: 'POST',
+        body: JSON.stringify(reqBody)
+      })
+        .then(response => response.json())
+        .then(data => {
+          localStorage.setItem('user', data).then(() => localStorage.setItem('isLoggedIn', true));
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    </script>
+  </head>
+  <body>
+    You are logged in
+    <div id="app"></div>
+  </body>
+</html>
