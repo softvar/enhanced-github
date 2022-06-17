@@ -40,6 +40,23 @@ var side;
 var contributor_id;
 var voteTotals;
 
+// Inform the background page that this tab should have a page-action.
+chrome.runtime.sendMessage({
+  from: 'content',
+  subject: 'showPageAction'
+});
+// Listen for messages from the popup.
+chrome.runtime.onMessage.addListener((msg, sender, response) => {
+  // Message from popup requesting github user info
+  if (msg.from === 'popup' && msg.subject === 'Github User') {
+    var githubUserInfo = {
+      user: document.getElementById('#user').innerText
+    };
+
+    response(githubUserInfo);
+  }
+});
+
 let rootcontainer = document.querySelectorAll('#rootcontainer');
 if (rootcontainer.length) {
   const e = React.createElement;

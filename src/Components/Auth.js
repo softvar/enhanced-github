@@ -4,17 +4,10 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { fetchUser } from '../store/user';
+import { fetchUser } from '../store/auth';
 import { useEffect } from 'react';
 import Login from './Login';
 export default function Auth(props) {
-  let user = useSelector(state => state.user);
-  const navigate = useNavigate();
-
-  if (user.isLoggedIn) {
-    navigate('/onboard');
-  }
-
   return (
     <div className="content items-center">
       <div className="auth">

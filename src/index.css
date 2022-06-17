@@ -102,6 +102,15 @@ code {
   flex-direction: column;
   align-items: center;
 }
+.githubLine {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.githubLine img {
+  margin-right: .3rem;
+  height: 1rem;
+}
 .auth button {
   margin-bottom: 1rem;
 }

@@ -1,9 +1,5 @@
-import userReducer from './user';
+import authReducer from './auth';
 
 export default function rootReducer(state = {}, action) {
-  return {
-    user: userReducer(state.user, action)
-
-    // repo: repoReducer(state.repo, action)
-  };
+  return { auth: authReducer(state.auth, action) };
 }

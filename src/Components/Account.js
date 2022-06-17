@@ -1,19 +1,26 @@
 import React from 'react';
 import Settings from './Settings';
-export default function Account() {
-  let name = 'Louis';
-  let email = 'louis@gmail.com';
-  let tokens = '100,000 nix';
+import { useSelector } from 'react-redux';
 
+export default function Account() {
+  const user = useSelector(state => state.auth.user);
+
+  let name = user?.name;
+  let username = user?.login;
+  let tokens = '100,000 nix';
+  let avatar = user?.avatar_url || null;
   return (
     <div className="content flex-col">
       <span className="bigText">Account</span>
       <div className="profile items-center">
-        <span src="" className="profilePicture"></span>
+        <img src={avatar} className="profilePicture" />
         <span>
           <ul>
             <li className="bold">{name}</li>
-            <li className="secondary">{email}</li>
+            <li className="secondary githubLine">
+              <img src="../../icons/github.png" />
+              {username}
+            </li>
             <li>{tokens}</li>
           </ul>
         </span>
