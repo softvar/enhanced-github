@@ -1,7 +1,26 @@
-import React from 'react';
-
+import React, { useState } from 'react';
+import SuccessTransfer from './SuccessTransfer';
+import Loader from './Loader';
 export default function Review(props) {
   let { recipient, tokens, amount, setReview } = props;
+  let [success, setSuccess] = useState(false);
+  let [loader, setLoader] = useState(false);
+  const clickHandler = e => {
+    //Make Api Call then...
+    setLoader(true);
+    setTimeout(() => {
+      setLoader(false);
+      setSuccess(true);
+    }, 2000);
+  };
+
+  if (loader) {
+    return <Loader />;
+  }
+
+  if (success) {
+    return <SuccessTransfer recipient={recipient} tokens={tokens} amount={amount} />;
+  }
 
   return (
     <div className="content items-center">
@@ -17,7 +36,7 @@ export default function Review(props) {
           </button>
         </span>
         <span>
-          <button type="button" className="startButton items-center">
+          <button type="button" className="startButton items-center" onClick={e => clickHandler(e)}>
             Proceed With Transfer
           </button>
         </span>

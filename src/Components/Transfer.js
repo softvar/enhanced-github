@@ -21,24 +21,33 @@ export default function Transfer() {
   }
   return (
     <div className="content items-center">
-      <div className="section">
+      <div className="section items-center">
         <label htmlFor="transfer">Transfer Tokens</label>
-
         <form name="transfer" className="transfer" onSubmit={submitHandler}>
-          <label htmlFor="recipient">Who would you like to transfer tokens to?</label>
-          <input type="text" name="recipient" value={transfer.recipient} onChange={e => changeHandler(e)} required />
+          <span>
+            <label htmlFor="recipient">Who would you like to transfer tokens to?</label>
+            <input type="text" name="recipient" value={transfer.recipient} onChange={e => changeHandler(e)} required />
+          </span>
 
-          <label htmlFor="recipient">Which tokens would you like to send</label>
-          <select name="tokens" value={transfer.tokens} onChange={e => changeHandler(e)} required>
-            <option value="nix">Nix</option>
-            <option value="nix">Sel</option>
-            <option value="nix">Rei</option>
-          </select>
+          <span>
+            <label htmlFor="recipient">Which tokens would you like to send?</label>
+            <select name="tokens" value={transfer.tokens} onChange={e => changeHandler(e)} required>
+              <option value="nix">Nix</option>
+              <option value="nix">Sel</option>
+              <option value="nix">Rei</option>
+            </select>
+          </span>
 
-          <label htmlFor="amount">How many tokens would you like to send?</label>
-          <input type="number" name="amount" value={transfer.amount} onChange={e => changeHandler(e)} required />
+          <span>
+            <label htmlFor="amount">How many tokens would you like to send?</label>
+            <input type="number" name="amount" value={transfer.amount} onChange={e => changeHandler(e)} required />
+          </span>
 
-          <button type="submit">Review and Send</button>
+          <span>
+            <button type="submit" className="startButton">
+              Review and Send
+            </button>
+          </span>
         </form>
       </div>
     </div>
