@@ -18,7 +18,6 @@ export default function Routes() {
 
   useEffect(() => {
     if (auth.isLoggedIn === true) {
-      console.log(auth);
       return;
     } else if (localStorage.getItem('user')) {
       let githubUser = JSON.parse(localStorage.getItem('user'));

@@ -18,7 +18,7 @@ export default function Nav() {
         </span>
         <span>Community</span>
       </span>
-      <span className="navIcon">
+      <span className="navIcon" onClick={() => navigate('/transfer')}>
         <span>
           <img src="../icons/transfer.png" />
         </span>

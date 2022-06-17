@@ -128,6 +128,12 @@ code {
   width: 8rem;
   margin: 0 1rem 0 1rem;
 }
+.button {
+  width: 20rem;
+  border-radius: 10px;
+  padding: .2rem 0 .2rem 0;
+  border: 1px solid var(--primary);
+}
 .startButton {
   width: 20rem;
   background-color: #22c55e;
