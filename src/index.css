@@ -110,10 +110,22 @@ div a {
   display: flex;
   flex-direction: row;
   align-items: center;
+  font-size:14px;
+  justify-content: flex-start;
 }
 .githubLine img {
-  margin-right: .3rem;
+  margin-left: .3rem;
   height: 1rem;
+}
+.tokensLine {
+  margin-top: .5rem;
+  font-size: 14px;
+}
+.tokensLine span {
+  cursor: pointer;
+}
+.tokensLine span:hover {
+  color: var(--lightblue);
 }
 .auth button {
   margin-bottom: 1rem;

@@ -1,13 +1,14 @@
 import React from 'react';
 import Settings from './Settings';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 export default function Account() {
   const user = useSelector(state => state.auth.user);
-
+  const navigate = useNavigate();
   let name = user?.name;
   let username = user?.login;
-  let tokens = '100,000 nix';
+  let tokens = user?.tokens || `No tokens.`;
   let avatar = user?.avatar_url || null;
   return (
     <div className="content flex-col">
@@ -18,10 +19,14 @@ export default function Account() {
           <ul>
             <li className="bold">{name}</li>
             <li className="secondary githubLine">
-              <img src="../../icons/github.png" />
-              {username}
+              <a href={user?.html_url} target="_blank">
+                {username}
+                <img src="../../icons/github.png" />
+              </a>
             </li>
-            <li>{tokens}</li>
+            <li className="secondary tokensLine">
+              {tokens} {user?.tokens ? null : <span onClick={() => navigate('/onboard')}>Click to create some.</span>}
+            </li>
           </ul>
         </span>
       </div>

@@ -6,12 +6,6 @@ export default function SuccessTransfer(props) {
   const navigate = useNavigate();
   let { amount, tokens, recipient, setReview, setTransfer, setSuccess } = props;
 
-  // if (window.location.pathname !== '/success') {
-  //   setSuccess(false);
-  //   setReview(false);
-  //   setTransfer({ recipient: '', tokens: '', amount: 0 });
-  // }
-
   const clickHandler = e => {
     e.preventDefault();
     setSuccess(false);
