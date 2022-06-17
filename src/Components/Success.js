@@ -16,7 +16,7 @@ export default function Success(props) {
           <img src="../../icons/success.png" className="success" />
         </span>
         <span className="items-center">{repo} Successfully Tokenized!</span>
-        <span>
+        <span className="items-center">
           <button className="startButton" onClick={() => setTransfer(true)}>
             Transfer Tokens
           </button>

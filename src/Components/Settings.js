@@ -36,9 +36,9 @@ export default function Settings() {
               <img src="../../icons/rightarrow.png" />
             </div>
           </li>
-          <li className="settingsCard">
+          <li className="settingsCard" onClick={e => logoutHandler(e)}>
             <div>
-              <span onClick={e => logoutHandler(e)}>Log Out</span>
+              <span>Log Out</span>
             </div>
             <div>
               <img src="../../icons/rightarrow.png" />

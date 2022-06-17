@@ -318,3 +318,30 @@ width: .5rem;
 .data span {
   position: absolute;
 }
+.transfer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.transfer span label {
+  margin-bottom: .2rem;
+}
+.transfer span {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+.transferSummary {
+  width: 100%;
+  margin: 0 2rem 1rem 2rem;
+}
+.transferSummary span {
+  margin: .5rem;
+}
+.transferSummary li {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
