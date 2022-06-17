@@ -10,7 +10,6 @@ body {
   height: 35rem;
   overflow: hidden;
 }
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -31,6 +30,11 @@ code {
 }
 * ul li{
   list-style-type: none;
+}
+div a {
+  width: 100%;
+  color: var(--secondary);
+  text-decoration: none;
 }
 .header {
   width: 100%;
@@ -145,7 +149,7 @@ code {
 .login {
   cursor: pointer;
   height: 2rem; 
-  width: 100%;
+  width: 20rem;
   padding: .2rem;
   border: 2px solid var(--secondary);
   display: flex;

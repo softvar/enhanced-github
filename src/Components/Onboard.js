@@ -10,6 +10,8 @@ export default function Onboard() {
 
   let [repo, setRepo] = useState('');
 
+  let firstName = user?.name.split(' ')[0] || null;
+
   const changeHandler = e => {
     e.preventDefault();
     setRepo(e.target.value);
@@ -26,7 +28,7 @@ export default function Onboard() {
   return (
     <div className="content items-center">
       <div className="section items-center">
-        <span className="bigText items-center">Hello, {user?.name}.</span>
+        <span className="bigText items-center">Hello, {firstName}.</span>
 
         <form name="repo" onSubmit={() => submitHandler()}>
           <label htmlFor="repo" className="secondary">

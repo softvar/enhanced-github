@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import '../index.css';
 import Review from './Review';
-export default function Transfer() {
-  let [transfer, setTransfer] = useState({ recipient: '', tokens: '', amount: 0 });
+export default function Transfer(props) {
+  let { repo, currency } = props;
+  let [transfer, setTransfer] = useState({ recipient: '', tokens: currency ? currency : '', amount: 0 });
   let [review, setReview] = useState(false);
 
   const changeHandler = e => {
@@ -30,10 +31,10 @@ export default function Transfer() {
           </span>
 
           <span>
-            <label htmlFor="recipient">Which tokens would you like to send?</label>
+            <label htmlFor="recipient">Select Tokens:</label>
             <select name="tokens" value={transfer.tokens} onChange={e => changeHandler(e)} required>
+              {currency ? <option value={currency}>{currency}</option> : null}
               <option value="nix">Nix</option>
-              <option value="nix">Sel</option>
               <option value="nix">Rei</option>
             </select>
           </span>

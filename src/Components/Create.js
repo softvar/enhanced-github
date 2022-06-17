@@ -7,7 +7,7 @@ export default function Create(props) {
 
   let { repo } = props;
   let [amount, setAmount] = useState(0);
-  let currency = repo && repo.slice(0, 3);
+  let currency = repo && repo.slice(0, 3).toLowerCase();
 
   const changeHandler = e => {
     e.preventDefault();
