@@ -1,23 +1,32 @@
-import React from 'react';
-import { useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import '../index.css';
+import { useSelector } from 'react-redux';
+import Create from './Create';
 
 export default function Onboard() {
-  let name = 'Louis';
-  const navigate = useNavigate();
+  let user = useSelector(state => state.auth.user);
+
+  let [complete, setComplete] = useState(false);
+
   let [repo, setRepo] = useState('');
+
   const changeHandler = e => {
     e.preventDefault();
     setRepo(e.target.value);
   };
+
   const submitHandler = () => {
-    navigate('/create');
+    setComplete(true);
   };
+
+  if (complete) {
+    return <Create repo={repo} />;
+  }
+
   return (
     <div className="content items-center">
       <div className="section items-center">
-        <span className="bigText items-center">Hello, {name}.</span>
+        <span className="bigText items-center">Hello, {user?.name}.</span>
 
         <form name="repo" onSubmit={() => submitHandler()}>
           <label htmlFor="repo" className="secondary">
@@ -26,7 +35,7 @@ export default function Onboard() {
           <span className="items-center">
             <input
               type="text"
-              name="name"
+              name="repo"
               placeholder="Repo name"
               onChange={e => changeHandler(e)}
               value={repo}

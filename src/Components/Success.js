@@ -1,7 +1,6 @@
 import React from 'react';
 import '../index.css';
-export default function Success() {
-  let props = { amount: 100000, currency: 'nix', repo: 'Nixpkgs' };
+export default function Success(props) {
   let { amount, currency, repo } = props;
 
   return (

@@ -30,7 +30,7 @@ export default function Routes() {
       <div className="container">
         <Header />
         <Switch>
-          <Route exact path="/popup.html" element={<Create />} />
+          <Route exact path="/popup.html" element={<Onboard />} />
           <Route exact path="/home" element={<Account />} />
           <Route exact path="/onboard" element={<Onboard />} />
           <Route exact path="/account" element={<Account />} />
