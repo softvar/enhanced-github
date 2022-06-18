@@ -12,18 +12,58 @@ import Onboard from './Components/Onboard';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuth } from './store/auth';
 import { useEffect } from 'react';
+import superagent from 'superagent';
 export default function Routes() {
   const auth = useSelector(state => state.auth);
   const dispatch = useDispatch();
 
+  async function postGetContributorName(owner, repo, issue_id, contributor_id, side) {
+    const res = await superagent
+      .post('http://localhost:4000/graphql')
+      .send(
+        //{ query: '{ name: 'Manny', species: 'cat' }' }
+        //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
+        //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
+        //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
+        //{ query: `{ getVoteEverything }` }
+        {
+          query: `{ getContributorName(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }`
+        }
+        //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
+      ) // sends a JSON post body
+      .set('accept', 'json');
+    //.end((err, res) => {
+    // Calling the end function will send the request
+    //});
+    console.log('gqlr 123');
+    console.log(text);
+    const json = JSON.parse(res.text);
+    console.log(json);
+    return json.data.getContributorName;
+  }
+
   useEffect(() => {
+    const contributorName = async function(name) {
+      //Need contributor_id => blockchain address
+      let user = await postGetContributorName('', '', '', name, '');
+      if (user === 'none') {
+        //Need contributor_id => blockchain address
+        user = await postCreateUser('', '', githubUser.login, githubUser.login, '');
+      }
+      console.log('=>', user);
+      return user;
+    };
+
     if (auth.isLoggedIn === true) {
       return;
     } else if (localStorage.getItem('user')) {
       let githubUser = JSON.parse(localStorage.getItem('user'));
+      //Needs to be contributor_id
+      // contributorName(githubUser.login);
+
       dispatch(setAuth(githubUser));
     }
-  });
+  }, []);
 
   return auth.isLoggedIn ? (
     <BrowserRouter>

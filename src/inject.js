@@ -83,7 +83,6 @@ if (rootcontainer.length) {
     //  return res
     //})
   }
-
   async function get_authorized_contributor(contributor_id, repo_id) {
     return await superagent
       .post('http://localhost:4000/graphql')
@@ -113,7 +112,6 @@ if (rootcontainer.length) {
     const json = JSON.parse(res.text);
     return json.data.getPRforkStatus;
   }
-
   async function postGetPRvoteStatus(owner, repo, issue_id, contributor_id, side) {
     const res = await superagent
       .post('http://localhost:4000/graphql')

@@ -1,11 +1,9 @@
 body {
-  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding: .5rem 0 .5rem 0;
   width: 25rem;
   height: 35rem;
   overflow: hidden;
@@ -37,6 +35,7 @@ div a {
   text-decoration: none;
 }
 .header {
+  padding: .5rem;
   width: 100%;
   height: 3rem;
   display: flex;
@@ -48,12 +47,16 @@ div a {
   height: 1.5rem;
 }
 .content {
-  width: 100%;
+  width:24rem;
   height: 27rem;
   display: flex;
   justify-content: center;
   overflow-y:auto;
   overflow-x: hidden;
+}
+.container {
+  height: 100%;
+  width:100%;
 }
 .items-center {
   align-items: center;
@@ -200,11 +203,12 @@ div a {
   margin: 0 1rem 0 0;
 }
 .section {
-  justify-content: center;
   display: flex;
+  justify-content: center;
+  flex-direction: column;
   height: min-content;
   width: 100%;
-  flex-direction: column;
+  align-items: center;
 }
 .section div {
   margin-bottom: 2rem;
@@ -224,6 +228,15 @@ div a {
 .section > img {
   max-width: 8rem;
 }
+.section form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: min-content;
+  width: 100%;
+  align-items: center;
+  padding: 1rem;
+}
 .section form label {
 color: var(--secondary);
 margin-bottom: 1rem;
@@ -235,7 +248,11 @@ margin-bottom: 1rem;
   border-bottom: 1px solid #CCC;
   margin-bottom: 1rem;
 }
-.section form{
+
+.section form span {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   margin-bottom: 1rem;
 }
 .success {
