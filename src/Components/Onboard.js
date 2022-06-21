@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import '../index.css';
 import { useSelector } from 'react-redux';
 import Create from './Create';
 

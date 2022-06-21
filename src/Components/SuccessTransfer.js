@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import '../index.css';
 import { useNavigate } from 'react-router-dom';
 
 export default function SuccessTransfer(props) {

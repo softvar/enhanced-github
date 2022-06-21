@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import '../index.css';
 import Review from './Review';
 export default function Transfer(props) {
   let { repo, currency } = props;

@@ -9,13 +9,11 @@ const { useState } = require('react');
 const { unmountComponentAtNode, render } = require('react-dom');
 const { useDispatch } = require('react-redux');
 const { createClient } = require('graphql-ws');
-import './index.css';
 import App from './App';
 import { Parser } from 'graphql/language/parser';
 const { Button } = require('react-bootstrap');
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './turboSrcButton.css';
-import './index.css';
 //const { createClient: redisCreateClient } = require('redis');
 //const WebSocket = require('ws');
 
