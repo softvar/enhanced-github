@@ -9,6 +9,7 @@ import Success from './Components/Success';
 import Nav from './Components/Nav';
 import Account from './Components/Account';
 import Onboard from './Components/Onboard';
+import Home from './Components/Home';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuth } from './store/auth';
 import { useEffect } from 'react';
@@ -70,8 +71,9 @@ export default function Routes() {
       <div className="container">
         <Header />
         <Switch>
-          <Route exact path="/popup.html" element={<Onboard />} />
-          <Route exact path="/home" element={<Account />} />
+          <Route exact path="/popup.html" element={<Home />} />
+          <Route exact path="/home" element={<Home />} />
+          <Route exact path="/settings" element={<Account />} />
           <Route exact path="/onboard" element={<Onboard />} />
           <Route exact path="/account" element={<Account />} />
           <Route exact path="/create" element={<Create />} />

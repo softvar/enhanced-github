@@ -9,7 +9,7 @@ export default function Onboard() {
   let [complete, setComplete] = useState(false);
 
   let [repo, setRepo] = useState('');
-  let [selectRepo, setSelectRepo] = useState('');
+  let [disableSelect, setDisableSelect] = useState(false);
   let [disable, setDisable] = useState(false);
 
   let firstName = user?.name.split(' ')[0] || null;
@@ -42,9 +42,7 @@ export default function Onboard() {
 
     fetchData();
   }, []);
-
   console.log(data);
-
   if (complete) {
     return <Create repo={repo} />;
   }
@@ -65,7 +63,9 @@ export default function Onboard() {
               </select>
             ) : (
               <select onChange={e => selectHandler(e)}>
-                <option value="">Choose from your repositories</option>
+                <option value="" selected>
+                  Choose from your repositories
+                </option>
                 {data.repos.map(repo => (
                   <option key={repo.id} value={repo.name}>
                     {repo.name}
@@ -76,9 +76,9 @@ export default function Onboard() {
           </span>
 
           <span className="">
-            <label htmlFor="otherRepo">Or enter the SSH key of the repository instead:</label>
+            <label htmlFor="otherRepo">Or enter the name of the repository instead:</label>
             {disable ? (
-              <input type="text" placeholder="Repo name" disabled></input>
+              <input type="text" placeholder="Repo name" value="" disabled></input>
             ) : (
               <input
                 type="text"

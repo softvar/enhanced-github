@@ -25,15 +25,17 @@ export default function Create(props) {
   return (
     <div className="content items-center">
       <div className="section">
-        <span className="bigText items-center">Create Tokens for {repo}</span>
         <form name="tokens" onSubmit={() => submitHandler()}>
-          <label htmlFor="amount" className="items-center">
-            How many tokens would you like to create?
-          </label>
-          <span className="tokensInput">
-            <input type="number" name="amount" value={amount} onChange={e => changeHandler(e)} required></input>
-            <label htmlFor="amount">{currency}</label>
+          <span className="bigText">Create Tokens for {repo}</span>
+
+          <span className="items-center">
+            <label htmlFor="amount" className="items-center">
+              How many tokens would you like to create?
+            </label>
+            <input type="number" name="amount" value={amount} onChange={e => changeHandler(e)} required />
+            {currency}
           </span>
+
           <span className="items-center">
             <button type="submit" className="startButton">
               Go

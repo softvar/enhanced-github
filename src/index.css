@@ -153,6 +153,14 @@ div a {
   padding: .2rem 0 .2rem 0;
   border: 1px solid var(--primary);
 }
+.homeButton {
+  width: 20rem;
+  margin: .5rem 1rem .5rem 1rem;
+  background-color: #FFF;
+  border-radius: 10px;
+  padding: .2rem 0 .2rem 0;
+  border: 1px solid var(--primary);
+}
 .startButton {
   width: 20rem;
   background-color: #22c55e;
@@ -238,6 +246,7 @@ div a {
   padding: 1rem;
 }
 .section form label {
+  text-align: center;
 color: var(--secondary);
 margin-bottom: 1rem;
 }
@@ -248,12 +257,12 @@ margin-bottom: 1rem;
   border-bottom: 1px solid #CCC;
   margin-bottom: 1rem;
 }
-
 .section form span {
+  text-align: center;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 .success {
   width: 6rem;
@@ -299,6 +308,15 @@ margin-bottom: 1rem;
   margin: 1rem;
   background-color: var(--lightbg);
 }
+.profilePictureSmall {
+  height: 3rem;
+  width: 3rem;
+  display: block;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: .5rem;
+  background-color: var(--lightbg);
+}
 .settings {
   width: inherit;
   display: flex;
@@ -334,18 +352,41 @@ width: .5rem;
   margin: 1rem 0 0 0;
   padding: 0;
 }
+.home {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: flex-start;
+}
+.home section {
+  margin-bottom: 2rem;
+}
+.repo {
+  display: flex;
+  align-items: center;
+  height: 1rem;
+}
+.repo span a {
+  font-size: 18px;
+  font-weight: bold;
+  color:cornflowerblue;
+}
+.repo img {
+  margin-right: .3rem;
+  height: 1rem;
+}
+.repo span {
+  margin-right:2rem;
+}
 .data {
   color: var(--secondary);
   margin: 1rem 0 1rem 0;
   height: 10rem;
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   background-color: var(--lightbg);
-}
-.data span {
-  position: absolute;
 }
 .transfer {
   display: flex;

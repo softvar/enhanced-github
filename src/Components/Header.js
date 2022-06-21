@@ -6,7 +6,7 @@ export default function Header() {
   const navigate = useNavigate();
   return (
     <div className="header">
-      <img src="../../icons/turbo-src48.png" onClick={e => navigate('popup.html')} className="headerIcon" />
+      <img src="../../icons/turbo-src48.png" onClick={e => navigate('home')} className="headerIcon" />
       <span className="support">
         <img src="../icons/help.png" /> Get Help
       </span>

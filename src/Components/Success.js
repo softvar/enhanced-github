@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import '../index.css';
-import Transfer from './Transfer';
+import Home from './Home';
 export default function Success(props) {
   let { amount, currency, repo } = props;
-  let [transfer, setTransfer] = useState(false);
+  let [complete, setComplete] = useState(false);
 
-  if (transfer) {
-    return <Transfer repo={repo} currency={currency} />;
+  if (complete) {
+    return <Home repo={repo} currency={currency} />;
   }
   return (
     <div className="content  items-center">
@@ -17,8 +17,8 @@ export default function Success(props) {
         </span>
         <span className="items-center">{repo} Successfully Tokenized!</span>
         <span className="items-center">
-          <button className="startButton" onClick={() => setTransfer(true)}>
-            Transfer Tokens
+          <button className="startButton" onClick={() => setComplete(true)}>
+            Continue
           </button>
         </span>
       </div>
