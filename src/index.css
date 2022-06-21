@@ -169,6 +169,18 @@ div a {
   border: none;
   color: #FFF;
 }
+.createButton {
+  width: 22rem;
+  background-color: var(--primary);
+  border-radius: 20px;
+  padding: .2rem 1rem .2rem 1rem;
+  border: none;
+  color: #FFF;
+}
+.createButton img {
+  height: 1.5rem;
+  margin: 0 1rem 0 .2rem;
+}
 .login {
   cursor: pointer;
   height: 2rem; 
@@ -359,7 +371,7 @@ width: .5rem;
   justify-content: flex-start;
 }
 .home section {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 .repo {
   display: flex;
