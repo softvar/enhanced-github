@@ -38,6 +38,7 @@ var repo_id
 var issue_id;
 var side
 var contributor_id;
+var contributor_name
 var voteTotals
 
 let rootcontainer = document.querySelectorAll('#rootcontainer');
@@ -99,6 +100,26 @@ render(e(App), domContainer);
     //return resJSON.data.getPRforkStatus
     const json = JSON.parse(res.text)
     return json.data.getPRforkStatus
+  }
+
+  async function postGetContributorID(owner, repo, issue_id, contributor_name) {
+   const res = await superagent
+     .post('http://localhost:4000/graphql')
+     .send(
+       //{ query: '{ name: 'Manny', species: 'cat' }' }
+       //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
+       //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
+       //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
+       //{ query: `{ getVoteEverything }` }
+       { query: `{ getContributorID(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_name: "${contributor_name}") }` }
+       //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
+     ) // sends a JSON post body
+     .set('accept', 'json')
+     //.end((err, res) => {
+       // Calling the end function will send the request
+     //});
+   const json = JSON.parse(res.text)
+   return json.data.getContributorID
   }
 
   async function postGetPRvoteStatus(owner, repo, issue_id, contributor_id, side) {
@@ -240,7 +261,13 @@ render(e(App), domContainer);
 
     const res_get_repo_status = await get_repo_status(repo_id);
     const isRepoTurboSrcToken = res_get_repo_status['body']['data']['getRepoStatus'];
-    contributor_id =  authContributor.getAuthContributor();
+    contributor_name =  authContributor.getAuthContributor();
+    contributor_id = await postGetContributorID(
+      user,
+      repo,
+      issue_id,
+      contributor_name,
+    )
     const res_get_authorized_contributor =  await get_authorized_contributor(contributor_id, repo_id);
     const isAuthorizedContributor = res_get_authorized_contributor['body']['data']['getAuthorizedContributor'];
 
@@ -560,7 +587,13 @@ render(e(App), domContainer);
 
 
         // Get contributor_id from chain web wallet extension
-        contributor_id =  authContributor.getAuthContributor();
+        contributor_name =  authContributor.getAuthContributor();
+        contributor_id = await postGetContributorID(
+          user,
+          repo,
+          issue_id,
+          contributor_name,
+        )
         var html
         for (var i = startIndex; i < containerItems.length; i++) {
               issue_id = containerItems[i].getAttribute('id');
