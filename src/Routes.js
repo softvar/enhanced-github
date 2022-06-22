@@ -85,15 +85,18 @@ export default function Routes() {
   // }
 
   useEffect(() => {
-    const contributorName = async function(name) {
+    const contributorID = async function(name) {
       //Need contributor_id => blockchain address
-      let user = await postGetContributorName('', '', '', name, '');
-      if (user === 'none') {
+      let contributor_id = await postGetContributorID('', '', '', '', name);
+      if (contributor_id === 'none') {
         //Need contributor_id => blockchain address
-        user = await postCreateUser('', '', githubUser.login, githubUser.login, '');
+        //contributor_id === ethereum address
+        //key === ethereum key
+        //Route to ask for ethereum address and key **********
+        await postCreateUser('', '', contributor_id, name, key);
       }
-      console.log('=>', user);
-      return user;
+      console.log('=>', contributor_id);
+      return contributor_id;
     };
 
     if (auth.isLoggedIn === true) {
@@ -101,12 +104,12 @@ export default function Routes() {
     } else if (localStorage.getItem('user')) {
       let githubUser = JSON.parse(localStorage.getItem('user'));
       //Needs to be contributor_id
-      // contributorName(githubUser.login);
+      // contributorID(githubUser.login); //JeffreyLWood
 
       dispatch(setAuth(githubUser));
     }
   }, []);
-
+  //if not ethereium address and key => route to paste in both before accessing app.
   return auth.isLoggedIn ? (
     <BrowserRouter>
       <div className="container">
