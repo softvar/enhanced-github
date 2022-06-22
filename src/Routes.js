@@ -19,7 +19,9 @@ import superagent from 'superagent';
 export default function Routes() {
   const auth = useSelector(state => state.auth);
   const dispatch = useDispatch();
-
+  //Same values:
+  //ethereumAddress === contributor_id
+  //ethereumKey === contributor_signature
   async function postGetContributorID(owner, repo, issue_id, contributor_name) {
     const res = await superagent
       .post('http://localhost:4000/graphql')
@@ -94,7 +96,7 @@ export default function Routes() {
       return await postGetContributorSignature('', '', '', contributorId).then(res => res);
     };
 
-    if (auth.isLoggedIn === true && auth.user.ethereumAddress !== 'none') {
+    if (auth.isLoggedIn === true && auth.user.ethereumAddress !== 'none' && auth.user.ethereumKey !== 'none') {
       return;
     } else if (localStorage.getItem('user')) {
       let githubUser = JSON.parse(localStorage.getItem('user'));

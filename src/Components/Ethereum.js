@@ -37,13 +37,10 @@ export default function Ethereum() {
   async function submitHandler(e) {
     e.preventDefault();
     console.log('input', ethereumAddress, user.login, ethereumKey);
-    let data = await postCreateUser('', '', ethereumAddress, user.login, ethereumKey);
-    if (!data) {
-      setErrorText('There was an Error. Please check your Ethereum information.');
-    } else {
-      dispatch(setAuth({ ...user, ethereumAddress: ethereumAddress, ethereumKey: ethereumKey }));
-      navigate('/onboard');
-    }
+    await postCreateUser('', '', ethereumAddress, user.login, ethereumKey);
+
+    dispatch(setAuth({ ...user, ethereumAddress: ethereumAddress, ethereumKey: ethereumKey }));
+    navigate('/onboard');
   }
 
   const ethereumAddressHandler = e => {
