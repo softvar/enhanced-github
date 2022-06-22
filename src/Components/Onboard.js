@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Create from './Create';
+import Ethereum from './Ethereum';
 
 export default function Onboard() {
   let user = useSelector(state => state.auth.user);
-
+  const navigate = useNavigate();
   let [complete, setComplete] = useState(false);
 
   let [repo, setRepo] = useState('');
@@ -39,9 +41,15 @@ export default function Onboard() {
         .then(() => setLoading(false));
     };
 
-    fetchData();
+    // fetchData();
   }, []);
-  console.log(data);
+
+  useEffect(() => {
+    if (user.ethereumAddress === 'none' || user.ethereumKey === 'none') {
+      navigate('/ethereum');
+    }
+  });
+
   if (complete) {
     return <Create repo={repo} />;
   }

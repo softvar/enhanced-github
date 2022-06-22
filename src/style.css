@@ -274,6 +274,24 @@ margin-bottom: 1rem;
   flex-direction: column;
   margin-bottom: 2rem;
 }
+.ethereum {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.ethereum span {
+  width: 100%;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: row;
+}
+.ethereum span input {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid #CCC;
+  margin-bottom: 1rem;
+}
 .success {
   width: 6rem;
 }

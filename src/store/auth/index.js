@@ -18,7 +18,7 @@ export const setAuth = data => {
   return { type: SETAUTH, data: data };
 };
 
-const initialState = { isLoggedIn: false };
+const initialState = { isLoggedIn: false, user: { ethereumAddress: 'none', ethereumKey: 'none' } };
 
 export default function authReducer(state = initialState, action) {
   switch (action.type) {

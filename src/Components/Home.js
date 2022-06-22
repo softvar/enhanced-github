@@ -72,7 +72,7 @@ export default function Home(props) {
         </section>
 
         <div>
-          <button type="button" className="createButton" onClick={() => navigate('/create')}>
+          <button type="button" className="createButton" onClick={() => navigate('/onboard')}>
             <img src="../../icons/turbo-src16.png" />
             Create New Repository
           </button>
