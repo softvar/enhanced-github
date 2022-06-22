@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Review from './Review';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 export default function Transfer(props) {
+  let user = useSelector(state => state.auth.user);
   let { repo, currency } = props;
+  const navigate = useNavigate();
   let [transfer, setTransfer] = useState({ recipient: '', tokens: '', amount: 0 });
   let [review, setReview] = useState(false);
 
@@ -17,6 +21,12 @@ export default function Transfer(props) {
   const submitHandler = () => {
     setReview(true);
   };
+
+  useEffect(() => {
+    if (user.ethereumAddress === 'none' || user.ethereumKey === 'none') {
+      navigate('/ethereum');
+    }
+  });
 
   if (review) {
     return (
