@@ -32,7 +32,7 @@ export default function Review(props) {
   const clickHandler = async e => {
     setLoader(true);
 
-    await postTransferTokens('', repo, user.ethereumAddress, recipientId, amount)
+    await postTransferTokens(user.login, repo, user.ethereumAddress, recipientId, amount)
       .catch(error => setLoader(false))
       .then(() => setSuccess(true))
       .then(() => setLoader(false));

@@ -270,6 +270,8 @@ if (rootcontainer.length) {
     user = path.user;
     var statusReact = await postGetPRvoteStatus(user, repo, issue_id, contributor_id, side);
 
+    //storageutls.set repo /// import storage util get currentgithub
+
     const res_get_repo_status = await get_repo_status(repo_id);
     const isRepoTurboSrcToken = res_get_repo_status['body']['data']['getRepoStatus'];
     const contributor_name = authContributor.getAuthContributor();
@@ -277,8 +279,8 @@ if (rootcontainer.length) {
     const res_get_authorized_contributor = await get_authorized_contributor(contributor_id, repo_id);
     const isAuthorizedContributor = res_get_authorized_contributor['body']['data']['getAuthorizedContributor'];
 
-   console.log('isAuthorizedContributor: ' + isAuthorizedContributor);
-   
+    console.log('isAuthorizedContributor: ' + isAuthorizedContributor);
+
     const readyStateCheckInterval = setInterval(async function() {
       if ((document.readyState === 'complete') & (isRepoTurboSrcToken === true) & (isAuthorizedContributor === true)) {
         // When the user clicks the button, open the modal

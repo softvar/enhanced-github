@@ -62,7 +62,7 @@ export default function Transfer(props) {
   let [tokenAmount, setTokenAmount] = useState('');
 
   let [transfer, setTransfer] = useState({
-    repo: '',
+    repo: 'demo',
     from: user.ethereumAddress,
     recipientId: 'none',
     recipientName: '',
@@ -78,7 +78,7 @@ export default function Transfer(props) {
 
   useEffect(() => {
     const getTokenAmount = async () => {
-      await postGetContributorTokenAmount(user.login, transfer.repo, '', user.login, '').then(res =>
+      await postGetContributorTokenAmount(user.login, transfer.repo, '', user.ethereumAddress, '').then(res =>
         setTokenAmount(res)
       );
     };
@@ -181,7 +181,7 @@ export default function Transfer(props) {
 
           <span>
             <label htmlFor="repo">Which repository's tokens would you like to send?</label>
-            <select name="repo" value={transfer.repo} onChange={e => changeHandler(e)} required>
+            <select name="repo" onChange={e => changeHandler(e)} value={transfer.repo} required>
               <option value="demo">demo</option>
               <option value="selected-work">Selected-Work</option>
               <option value="rei">Reibase</option>
