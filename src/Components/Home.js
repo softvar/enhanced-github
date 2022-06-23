@@ -74,7 +74,7 @@ export default function Home(props) {
         <div>
           <button type="button" className="createButton" onClick={() => navigate('/onboard')}>
             <img src="../../icons/turbo-src16.png" />
-            Create New Repository
+            Tokenize Nixpckgs
           </button>
         </div>
       </div>

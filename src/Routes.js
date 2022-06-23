@@ -8,7 +8,7 @@ import Transfer from './Components/Transfer';
 import Success from './Components/Success';
 import Nav from './Components/Nav';
 import Account from './Components/Account';
-import Onboard from './Components/Onboard';
+import Onboard from './Components/Onboard2';
 import Ethereum from './Components/Ethereum';
 import Home from './Components/Home';
 import { useDispatch, useSelector } from 'react-redux';

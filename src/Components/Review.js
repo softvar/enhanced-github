@@ -1,17 +1,41 @@
 import React, { useState } from 'react';
 import SuccessTransfer from './SuccessTransfer';
 import Loader from './Loader';
+import { useSelector } from 'react-redux';
+import superagent from 'superagent';
 export default function Review(props) {
-  let { recipient, tokens, amount, setReview, setTransfer } = props;
+  const user = useSelector(state => state.auth.user);
+  let { recipient, tokens, amount, setReview, setTransfer, repo } = props;
   let [success, setSuccess] = useState(false);
   let [loader, setLoader] = useState(false);
-  const clickHandler = e => {
+
+  async function postTransferTokens(owner, repository, from, to, amount) {
+    superagent
+      .post('http://localhost:4000/graphql')
+      .send(
+        //{ query: '{ name: 'Manny', species: 'cat' }' }
+        //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
+        //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
+        //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
+        //{ query: `{ getVoteEverything }` }
+        {
+          query: `{ transferTokens(owner: "${owner}", repo: "${repo}", from: "${from}", to: "${to}", amount: "${amount}") }`
+        }
+        //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
+      ) // sends a JSON post body
+      .set('accept', 'json')
+      .end((err, res) => {
+        // Calling the end function will send the request
+      });
+  }
+
+  const clickHandler = async e => {
     setLoader(true);
-    //Make Api Call here... then:
-    setTimeout(() => {
-      setLoader(false);
-      setSuccess(true);
-    }, 2000);
+
+    await postTransferTokens('', repo, user.ethereumAddress, recipient, amount)
+      .catch(error => setLoader(false))
+      .then(() => setSuccess(true))
+      .then(() => setLoader(false));
   };
 
   if (loader) {
@@ -40,10 +64,13 @@ export default function Review(props) {
             <span className="secondary">Recipient:</span> <span>{recipient}</span>
           </li>
           <li>
-            <span className="secondary">Tokens:</span> <span>{tokens}</span>
+            <span className="secondary">Repo:</span> <span>{repo}</span>
           </li>
           <li>
-            <span className="secondary">Amount:</span> <span>{amount}</span>
+            <span className="secondary">Amount:</span>
+            <span>
+              {amount} {tokens}
+            </span>
           </li>
         </ul>
         <span className="items-center">

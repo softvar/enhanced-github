@@ -167,6 +167,33 @@ div a {
   border: none;
   color: #FFF;
 }
+.apiKey {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: flex-start;
+  margin: 1rem 0 1rem 0;
+  border: 1px solid #CCC;
+  border-radius: 5px;
+  padding: 1rem;
+}
+.apiKey input {
+  border: 1px solid #CCC;
+  border-left:none;
+  border-right: none;
+  border-top: none;
+  margin-top:1rem;
+  width: 100%;
+}
+.apiKey span {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
+.apiKey span img {
+  height: 1.3rem;
+  margin: 0 .5rem .1rem .5rem;
+}
 .createButton {
   width: 22rem;
   background-color: var(--primary);

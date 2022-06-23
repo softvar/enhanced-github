@@ -272,13 +272,13 @@ if (rootcontainer.length) {
 
     const res_get_repo_status = await get_repo_status(repo_id);
     const isRepoTurboSrcToken = res_get_repo_status['body']['data']['getRepoStatus'];
-    contributor_name = authContributor.getAuthContributor();
+    const contributor_name = authContributor.getAuthContributor();
     contributor_id = await postGetContributorID(user, repo, issue_id, contributor_name);
     const res_get_authorized_contributor = await get_authorized_contributor(contributor_id, repo_id);
     const isAuthorizedContributor = res_get_authorized_contributor['body']['data']['getAuthorizedContributor'];
 
-    console.log('isAuthorizedContributor: ' + isAuthorizedContributor);
-
+   console.log('isAuthorizedContributor: ' + isAuthorizedContributor);
+   
     const readyStateCheckInterval = setInterval(async function() {
       if ((document.readyState === 'complete') & (isRepoTurboSrcToken === true) & (isAuthorizedContributor === true)) {
         // When the user clicks the button, open the modal
