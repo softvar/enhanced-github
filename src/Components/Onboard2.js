@@ -6,12 +6,17 @@ import Loader from './Loader';
 import Fail from './Fail';
 import Success from './Success';
 import superagent from 'superagent';
+import storageUtil from '../utils/storageUtil';
 export default function Onboard2() {
   let user = useSelector(state => state.auth.user);
   const navigate = useNavigate();
   //For testing
-  let repo = 'selected-work';
-  let currency = 'sel';
+  let [repo, setRepo] = useState('');
+  let [owner, setOwner] = useState('');
+  let currency = repo;
+
+  chrome.storage.local.get(['repo'], data => setRepo(data.repo));
+  chrome.storage.local.get(['owner'], data => setOwner(data.owner));
 
   let [failed, setFailed] = useState(false);
   let [apiKey, setApiKey] = useState('');
