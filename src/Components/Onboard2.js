@@ -5,12 +5,13 @@ import loadergif from '../loader.gif';
 import Loader from './Loader';
 import Fail from './Fail';
 import Success from './Success';
+import superagent from 'superagent';
 export default function Onboard2() {
   let user = useSelector(state => state.auth.user);
   const navigate = useNavigate();
   //For testing
-  let repo = 'Nixpckgs';
-  let currency = 'nix';
+  let repo = 'selected-work';
+  let currency = 'sel';
 
   let [failed, setFailed] = useState(false);
   let [apiKey, setApiKey] = useState('');
@@ -41,13 +42,30 @@ export default function Onboard2() {
     }
   };
 
-  const submitHandler = () => {
+  async function postCreateRepo(owner, repo, issue_id, contributor_id, side) {
+    superagent
+      .post('http://localhost:4000/graphql')
+      .send(
+        //{ query: '{ name: 'Manny', species: 'cat' }' }
+        //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
+        //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
+        //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
+        //{ query: `{ getVoteEverything }` }
+        {
+          query: `{ createRepo(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }`
+        }
+        //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
+      ) // sends a JSON post body
+      .set('accept', 'json')
+      .end((err, res) => {
+        // Calling the end function will send the request
+      });
+  }
+
+  const createRepo = async () => {
     if (verified) {
       setLoader(true);
-      setTimeout(() => {
-        setLoader(false);
-        setSuccessful(true);
-      }, 2000);
+      await postCreateRepo(user.login, repo, '', user.ethereumAddress, '').then(() => setLoader(false));
     }
   };
 
@@ -69,13 +87,15 @@ export default function Onboard2() {
 
   return (
     <div className="content">
-      <div className="">
-        <span className="bold">Tokenize NixPckgs</span>
-        <span>Tokenizing NixPckgs will automatically create 100,000,000 tokens.</span>
+      <div className="onboard">
+        <span className="">
+          <h1>Tokenize {repo}</h1>
+        </span>
+        <span>Tokenizing {repo} will automatically create 1000000 tokens.</span>
 
-        <form name="apikey" onSubmit={() => submitHandler()}>
+        <form name="create">
           <div className="apiKey">
-            <span className="">Enter your Personal Access Token for Nixpckgs</span>
+            <span className="">Enter your Personal Access Token for {repo}</span>
             <span className="">
               <input
                 type="text"
@@ -97,7 +117,7 @@ export default function Onboard2() {
             </span>
           </div>
           <span className="items-center">
-            <button type="submit" className="startButton">
+            <button type="button" className="startButton" onClick={() => createRepo()}>
               Review and Submit
             </button>
           </span>

@@ -8,7 +8,8 @@ export default function Transfer(props) {
   let user = useSelector(state => state.auth.user);
   let { repo, currency } = props;
   const navigate = useNavigate();
-  let [errorText, setErrorText] = useState(' d');
+  let [errorText, setErrorText] = useState(' ');
+
   async function postGetContributorID(owner, repo, issue_id, contributor_name) {
     const res = await superagent
       .post('http://localhost:4000/graphql')
@@ -31,10 +32,34 @@ export default function Transfer(props) {
     console.log(json);
     return json.data.getContributorID;
   }
+  async function postGetContributorTokenAmount(owner, repo, issue_id, contributor_id, side) {
+    const res = await superagent
+      .post('http://localhost:4000/graphql')
+      .send(
+        //{ query: '{ name: 'Manny', species: 'cat' }' }
+        //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
+        //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
+        //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
+        //{ query: `{ getVoteEverything }` }
+        {
+          query: `{ getContributorTokenAmount(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }`
+        }
+        //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
+      ) // sends a JSON post body
+      .set('accept', 'json');
+    //.end((err, res) => {
+    // Calling the end function will send the request
+    //});
+    const json = JSON.parse(res.text);
+    console.log(json);
+    return json.data.getContributorTokenAmount;
+  }
 
   let [checking, setChecking] = useState(false);
   let [verified, setVerified] = useState(false);
   let [length, setLength] = useState(false);
+
+  let [tokenAmount, setTokenAmount] = useState('');
 
   let [transfer, setTransfer] = useState({
     repo: '',
@@ -44,6 +69,7 @@ export default function Transfer(props) {
     amount: 0,
     tokens: currency
   });
+
   let [review, setReview] = useState(false);
 
   useEffect(() => {
@@ -51,7 +77,15 @@ export default function Transfer(props) {
   }, []);
 
   useEffect(() => {
-    console.log(transfer.recipientName, transfer.recipientId);
+    const getTokenAmount = async () => {
+      await postGetContributorTokenAmount(user.login, transfer.repo, '', user.login, '').then(res =>
+        setTokenAmount(res)
+      );
+    };
+    getTokenAmount();
+  }, [transfer.repo]);
+
+  useEffect(() => {
     if (!transfer.recipientName.length) {
       setErrorText(' ');
       setChecking(false);
@@ -91,7 +125,6 @@ export default function Transfer(props) {
 
   const submitHandler = () => {
     if (transfer.recipientId && transfer.recipientId !== 'none') {
-      console.log(transfer);
       setReview(true);
     }
   };
@@ -119,7 +152,7 @@ export default function Transfer(props) {
   return (
     <div className="content items-center">
       <div className="items-center">
-        <form name="transfer" className="transfer" onSubmit={submitHandler}>
+        <form name="transfer" className="transfer" onSubmit={() => submitHandler()}>
           <span>
             <label htmlFor="transfer" className="">
               Who would you like to transfer tokens to?
@@ -150,9 +183,12 @@ export default function Transfer(props) {
             <label htmlFor="repo">Which repository's tokens would you like to send?</label>
             <select name="repo" value={transfer.repo} onChange={e => changeHandler(e)} required>
               <option value="demo">demo</option>
-              <option value="nix">Nixpckgs</option>
+              <option value="selected-work">Selected-Work</option>
               <option value="rei">Reibase</option>
             </select>
+            <div className="balance">
+              You currently have <text>{` ${tokenAmount} `}</text> tokens
+            </div>
           </span>
 
           <span>

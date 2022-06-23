@@ -57,26 +57,28 @@ export default function Review(props) {
   }
 
   return (
-    <div className="content items-center">
-      <div className="section items-center">
-        <span className="bigText">Transfer Summary:</span>
-        <ul className="transferSummary">
-          <li>
-            <span className="secondary">Recipient Name:</span> <span>{recipientName}</span>
-          </li>
-          <li>
-            <span className="secondary">Recipient Id:</span> <span>{recipientId}</span>
-          </li>
-          <li>
-            <span className="secondary">Repo:</span> <span>{repo}</span>
-          </li>
-          <li>
-            <span className="secondary">Amount:</span>
-            <span>
-              {amount} {tokens}
-            </span>
-          </li>
-        </ul>
+    <div className="content ">
+      <span className="bigText">Transfer Summary:</span>
+      <div className="transferSummary">
+        <span>
+          <ul>
+            <li>
+              <span className="secondary">Recipient Name:</span> <span>{recipientName}</span>
+            </li>
+            <li>
+              <span className="secondary">Recipient Id:</span> <span>{recipientId}</span>
+            </li>
+            <li>
+              <span className="secondary">Repo:</span> <span>{repo}</span>
+            </li>
+            <li>
+              <span className="secondary">Amount:</span>
+              <span>
+                {amount} {tokens}
+              </span>
+            </li>
+          </ul>
+        </span>
         <span className="items-center">
           <button type="button" className="button" onClick={() => setReview(false)}>
             Make a change

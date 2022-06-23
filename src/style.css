@@ -52,6 +52,7 @@ div a {
   width:24rem;
   height: 27rem;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   overflow-y:auto;
   overflow-x: hidden;
@@ -172,7 +173,7 @@ div a {
   flex-direction: column;
   width: 100%;
   justify-content: flex-start;
-  margin: 1rem 0 1rem 0;
+  margin: 1rem 0 2rem 0;
   border: 1px solid #CCC;
   border-radius: 5px;
   padding: 1rem;
@@ -443,6 +444,16 @@ width: .5rem;
   justify-content: center;
   background-color: var(--lightbg);
 }
+.onboard {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.onboard h1 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
 .transfer {
   display: flex;
   justify-content: center;
@@ -477,16 +488,35 @@ width: .5rem;
   color: var(--secondary);
   min-height: 1rem;
 }
-.transferSummary {
-  width: 100%;
-  margin: 0 2rem 1rem 2rem;
+.balance {
+  display: flex;
+  flex-direction: row;
+  color: var(--secondary);
+  min-height: 1rem;
 }
-.transferSummary span {
-  margin: .5rem;
+.balance text {
+  margin: 0 .3rem 0 .3rem;
+  color: var(--primary);
+}
+.transferSummary {
+  font-size:12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+}
+.transferSummary ul {
+  width: 100%;
+}
+.transferSummary ul li:nth-child(odd) {
+  background-color: var(--lightbg)
 }
 .transferSummary li {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-bottom: .5rem;
+  overflow: hidden;
+  text-overflow: clip;
 }
