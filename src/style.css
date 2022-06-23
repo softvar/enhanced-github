@@ -455,7 +455,27 @@ width: .5rem;
 .transfer span {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+.transfer div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+.transfer div input {
+  width: 100%;
+}
+.transfer span img {
+  height: 1rem;
+  margin-left: .3rem;
+}
+.errorText {
+  font-size: 12px;
+  font-style: italic;
+  color: var(--secondary);
+  min-height: 1rem;
 }
 .transferSummary {
   width: 100%;

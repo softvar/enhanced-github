@@ -3,11 +3,12 @@ import Review from './Review';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import superagent from 'superagent';
+import loadergif from '../loader.gif';
 export default function Transfer(props) {
   let user = useSelector(state => state.auth.user);
   let { repo, currency } = props;
   const navigate = useNavigate();
-  let [errorText, setErrorText] = useState('');
+  let [errorText, setErrorText] = useState(' d');
   async function postGetContributorID(owner, repo, issue_id, contributor_name) {
     const res = await superagent
       .post('http://localhost:4000/graphql')
@@ -31,6 +32,10 @@ export default function Transfer(props) {
     return json.data.getContributorID;
   }
 
+  let [checking, setChecking] = useState(false);
+  let [verified, setVerified] = useState(false);
+  let [length, setLength] = useState(false);
+
   let [transfer, setTransfer] = useState({
     repo: '',
     from: user.ethereumAddress,
@@ -45,6 +50,28 @@ export default function Transfer(props) {
     setReview(false);
   }, []);
 
+  useEffect(() => {
+    console.log(transfer.recipientName, transfer.recipientId);
+    if (!transfer.recipientName.length) {
+      setErrorText(' ');
+      setChecking(false);
+      setVerified(false);
+      setLength(false);
+    }
+    if (transfer.recipientName.length > 1 && transfer.recipientId === 'none') {
+      setErrorText('Turbo-Src user not found');
+      setChecking(false);
+      setVerified(false);
+      setLength(true);
+    }
+    if (transfer.recipientId !== 'none') {
+      setErrorText(`User Id: ${transfer.recipientId}`);
+      setChecking(false);
+      setVerified(true);
+      setLength(true);
+    }
+  }, [transfer]);
+
   const changeHandler = e => {
     e.preventDefault();
     setTransfer({ ...transfer, [e.target.name]: e.target.value });
@@ -54,20 +81,17 @@ export default function Transfer(props) {
     e.preventDefault();
     changeHandler(e);
 
-    await postGetContributorID('', '', '', e.target.value).then(res => setTransfer({ ...transfer, recipientId: res }));
-    if (!e.target.value.length) {
-      setErrorText('');
-    }
-    if (e.target.value.length && transfer.recipientId === 'none') {
-      setErrorText('Turbo-Src user not found');
-    }
-    if (transfer.recipientId && transfer.recipientId !== 'none') {
-      setErrorText('');
+    if (e.target.value.length > 1) {
+      setChecking(true);
+      await postGetContributorID('', '', '', e.target.value)
+        .then(res => setTransfer({ ...transfer, recipientName: e.target.value, recipientId: res }))
+        .catch(error => console.log('error', error));
     }
   };
 
   const submitHandler = () => {
     if (transfer.recipientId && transfer.recipientId !== 'none') {
+      console.log(transfer);
       setReview(true);
     }
   };
@@ -94,20 +118,38 @@ export default function Transfer(props) {
   }
   return (
     <div className="content items-center">
-      <div className="section items-center">
+      <div className="items-center">
         <form name="transfer" className="transfer" onSubmit={submitHandler}>
           <span>
             <label htmlFor="transfer" className="">
               Who would you like to transfer tokens to?
             </label>
-            <input type="text" name="recipientName" value={transfer.recipientName} onChange={e => getId(e)} required />
-            {errorText}
+            <div>
+              <input
+                type="text"
+                name="recipientName"
+                value={transfer.recipientName}
+                onChange={e => getId(e)}
+                placeholder="Username"
+                required
+              />
+              {checking ? (
+                <img src={loadergif}></img>
+              ) : verified ? (
+                <img src="../../icons/success.png"></img>
+              ) : length ? (
+                <img src="../../icons/incorrect.png"></img>
+              ) : (
+                <img src="../../icons/warning.png"></img>
+              )}
+            </div>
+            <p className="errorText">{errorText}</p>
           </span>
 
           <span>
             <label htmlFor="repo">Which repository's tokens would you like to send?</label>
-            <select name="repo" value={transfer.tokens} onChange={e => changeHandler(e)} required>
-              <option value="sel">SelectedWork</option>
+            <select name="repo" value={transfer.repo} onChange={e => changeHandler(e)} required>
+              <option value="demo">demo</option>
               <option value="nix">Nixpckgs</option>
               <option value="rei">Reibase</option>
             </select>

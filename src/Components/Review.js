@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import superagent from 'superagent';
 export default function Review(props) {
   const user = useSelector(state => state.auth.user);
-  let { recipient, tokens, amount, setReview, setTransfer, repo } = props;
+  let { recipientId, recipientName, tokens, amount, setReview, setTransfer, repo } = props;
   let [success, setSuccess] = useState(false);
   let [loader, setLoader] = useState(false);
 
@@ -32,7 +32,7 @@ export default function Review(props) {
   const clickHandler = async e => {
     setLoader(true);
 
-    await postTransferTokens('', repo, user.ethereumAddress, recipient, amount)
+    await postTransferTokens('', repo, user.ethereumAddress, recipientId, amount)
       .catch(error => setLoader(false))
       .then(() => setSuccess(true))
       .then(() => setLoader(false));
@@ -45,7 +45,8 @@ export default function Review(props) {
   if (success) {
     return (
       <SuccessTransfer
-        recipient={recipient}
+        recipientId={recipientId}
+        recipientName={recipientName}
         tokens={tokens}
         amount={amount}
         setReview={setReview}
@@ -61,7 +62,10 @@ export default function Review(props) {
         <span className="bigText">Transfer Summary:</span>
         <ul className="transferSummary">
           <li>
-            <span className="secondary">Recipient:</span> <span>{recipient}</span>
+            <span className="secondary">Recipient Name:</span> <span>{recipientName}</span>
+          </li>
+          <li>
+            <span className="secondary">Recipient Id:</span> <span>{recipientId}</span>
           </li>
           <li>
             <span className="secondary">Repo:</span> <span>{repo}</span>
