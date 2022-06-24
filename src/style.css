@@ -365,12 +365,11 @@ margin-bottom: 1rem;
   background-color: var(--lightbg);
 }
 .profilePictureSmall {
-  height: 3rem;
-  width: 3rem;
+  height: 1.5rem;
+  width: 1.5rem;
   display: block;
   object-fit: cover;
   border-radius: 50%;
-  margin: .5rem;
   background-color: var(--lightbg);
 }
 .settings {

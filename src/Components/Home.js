@@ -19,6 +19,22 @@ export default function Home(props) {
     chrome.storage.local.get(['owner'], data => setOwner(data.owner));
   });
 
+  async function get_repo_status(repo_id) {
+    return await superagent
+      .post('http://localhost:4000/graphql')
+      .send({ query: `{ getRepoStatus(repo_id: "${repo_id}") }` })
+      .set('accept', 'json');
+    //.end((err, res) => {
+    //  //console.log(repo_id)
+    //  //console.log('hey')
+    //  //console.log('res: ' + res['body']['data']['getRepoStatus'])
+    //  //const text= res['text'];
+    //  //console.log(text);
+    //  //isRepoTurboSrcToken = res;
+    //  // Calling the end function will send the request
+    //  return res
+    //})
+  }
   async function postGetContributorTokenAmount(owner, repo, issue_id, contributor_id, side) {
     const res = await superagent
       .post('http://localhost:4000/graphql')
@@ -42,6 +58,16 @@ export default function Home(props) {
     return json.data.getContributorTokenAmount;
   }
 
+  let [tokenized, setTokenized] = useState(false);
+
+  useEffect(() => {
+    const getRepoStatus = async id => {
+      await get_repo_status(id).then(res => setTokenized(res?.body.data.getRepoStatus));
+    };
+
+    getRepoStatus(`${owner}/${repo}`);
+  });
+  console.log('tokenized', tokenized);
   useEffect(() => {
     const getTokenAmount = async () => {
       await postGetContributorTokenAmount(owner, repo, '', user.ethereumAddress, '').then(res => setTokens(res));
@@ -52,21 +78,6 @@ export default function Home(props) {
   return (
     <div className="content">
       <div className="home">
-        <section className="profile items-center">
-          <img src={avatar} className="profilePictureSmall" />
-          <span>
-            <ul>
-              <li className="bold">{name}</li>
-              <li className="secondary githubLine">
-                <a href={user?.html_url} target="_blank">
-                  {username}
-                  <img src="../../icons/github.png" />
-                </a>
-              </li>
-            </ul>
-          </span>
-        </section>
-
         <section>
           <div className="repo">
             <span>
@@ -112,13 +123,14 @@ export default function Home(props) {
             </span>
           </div>
         </section>
-
-        <div>
-          <button type="button" className="createButton" onClick={() => navigate('/onboard')}>
-            <img src="../../icons/turbo-src48.png" />
-            Tokenize {repo}
-          </button>
-        </div>
+        {tokenized ? null : (
+          <div>
+            <button type="button" className="createButton" onClick={() => navigate('/onboard')}>
+              <img src="../../icons/turbo-src48.png" />
+              Tokenize {repo}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
