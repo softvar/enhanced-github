@@ -95,12 +95,14 @@ export default function Home(props) {
               </a>
             </span>
           </div>
-          <span className="repoTokens">
-            <span>
-              <img src="../icons/tokens.png" />
+          {tokenized ? (
+            <span className="repoTokens">
+              <span>
+                <img src="../icons/tokens.png" />
+              </span>
+              {tokens || 0} tokens
             </span>
-            {tokens} tokens
-          </span>
+          ) : null}
 
           <div className="data">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">

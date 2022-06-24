@@ -94,7 +94,7 @@ export default function Onboard2() {
     <div className="content">
       <div className="onboard">
         <span className="">
-          <h1>Tokenize {repo}</h1>
+          <h1>Tokenize This Repository</h1>
         </span>
         <span>Tokenizing {repo} will automatically create 1000000 tokens.</span>
 

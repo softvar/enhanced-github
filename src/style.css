@@ -412,6 +412,7 @@ width: .5rem;
   flex-direction: column;
   width: 100%;
   justify-content: flex-start;
+  min-height: 25rem;
 }
 .home section {
   margin-bottom: 1.5rem;
@@ -477,16 +478,13 @@ width: .5rem;
   display: flex;
   flex-direction:column;
   width: 100%;
+  justify-content: center;
 }
 .transferContent header {
   padding: 1rem;
   border: 1px solid #CCC;
   border-radius: 5px;
   margin-bottom: 2rem;
-}
-.transferConent header h1 {
-  font-weight: bold;
-  margin-bottom: .5rem;
 }
 .transfer {
   display: flex;
@@ -500,6 +498,8 @@ width: .5rem;
 .transfer span {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 2rem;
   width: 100%;
 }
