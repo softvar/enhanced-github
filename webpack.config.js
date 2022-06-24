@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ZipFilesPlugin = require('webpack-zip-files-plugin');
-
+const Dotenv = require('dotenv-webpack'); //For using env variables in React components, See Plugins below
 const path = require('path');
 const packageFile = require('./package.json');
 
@@ -25,7 +25,11 @@ Dependencies used - ${deps}`;
 
 function addPlugins(argv) {
   const plugins = [];
-
+  plugins.push(
+    new Dotenv({
+      systemvars: true
+    })
+  );
   plugins.push(
     new webpack.BannerPlugin({
       banner: libraryHeaderComment,
@@ -75,11 +79,15 @@ module.exports = function(_env, argv) {
     output: {
       path: destination,
       filename: 'src/inject.js',
-      library: libraryName,
+      library: libraryName
       //libraryTarget: 'global'
     },
     module: {
       rules: [
+        {
+          test: /\.(png|svg|jpg|gif)$/,
+          use: ['file-loader']
+        },
         {
           test: /\.js$/,
           exclude: /node_modules|dist/,
@@ -95,7 +103,7 @@ module.exports = function(_env, argv) {
         },
         {
           test: /\.css$/i,
-          use: ["style-loader", "css-loader"],
+          use: ['style-loader', 'css-loader']
         }
       ]
     },

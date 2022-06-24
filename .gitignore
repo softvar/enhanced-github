@@ -5,3 +5,5 @@ node_modules/
 .idea
 .DS_Store
 coverage
+.env
+.vscode
