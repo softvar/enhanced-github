@@ -287,7 +287,7 @@ render(e(App), domContainer);
               user: user,
               repo: repo,
               issueID: issue_id,
-              contributorID: contributor_id,
+              contributorName: contributor_name,
               background: "white",
               dynamicBool: true,
             }
@@ -300,7 +300,7 @@ render(e(App), domContainer);
                   this.state.user,
                   this.state.repo,
                   this.state.issueID,
-                  this.state.contributorID,
+                  this.state.contributorName,
                   this.state.side
                 );
                 //console.log('status CDM: ' + statusReact)
@@ -401,7 +401,7 @@ render(e(App), domContainer);
               user: ${user}
               repo: ${repo}
               issue_id: ${issue_id}
-              contributor: ${contributor_id}
+              contributor: ${contributor_name}
               side: ${this.state.side}
               `
             }
@@ -459,7 +459,7 @@ render(e(App), domContainer);
               user: user,
               repo: repo,
               issueID: issue_id,
-              contributorID: contributor_id,
+              contributorName: contributor_name,
               votes: ["0.0", "0.0"]
             }
           }
@@ -471,7 +471,7 @@ render(e(App), domContainer);
                   this.state.user,
                   this.state.repo,
                   this.state.issueID,
-                  this.state.contributorID,
+                  this.state.contributorName,
                   this.state.side
                 );
                 var voteYesTotals = await postGetPRvoteYesTotals(
