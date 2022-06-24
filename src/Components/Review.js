@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import superagent from 'superagent';
 export default function Review(props) {
   const user = useSelector(state => state.auth.user);
-  let { recipientId, recipientName, tokens, amount, setReview, setTransfer, repo } = props;
+  let { recipientId, recipientName, tokens, amount, setReview, setTransfer, repo, tokenAmount } = props;
   let [success, setSuccess] = useState(false);
   let [loader, setLoader] = useState(false);
 
@@ -52,6 +52,8 @@ export default function Review(props) {
         setReview={setReview}
         setTransfer={setTransfer}
         setSuccess={setSuccess}
+        tokenAmount={tokenAmount}
+        repo={repo}
       />
     );
   }

@@ -162,19 +162,21 @@ export default function Transfer(props) {
         setReview={setReview}
         repo={repo}
         owner={owner}
+        tokenAmount={tokenAmount}
       />
     );
   }
   return (
     <div className="content items-center">
-      <div className="items-center">
-        <form name="transfer" className="transfer">
-          <span>
-            <span>Transfer {repo} Tokens</span>
-            <div className="balance">
-              You currently have <text>{` ${tokenAmount || 0} ${repo}`}</text> tokens
-            </div>
+      <div className="transferContent">
+        <header>
+          <h2>Transfer {repo} Tokens</h2>
+          <span className="balance">
+            You currently have <text>{` ${tokenAmount || 0} ${repo}`}</text> tokens
           </span>
+        </header>
+
+        <form name="transfer" className="transfer">
           <span>
             <label htmlFor="transfer" className="">
               Who would you like to transfer tokens to?

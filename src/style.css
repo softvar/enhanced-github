@@ -473,7 +473,21 @@ width: .5rem;
   font-size: 18px;
   font-weight: bold;
 }
-
+.transferContent {
+  display: flex;
+  flex-direction:column;
+  width: 100%;
+}
+.transferContent header {
+  padding: 1rem;
+  border: 1px solid #CCC;
+  border-radius: 5px;
+  margin-bottom: 2rem;
+}
+.transferConent header h1 {
+  font-weight: bold;
+  margin-bottom: .5rem;
+}
 .transfer {
   display: flex;
   justify-content: center;

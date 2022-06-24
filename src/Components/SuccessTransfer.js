@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 
 export default function SuccessTransfer(props) {
   const navigate = useNavigate();
-  let { amount, tokens, recipient, setReview, setTransfer, setSuccess } = props;
-
+  let { amount, repo, recipientName, setReview, setTransfer, setSuccess, tokenAmount } = props;
+  let balance = Number(tokenAmount) - Number(amount);
+  console.log(typeof tokenAmount, typeof amount);
   const clickHandler = e => {
     e.preventDefault();
     setSuccess(false);
@@ -20,8 +21,9 @@ export default function SuccessTransfer(props) {
           <img src="../../icons/success.png" className="success" />
         </span>
         <span className="items-center">
-          You have sent {amount} {tokens} to {recipient}
+          You have sent {amount} {repo} tokens to {recipientName}
         </span>
+        <span className="items-center">Your remaining balance is {balance} tokens.</span>
         <span className="items-center">
           <button type="button" className="startButton" onClick={e => clickHandler(e)}>
             Make another transfer
