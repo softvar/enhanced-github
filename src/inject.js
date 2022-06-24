@@ -38,29 +38,8 @@ var repo_id;
 var issue_id;
 var side;
 var contributor_id;
-<<<<<<< HEAD
 var contributor_name
 var voteTotals
-=======
-var voteTotals;
-
-// Inform the background page that this tab should have a page-action.
-chrome.runtime.sendMessage({
-  from: 'content',
-  subject: 'showPageAction'
-});
-// Listen for messages from the popup.
-chrome.runtime.onMessage.addListener((msg, sender, response) => {
-  // Message from popup requesting github user info
-  if (msg.from === 'popup' && msg.subject === 'Github User') {
-    var githubUserInfo = {
-      user: document.getElementById('#user').innerText
-    };
-
-    response(githubUserInfo);
-  }
-});
->>>>>>> apiroutes
 
 let rootcontainer = document.querySelectorAll('#rootcontainer');
 if (rootcontainer.length) {
@@ -119,7 +98,6 @@ if (rootcontainer.length) {
   }
 
   async function postGetContributorID(owner, repo, issue_id, contributor_name) {
-<<<<<<< HEAD
    const res = await superagent
      .post('http://localhost:4000/graphql')
      .send(
@@ -137,30 +115,6 @@ if (rootcontainer.length) {
      //});
    const json = JSON.parse(res.text)
    return json.data.getContributorID
-  }
-
-  async function postGetPRvoteStatus(owner, repo, issue_id, contributor_id, side) {
-=======
->>>>>>> apiroutes
-    const res = await superagent
-      .post('http://localhost:4000/graphql')
-      .send(
-        //{ query: '{ name: 'Manny', species: 'cat' }' }
-        //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-        //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-        //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
-        //{ query: `{ getVoteEverything }` }
-        {
-          query: `{ getContributorID(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_name: "${contributor_name}") }`
-        }
-        //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
-      ) // sends a JSON post body
-      .set('accept', 'json');
-    //.end((err, res) => {
-    // Calling the end function will send the request
-    //});
-    const json = JSON.parse(res.text);
-    return json.data.getContributorID;
   }
 
   async function postGetPRvoteStatus(owner, repo, issue_id, contributor_id, side) {
@@ -306,7 +260,6 @@ if (rootcontainer.length) {
 
     const res_get_repo_status = await get_repo_status(repo_id);
     const isRepoTurboSrcToken = res_get_repo_status['body']['data']['getRepoStatus'];
-<<<<<<< HEAD
     contributor_name =  authContributor.getAuthContributor();
     contributor_id = await postGetContributorID(
       user,
@@ -315,11 +268,6 @@ if (rootcontainer.length) {
       contributor_name,
     )
     const res_get_authorized_contributor =  await get_authorized_contributor(contributor_id, repo_id);
-=======
-    const contributor_name = authContributor.getAuthContributor();
-    contributor_id = await postGetContributorID(user, repo, issue_id, contributor_name);
-    const res_get_authorized_contributor = await get_authorized_contributor(contributor_id, repo_id);
->>>>>>> apiroutes
     const isAuthorizedContributor = res_get_authorized_contributor['body']['data']['getAuthorizedContributor'];
 
     console.log('isAuthorizedContributor: ' + isAuthorizedContributor);
@@ -337,17 +285,10 @@ if (rootcontainer.length) {
               user: user,
               repo: repo,
               issueID: issue_id,
-<<<<<<< HEAD
               contributorName: contributor_name,
               background: "white",
               dynamicBool: true,
             }
-=======
-              contributorID: contributor_id,
-              background: 'white',
-              dynamicBool: true
-            };
->>>>>>> apiroutes
           }
 
           componentDidMount() {
@@ -517,15 +458,9 @@ if (rootcontainer.length) {
               user: user,
               repo: repo,
               issueID: issue_id,
-<<<<<<< HEAD
               contributorName: contributor_name,
               votes: ["0.0", "0.0"]
             }
-=======
-              contributorID: contributor_id,
-              votes: ['0.0', '0.0']
-            };
->>>>>>> apiroutes
           }
 
           componentDidMount() {
@@ -646,7 +581,6 @@ if (rootcontainer.length) {
         }
 
         // Get contributor_id from chain web wallet extension
-<<<<<<< HEAD
         contributor_name =  authContributor.getAuthContributor();
         contributor_id = await postGetContributorID(
           user,
@@ -655,11 +589,6 @@ if (rootcontainer.length) {
           contributor_name,
         )
         var html
-=======
-        contributor_name = authContributor.getAuthContributor();
-        contributor_id = await postGetContributorID(user, repo, issue_id, contributor_name);
-        var html;
->>>>>>> apiroutes
         for (var i = startIndex; i < containerItems.length; i++) {
           issue_id = containerItems[i].getAttribute('id');
           side = 'NA';
