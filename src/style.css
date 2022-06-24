@@ -418,22 +418,43 @@ width: .5rem;
   margin-bottom: 1.5rem;
 }
 .repo {
+  width: 100%;
   display: flex;
-  align-items: center;
+  flex-direction: row;
+  align-items: baseline;
+  height: 1rem;
+  margin-bottom: 1rem;
+}
+.repo span {
+  margin-right: .3rem;
+}
+.repo img {
   height: 1rem;
 }
-.repo span a {
+.repoOwner {
   font-size: 18px;
+}
+.repoOwner a {
+  color:cornflowerblue;
+}
+.repoName {
+  font-size: 18px;
+  color:cornflowerblue;
+}
+.repoName a {
   font-weight: bold;
   color:cornflowerblue;
 }
-.repo img {
+.repoTokens {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.repoTokens img {
   margin-right: .3rem;
   height: 1rem;
 }
-.repo span {
-  margin-right:2rem;
-}
+
 .data {
   color: var(--secondary);
   margin: 1rem 0 1rem 0;

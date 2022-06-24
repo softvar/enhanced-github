@@ -270,12 +270,12 @@ if (rootcontainer.length) {
     user = path.user;
     var statusReact = await postGetPRvoteStatus(user, repo, issue_id, contributor_id, side);
 
-    console.log('inject', repo);
     storageUtil.set('repo', repo);
-    storageUtil.set('user', user);
-    chrome.storage.local.set({ user: user });
+    storageUtil.set('owner', user);
+
+    chrome.storage.local.set({ owner: user });
     chrome.storage.local.set({ repo: repo });
-    console.log('inject get', storageUtil.get('repo'));
+
     const res_get_repo_status = await get_repo_status(repo_id);
     const isRepoTurboSrcToken = res_get_repo_status['body']['data']['getRepoStatus'];
     const contributor_name = authContributor.getAuthContributor();

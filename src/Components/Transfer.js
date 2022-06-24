@@ -6,7 +6,8 @@ import superagent from 'superagent';
 import loadergif from '../loader.gif';
 export default function Transfer(props) {
   let user = useSelector(state => state.auth.user);
-  let { repo, currency } = props;
+  let [repo, setRepo] = useState('');
+  let [owner, setOwner] = useState('');
   const navigate = useNavigate();
   let [errorText, setErrorText] = useState(' ');
 
@@ -61,14 +62,19 @@ export default function Transfer(props) {
 
   let [tokenAmount, setTokenAmount] = useState('');
 
+  let [invalidText, setInvalidText] = useState('');
+
   let [transfer, setTransfer] = useState({
-    repo: 'demo',
     from: user.ethereumAddress,
     recipientId: 'none',
     recipientName: '',
-    amount: 0,
-    tokens: currency
+    amount: ''
   });
+
+  useEffect(() => {
+    chrome.storage.local.get(['repo'], data => setRepo(data.repo));
+    chrome.storage.local.get(['owner'], data => setOwner(data.owner));
+  }, []);
 
   let [review, setReview] = useState(false);
 
@@ -78,12 +84,10 @@ export default function Transfer(props) {
 
   useEffect(() => {
     const getTokenAmount = async () => {
-      await postGetContributorTokenAmount(user.login, transfer.repo, '', user.ethereumAddress, '').then(res =>
-        setTokenAmount(res)
-      );
+      await postGetContributorTokenAmount(owner, repo, '', user.ethereumAddress, '').then(res => setTokenAmount(res));
     };
     getTokenAmount();
-  }, [transfer.repo]);
+  }, [repo, owner]);
 
   useEffect(() => {
     if (!transfer.recipientName.length) {
@@ -123,8 +127,19 @@ export default function Transfer(props) {
     }
   };
 
-  const submitHandler = () => {
-    if (transfer.recipientId && transfer.recipientId !== 'none') {
+  const reviewHandler = () => {
+    if (Number(transfer.amount) < 1) {
+      setInvalidText(`Please enter a number between 1 and ${tokenAmount}`);
+    }
+    if (Number(transfer.amount) > Number(tokenAmount)) {
+      setInvalidText('Amount exceeds current balance.');
+    }
+    if (
+      Number(transfer.amount) <= Number(tokenAmount) &&
+      Number(transfer.amount) >= 1 &&
+      transfer.recipientId &&
+      transfer.recipientId !== 'none'
+    ) {
       setReview(true);
     }
   };
@@ -145,14 +160,21 @@ export default function Transfer(props) {
         amount={transfer.amount}
         setTransfer={setTransfer}
         setReview={setReview}
-        repo={transfer.repo}
+        repo={repo}
+        owner={owner}
       />
     );
   }
   return (
     <div className="content items-center">
       <div className="items-center">
-        <form name="transfer" className="transfer" onSubmit={() => submitHandler()}>
+        <form name="transfer" className="transfer">
+          <span>
+            <span>Transfer {repo} Tokens</span>
+            <div className="balance">
+              You currently have <text>{` ${tokenAmount || 0} ${repo}`}</text> tokens
+            </div>
+          </span>
           <span>
             <label htmlFor="transfer" className="">
               Who would you like to transfer tokens to?
@@ -180,24 +202,13 @@ export default function Transfer(props) {
           </span>
 
           <span>
-            <label htmlFor="repo">Which repository's tokens would you like to send?</label>
-            <select name="repo" onChange={e => changeHandler(e)} value={transfer.repo} required>
-              <option value="demo">demo</option>
-              <option value="selected-work">Selected-Work</option>
-              <option value="rei">Reibase</option>
-            </select>
-            <div className="balance">
-              You currently have <text>{` ${tokenAmount} `}</text> tokens
-            </div>
-          </span>
-
-          <span>
             <label htmlFor="amount">How many tokens would you like to send?</label>
             <input type="number" name="amount" value={transfer.amount} onChange={e => changeHandler(e)} required />
+            <p className="errorText">{invalidText}</p>
           </span>
 
           <span>
-            <button type="submit" className="startButton">
+            <button type="submit" className="startButton" onClick={() => reviewHandler()}>
               Review and Send
             </button>
           </span>
