@@ -17,6 +17,9 @@ export default function Home(props) {
   useEffect(() => {
     chrome.storage.local.get(['repo'], data => setRepo(data.repo));
     chrome.storage.local.get(['owner'], data => setOwner(data.owner));
+
+    chrome.storage.local.set({ contributor_name: user.login });
+    chrome.storage.local.set({ contributor_id: user.ethereumAddress });
   });
 
   async function get_repo_status(repo_id) {

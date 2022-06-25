@@ -260,7 +260,12 @@ if (rootcontainer.length) {
 
     const res_get_repo_status = await get_repo_status(repo_id);
     const isRepoTurboSrcToken = res_get_repo_status['body']['data']['getRepoStatus'];
-    contributor_name =  authContributor.getAuthContributor();
+    //contributor_name =  authContributor.getAuthContributor();
+    let getFromStorageContributorName = keys =>
+    new Promise((resolve, reject) => chrome.storage.local.get(['contributor_name'], result => resolve(result.contributor_name)));
+    contributor_name = await getFromStorageContributorName()
+    console.log("authcontributors")
+    console.log(contributor_name)
     contributor_id = await postGetContributorID(
       user,
       repo,
@@ -581,7 +586,12 @@ if (rootcontainer.length) {
         }
 
         // Get contributor_id from chain web wallet extension
-        contributor_name =  authContributor.getAuthContributor();
+
+        let getFromStorageContributorName = keys =>
+        new Promise((resolve, reject) => chrome.storage.local.get(['contributor_name'], result => resolve(result.contributor_name)));
+        contributor_name = await getFromStorageContributorName();
+        console.log("authcontributors")
+        console.log(contributor_name)
         contributor_id = await postGetContributorID(
           user,
           repo,
@@ -635,7 +645,7 @@ if (rootcontainer.length) {
 
           //console.log('status: ' + status)
           displayOpenStatus = status === 'none' || status === 'open';
-          domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}-${contributor_id}`);
+          domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}`);
           //if (displayOpenStatus) {
           render(ce(TurboSrcButtonOpen), domContainerTurboSrcButton); //} else {
           // render(ce(TurboSrcButtonClosed), domContainerTurboSrcButton);
@@ -655,7 +665,6 @@ if (rootcontainer.length) {
               //console.log('turbo-src button click')
               const idNameSplit = idName.split('-');
               issue_id = idNameSplit[3];
-              contributor_id = idNameSplit[4];
               //console.log(issue_id)
               //console.log(contributor_id)
               const domContainerVoteTotalMain = document.querySelector('#vote-total-main');
@@ -773,7 +782,7 @@ function createModal() {
 
 function createButtonHtml(index, issue_id, contributor_id) {
   return `
-      <div id='turbo-src-btn-${issue_id}-${contributor_id}'></div>
+      <div id='turbo-src-btn-${issue_id}'></div>
     `;
 }
 //#yes_vote_button, #no_vote_button {
