@@ -15,8 +15,13 @@ export default function Home(props) {
   let [owner, setOwner] = useState('');
 
   useEffect(() => {
+    //Get repo/owner from current browser window
     chrome.storage.local.get(['repo'], data => setRepo(data.repo));
     chrome.storage.local.get(['owner'], data => setOwner(data.owner));
+
+    //Set current logged in contributor/id to chrome storage for inject to verify user for voting
+    chrome.storage.local.set({ contributor_name: user.login });
+    chrome.storage.local.set({ contributor_id: user.ethereumAddress });
   });
 
   async function get_repo_status(repo_id) {

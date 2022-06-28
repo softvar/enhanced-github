@@ -40,6 +40,7 @@ var side;
 var contributor_id;
 var contributor_name;
 var voteTotals;
+
 // Inform the background page that this tab should have a page-action.
 chrome.runtime.sendMessage({
   from: 'content',
@@ -270,16 +271,21 @@ if (rootcontainer.length) {
     user = path.user;
     var statusReact = await postGetPRvoteStatus(user, repo, issue_id, contributor_id, side);
 
-    storageUtil.set('repo', repo);
-    storageUtil.set('owner', user);
-
+    //Set Github Repo and User from browser window for chrome extension
     chrome.storage.local.set({ owner: user });
     chrome.storage.local.set({ repo: repo });
 
+    //Check if repo is tokenized
     const res_get_repo_status = await get_repo_status(repo_id);
     const isRepoTurboSrcToken = res_get_repo_status['body']['data']['getRepoStatus'];
-    contributor_name = authContributor.getAuthContributor();
-    contributor_id = await postGetContributorID(user, repo, issue_id, contributor_name);
+    //Function to get items from chrome storage set from Extension
+    let getFromStorage = keys =>
+      new Promise((resolve, reject) => chrome.storage.local.get([keys], result => resolve(result[keys])));
+    //Values are set in Extension App, Components/Home.js on render
+    contributor_name = await getFromStorage('contributor_name');
+    contributor_id = await getFromStorage('contributor_id');
+    //Check if current contributor is authorized for this repo
+    
     const res_get_authorized_contributor = await get_authorized_contributor(contributor_id, repo_id);
     const isAuthorizedContributor = res_get_authorized_contributor['body']['data']['getAuthorizedContributor'];
 
@@ -593,9 +599,6 @@ if (rootcontainer.length) {
           return;
         }
 
-        // Get contributor_id from chain web wallet extension
-        contributor_name = authContributor.getAuthContributor();
-        contributor_id = await postGetContributorID(user, repo, issue_id, contributor_name);
         var html;
         for (var i = startIndex; i < containerItems.length; i++) {
           issue_id = containerItems[i].getAttribute('id');
@@ -643,7 +646,7 @@ if (rootcontainer.length) {
 
           //console.log('status: ' + status)
           displayOpenStatus = status === 'none' || status === 'open';
-          domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}-${contributor_id}`);
+          domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}`);
           //if (displayOpenStatus) {
           render(ce(TurboSrcButtonOpen), domContainerTurboSrcButton); //} else {
           // render(ce(TurboSrcButtonClosed), domContainerTurboSrcButton);
@@ -663,7 +666,6 @@ if (rootcontainer.length) {
               //console.log('turbo-src button click')
               const idNameSplit = idName.split('-');
               issue_id = idNameSplit[3];
-              contributor_id = idNameSplit[4];
               //console.log(issue_id)
               //console.log(contributor_id)
               const domContainerVoteTotalMain = document.querySelector('#vote-total-main');
@@ -781,7 +783,7 @@ function createModal() {
 
 function createButtonHtml(index, issue_id, contributor_id) {
   return `
-      <div id='turbo-src-btn-${issue_id}-${contributor_id}'></div>
+      <div id='turbo-src-btn-${issue_id}'></div>
     `;
 }
 //#yes_vote_button, #no_vote_button {
