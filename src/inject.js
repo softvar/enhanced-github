@@ -271,23 +271,20 @@ if (rootcontainer.length) {
     user = path.user;
     var statusReact = await postGetPRvoteStatus(user, repo, issue_id, contributor_id, side);
 
-    storageUtil.set('repo', repo);
-    storageUtil.set('owner', user);
-
+    //Set Github Repo and User from browser window for chrome extension
     chrome.storage.local.set({ owner: user });
     chrome.storage.local.set({ repo: repo });
 
     const res_get_repo_status = await get_repo_status(repo_id);
     const isRepoTurboSrcToken = res_get_repo_status['body']['data']['getRepoStatus'];
-    //contributor_name =  authContributor.getAuthContributor();
-    let getFromStorageContributorName = keys =>
-      new Promise((resolve, reject) =>
-        chrome.storage.local.get(['contributor_name'], result => resolve(result.contributor_name))
-      );
-    contributor_name = await getFromStorageContributorName();
-    console.log('authcontributors');
-    console.log(contributor_name);
-    contributor_id = await postGetContributorID(user, repo, issue_id, contributor_name);
+
+    //Function to get items from chrome storage set from Extension
+    let getFromStorage = keys =>
+      new Promise((resolve, reject) => chrome.storage.local.get([keys], result => resolve(result[keys])));
+
+    contributor_name = await getFromStorage('contributor_name');
+    contributor_id = await getFromStorage('contributor_id');
+
     const res_get_authorized_contributor = await get_authorized_contributor(contributor_id, repo_id);
     const isAuthorizedContributor = res_get_authorized_contributor['body']['data']['getAuthorizedContributor'];
 
