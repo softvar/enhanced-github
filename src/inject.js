@@ -278,7 +278,6 @@ if (rootcontainer.length) {
     //Check if repo is tokenized
     const res_get_repo_status = await get_repo_status(repo_id);
     const isRepoTurboSrcToken = res_get_repo_status['body']['data']['getRepoStatus'];
-
     //Function to get items from chrome storage set from Extension
     let getFromStorage = keys =>
       new Promise((resolve, reject) => chrome.storage.local.get([keys], result => resolve(result[keys])));
@@ -286,6 +285,7 @@ if (rootcontainer.length) {
     contributor_name = await getFromStorage('contributor_name');
     contributor_id = await getFromStorage('contributor_id');
     //Check if current contributor is authorized for this repo
+    
     const res_get_authorized_contributor = await get_authorized_contributor(contributor_id, repo_id);
     const isAuthorizedContributor = res_get_authorized_contributor['body']['data']['getAuthorizedContributor'];
 
