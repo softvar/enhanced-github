@@ -39,6 +39,9 @@ export default function Ethereum() {
     console.log('input', ethereumAddress, user.login, ethereumKey);
     await postCreateUser('', '', ethereumAddress, user.login, ethereumKey);
 
+    chrome.storage.local.set({ contributor_name: user.login });
+    chrome.storage.local.set({ contributor_id: ethereumAddress });
+
     dispatch(setAuth({ ...user, ethereumAddress: ethereumAddress, ethereumKey: ethereumKey }));
     navigate('/onboard');
   }
