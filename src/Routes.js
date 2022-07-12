@@ -90,6 +90,13 @@ export default function Routes() {
   let [user, setUser] = useState('');
 
   useEffect(() => {
+    if (auth.isLoggedIn) {
+      return;
+    }
+    chrome.storage.local.get(['user'], data => setUser(data.user));
+  });
+
+  useEffect(() => {
     const getContributorId = async function(githubUsername) {
       return await postGetContributorID('', '', '', githubUsername).then(res => res);
     };
@@ -100,16 +107,16 @@ export default function Routes() {
 
     if (auth.isLoggedIn === true && auth.user.ethereumAddress !== 'none' && auth.user.ethereumKey !== 'none') {
       return;
-    } else if (localStorage.getItem('user')) {
-      chrome.storage.local.get(['user'], data => setUser(data.user));
+    } else if (user) {
+      let githubUser = JSON.parse(user);
 
-      let githubUser = user && JSON.parse(user);
-
-      getContributorId(githubUser.login)
-        .then(res => (githubUser.ethereumAddress = res))
-        .then(() =>
-          getContributorSignature(githubUser.ethereumAddress).then(key => (githubUser.ethereumKey = key || 'none'))
-        );
+      // getContributorId(githubUser.login)
+      //   .then(res => (githubUser.ethereumAddress = res))
+      //   .then(() =>
+      //     getContributorSignature(githubUser.ethereumAddress).then(key => (githubUser.ethereumKey = key || 'none'))
+      //   );
+      githubUser.ethereumAddress = 'xxx';
+      githubUser.ethereumKey = 'yyy';
       dispatch(setAuth(githubUser));
     }
   }, [user]);

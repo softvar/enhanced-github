@@ -26,8 +26,15 @@ export default function authReducer(state = initialState, action) {
       let newState = { ...state, isLoggedIn: true, user: action.data };
       return newState;
     }
-    case 'LOGOUT': {
+    case LOGOUT: {
       localStorage.clear();
+      // chrome.storage.local.remove(['user'], function() {
+      //   var error = chrome.runtime.lastError;
+      //   if (error) {
+      //     console.error(error);
+      //   }
+      // });
+
       return {
         ...state,
         isLoggedIn: false,
