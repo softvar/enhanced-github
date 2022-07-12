@@ -19,16 +19,9 @@
         //Response is Github profile - username, avatar url, repos etc.
         .then(response => response.json())
         .then(user => (document.getElementById('#user').innerText = JSON.stringify(user)))
-        // .then(data => {
-        //   localStorage.setItem('user', JSON.stringify(data));
-        // })
-        // .then(localStorage.setItem('isLoggedIn', JSON.stringify({ isLoggedIn: true })))
         .catch(error => {
           console.log(error);
         });
-      // setTimeout(() => {
-      //   console.log(document.getElementById('#user'));
-      // }, 2000);
     </script>
   </head>
   <body>

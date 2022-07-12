@@ -13,7 +13,7 @@ import Ethereum from './Components/Ethereum';
 import Home from './Components/Home';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuth } from './store/auth';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import superagent from 'superagent';
 
 export default function Routes() {
@@ -87,6 +87,8 @@ export default function Routes() {
     return json.data.getContributorSignature;
   }
 
+  let [user, setUser] = useState('');
+
   useEffect(() => {
     const getContributorId = async function(githubUsername) {
       return await postGetContributorID('', '', '', githubUsername).then(res => res);
@@ -99,7 +101,9 @@ export default function Routes() {
     if (auth.isLoggedIn === true && auth.user.ethereumAddress !== 'none' && auth.user.ethereumKey !== 'none') {
       return;
     } else if (localStorage.getItem('user')) {
-      let githubUser = JSON.parse(localStorage.getItem('user'));
+      chrome.storage.local.get(['user'], data => setUser(data.user));
+
+      let githubUser = user && JSON.parse(user);
 
       getContributorId(githubUser.login)
         .then(res => (githubUser.ethereumAddress = res))
@@ -108,7 +112,7 @@ export default function Routes() {
         );
       dispatch(setAuth(githubUser));
     }
-  }, [window.location]);
+  }, [user]);
 
   return auth.isLoggedIn ? (
     <BrowserRouter>

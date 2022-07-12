@@ -24,6 +24,7 @@
 const setUser = info => {
   if (info) {
     localStorage.setItem('user', info?.user);
+    chrome.storage.local.set({ user: info?.user });
   }
 };
 
