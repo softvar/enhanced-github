@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 //This is the redirect URL supplied to Github in turbo-src's Github Oauth App settings.
 //Localhost:5000/authenticated in development mode.
 //From that page the post request is made below with the code supplied from Github.
-app.use('/authenticated', express.static('authenticated'));
+app.use('/authenticated', express.static('./src/authenticated'));
 
 app.post('/authenticate', async (req, res) => {
   const { code } = req.body;

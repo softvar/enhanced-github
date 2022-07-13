@@ -28,12 +28,12 @@ export default function authReducer(state = initialState, action) {
     }
     case LOGOUT: {
       localStorage.clear();
-      // chrome.storage.local.remove(['user'], function() {
-      //   var error = chrome.runtime.lastError;
-      //   if (error) {
-      //     console.error(error);
-      //   }
-      // });
+      chrome.storage.local.remove(['user'], function() {
+        var error = chrome.runtime.lastError;
+        if (error) {
+          console.error(error);
+        }
+      });
 
       return {
         ...state,

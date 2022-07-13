@@ -109,13 +109,12 @@ export default function Routes() {
       return;
     } else if (user) {
       let githubUser = JSON.parse(user);
-
       // getContributorId(githubUser.login)
       //   .then(res => (githubUser.ethereumAddress = res))
       //   .then(() =>
       //     getContributorSignature(githubUser.ethereumAddress).then(key => (githubUser.ethereumKey = key || 'none'))
       //   );
-      githubUser.ethereumAddress = 'xxx';
+      githubUser.ethereumAddress = 'zzz';
       githubUser.ethereumKey = 'yyy';
       dispatch(setAuth(githubUser));
     }
