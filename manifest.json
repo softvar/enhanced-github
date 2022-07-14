@@ -22,7 +22,7 @@
     {
       "matches": ["*://*.github.com/*", "http://localhost:5000/authenticated/*"],
       "css": ["./modal.css"],
-      "js": ["src/inject.js"]
+      "js": ["inject.bundle.js"]
     }
   ],
   "background": {

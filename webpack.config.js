@@ -46,7 +46,7 @@ function addPlugins(argv) {
       [
         { from: 'options.js', to: destination },
         { from: 'modal.css', to: destination },
-        { from: 'popup.js', to: destination },
+        { from: 'src/inject.js', to: destination },
         { from: '*html', to: destination },
         { from: 'manifest.json', to: destination },
         { from: 'icons/*.png', to: destination },
@@ -73,12 +73,13 @@ function addPlugins(argv) {
 module.exports = function(_env, argv) {
   return {
     entry: {
-      [libraryName]: './src/inject.js'
+      [libraryName]: './src/popup.js',
+      inject: './src/inject.js'
     },
     mode: argv.mode,
     output: {
       path: destination,
-      filename: 'src/inject.js',
+      filename: '[name].bundle.js',
       library: libraryName
       //libraryTarget: 'global'
     },
