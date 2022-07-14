@@ -110,14 +110,14 @@ export default function Routes() {
     } else if (user) {
       let githubUser = JSON.parse(user);
       //If turbo-src service server is running use following:
-      // getContributorId(githubUser.login)
-      //   .then(res => (githubUser.ethereumAddress = res))
-      //   .then(() =>
-      //     getContributorSignature(githubUser.ethereumAddress).then(key => (githubUser.ethereumKey = key || 'none'))
-      //   );
+      getContributorId(githubUser.login)
+        .then(res => (githubUser.ethereumAddress = res))
+        .then(() =>
+          getContributorSignature(githubUser.ethereumAddress).then(key => (githubUser.ethereumKey = key || 'none'))
+        );
       //Else use dummy values:
-      githubUser.ethereumAddress = 'zzz';
-      githubUser.ethereumKey = 'yyy';
+      // githubUser.ethereumAddress = 'zzz';
+      // githubUser.ethereumKey = 'yyy';
       dispatch(setAuth(githubUser));
     }
   }, [user]);
