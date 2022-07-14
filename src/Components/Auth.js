@@ -1,12 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { fetchUser } from '../store/auth';
-import { useEffect } from 'react';
 import Login from './Login';
-export default function Auth(props) {
+
+export default function Auth() {
   return (
     <div className="content items-center">
       <div className="auth">
