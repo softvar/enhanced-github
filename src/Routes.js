@@ -93,7 +93,7 @@ export default function Routes() {
     if (auth.isLoggedIn) {
       return;
     }
-    chrome.storage.local.get(['user'], data => setUser(data.user));
+    chrome.storage.local.get(['user'], data => setUser(data.githubUser));
   });
 
   useEffect(() => {

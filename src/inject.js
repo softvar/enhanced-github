@@ -276,7 +276,7 @@ async function postSetVote(owner, repo, issue_id, contributor_id, side) {
     //Response is Github profile - username, avatar url, repos etc.
     .then(response => response.json())
     //Set Github user information to Chrome Storage for the turbo-src extension to get it on load:
-    .then(githubUser => chrome.storage.local.set({ user: JSON.stringify(githubUser) }))
+    .then(githubUser => chrome.storage.local.set({ githubUser: JSON.stringify(githubUser) }))
     .catch(error => {
       console.log(error);
     });
