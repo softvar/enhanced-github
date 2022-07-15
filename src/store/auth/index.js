@@ -28,7 +28,7 @@ export default function authReducer(state = initialState, action) {
     }
     case LOGOUT: {
       localStorage.clear();
-      chrome.storage.local.remove(['user'], function() {
+      chrome.storage.local.remove(['githubUser'], function() {
         var error = chrome.runtime.lastError;
         if (error) {
           console.error(error);

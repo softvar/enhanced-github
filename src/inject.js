@@ -37,6 +37,28 @@ var contributor_id;
 var contributor_name;
 var voteTotals;
 
+//OAuth Code: ***
+//Github redirects to localhost:5000/authenticated?code=...
+//Get Github code from url:
+const newUrl = window.location.href.split('?code=');
+const reqBody = { code: newUrl[1] };
+//Clear code from browser url: (optional)
+window.history.pushState({}, null, newUrl[0]);
+//Send code from url which to Github API for an access token
+//The access token is then exchanged for the user's profile. Done in server/index.js.
+fetch('http://localhost:5000/authenticate', {
+  method: 'POST',
+  body: JSON.stringify(reqBody)
+})
+  //Response is Github profile - username, avatar url, repos etc.
+  .then(response => response.json())
+  //Set Github user information to Chrome Storage for the turbo-src extension to get it on load:
+  .then(githubUser => chrome.storage.local.set({ githubUser: JSON.stringify(githubUser) }))
+  .catch(error => {
+    console.log(error);
+  });
+//End of OAuth Code ***
+
 async function get_repo_status(repo_id) {
   return await superagent
     .post('http://localhost:4000/graphql')
@@ -259,28 +281,6 @@ async function postSetVote(owner, repo, issue_id, contributor_id, side) {
   const isAuthorizedContributor = res_get_authorized_contributor['body']['data']['getAuthorizedContributor'];
 
   console.log('isAuthorizedContributor: ' + isAuthorizedContributor);
-
-  //OAuth Code: ***
-  //Github redirects to localhost:5000/authenticated?code=...
-  //Get Github code from url:
-  const newUrl = window.location.href.split('?code=');
-  const reqBody = { code: newUrl[1] };
-  //Clear code from browser url: (optional)
-  window.history.pushState({}, null, newUrl[0]);
-  //Send code from url which to Github API for an access token
-  //The access token is then exchanged for the user's profile. Done in server/index.js.
-  fetch('http://localhost:5000/authenticate', {
-    method: 'POST',
-    body: JSON.stringify(reqBody)
-  })
-    //Response is Github profile - username, avatar url, repos etc.
-    .then(response => response.json())
-    //Set Github user information to Chrome Storage for the turbo-src extension to get it on load:
-    .then(githubUser => chrome.storage.local.set({ githubUser: JSON.stringify(githubUser) }))
-    .catch(error => {
-      console.log(error);
-    });
-  //End of OAuth Code ***
 
   const readyStateCheckInterval = setInterval(async function() {
     if ((document.readyState === 'complete') & (isRepoTurboSrcToken === true) & (isAuthorizedContributor === true)) {
