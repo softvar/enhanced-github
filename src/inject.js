@@ -57,7 +57,7 @@ fetch('http://localhost:5000/authenticate', {
   .catch(error => {
     console.log(error);
   });
-//End of OAuth Code ***
+//End of OAuth Code ****
 
 async function get_repo_status(repo_id) {
   return await superagent
