@@ -10,7 +10,7 @@ const { unmountComponentAtNode, render } = require('react-dom');
 const { useDispatch } = require('react-redux');
 const { createClient } = require('graphql-ws');
 
-const Button = require('react-bootstrap/button');
+const { Button } = require('react-bootstrap');
 
 //const { createClient: redisCreateClient } = require('redis');
 //const WebSocket = require('ws');
