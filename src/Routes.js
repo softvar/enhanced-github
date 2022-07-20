@@ -111,17 +111,14 @@ export default function Routes() {
       let githubUser = JSON.parse(user);
       //If turbo-src service server is running use following:
       getContributorId(githubUser.login)
-        .then(res => (githubUser.ethereumAddress = res))
+        .then(res => (githubUser.ethereumAddress = res || 'none'))
         .then(() =>
           getContributorSignature(githubUser.ethereumAddress).then(key => (githubUser.ethereumKey = key || 'none'))
         );
-      //Else use dummy values:
-      // githubUser.ethereumAddress = 'zzz';
-      // githubUser.ethereumKey = 'yyy';
       dispatch(setAuth(githubUser));
     }
   }, [user]);
-
+  console.log('user', auth.user.login, auth.user.ethereumAddress, auth.user.ethereumKey);
   return auth.isLoggedIn ? (
     <BrowserRouter>
       <div className="container">

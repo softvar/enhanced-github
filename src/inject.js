@@ -360,6 +360,7 @@ async function postSetVote(owner, repo, issue_id, contributor_id, side) {
         render() {
           const handleClick = e => {
             console.log('handleClick');
+            e.preventDefault();
             //modal.style.display = "none";
           };
           var buttonDisplay;
@@ -426,7 +427,7 @@ async function postSetVote(owner, repo, issue_id, contributor_id, side) {
                     console.log('notOnGithub');
                     this.setState({ voted: 'notOnGithub', lastIssueId: issue_id, side: this.state.side });
                   } else if (forkStatus === 'valid') {
-                    console.log('valid');
+                    console.log('valid', user, repo, issue_id, contributor_id, this.state.side);
                     await postSetVote(user, repo, issue_id, contributor_id, this.state.side);
                     this.setState({ voted: 'done', lastIssueId: issue_id, side: this.state.side });
                   } else if (forkStatus === 'pull') {

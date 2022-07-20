@@ -37,10 +37,15 @@ export default function Ethereum() {
   async function submitHandler(e) {
     e.preventDefault();
     console.log('input', ethereumAddress, user.login, ethereumKey);
-    await postCreateUser('', '', ethereumAddress, user.login, ethereumKey);
 
-    chrome.storage.local.set({ contributor_name: user.login });
-    chrome.storage.local.set({ contributor_id: ethereumAddress });
+    try {
+      await postCreateUser('', '', ethereumAddress, user.login, ethereumKey);
+
+      chrome.storage.local.set({ contributor_name: user.login });
+      chrome.storage.local.set({ contributor_id: ethereumAddress });
+    } catch (error) {
+      console.log(error);
+    }
 
     dispatch(setAuth({ ...user, ethereumAddress: ethereumAddress, ethereumKey: ethereumKey }));
     navigate('/onboard');
