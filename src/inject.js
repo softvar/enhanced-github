@@ -23,6 +23,8 @@ const superagent = require('superagent');
 const commonUtil = require('./utils/commonUtil');
 const authContributor = require('./authorizedContributor');
 
+const port = "http://localhost:4000";
+
 var isRepoTurboSrcToken = false;
 
 var modal;
@@ -60,26 +62,29 @@ fetch('http://localhost:5000/authenticate', {
 //End of OAuth Code ****
 
 async function get_repo_status(repo_id) {
-  return await superagent
-    .post('http://localhost:4000/graphql')
-    .send({ query: `{ getRepoStatus(repo_id: "${repo_id}") }` })
-    .set('accept', 'json');
-  //.end((err, res) => {
-  //  //console.log(repo_id)
-  //  //console.log('hey')
-  //  //console.log('res: ' + res['body']['data']['getRepoStatus'])
-  //  //const text= res['text'];
-  //  //console.log(text);
-  //  //isRepoTurboSrcToken = res;
-  //  // Calling the end function will send the request
-  //  return res
-  //})
+    const res = await superagent
+      .post(`${port}/graphql`)
+      .send({
+        query: `{ getRepoStatus(repo_id: "${repo_id}") }`,
+      })
+      .set("accept", "json");
+    //.end((err, res) => {
+    // Calling the end function will send the request
+    //});
+    const json = JSON.parse(res.text);
+    return json.data.getRepoStatus;
 }
 async function get_authorized_contributor(contributor_id, repo_id) {
-  return await superagent
-    .post('http://localhost:4000/graphql')
-    .send({ query: `{ getAuthorizedContributor(contributor_id: "${contributor_id}", repo_id: "${repo_id}") }` })
-    .set('accept', 'json');
+    const res = await superagent
+      .post(`${port}/graphql`)
+      .send({
+        query: `{ getAuthorizedContributor(contributor_id: "${contributor_id}", repo_id: "${repo_id}") }`,
+      })
+      .set("accept", "json");
+
+      const json = JSON.parse(res.text);
+      console.log('getAuthorizedContributor:' + json.data.getAuthorizedContributor);
+      return json.data.getAuthorizedContributor;
 }
 
 async function postPullFork(owner, repo, issue_id, contributor_id) {
@@ -267,8 +272,8 @@ async function postSetVote(owner, repo, issue_id, contributor_id, side) {
   chrome.storage.local.set({ repo: repo });
 
   //Check if repo is tokenized
-  const res_get_repo_status = await get_repo_status(repo_id);
-  const isRepoTurboSrcToken = res_get_repo_status['body']['data']['getRepoStatus'];
+  const isRepoTurboSrcToken = await get_repo_status(repo_id);
+  console.log('isRepoTurboSrcToken: ' + isRepoTurboSrcToken)
   //Function to get items from chrome storage set from Extension
   let getFromStorage = keys =>
     new Promise((resolve, reject) => chrome.storage.local.get([keys], result => resolve(result[keys])));
@@ -277,9 +282,7 @@ async function postSetVote(owner, repo, issue_id, contributor_id, side) {
   contributor_id = await getFromStorage('contributor_id');
   //Check if current contributor is authorized for this repo
 
-  const res_get_authorized_contributor = await get_authorized_contributor(contributor_id, repo_id);
-  const isAuthorizedContributor = res_get_authorized_contributor['body']['data']['getAuthorizedContributor'];
-
+  const isAuthorizedContributor = await get_authorized_contributor(contributor_id, repo_id);
   console.log('isAuthorizedContributor: ' + isAuthorizedContributor);
 
   const readyStateCheckInterval = setInterval(async function() {
