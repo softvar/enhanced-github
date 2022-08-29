@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import superagent from 'superagent';
+
+const port = process.env.PORT || "http://localhost:4000";
+
 export default function Home(props) {
   const user = useSelector(state => state.auth.user);
   const navigate = useNavigate();
@@ -22,23 +25,21 @@ export default function Home(props) {
     //Set current logged in contributor/id to chrome storage for inject to verify user for voting
     chrome.storage.local.set({ contributor_name: user.login });
     chrome.storage.local.set({ contributor_id: user.ethereumAddress });
+    console.log('repo: ' + repo)
   });
 
   async function get_repo_status(repo_id) {
-    return await superagent
-      .post('http://localhost:4000/graphql')
-      .send({ query: `{ getRepoStatus(repo_id: "${repo_id}") }` })
-      .set('accept', 'json');
+    const res = await superagent
+      .post(`${port}/graphql`)
+      .send({
+        query: `{ getRepoStatus(repo_id: "${repo_id}") }`,
+      })
+      .set("accept", "json");
     //.end((err, res) => {
-    //  //console.log(repo_id)
-    //  //console.log('hey')
-    //  //console.log('res: ' + res['body']['data']['getRepoStatus'])
-    //  //const text= res['text'];
-    //  //console.log(text);
-    //  //isRepoTurboSrcToken = res;
-    //  // Calling the end function will send the request
-    //  return res
-    //})
+    // Calling the end function will send the request
+    //});
+    const json = JSON.parse(res.text);
+    return json.data.getRepoStatus;
   }
   async function postGetContributorTokenAmount(owner, repo, issue_id, contributor_id, side) {
     const res = await superagent
@@ -67,7 +68,7 @@ export default function Home(props) {
 
   useEffect(() => {
     const getRepoStatus = async id => {
-      await get_repo_status(id).then(res => setTokenized(res?.body.data.getRepoStatus));
+      await get_repo_status(id).then(res => setTokenized(res));
     };
 
     getRepoStatus(`${owner}/${repo}`);

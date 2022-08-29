@@ -5,6 +5,9 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import Loader from './Loader';
 import { setAuth } from '../store/auth';
 import superagent from 'superagent';
+
+const port = "http://localhost:4000";
+
 export default function Ethereum() {
   let user = useSelector(state => state.auth.user);
   const navigate = useNavigate();
