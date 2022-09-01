@@ -23,6 +23,17 @@ const superagent = require('superagent');
 const commonUtil = require('./utils/commonUtil');
 const authContributor = require('./authorizedContributor');
 
+const { postSetVote,
+        postGetPRvoteStatus,
+        postGetPRvoteYesTotals,
+        postGetPRvoteNoTotals,
+        postGetPRvoteTotals,
+        postCreateRepo,
+        postNewPullRequest,
+        postGetContributorID,
+        postGetContributorName,
+      } = require('./requests')
+
 const port = "https://turbosrc-service.fly.dev";
 
 var isRepoTurboSrcToken = false;
@@ -61,6 +72,7 @@ fetch('https://turbosrc-auth.fly.dev/authenticate', {
   });
 //End of OAuth Code ****
 
+// Add to requests.js (reconcile privateStoreRequests.js
 async function get_repo_status(repo_id) {
     const res = await superagent
       .post(`${port}/graphql`)
@@ -74,6 +86,8 @@ async function get_repo_status(repo_id) {
     const json = JSON.parse(res.text);
     return json.data.getRepoStatus;
 }
+
+// Add to requests.js (reconcile privateStoreRequests.js
 async function get_authorized_contributor(contributor_id, repo_id) {
     const res = await superagent
       .post(`${port}/graphql`)
@@ -89,7 +103,7 @@ async function get_authorized_contributor(contributor_id, repo_id) {
 
 async function postPullFork(owner, repo, issue_id, contributor_id) {
   return await superagent
-    .post('http://localhost:4001/graphql')
+    .post(`${port}/graphql`)
     .send({
       query: `{ getPRfork(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}") }`
     }) // sends a JSON post body
@@ -98,7 +112,7 @@ async function postPullFork(owner, repo, issue_id, contributor_id) {
 
 async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
   const res = await superagent
-    .post('http://localhost:4000/graphql')
+    .post(`${port}/graphql`)
     .send({
       query: `{ getPRforkStatus(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}") }`
     }) // sends a JSON post body
@@ -108,139 +122,6 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
   //return resJSON.data.getPRforkStatus
   const json = JSON.parse(res.text);
   return json.data.getPRforkStatus;
-}
-
-async function postGetContributorID(owner, repo, issue_id, contributor_name) {
-  const res = await superagent
-    .post('http://localhost:4000/graphql')
-    .send(
-      //{ query: '{ name: 'Manny', species: 'cat' }' }
-      //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-      //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-      //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
-      //{ query: `{ getVoteEverything }` }
-      {
-        query: `{ getContributorID(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_name: "${contributor_name}") }`
-      }
-      //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
-    ) // sends a JSON post body
-    .set('accept', 'json');
-  //.end((err, res) => {
-  // Calling the end function will send the request
-  //});
-  const json = JSON.parse(res.text);
-  return json.data.getContributorID;
-}
-
-async function postGetPRvoteStatus(owner, repo, issue_id, contributor_id, side) {
-  const res = await superagent
-    .post('http://localhost:4000/graphql')
-    .send(
-      //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-      //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-      //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
-      //{ query: `{ getVoteEverything }` }
-      {
-        query: `{ getPRvoteStatus(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }`
-      }
-      //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
-    ) // sends a JSON post body
-    .set('accept', 'json');
-  //.end((err, res) => {
-  // Calling the end function will send the request
-  //});
-  const json = JSON.parse(res.text);
-  console.log(json);
-  return json.data.getPRvoteStatus;
-}
-
-async function postGetPRvoteTotals(owner, repo, issue_id, contributor_id, side) {
-  const res = await superagent
-    .post('http://localhost:4000/graphql')
-    .send(
-      //{ query: '{ name: 'Manny', species: 'cat' }' }
-      //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-      //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-      //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
-      //{ query: `{ getVoteEverything }` }
-      {
-        query: `{ getPRvoteTotals(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }`
-      }
-      //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
-    ) // sends a JSON post body
-    .set('accept', 'json');
-  //.end((err, res) => {
-  // Calling the end function will send the request
-  //});
-  const json = JSON.parse(res.text);
-  console.log(json);
-  return json.data.getPRvoteTotals;
-}
-
-async function postGetPRvoteYesTotals(owner, repo, issue_id, contributor_id, side) {
-  const res = await superagent
-    .post('http://localhost:4000/graphql')
-    .send(
-      //{ query: '{ name: 'Manny', species: 'cat' }' }
-      //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-      //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-      //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
-      //{ query: `{ getVoteEverything }` }
-      {
-        query: `{ getPRvoteYesTotals(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }`
-      }
-      //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
-    ) // sends a JSON post body
-    .set('accept', 'json');
-  //.end((err, res) => {
-  // Calling the end function will send the request
-  //});
-  const json = JSON.parse(res.text);
-  console.log(json);
-  return json.data.getPRvoteYesTotals;
-}
-
-async function postGetPRvoteNoTotals(owner, repo, issue_id, contributor_id, side) {
-  const res = await superagent
-    .post('http://localhost:4000/graphql')
-    .send(
-      //{ query: '{ name: 'Manny', species: 'cat' }' }
-      //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-      //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-      //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
-      //{ query: `{ getVoteEverything }` }
-      {
-        query: `{ getPRvoteNoTotals(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }`
-      }
-      //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
-    ) // sends a JSON post body
-    .set('accept', 'json');
-  //.end((err, res) => {
-  // Calling the end function will send the request
-  //});
-  const json = JSON.parse(res.text);
-  console.log(json);
-  return json.data.getPRvoteNoTotals;
-}
-
-async function postSetVote(owner, repo, issue_id, contributor_id, side) {
-  superagent
-    .post('http://localhost:4000/graphql')
-    .send(
-      //{ query: '{ name: 'Manny', species: 'cat' }' }
-      //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-      //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-      //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
-      //{ query: `{ getVoteEverything }` }
-      {
-        query: `{ setVote(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }`
-      }
-      //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
-    ) // sends a JSON post body
-    .set('accept', 'json')
-    .end((err, res) => {
-      // Calling the end function will send the request
-    });
 }
 
 (async function() {
