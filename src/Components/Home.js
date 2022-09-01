@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import superagent from 'superagent';
-import { postGetContributorTokenAmount } from '../requests';
+import { postGetContributorTokenAmount, get_repo_status } from '../requests';
 
-const port = process.env.PORT || "http://localhost:4000";
+const port = process.env.PORT || 'http://localhost:4000';
 
 export default function Home(props) {
   const user = useSelector(state => state.auth.user);
@@ -26,33 +26,18 @@ export default function Home(props) {
     //Set current logged in contributor/id to chrome storage for inject to verify user for voting
     chrome.storage.local.set({ contributor_name: user.login });
     chrome.storage.local.set({ contributor_id: user.ethereumAddress });
-    console.log('repo: ' + repo)
+    console.log('repo: ' + repo);
   });
-
-  // Add to requests.js (reconcile privateStoreRequests.js
-  async function get_repo_status(repo_id) {
-    const res = await superagent
-      .post(`${port}/graphql`)
-      .send({
-        query: `{ getRepoStatus(repo_id: "${repo_id}") }`,
-      })
-      .set("accept", "json");
-    //.end((err, res) => {
-    // Calling the end function will send the request
-    //});
-    const json = JSON.parse(res.text);
-    return json.data.getRepoStatus;
-  }
 
   let [tokenized, setTokenized] = useState(false);
 
   useEffect(() => {
     const getRepoStatus = async id => {
-      await get_repo_status(id).then(res => setTokenized(res));
+      await get_repo_status(id).then(res => console.log('RES', res));
     };
 
     getRepoStatus(`${owner}/${repo}`);
-  });
+  }, [owner, repo]);
   console.log('tokenized', tokenized);
   useEffect(() => {
     const getTokenAmount = async () => {
