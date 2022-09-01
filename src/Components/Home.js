@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import superagent from 'superagent';
+import { postGetContributorTokenAmount } from '../requests';
 
 const port = process.env.PORT || "http://localhost:4000";
 
@@ -28,6 +29,7 @@ export default function Home(props) {
     console.log('repo: ' + repo)
   });
 
+  // Add to requests.js (reconcile privateStoreRequests.js
   async function get_repo_status(repo_id) {
     const res = await superagent
       .post(`${port}/graphql`)
@@ -40,28 +42,6 @@ export default function Home(props) {
     //});
     const json = JSON.parse(res.text);
     return json.data.getRepoStatus;
-  }
-  async function postGetContributorTokenAmount(owner, repo, issue_id, contributor_id, side) {
-    const res = await superagent
-      .post('http://localhost:4000/graphql')
-      .send(
-        //{ query: '{ name: 'Manny', species: 'cat' }' }
-        //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-        //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-        //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
-        //{ query: `{ getVoteEverything }` }
-        {
-          query: `{ getContributorTokenAmount(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }`
-        }
-        //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
-      ) // sends a JSON post body
-      .set('accept', 'json');
-    //.end((err, res) => {
-    // Calling the end function will send the request
-    //});
-    const json = JSON.parse(res.text);
-    console.log(json);
-    return json.data.getContributorTokenAmount;
   }
 
   let [tokenized, setTokenized] = useState(false);
