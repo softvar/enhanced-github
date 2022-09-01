@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom';
 import Loader from './Loader';
 import { setAuth } from '../store/auth';
-import superagent from 'superagent';
+import { postCreateUser } from '../requests';
 
 const port = "http://localhost:4000";
 
@@ -16,20 +16,6 @@ export default function Ethereum() {
   let [ethereumKey, setEthereumKey] = useState('');
   let [loader, setLoader] = useState(false);
   let [errorText, setErrorText] = useState('');
-
-  async function postCreateUser(owner, repo, contributor_id, contributor_name, contributor_signature) {
-    superagent
-      .post(`${port}/graphql`)
-      .send({
-        query: `{ createUser(owner: "${owner}", repo: "${repo}", contributor_id: "${contributor_id}", contributor_name: "${contributor_name}", contributor_signature: "${contributor_signature}") }`,
-      })
-      .set("accept", "json")
-      .end((err, res) => {
-        //Calling the end function will send the request
-        const json = JSON.parse(res.text);
-        return json.data.createUser;
-      });
-  }
 
   async function submitHandler(e) {
     e.preventDefault();
