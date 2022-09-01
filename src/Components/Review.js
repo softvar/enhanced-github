@@ -2,32 +2,12 @@ import React, { useState } from 'react';
 import SuccessTransfer from './SuccessTransfer';
 import Loader from './Loader';
 import { useSelector } from 'react-redux';
-import superagent from 'superagent';
+import { postTransferTokens } from '../requests';
 export default function Review(props) {
   const user = useSelector(state => state.auth.user);
   let { recipientId, recipientName, tokens, amount, setReview, setTransfer, repo, tokenAmount } = props;
   let [success, setSuccess] = useState(false);
   let [loader, setLoader] = useState(false);
-
-  async function postTransferTokens(owner, repository, from, to, amount) {
-    superagent
-      .post('http://localhost:4000/graphql')
-      .send(
-        //{ query: '{ name: 'Manny', species: 'cat' }' }
-        //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-        //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-        //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
-        //{ query: `{ getVoteEverything }` }
-        {
-          query: `{ transferTokens(owner: "${owner}", repo: "${repo}", from: "${from}", to: "${to}", amount: "${amount}") }`
-        }
-        //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
-      ) // sends a JSON post body
-      .set('accept', 'json')
-      .end((err, res) => {
-        // Calling the end function will send the request
-      });
-  }
 
   const clickHandler = async e => {
     setLoader(true);
