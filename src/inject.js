@@ -23,7 +23,7 @@ const superagent = require('superagent');
 const commonUtil = require('./utils/commonUtil');
 const authContributor = require('./authorizedContributor');
 
-const port = "http://localhost:4000";
+const port = "https://turbosrc-service.fly.dev";
 
 var isRepoTurboSrcToken = false;
 
