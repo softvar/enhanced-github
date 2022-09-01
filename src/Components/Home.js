@@ -33,7 +33,7 @@ export default function Home(props) {
 
   useEffect(() => {
     const getRepoStatus = async id => {
-      await get_repo_status(id).then(res => console.log('RES', res));
+      await get_repo_status(id).then(res => setTokenized(res.body.data.getRepoStatus));
     };
 
     getRepoStatus(`${owner}/${repo}`);
