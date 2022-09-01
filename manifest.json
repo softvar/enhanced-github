@@ -16,11 +16,11 @@
     "default_popup": "popup.html",
     "default_title": "turbo-src"
   },
-    "permissions": ["*://*.github.com/*", "http://localhost:4000/graphql/*", "http://localhost:5000/*", "storage", "webRequest", "webNavigation"],
+    "permissions": ["*://*.github.com/*", "http://localhost:4000/graphql/*", "https://turbosrc-auth.fly.dev/*", "storage", "webRequest", "webNavigation"],
     "content_security_policy": "script-src 'self' 'unsafe-eval' https://unpkg.com/react@17/umd/react.development.js 'unsafe-eval' https://unpkg.com/react-dom@17/umd/react-dom.development.js 'unsafe-eval' https://unpkg.com/graphql@16.0.1/index.js 'unsafe-eval' https://cdn.jsdelivr.net/npm/graphql-ws@5.5.5/umd/graphql-ws.min.js; object-src 'self'",
   "content_scripts": [
     {
-      "matches": ["*://*.github.com/*", "http://localhost:5000/*"],
+      "matches": ["*://*.github.com/*", "https://turbosrc-auth.fly.dev/*"],
       "css": ["./modal.css"],
       "js": ["inject.bundle.js"]
     }

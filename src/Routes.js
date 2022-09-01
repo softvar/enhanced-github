@@ -118,7 +118,7 @@ export default function Routes() {
       dispatch(setAuth(githubUser));
     }
   }, [user]);
-  console.log('user', auth.user.login, auth.user.ethereumAddress, auth.user.ethereumKey);
+
   return auth.isLoggedIn ? (
     <BrowserRouter>
       <div className="container">
