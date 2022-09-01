@@ -5,8 +5,9 @@ import loadergif from '../loader.gif';
 import Loader from './Loader';
 import Fail from './Fail';
 import Success from './Success';
-import superagent from 'superagent';
 import storageUtil from '../utils/storageUtil';
+import { postCreateRepo } from '../requests';
+
 export default function Onboard2() {
   let user = useSelector(state => state.auth.user);
   const navigate = useNavigate();
@@ -46,26 +47,6 @@ export default function Onboard2() {
       setChecking(false);
     }
   };
-
-  async function postCreateRepo(owner, repo, issue_id, contributor_id, side) {
-    superagent
-      .post('http://localhost:4000/graphql')
-      .send(
-        //{ query: '{ name: 'Manny', species: 'cat' }' }
-        //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-        //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-        //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
-        //{ query: `{ getVoteEverything }` }
-        {
-          query: `{ createRepo(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }`
-        }
-        //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
-      ) // sends a JSON post body
-      .set('accept', 'json')
-      .end((err, res) => {
-        // Calling the end function will send the request
-      });
-  }
 
   const createRepo = async () => {
     if (verified) {
