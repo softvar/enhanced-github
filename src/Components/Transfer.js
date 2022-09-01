@@ -4,58 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import superagent from 'superagent';
 import loadergif from '../loader.gif';
+import { postGetContributorID,
+         postGetContributorTokenAmount,
+       } from '../requests';
+
 export default function Transfer(props) {
   let user = useSelector(state => state.auth.user);
   let [repo, setRepo] = useState('');
   let [owner, setOwner] = useState('');
   const navigate = useNavigate();
   let [errorText, setErrorText] = useState(' ');
-
-  async function postGetContributorID(owner, repo, issue_id, contributor_name) {
-    const res = await superagent
-      .post('http://localhost:4000/graphql')
-      .send(
-        //{ query: '{ name: 'Manny', species: 'cat' }' }
-        //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-        //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-        //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
-        //{ query: `{ getVoteEverything }` }
-        {
-          query: `{ getContributorID(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_name: "${contributor_name}") }`
-        }
-        //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
-      ) // sends a JSON post body
-      .set('accept', 'json');
-    //.end((err, res) => {
-    // Calling the end function will send the request
-    //});
-    const json = JSON.parse(res.text);
-    console.log(json);
-    return json.data.getContributorID;
-  }
-  async function postGetContributorTokenAmount(owner, repo, issue_id, contributor_id, side) {
-    const res = await superagent
-      .post('http://localhost:4000/graphql')
-      .send(
-        //{ query: '{ name: 'Manny', species: 'cat' }' }
-        //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-        //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-        //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
-        //{ query: `{ getVoteEverything }` }
-        {
-          query: `{ getContributorTokenAmount(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }`
-        }
-        //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
-      ) // sends a JSON post body
-      .set('accept', 'json');
-    //.end((err, res) => {
-    // Calling the end function will send the request
-    //});
-    const json = JSON.parse(res.text);
-    console.log(json);
-    return json.data.getContributorTokenAmount;
-  }
-
   let [checking, setChecking] = useState(false);
   let [verified, setVerified] = useState(false);
   let [length, setLength] = useState(false);
