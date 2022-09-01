@@ -44,7 +44,7 @@ export default function Home(props) {
       await postGetContributorTokenAmount(owner, repo, '', user.ethereumAddress, '').then(res => setTokens(res));
     };
     getTokenAmount();
-  }, [repo, owner]);
+  }, [repo, owner, user]);
 
   return (
     <div className="content">
