@@ -23,6 +23,14 @@ Build everything.
 
 The above command will create or update a `dist/` directory, which is used to load the extension.
 
+### For non-local usage (i.e. Online).
+
+Run the script to replace local with deployment endpoints.
+
+```
+./online-endpoints.sh
+```
+
 ## load the extension
 
 1. Go to extension page. For chrome extensions [chrome://extensions](chrome://extensions).
