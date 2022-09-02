@@ -15,10 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setAuth } from './store/auth';
 import { useEffect, useState } from 'react';
 import superagent from 'superagent';
-import { postGetContributorID,
-	 postCreateUser,
-	 postGetContributorSignature,
-       } from './requests';
+import { postGetContributorID, postCreateUser, postGetContributorSignature } from './requests';
 
 export default function Routes() {
   const auth = useSelector(state => state.auth);
