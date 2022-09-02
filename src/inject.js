@@ -34,7 +34,7 @@ const { postSetVote,
         postGetContributorName,
       } = require('./requests')
 
-const port = "https://turbosrc-service.fly.dev";
+const port = "http://localhost:4000";
 
 var isRepoTurboSrcToken = false;
 
@@ -59,7 +59,7 @@ const reqBody = { code: newUrl[1] };
 window.history.pushState({}, null, newUrl[0]);
 //Send code from url which to Github API for an access token
 //The access token is then exchanged for the user's profile. Done in server/index.js.
-fetch('https://turbosrc-auth.fly.dev/authenticate', {
+fetch('http://localhost:5000/authenticate', {
   method: 'POST',
   body: JSON.stringify(reqBody)
 })
