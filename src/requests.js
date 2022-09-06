@@ -499,6 +499,7 @@ export {
 	postGetPRpercentVotedQuorum,
 	postGetPRvoteTotals,
 	postGetPRvoteYesTotals,
+	postGetPRvoteNoTotals,
 	postMergePullRequest,
 	postCreatePullRequest,
 	postFork,
