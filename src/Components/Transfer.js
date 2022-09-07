@@ -40,7 +40,7 @@ export default function Transfer(props) {
 
   useEffect(() => {
     const getTokenAmount = async () => {
-      await postGetContributorTokenAmount(owner, repo, '', user.ethereumAddress, '').then(res => setTokenAmount(res));
+      await postGetContributorTokenAmount(owner, repo, '', user.ethereumAddress, '').then(res => setTokenAmount(res.amount));
     };
     getTokenAmount();
   });
