@@ -22,6 +22,7 @@ const CommonEnum = require('./enums/CommonEnum');
 const superagent = require('superagent');
 const commonUtil = require('./utils/commonUtil');
 const authContributor = require('./authorizedContributor');
+const { getRepoStatus } = require('./requests');
 
 const { postSetVote,
         postGetPRvoteStatus,
@@ -71,21 +72,6 @@ fetch('https://turbosrc-auth.fly.dev/authenticate', {
     console.log(error);
   });
 //End of OAuth Code ****
-
-// Add to requests.js (reconcile privateStoreRequests.js
-async function get_repo_status(repo_id) {
-    const res = await superagent
-      .post(`${port}/graphql`)
-      .send({
-        query: `{ getRepoStatus(repo_id: "${repo_id}") }`,
-      })
-      .set("accept", "json");
-    //.end((err, res) => {
-    // Calling the end function will send the request
-    //});
-    const json = JSON.parse(res.text);
-    return json.data.getRepoStatus;
-}
 
 // Add to requests.js (reconcile privateStoreRequests.js
 async function get_authorized_contributor(contributor_id, repo_id) {
@@ -153,7 +139,8 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
   chrome.storage.local.set({ repo: repo });
 
   //Check if repo is tokenized
-  const isRepoTurboSrcToken = await get_repo_status(repo_id);
+  const resIsRepoTurboSrcToken = await getRepoStatus(repo_id);
+  const isRepoTurboSrcToken = resIsRepoTurboSrcToken.exists;
   console.log('isRepoTurboSrcToken: ' + isRepoTurboSrcToken)
   //Function to get items from chrome storage set from Extension
   let getFromStorage = keys =>

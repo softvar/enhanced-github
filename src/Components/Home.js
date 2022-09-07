@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import superagent from 'superagent';
-import { postGetContributorTokenAmount, get_repo_status } from '../requests';
+import { postGetContributorTokenAmount, getRepoStatus } from '../requests';
 
 const port = process.env.PORT || 'http://localhost:4000';
 
@@ -33,7 +33,7 @@ export default function Home(props) {
 
   useEffect(() => {
     const getRepoStatus = async id => {
-      await get_repo_status(id).then(res => setTokenized(res.body.data.getRepoStatus));
+      await getRepoStatus(id).then(res => setTokenized(res.exists));
     };
 
     getRepoStatus(`${owner}/${repo}`);
