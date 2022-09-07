@@ -26,25 +26,24 @@ export default function Home(props) {
     //Set current logged in contributor/id to chrome storage for inject to verify user for voting
     chrome.storage.local.set({ contributor_name: user.login });
     chrome.storage.local.set({ contributor_id: user.ethereumAddress });
-    console.log('repo: ' + repo);
   });
 
   let [tokenized, setTokenized] = useState(false);
 
   useEffect(() => {
-    const getRepoStatus = async id => {
+    const useGetRepoStatus = async id => {
       await getRepoStatus(id).then(res => setTokenized(res.exists));
     };
 
-    getRepoStatus(`${owner}/${repo}`);
-  }, [owner, repo]);
-  console.log('tokenized', tokenized);
+    useGetRepoStatus(`${owner}/${repo}`);
+  }, [owner, repo, tokenized]);
+
   useEffect(() => {
     const getTokenAmount = async () => {
       await postGetContributorTokenAmount(owner, repo, '', user.ethereumAddress, '').then(res => setTokens(res));
     };
     getTokenAmount();
-  }, [repo, owner, user]);
+  });
 
   return (
     <div className="content">
