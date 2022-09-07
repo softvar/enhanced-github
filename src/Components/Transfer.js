@@ -4,9 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import superagent from 'superagent';
 import loadergif from '../loader.gif';
-import { postGetContributorID,
-         postGetContributorTokenAmount,
-       } from '../requests';
+import { postGetContributorID, postGetContributorTokenAmount } from '../requests';
 
 export default function Transfer(props) {
   let user = useSelector(state => state.auth.user);
@@ -45,7 +43,7 @@ export default function Transfer(props) {
       await postGetContributorTokenAmount(owner, repo, '', user.ethereumAddress, '').then(res => setTokenAmount(res));
     };
     getTokenAmount();
-  }, [repo, owner]);
+  });
 
   useEffect(() => {
     if (!transfer.recipientName.length) {
