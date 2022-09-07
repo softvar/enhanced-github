@@ -36,7 +36,7 @@ export default function Home(props) {
     };
 
     useGetRepoStatus(`${owner}/${repo}`);
-  }, [owner, repo]);
+  }, [owner, repo, tokenized]);
 
   useEffect(() => {
     const getTokenAmount = async () => {
