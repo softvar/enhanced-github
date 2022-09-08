@@ -191,7 +191,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
               } else if (statusClosedMount) {
                 this.setState({ background: 'red' });
               } else if (statusMergedMount) {
-                this.setState({ background: 'gray' });
+                this.setState({ background: 'darkorchid' });
               } else {
                 this.setState({ background: 'green' });
               }
@@ -229,7 +229,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
               } else if (statusClosedUpdate) {
                 this.setState({ background: 'red' });
               } else if (statusMergedUpdate){
-                this.setState({ background: 'gray' });
+                this.setState({ background: 'darkorchid' });
               } else {
                 this.setState({ background: 'green' });
               }
