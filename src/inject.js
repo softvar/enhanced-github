@@ -182,15 +182,18 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                 this.state.contributorName,
                 this.state.side
               );
-              //console.log('status CDM: ' + statusReact)
-              if (statusReact === 'open') {
-                this.setState({ background: 'SkyBlue' });
-              } else if (statusReact === 'merge') {
-                this.setState({ background: 'green' });
-              } else if (statusReact === 'closed') {
+              const statusOpenMount = commonUtil.isObjEqual(statusReact, { status: 200, type: 0 } );
+              const statusClosedMount = commonUtil.isObjEqual(statusReact, { status: 200, type: 1 } );
+              const statusMergedMount = commonUtil.isObjEqual(statusReact, { status: 200, type: 2 } );
+
+              if (statusOpenMount) {
+                this.setState({ background: 'blue' });
+              } else if (statusClosedMount) {
                 this.setState({ background: 'red' });
+              } else if (statusMergedMount) {
+                this.setState({ background: 'gray' });
               } else {
-                this.setState({ background: 'white' });
+                this.setState({ background: 'green' });
               }
               //console.log("dBool: " + this.state.dynamicBool)
               //if (this.state.dynamicBool) {
@@ -215,15 +218,20 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                 this.state.contributorID,
                 this.state.side
               );
-              //console.log('status CDU: ' + statusReact)
-              if (statusReact === 'open') {
-                this.setState({ background: 'SkyBlue' });
-              } else if (statusReact === 'merge') {
-                this.setState({ background: 'green' });
-              } else if (statusReact === 'closed') {
+
+              //console.log('status CDU: ', statusReact)
+              const statusOpenUpdate = commonUtil.isObjEqual(statusReact, { status: 200, type: 0 } );
+              const statusClosedUpdate = commonUtil.isObjEqual(statusReact, { status: 200, type: 1 } );
+              const statusMergedUpdate = commonUtil.isObjEqual(statusReact, { status: 200, type: 2 } );
+
+              if (statusOpenUpdate) {
+                this.setState({ background: 'blue' });
+              } else if (statusClosedUpdate) {
                 this.setState({ background: 'red' });
+              } else if (statusMergedUpdate){
+                this.setState({ background: 'gray' });
               } else {
-                this.setState({ background: 'white' });
+                this.setState({ background: 'green' });
               }
             })();
           }, 1000);
@@ -235,19 +243,24 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
             //modal.style.display = "none";
           };
           var buttonDisplay;
-          if (statusReact === 'open') {
+
+          const statusOpenUpdate = commonUtil.isObjEqual(statusReact, { status: 200, type: 0 } );
+          const statusClosedUpdate = commonUtil.isObjEqual(statusReact, { status: 200, type: 1 } );
+          const statusMergedUpdate = commonUtil.isObjEqual(statusReact, { status: 200, type: 2 } );
+
+          if (statusOpenUpdate) {
             buttonDisplay = 'open';
-          } else if (statusReact === 'merge') {
-            buttonDisplay = 'merged';
-          } else if (statusReact === 'closed') {
+          } else if (statusClosedUpdate) {
             buttonDisplay = 'closed';
+          } else if (statusMergedUpdate){
+            buttonDisplay = 'merged';
           } else {
             buttonDisplay = 'vote';
           }
           return (
             <Button
               // variant="open" className="textColor bgColor"
-              style={{ color: 'black', background: this.state.background }}
+              style={{ color: 'white', background: this.state.background }}
               onClick={handleClick}
             >
               {buttonDisplay}

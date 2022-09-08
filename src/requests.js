@@ -258,26 +258,17 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
   return json.data.getPRforkStatus;
 }
 
-async function postGetPRvoteStatus(owner, repo, issue_id, contributor_id, side) {
+async function postGetPRvoteStatus(owner, repo, pr_id, contributor_id, side) {
   const res = await superagent
     .post(`${port}/graphql`)
-    .send(
-      //{ query: '{ name: 'Manny', species: 'cat' }' }
-      //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-      //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-      //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
-      //{ query: `{ getVoteEverything }` }
-      {
-        query: `{ getPRvoteStatus(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }`,
-      }
-      //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
-    ) // sends a JSON post body
+    .send({
+      query: `{ getPRvoteStatus(owner: "${owner}", repo: "${repo}", pr_id: "${pr_id}", contributor_id: "${contributor_id}", side: "${side}") { status, type } }`,
+    })
     .set("accept", "json");
   //.end((err, res) => {
   // Calling the end function will send the request
   //});
   const json = JSON.parse(res.text);
-  console.log(json);
   return json.data.getPRvoteStatus;
 }
 

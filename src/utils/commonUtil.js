@@ -146,7 +146,28 @@ const commonUtil = {
     [].forEach.call(document.querySelectorAll(selector), function(el) {
       el.parentNode.removeChild(el);
     });
+  },
+  isObjEqual: function(obj1, obj2) {
+      // Credit to author of https://medium.com/geekculture/object-equality-in-javascript-2571f609386e
+      var props1 = Object.getOwnPropertyNames(obj1);
+      var props2 = Object.getOwnPropertyNames(obj2);
+      if (props1.length != props2.length) {
+          return false;
+      }
+      for (var i = 0; i < props1.length; i++) {
+          let val1 = obj1[props1[i]];
+          let val2 = obj2[props1[i]];
+          let isObjects = isObject(val1) && isObject(val2);
+          if (isObjects && !isObjEqual(val1, val2) || !isObjects && val1 !== val2) {
+              return false;
+          }
+      }
+      return true;
   }
 };
+
+function isObject(object) {
+  return object != null && typeof object === 'object';
+}
 
 module.exports = commonUtil;
