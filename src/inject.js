@@ -187,7 +187,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
               const statusMergedMount = commonUtil.isObjEqual(statusReact, { status: 200, type: 2 } );
 
               if (statusOpenMount) {
-                this.setState({ background: 'blue' });
+                this.setState({ background: 'royalblue' });
               } else if (statusClosedMount) {
                 this.setState({ background: 'red' });
               } else if (statusMergedMount) {
@@ -225,7 +225,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
               const statusMergedUpdate = commonUtil.isObjEqual(statusReact, { status: 200, type: 2 } );
 
               if (statusOpenUpdate) {
-                this.setState({ background: 'blue' });
+                this.setState({ background: 'royalblue' });
               } else if (statusClosedUpdate) {
                 this.setState({ background: 'red' });
               } else if (statusMergedUpdate){
