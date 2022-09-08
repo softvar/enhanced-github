@@ -26,6 +26,7 @@ export default function Onboard2() {
   let [verified, setVerified] = useState(false);
   let [successful, setSuccessful] = useState(false);
   let [length, setLength] = useState(false);
+  let [errorText, setErrorText] = useState('');
 
   const changeHandler = e => {
     e.preventDefault();
@@ -51,7 +52,14 @@ export default function Onboard2() {
   const createRepo = async () => {
     if (verified) {
       setLoader(true);
-      await postCreateRepo(user.login, repo, '', user.ethereumAddress, '').then(() => setLoader(false));
+      await postCreateRepo(user.login, repo, '', user.ethereumAddress, '').then(res => {
+        setLoader(false);
+        if (res === '201') {
+          navigate('/home');
+        } else {
+          setErrorText('There was an error tokenizing this repository.');
+        }
+      });
     }
   };
 
@@ -102,6 +110,7 @@ export default function Onboard2() {
               )}
             </span>
           </div>
+          <span>{errorText}</span>
           <span className="items-center">
             <button type="button" className="startButton" onClick={() => createRepo()}>
               Review and Submit
