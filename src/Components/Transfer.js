@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import superagent from 'superagent';
 import loadergif from '../loader.gif';
 import { postGetContributorID, postGetContributorTokenAmount } from '../requests';
-
+import useCommas from '../hooks/useCommas';
 export default function Transfer(props) {
   let user = useSelector(state => state.auth.user);
   let [repo, setRepo] = useState('');
@@ -17,7 +17,7 @@ export default function Transfer(props) {
   let [length, setLength] = useState(false);
 
   let [tokenAmount, setTokenAmount] = useState('');
-
+  let [tokenString, setTokenString] = useState('');
   let [invalidText, setInvalidText] = useState('');
 
   let [transfer, setTransfer] = useState({
@@ -46,6 +46,11 @@ export default function Transfer(props) {
     };
     getTokenAmount();
   });
+
+  useEffect(() => {
+    const string = useCommas(tokenAmount);
+    setTokenString(string);
+  }, [tokenAmount]);
 
   useEffect(() => {
     if (!transfer.recipientName.length) {
@@ -87,7 +92,7 @@ export default function Transfer(props) {
 
   const reviewHandler = () => {
     if (Number(transfer.amount) < 1) {
-      setInvalidText(`Please enter a number between 1 and ${tokenAmount}`);
+      setInvalidText(`Please enter a number between 1 and ${tokenString}`);
     }
     if (Number(transfer.amount) > Number(tokenAmount)) {
       setInvalidText('Amount exceeds current balance.');
@@ -130,11 +135,11 @@ export default function Transfer(props) {
         <header>
           <h2>Transfer {repo} Tokens</h2>
           <span className="balance">
-            You currently have <text>{` ${tokenAmount || 0} ${repo}`}</text> tokens
+            You currently have <text>{` ${tokenString || 0} ${repo}`}</text> tokens
           </span>
         </header>
 
-        <form name="transfer" className="transfer">
+        <form name="transfer" className="transfer" onSubmit={reviewHandler}>
           <span>
             <label htmlFor="transfer" className="">
               Who would you like to transfer tokens to?
