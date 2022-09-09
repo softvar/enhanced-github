@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import superagent from 'superagent';
 import { postGetContributorTokenAmount, getRepoStatus } from '../requests';
-
+import useCommas from '../hooks/useCommas';
 const port = process.env.PORT || 'http://localhost:4000';
 
 export default function Home(props) {
@@ -13,6 +13,7 @@ export default function Home(props) {
   let username = user?.login;
 
   let [tokens, setTokens] = useState('');
+
   let avatar = user?.avatar_url || null;
 
   let [repo, setRepo] = useState('');
@@ -40,7 +41,9 @@ export default function Home(props) {
 
   useEffect(() => {
     const getTokenAmount = async () => {
-      await postGetContributorTokenAmount(owner, repo, '', user.ethereumAddress, '').then(res => setTokens(res.amount));
+      await postGetContributorTokenAmount(owner, repo, '', user.ethereumAddress, '')
+        .then(res => useCommas(res.amount))
+        .then(tokens => setTokens(tokens));
     };
     getTokenAmount();
   });

@@ -3,7 +3,7 @@ import Settings from './Settings';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { postGetContributorTokenAmount } from '../requests';
-
+import useCommas from '../hooks/useCommas';
 export default function Account() {
   const user = useSelector(state => state.auth.user);
   const navigate = useNavigate();
@@ -21,7 +21,9 @@ export default function Account() {
 
   useEffect(() => {
     const getTokenAmount = async () => {
-      await postGetContributorTokenAmount(owner, repo, '', user.ethereumAddress, '').then(res => setTokenAmount(res.amount));
+      await postGetContributorTokenAmount(owner, repo, '', user.ethereumAddress, '')
+        .then(res => useCommas(res.amount))
+        .then(tokens => setTokenAmount(tokens));
     };
     getTokenAmount();
   });
