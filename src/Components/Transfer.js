@@ -139,7 +139,7 @@ export default function Transfer(props) {
           </span>
         </header>
 
-        <form name="transfer" className="transfer" onSubmit={reviewHandler}>
+        <form name="transfer" className="transfer">
           <span>
             <label htmlFor="transfer" className="">
               Who would you like to transfer tokens to?
