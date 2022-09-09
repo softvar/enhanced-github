@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import superagent from 'superagent';
 import loadergif from '../loader.gif';
 import { postGetContributorID, postGetContributorTokenAmount } from '../requests';
-import useCommas from '../hooks/useCommas';
+
 export default function Transfer(props) {
   let user = useSelector(state => state.auth.user);
   let [repo, setRepo] = useState('');
@@ -40,9 +40,9 @@ export default function Transfer(props) {
 
   useEffect(() => {
     const getTokenAmount = async () => {
-      await postGetContributorTokenAmount(owner, repo, '', user.ethereumAddress, '')
-        .then(res => useCommas(res.amount))
-        .then(tokens => setTokenAmount(tokens));
+      await postGetContributorTokenAmount(owner, repo, '', user.ethereumAddress, '').then(res =>
+        setTokenAmount(res.amount)
+      );
     };
     getTokenAmount();
   });
@@ -168,7 +168,7 @@ export default function Transfer(props) {
           </span>
 
           <span>
-            <button type="submit" className="startButton" onClick={() => reviewHandler()}>
+            <button type="button" className="startButton" onClick={() => reviewHandler()}>
               Review and Send
             </button>
           </span>
