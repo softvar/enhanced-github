@@ -12,7 +12,7 @@ export default function Home(props) {
   let name = user?.name;
   let username = user?.login;
 
-  let [tokens, setTokens] = useState('');
+  let [tokenAmount, setTokenAmount] = useState('');
 
   let avatar = user?.avatar_url || null;
 
@@ -43,7 +43,7 @@ export default function Home(props) {
     const getTokenAmount = async () => {
       await postGetContributorTokenAmount(owner, repo, '', user.ethereumAddress, '')
         .then(res => useCommas(res.amount))
-        .then(tokens => setTokens(tokens));
+        .then(tokens => setTokenAmount(tokens));
     };
     getTokenAmount();
   });
@@ -73,7 +73,7 @@ export default function Home(props) {
               <span>
                 <img src="../icons/tokens.png" />
               </span>
-              {tokens || 0} tokens
+              {tokenAmount || 0} tokens
             </span>
           ) : null}
 
