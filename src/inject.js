@@ -177,7 +177,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
         componentDidMount() {
           setTimeout(() => {
             (async () => {
-              statusReact = await postGetPRvoteStatus(
+              const tsrcPRstatus = await postGetPRvoteStatus(
                 this.state.user,
                 this.state.repo,
                 this.state.issueID,
@@ -191,9 +191,9 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 	        gitHubPRstatus = await getGitHubPullRequest(this.state.user, this.state.repo, this.state.issueID)
 	      } catch (error) {
 	      }
-              const statusOpenMount = commonUtil.isObjEqual(statusReact, { status: 200, type: 0 } );
-              const statusClosedMount = commonUtil.isObjEqual(statusReact, { status: 200, type: 1 } );
-              const statusMergedMount = commonUtil.isObjEqual(statusReact, { status: 200, type: 2 } );
+              const statusOpenMount = commonUtil.isObjEqual(tsrcPRstatus, { status: 200, type: 0 } );
+              const statusClosedMount = commonUtil.isObjEqual(tsrcPRstatus, { status: 200, type: 1 } );
+              const statusMergedMount = commonUtil.isObjEqual(tsrcPRstatus, { status: 200, type: 2 } );
 
               if (statusOpenMount) {
               //if (statusOpenMount && gitHubPRstatus.mergeable) {
