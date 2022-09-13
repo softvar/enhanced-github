@@ -185,6 +185,8 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                 this.state.side
               );
 
+	      statusReact = tsrcPRstatus
+
 	      var gitHubPRstatusMount
 	      try {
 	        // interferes with statusMergedMount
@@ -232,6 +234,8 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                 this.state.contributorID,
                 this.state.side
               );
+	      
+	      statusReact = tsrcPRstatusUpdate
 
               //console.log('status CDU: ', tsrcPRstatusUpdate)
 	      try {
