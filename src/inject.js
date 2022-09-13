@@ -228,7 +228,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
               //}
             })();
             //this.setState({background: "yellow"})
-          }, 1000);
+          });
         }
 
         componentDidUpdate() {
@@ -270,7 +270,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                 this.setState({ background: 'gray' });
               }
             })();
-          }, 1000);
+          }, 5000);
         }
         render() {
           const handleClick = e => {
