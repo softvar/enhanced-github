@@ -196,9 +196,16 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 	       tsrcPRstatus = tsrcPRstatusMount
 
 	        // interferes with statusMergedMount
-	       const gitHubPRstatusMount = await getGitHubPullRequest(this.state.user, this.state.repo, this.state.issueID)
+	      var gitHubPRstatusMount = this.state.ghPRstatus
+	      try {
+	        gitHubPRstatusMount = await getGitHubPullRequest(this.state.user, this.state.repo, this.state.issueID)
+		if (gitHubPRstatusMount !== null) {
+	          this.setState({ ghPRstatus: gitHubPRstatusMount})
+		}
+	      } catch(error) {
+	      }
 	       this.setState({ tsrcPRstatus: tsrcPRstatusMount})
-	       this.setState({ ghPRstatus: gitHubPRstatusMount})
+	       //this.setState({ ghPRstatus: gitHubPRstatusMount})
 
               const statusOpenMount = commonUtil.isObjEqual(tsrcPRstatusMount, { status: 200, type: 0 } );
               const statusClosedMount = commonUtil.isObjEqual(tsrcPRstatusMount, { status: 200, type: 1 } );
@@ -248,7 +255,9 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
               //console.log('status CDU: ', tsrcPRstatusUpdate)
 	      try {
 	        gitHubPRstatus = await getGitHubPullRequest(this.state.user, this.state.repo, this.state.issueID)
-	       this.setState({ ghPRstatus: gitHubPRstatus})
+		if (gitHubPRstatus !== null) {
+	          this.setState({ ghPRstatus: gitHubPRstatus})
+		}
 	      } catch(error) {
 	      }
               const statusOpenUpdate = commonUtil.isObjEqual(tsrcPRstatusUpdate, { status: 200, type: 0 } );
@@ -287,8 +296,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
              const statusOpenClick = commonUtil.isObjEqual(tsrcPRstatusClick, { status: 200, type: 0 } );
              const statusClosedClick = commonUtil.isObjEqual(tsrcPRstatusClick, { status: 200, type: 1 } );
              const statusMergedClick = commonUtil.isObjEqual(tsrcPRstatusClick, { status: 200, type: 2 } );
-	     buttonDisplay = 'open'
-
+	    
              if (statusOpenClick) {
              //if (statusOpenClick && gitHubPRstatusClick.mergeable) {
                buttonDisplay = 'open';
@@ -305,6 +313,8 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
              } else {
                buttonDisplay = '?';
              }
+
+             //buttonDisplay = this.state.issueID
 	     })();
           return (
             <Button
