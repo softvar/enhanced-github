@@ -296,9 +296,11 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
             buttonDisplay = 'closed';
           } else if (statusMergedUpdate){
             buttonDisplay = 'merged';
+	  } else if (gitHubPRstatus.mergeable === false && gitHubPRstatus.status !== 500 && gitHubPRstatus.state === 'closed') {
+            buttonDisplay = 'merged';
 	  } else if (gitHubPRstatus.mergeable === true && gitHubPRstatus.status !== 500) {
             buttonDisplay = 'vote';
-	  } else if (gitHubPRstatus.mergeable === false && gitHubPRstatus.status !== 500) {
+	  } else if (gitHubPRstatus.mergeable === false && gitHubPRstatus.status !== 500 && gitHubPRstatus.state !== 'closed') {
             buttonDisplay = 'conflict';
           } else {
             buttonDisplay = '?';
