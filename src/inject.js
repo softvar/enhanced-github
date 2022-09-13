@@ -134,7 +134,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
   repo = path.repo;
   user = path.user;
   var statusReact = await postGetPRvoteStatus(user, repo, issue_id, contributor_id, side);
-  var gitHubPRstatus
+  var gitHubPRstatus = await getGitHubPullRequest(user, repo, issue_id)
 
   //Set Github Repo and User from browser window for chrome extension
   chrome.storage.local.set({ owner: user });
@@ -185,20 +185,27 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                 this.state.side
               );
 
-	      gitHubPRstatus = await getGitHubPullRequest(this.state.user, this.state.repo, this.state.issueID)
-
+	      var gitHubPRstatusMount
+	      try {
+	        // interferes with statusMergedMount
+	        //gitHubPRstatusMount = await getGitHubPullRequest(this.state.user, this.state.repo, this.state.issueID)
+	      } catch (error) {
+	      }
               const statusOpenMount = commonUtil.isObjEqual(statusReact, { status: 200, type: 0 } );
               const statusClosedMount = commonUtil.isObjEqual(statusReact, { status: 200, type: 1 } );
               const statusMergedMount = commonUtil.isObjEqual(statusReact, { status: 200, type: 2 } );
 
               if (statusOpenMount) {
+              //if (statusOpenMount && gitHubPRstatus.mergeable) {
                 this.setState({ background: 'royalblue' });
               } else if (statusClosedMount) {
                 this.setState({ background: 'red' });
               } else if (statusMergedMount) {
                 this.setState({ background: 'darkorchid' });
-              } else {
+	      } else if (gitHubPRstatus.mergeable === true && gitHubPRstatus.status !== 500) {
                 this.setState({ background: 'green' });
+              } else {
+                this.setState({ background: 'gray' });
               }
               //console.log("dBool: " + this.state.dynamicBool)
               //if (this.state.dynamicBool) {
@@ -225,18 +232,25 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
               );
 
               //console.log('status CDU: ', statusReact)
+	      try {
+	        gitHubPRstatus = await getGitHubPullRequest(this.state.user, this.state.repo, this.state.issueID)
+	      } catch(error) {
+	      }
               const statusOpenUpdate = commonUtil.isObjEqual(statusReact, { status: 200, type: 0 } );
               const statusClosedUpdate = commonUtil.isObjEqual(statusReact, { status: 200, type: 1 } );
               const statusMergedUpdate = commonUtil.isObjEqual(statusReact, { status: 200, type: 2 } );
 
-              if (statusOpenUpdate) {
+              if (statusOpenMount) {
+              //if (statusOpenMount && gitHubPRstatus.mergeable) {
                 this.setState({ background: 'royalblue' });
-              } else if (statusClosedUpdate) {
+              } else if (statusClosedMount) {
                 this.setState({ background: 'red' });
-              } else if (statusMergedUpdate){
+              } else if (statusMergedMount) {
                 this.setState({ background: 'darkorchid' });
-              } else {
+	      } else if (gitHubPRstatus.mergeable === true && gitHubPRstatus.status !== 500) {
                 this.setState({ background: 'green' });
+              } else {
+                this.setState({ background: 'gray' });
               }
             })();
           }, 1000);
@@ -249,18 +263,27 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
           };
           var buttonDisplay;
 
+	  (async() => {
+	      try {
+	        gitHubPRstatus = await getGitHubPullRequest(this.state.user, this.state.repo, this.state.issueID)
+	      } catch (error) {
+	      }
+	  })();
           const statusOpenUpdate = commonUtil.isObjEqual(statusReact, { status: 200, type: 0 } );
           const statusClosedUpdate = commonUtil.isObjEqual(statusReact, { status: 200, type: 1 } );
           const statusMergedUpdate = commonUtil.isObjEqual(statusReact, { status: 200, type: 2 } );
 
           if (statusOpenUpdate) {
+          //if (statusOpenUpdate && gitHubPRstatus.mergeable) {
             buttonDisplay = 'open';
           } else if (statusClosedUpdate) {
             buttonDisplay = 'closed';
           } else if (statusMergedUpdate){
             buttonDisplay = 'merged';
-          } else {
+	  } else if (gitHubPRstatus.mergeable === true && gitHubPRstatus.status !== 500) {
             buttonDisplay = 'vote';
+          } else {
+            buttonDisplay = '?';
           }
           return (
             <Button
