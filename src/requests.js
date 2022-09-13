@@ -460,6 +460,20 @@ async function postFork(owner, repo, org) {
     });
 }
 
+async function getGitHubPullRequest(owner, repo, pr_id)  {
+    const res = await superagent
+      .post(`${port}/graphql`)
+      .send({
+        query: `{ getGitHubPullRequest(owner: "${owner}", repo: "${repo}", pr_id: "${pr_id}") { status, mergeable, mergeCommitSha, state, baseBranch } }`,
+      })
+      .set("accept", "json");
+    //.end((err, res) => {
+    // Calling the end function will send the request
+    //});
+    const json = JSON.parse(res.text);
+    return json.data.getGitHubPullRequest;
+}
+
 export {
 	postCreateUser,
 	postGetContributorName,
@@ -482,4 +496,5 @@ export {
 	postMergePullRequest,
 	postCreatePullRequest,
 	postFork,
+        getGitHubPullRequest
 }

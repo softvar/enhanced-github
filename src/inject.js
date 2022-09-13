@@ -33,6 +33,7 @@ const { postSetVote,
         postNewPullRequest,
         postGetContributorID,
         postGetContributorName,
+        getGitHubPullRequest
       } = require('./requests')
 
 const port = "http://localhost:4000";
