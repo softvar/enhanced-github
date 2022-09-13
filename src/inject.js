@@ -135,6 +135,8 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
   user = path.user;
   var tsrcPRstatus = await postGetPRvoteStatus(user, repo, issue_id, contributor_id, side);
   var gitHubPRstatus = await getGitHubPullRequest(user, repo, issue_id)
+  var gitHubPRstatusClick = gitHubPRstatus
+  var tsrcPRstatusClick = tsrcPRstatus
 
   //Set Github Repo and User from browser window for chrome extension
   chrome.storage.local.set({ owner: user });
@@ -270,25 +272,25 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
             //modal.style.display = "none";
           };
           var buttonDisplay;
-
+	
 	  (async() => {
 	      try {
-                tsrcPRstatus = await postGetPRvoteStatus(user, repo, issue_id, contributor_id, side);
+                //tsrcPRstatus = await postGetPRvoteStatus(user, repo, issue_id, contributor_id, side);
 	      } catch (error) {
 	      }
 	  })();
-	  (async() => {
+	  (async() => { 
 	      try {
-	        gitHubPRstatus = await getGitHubPullRequest(this.state.user, this.state.repo, this.state.issueID)
+		//gitHubPRstatusClick = await getGitHubPullRequest(user, repo, issue_id)
 	      } catch (error) {
 	      }
 	  })();
-          const statusOpenUpdate = commonUtil.isObjEqual(tsrcPRstatus, { status: 200, type: 0 } );
-          const statusClosedUpdate = commonUtil.isObjEqual(tsrcPRstatus, { status: 200, type: 1 } );
-          const statusMergedUpdate = commonUtil.isObjEqual(tsrcPRstatus, { status: 200, type: 2 } );
+          const statusOpenUpdate = commonUtil.isObjEqual(tsrcPRstatusClick, { status: 200, type: 0 } );
+          const statusClosedUpdate = commonUtil.isObjEqual(tsrcPRstatusClick, { status: 200, type: 1 } );
+          const statusMergedUpdate = commonUtil.isObjEqual(tsrcPRstatusClick, { status: 200, type: 2 } );
 
           if (statusOpenUpdate) {
-          //if (statusOpenUpdate && gitHubPRstatus.mergeable) {
+          //if (statusOpenUpdate && gitHubPRstatusClick.mergeable) {
             buttonDisplay = 'open';
           } else if (statusClosedUpdate) {
             buttonDisplay = 'closed';
