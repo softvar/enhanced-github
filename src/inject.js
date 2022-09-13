@@ -353,40 +353,44 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
             {
               onClick: () => {
                 (async () => {
-                  var forkStatus = await postGetPRforkStatus(user, repo, issue_id, contributor_id);
-                  console.log('fork status');
-                  console.log(forkStatus);
-                  if (forkStatus === 'notOnGithub') {
-                    console.log('notOnGithub');
-                    this.setState({ voted: 'notOnGithub', lastIssueId: issue_id, side: this.state.side });
-                  } else if (forkStatus === 'valid') {
-                    console.log('valid', user, repo, issue_id, contributor_id, this.state.side);
-                    await postSetVote(user, repo, issue_id, contributor_id, this.state.side);
-                    this.setState({ voted: 'done', lastIssueId: issue_id, side: this.state.side });
-                  } else if (forkStatus === 'pull') {
-                    console.log('i 201');
-                    this.setState({ voted: 'pull', lastIssueId: issue_id, side: this.state.side });
-                    console.log('i 203');
-                    console.log(user);
-                    console.log(repo);
-                    console.log(issue_id);
-                    console.log(contributor_id);
-                    console.log(this.state.side);
-                    console.log('i 209');
-                    await postPullFork(user, repo, issue_id, contributor_id, this.state.side);
-                    console.log('i 211');
-                    forkStatus = await postGetPRforkStatus(user, repo, issue_id, contributor_id, this.state.side);
-                    console.log('i 213');
-                    if (forkStatus === 'valid') {
-                      this.setState({ voted: 'valid', lastIssueId: issue_id, side: this.state.side });
-                      await postSetVote(user, repo, issue_id, contributor_id, this.state.side);
-                      this.setState({ voted: 'done', lastIssueId: issue_id, side: this.state.side });
-                    } else {
-                      this.setState({ voted: 'problem', lastIssueId: issue_id, side: this.state.side });
-                    }
-                  } else {
-                    this.setState({ voted: 'problem', lastIssueId: issue_id, side: this.state.side });
-                  }
+
+                  this.setState({ voted: 'valid', lastIssueId: issue_id, side: this.state.side });
+                  await postSetVote(user, repo, issue_id, contributor_id, this.state.side);
+                  this.setState({ voted: 'done', lastIssueId: issue_id, side: this.state.side });
+                  //var forkStatus = await postGetPRforkStatus(user, repo, issue_id, contributor_id);
+                  //console.log('fork status');
+                  //console.log(forkStatus);
+                  //if (forkStatus === 'notOnGithub') {
+                  //  console.log('notOnGithub');
+                  //  this.setState({ voted: 'notOnGithub', lastIssueId: issue_id, side: this.state.side });
+                  //} else if (forkStatus === 'valid') {
+                  //  console.log('valid', user, repo, issue_id, contributor_id, this.state.side);
+                  //  await postSetVote(user, repo, issue_id, contributor_id, this.state.side);
+                  //  this.setState({ voted: 'done', lastIssueId: issue_id, side: this.state.side });
+                  //} else if (forkStatus === 'pull') {
+                  //  console.log('i 201');
+                  //  this.setState({ voted: 'pull', lastIssueId: issue_id, side: this.state.side });
+                  //  console.log('i 203');
+                  //  console.log(user);
+                  //  console.log(repo);
+                  //  console.log(issue_id);
+                  //  console.log(contributor_id);
+                  //  console.log(this.state.side);
+                  //  console.log('i 209');
+                  //  await postPullFork(user, repo, issue_id, contributor_id, this.state.side);
+                  //  console.log('i 211');
+                  //  forkStatus = await postGetPRforkStatus(user, repo, issue_id, contributor_id, this.state.side);
+                  //  console.log('i 213');
+                  //  if (forkStatus === 'valid') {
+                  //    this.setState({ voted: 'valid', lastIssueId: issue_id, side: this.state.side });
+                  //    await postSetVote(user, repo, issue_id, contributor_id, this.state.side);
+                  //    this.setState({ voted: 'done', lastIssueId: issue_id, side: this.state.side });
+                  //  } else {
+                  //    this.setState({ voted: 'problem', lastIssueId: issue_id, side: this.state.side });
+                  //  }
+                  //} else {
+                  //  this.setState({ voted: 'problem', lastIssueId: issue_id, side: this.state.side });
+                  //}
                 })();
               }
             },
