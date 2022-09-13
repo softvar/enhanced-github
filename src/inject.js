@@ -133,7 +133,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
   repo_id = `${path.user}/${path.repo}`;
   repo = path.repo;
   user = path.user;
-  var statusReact = await postGetPRvoteStatus(user, repo, issue_id, contributor_id, side);
+  var tsrcPRstatus = await postGetPRvoteStatus(user, repo, issue_id, contributor_id, side);
   var gitHubPRstatus = await getGitHubPullRequest(user, repo, issue_id)
 
   //Set Github Repo and User from browser window for chrome extension
@@ -177,7 +177,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
         componentDidMount() {
           setTimeout(() => {
             (async () => {
-              const tsrcPRstatus = await postGetPRvoteStatus(
+              const tsrcPRstatusMount = await postGetPRvoteStatus(
                 this.state.user,
                 this.state.repo,
                 this.state.issueID,
@@ -185,7 +185,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                 this.state.side
               );
 
-	      statusReact = tsrcPRstatus
+	       tsrcPRstatus = tsrcPRstatusMount
 
 	      var gitHubPRstatusMount
 	      try {
@@ -193,9 +193,9 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 	        gitHubPRstatus = await getGitHubPullRequest(this.state.user, this.state.repo, this.state.issueID)
 	      } catch (error) {
 	      }
-              const statusOpenMount = commonUtil.isObjEqual(tsrcPRstatus, { status: 200, type: 0 } );
-              const statusClosedMount = commonUtil.isObjEqual(tsrcPRstatus, { status: 200, type: 1 } );
-              const statusMergedMount = commonUtil.isObjEqual(tsrcPRstatus, { status: 200, type: 2 } );
+              const statusOpenMount = commonUtil.isObjEqual(tsrcPRstatusMount, { status: 200, type: 0 } );
+              const statusClosedMount = commonUtil.isObjEqual(tsrcPRstatusMount, { status: 200, type: 1 } );
+              const statusMergedMount = commonUtil.isObjEqual(tsrcPRstatusMount, { status: 200, type: 2 } );
 
               if (statusOpenMount) {
               //if (statusOpenMount && gitHubPRstatus.mergeable) {
@@ -235,7 +235,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                 this.state.side
               );
 	      
-	      statusReact = tsrcPRstatusUpdate
+	      tsrcPRstatus = tsrcPRstatusUpdate
 
               //console.log('status CDU: ', tsrcPRstatusUpdate)
 	      try {
@@ -273,7 +273,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 
 	  (async() => {
 	      try {
-                statusReact = await postGetPRvoteStatus(user, repo, issue_id, contributor_id, side);
+                tsrcPRstatus = await postGetPRvoteStatus(user, repo, issue_id, contributor_id, side);
 	      } catch (error) {
 	      }
 	  })();
@@ -283,9 +283,9 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 	      } catch (error) {
 	      }
 	  })();
-          const statusOpenUpdate = commonUtil.isObjEqual(statusReact, { status: 200, type: 0 } );
-          const statusClosedUpdate = commonUtil.isObjEqual(statusReact, { status: 200, type: 1 } );
-          const statusMergedUpdate = commonUtil.isObjEqual(statusReact, { status: 200, type: 2 } );
+          const statusOpenUpdate = commonUtil.isObjEqual(tsrcPRstatus, { status: 200, type: 0 } );
+          const statusClosedUpdate = commonUtil.isObjEqual(tsrcPRstatus, { status: 200, type: 1 } );
+          const statusMergedUpdate = commonUtil.isObjEqual(tsrcPRstatus, { status: 200, type: 2 } );
 
           if (statusOpenUpdate) {
           //if (statusOpenUpdate && gitHubPRstatus.mergeable) {
