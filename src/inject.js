@@ -134,6 +134,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
   repo = path.repo;
   user = path.user;
   var statusReact = await postGetPRvoteStatus(user, repo, issue_id, contributor_id, side);
+  var gitHubPRstatus
 
   //Set Github Repo and User from browser window for chrome extension
   chrome.storage.local.set({ owner: user });
@@ -183,6 +184,9 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                 this.state.contributorName,
                 this.state.side
               );
+
+	      gitHubPRstatus = await getGitHubPullRequest(this.state.user, this.state.repo, this.state.issueID)
+
               const statusOpenMount = commonUtil.isObjEqual(statusReact, { status: 200, type: 0 } );
               const statusClosedMount = commonUtil.isObjEqual(statusReact, { status: 200, type: 1 } );
               const statusMergedMount = commonUtil.isObjEqual(statusReact, { status: 200, type: 2 } );
