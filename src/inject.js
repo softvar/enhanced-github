@@ -567,6 +567,9 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
         issue_id = containerItems[i].getAttribute('id');
         //if (i < 2) {
         status = await postGetPRvoteStatus(user, repo, issue_id, contributor_id, side);
+	// Update so knows what the state is inside.
+	tsrcPRstatus = status
+        gitHubPRstatus = await getGitHubPullRequest(user, repo, issue_id)
 
         //console.log('status: ' + status)
         displayOpenStatus = status === 'none' || status === 'open';
