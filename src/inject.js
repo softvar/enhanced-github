@@ -188,7 +188,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 	      var gitHubPRstatusMount
 	      try {
 	        // interferes with statusMergedMount
-	        //gitHubPRstatusMount = await getGitHubPullRequest(this.state.user, this.state.repo, this.state.issueID)
+	        gitHubPRstatus = await getGitHubPullRequest(this.state.user, this.state.repo, this.state.issueID)
 	      } catch (error) {
 	      }
               const statusOpenMount = commonUtil.isObjEqual(statusReact, { status: 200, type: 0 } );
