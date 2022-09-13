@@ -269,6 +269,12 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 
 	  (async() => {
 	      try {
+                statusReact = await postGetPRvoteStatus(user, repo, issue_id, contributor_id, side);
+	      } catch (error) {
+	      }
+	  })();
+	  (async() => {
+	      try {
 	        gitHubPRstatus = await getGitHubPullRequest(this.state.user, this.state.repo, this.state.issueID)
 	      } catch (error) {
 	      }
