@@ -225,7 +225,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
         componentDidUpdate() {
           setTimeout(() => {
             (async () => {
-              statusReact = await postGetPRvoteStatus(
+              const tsrcPRstatusUpdate = await postGetPRvoteStatus(
                 this.state.user,
                 this.state.repo,
                 this.state.issueID,
@@ -233,14 +233,14 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                 this.state.side
               );
 
-              //console.log('status CDU: ', statusReact)
+              //console.log('status CDU: ', tsrcPRstatusUpdate)
 	      try {
 	        gitHubPRstatus = await getGitHubPullRequest(this.state.user, this.state.repo, this.state.issueID)
 	      } catch(error) {
 	      }
-              const statusOpenUpdate = commonUtil.isObjEqual(statusReact, { status: 200, type: 0 } );
-              const statusClosedUpdate = commonUtil.isObjEqual(statusReact, { status: 200, type: 1 } );
-              const statusMergedUpdate = commonUtil.isObjEqual(statusReact, { status: 200, type: 2 } );
+              const statusOpenUpdate = commonUtil.isObjEqual(tsrcPRstatusUpdate, { status: 200, type: 0 } );
+              const statusClosedUpdate = commonUtil.isObjEqual(tsrcPRstatusUpdate, { status: 200, type: 1 } );
+              const statusMergedUpdate = commonUtil.isObjEqual(tsrcPRstatusUpdate, { status: 200, type: 2 } );
 
               if (statusOpenMount) {
               //if (statusOpenMount && gitHubPRstatus.mergeable) {
