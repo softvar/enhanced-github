@@ -204,6 +204,8 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                 this.setState({ background: 'darkorchid' });
 	      } else if (gitHubPRstatus.mergeable === true && gitHubPRstatus.status !== 500) {
                 this.setState({ background: 'green' });
+	      } else if (gitHubPRstatus.mergeable === false && gitHubPRstatus.status !== 500) {
+                this.setState({ background: 'orange' });
               } else {
                 this.setState({ background: 'gray' });
               }
@@ -249,6 +251,8 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                 this.setState({ background: 'darkorchid' });
 	      } else if (gitHubPRstatus.mergeable === true && gitHubPRstatus.status !== 500) {
                 this.setState({ background: 'green' });
+	      } else if (gitHubPRstatus.mergeable === false && gitHubPRstatus.status !== 500) {
+                this.setState({ background: 'orange' });
               } else {
                 this.setState({ background: 'gray' });
               }
@@ -282,6 +286,8 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
             buttonDisplay = 'merged';
 	  } else if (gitHubPRstatus.mergeable === true && gitHubPRstatus.status !== 500) {
             buttonDisplay = 'vote';
+	  } else if (gitHubPRstatus.mergeable === false && gitHubPRstatus.status !== 500) {
+            buttonDisplay = 'conflict';
           } else {
             buttonDisplay = '?';
           }
@@ -576,7 +582,11 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
             const domContainerVoteButton = document.querySelector('#yes_vote_button');
             const domContainerVoteButton1 = document.querySelector('#no_vote_button');
 
-            modal.style.display = 'block';
+	    if (gitHubPRstatus.mergeable === true && gitHubPRstatus.status !== 500) {
+               modal.style.display = 'block';
+	    } else {
+               modal.style.display = 'none';
+	    }
 
             voteTotals = await postGetPRvoteTotals(user, repo, issue_id, contributor_id, side);
 
