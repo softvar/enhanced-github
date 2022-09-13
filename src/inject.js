@@ -575,7 +575,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
         displayOpenStatus = status === 'none' || status === 'open';
         domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}`);
         //if (displayOpenStatus) {
-        render(ce(TurboSrcButtonOpen), domContainerTurboSrcButton); //} else {
+        render(ce(TurboSrcButtonOpen, issue_id), domContainerTurboSrcButton); //} else {
         // render(ce(TurboSrcButtonClosed), domContainerTurboSrcButton);
         //}
       }
