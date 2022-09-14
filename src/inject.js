@@ -171,7 +171,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
             contributorName: contributor_name,
             background: 'white',
             dynamicBool: true,
-	    displayVoteButton: "?",
+	    voteButton: "?",
 	    tsrcPRstatus: this.props.tsrcPRstatus,
 	    ghPRstatus: this.props.ghPRstatus
           };
@@ -181,32 +181,26 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
           setTimeout(() => {
             (async () => {
 
-	      const tsrcPRstatusMount = this.state.tsrcPRstatus
-	      const gitHubPRstatusMount = this.state.ghPRstatus
+	      const tsrcPRstatusComponent = this.state.tsrcPRstatus
+	      const gitHubPRstatusComponent = this.state.ghPRstatus
 
-              const statusOpenMount = commonUtil.isObjEqual(tsrcPRstatusMount, { status: 200, type: 0 } );
-              const statusClosedMount = commonUtil.isObjEqual(tsrcPRstatusMount, { status: 200, type: 1 } );
-              const statusMergedMount = commonUtil.isObjEqual(tsrcPRstatusMount, { status: 200, type: 2 } );
+              const statusOpenComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 0 } );
+              const statusClosedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 1 } );
+              const statusMergedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 2 } );
 
-              if (statusOpenMount) {
-              //if (statusOpenMount && gitHubPRstatus.mergeable) {
-                this.setState({ displayVoteButton: 'open' });
-                this.setState({ background: 'royalblue' });
-              } else if (statusClosedMount) {
-                this.setState({ displayVoteButton: 'closed' });
-                this.setState({ background: 'red' });
-              } else if (statusMergedMount) {
-                this.setState({ displayVoteButton: 'merged' });
-                this.setState({ background: 'darkorchid' });
-	      } else if (gitHubPRstatusMount.mergeable === true && gitHubPRstatusMount.status !== 500) {
-                this.setState({ displayVoteButton: 'vote' });
-                this.setState({ background: 'green' });
-	      } else if (gitHubPRstatusMount.mergeable === false && gitHubPRstatusMount.status !== 500) {
-                this.setState({ displayVoteButton: 'conflict' });
-                this.setState({ background: 'orange' });
+              if (statusOpenComponent) {
+              //if (statusOpenComponent && gitHubPRstatus.mergeable) {
+                this.setState({ voteButton: { color: 'royalblue', text: 'open' } });
+              } else if (statusClosedComponent) {
+                this.setState({ voteButton: { color: 'red', text: 'closed' } });
+              } else if (statusMergedComponent) {
+                this.setState({ voteButton: { color: 'darkorchid', text: 'merged' } });
+	      } else if (gitHubPRstatusComponent.mergeable === true && gitHubPRstatusComponent.status !== 500) {
+                this.setState({ voteButton: { color: 'green', text: 'vote' } });
+	      } else if (gitHubPRstatusComponent.mergeable === false && gitHubPRstatusComponent.status !== 500) {
+                this.setState({ voteButton: { color: 'orange', text: 'conflict' } });
               } else {
-                this.setState({ displayVoteButton: '?' });
-                this.setState({ background: 'gray' });
+                this.setState({ voteButton: { color: 'gray', text: '?' } });
               }
             })();
           });
@@ -215,7 +209,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
         componentDidUpdate() {
           setTimeout(() => {
             (async () => {
-              const tsrcPRstatusUpdate = await postGetPRvoteStatus(
+              const tsrcPRstatusComponent = await postGetPRvoteStatus(
                 this.state.user,
                 this.state.repo,
                 this.state.issueID,
@@ -223,39 +217,35 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                 this.state.side
               );
 	      
-	      this.setState({ tsrcPRstatus: tsrcPRstatusUpdate})
+	      if (this.state.tsrcPRstatus !== tsrcPRstatusComponent) {
+	        this.setState({ tsrcPRstatus: tsrcPRstatusComponent })
+	      }
 
               //console.log('status CDU: ', tsrcPRstatusUpdate)
 	      try {
-	        const gitHubPRstatusUpdate = await getGitHubPullRequest(this.state.user, this.state.repo, this.state.issueID)
+	        const gitHubPRstatusComponent = await getGitHubPullRequest(this.state.user, this.state.repo, this.state.issueID)
 		if (gitHubPRstatusUpdate !== null) {
-	          this.setState({ ghPRstatus: gitHubPRstatus})
+	          this.setState({ ghPRstatus: gitHubPRstatusComponent })
 		}
 	      } catch(error) {
 	      }
-              const statusOpenUpdate = commonUtil.isObjEqual(tsrcPRstatusUpdate, { status: 200, type: 0 } );
-              const statusClosedUpdate = commonUtil.isObjEqual(tsrcPRstatusUpdate, { status: 200, type: 1 } );
-              const statusMergedUpdate = commonUtil.isObjEqual(tsrcPRstatusUpdate, { status: 200, type: 2 } );
+              const statusOpenComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 0 } );
+              const statusClosedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 1 } );
+              const statusMergedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 2 } );
 
-              if (statusOpenUpdate) {
-              //if (statusOpenUpdate && gitHubPRstatus.mergeable) {
-                this.setState({ displayVoteButton: 'open' });
-                this.setState({ background: 'royalblue' });
-              } else if (statusClosedUpdate) {
-                this.setState({ displayVoteButton: 'closed' });
-                this.setState({ background: 'red' });
-              } else if (statusMergedUpdate) {
-                this.setState({ displayVoteButton: 'merged' });
-                this.setState({ background: 'darkorchid' });
+              if (statusOpenComponent) {
+              //if (statusOpenComponent && gitHubPRstatus.mergeable) {
+                this.setState({ voteButton: { color: 'royalblue', text: 'open' } });
+              } else if (statusClosedComponent) {
+                this.setState({ voteButton: { color: 'red', text: 'closed' } });
+              } else if (statusMergedComponent) {
+                this.setState({ voteButton: { color: 'darkorchid', text: 'merged' } });
 	      } else if (this.state.ghPRstatus.mergeable === true && this.state.ghPRstatus.status !== 500) {
-                this.setState({ displayVoteButton: 'vote' });
-                this.setState({ background: 'green' });
+                this.setState({ voteButton: { color: 'green', text: 'vote' } });
 	      } else if (this.state.ghPRstatus.mergeable === false && this.state.ghPRstatus.status !== 500) {
-                this.setState({ displayVoteButton: 'conflict' });
-                this.setState({ background: 'orange' });
+                this.setState({ voteButton: { color: 'orange', text: 'conflict' } });
               } else {
-                this.setState({ displayVoteButton: '?' });
-                this.setState({ background: 'gray' });
+                this.setState({ voteButton: { color: 'gray', text: '?' } });
               }
             })();
           }, 5000);
@@ -265,14 +255,13 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
             e.preventDefault();
             //modal.style.display = "none";
           };
-          var buttonDisplay;
           return (
             <Button
               // variant="open" className="textColor bgColor"
-              style={{ color: 'white', background: this.state.background }}
+              style={{ color: 'white', background: this.state.voteButton.color }}
               onClick={handleClick}
             >
-              {this.state.displayVoteButton}
+              {this.state.voteButton.text}
             </Button>
           );
         }
