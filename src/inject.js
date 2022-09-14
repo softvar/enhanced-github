@@ -281,7 +281,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 		}
               }
             })();
-          }, 1000);
+          }, 5000);
         }
         render() {
           const handleClick = e => {
