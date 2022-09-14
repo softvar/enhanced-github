@@ -301,41 +301,13 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
             //modal.style.display = "none";
           };
           var buttonDisplay;
-	  (async() => { 
-	     const tsrcPRstatusClick = this.state.tsrcPRstatus
-	     const gitHubPRstatusClick = this.state.ghPRstatus
-             //const tsrcPRstatusClick = await postGetPRvoteStatus(this.state.user, this.state.repo, this.state.issueID, this.state.contributorID, this.state.side);
-	     //const gitHubPRstatusClick = await getGitHubPullRequest(this.state.user, this.state.repo, this.state.issueID)
-             const statusOpenClick = commonUtil.isObjEqual(tsrcPRstatusClick, { status: 200, type: 0 } );
-             const statusClosedClick = commonUtil.isObjEqual(tsrcPRstatusClick, { status: 200, type: 1 } );
-             const statusMergedClick = commonUtil.isObjEqual(tsrcPRstatusClick, { status: 200, type: 2 } );
-	    
-             if (statusOpenClick) {
-             //if (statusOpenClick && gitHubPRstatusClick.mergeable) {
-               buttonDisplay = 'open';
-             } else if (statusClosedClick) {
-               buttonDisplay = 'closed';
-             } else if (statusMergedClick){
-               buttonDisplay = 'merged';
-	     } else if (gitHubPRstatusClick.mergeable === false && gitHubPRstatusClick.status !== 500 && gitHubPRstatusClick.state === 'closed') {
-               buttonDisplay = 'merged';
-	     } else if (gitHubPRstatusClick.mergeable === true && gitHubPRstatusClick.status !== 500) {
-               buttonDisplay = 'vote';
-	     } else if (gitHubPRstatusClick.mergeable === false && gitHubPRstatusClick.status !== 500 && gitHubPRstatusClick.state !== 'closed') {
-               buttonDisplay = 'conflict';
-             } else {
-               buttonDisplay = '?';
-             }
-
-             //buttonDisplay = this.state.issueID
-	     })();
           return (
             <Button
               // variant="open" className="textColor bgColor"
               style={{ color: 'white', background: this.state.background }}
               onClick={handleClick}
             >
-              {buttonDisplay}
+              {this.state.displayVoteButton}
             </Button>
           );
         }
