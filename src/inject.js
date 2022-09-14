@@ -171,6 +171,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
             contributorName: contributor_name,
             background: 'white',
             dynamicBool: true,
+	    displayVoteButton: "?",
 	    tsrcPRstatus: { status: 200, type: 0 },
 	    ghPRstatus: {
                         status: 500,
@@ -213,16 +214,22 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 
               if (statusOpenMount) {
               //if (statusOpenMount && gitHubPRstatus.mergeable) {
+                this.setState({ displayVoteButton: 'open' });
                 this.setState({ background: 'royalblue' });
               } else if (statusClosedMount) {
+                this.setState({ displayVoteButton: 'closed' });
                 this.setState({ background: 'red' });
               } else if (statusMergedMount) {
+                this.setState({ displayVoteButton: 'merged' });
                 this.setState({ background: 'darkorchid' });
 	      } else if (gitHubPRstatusMount.mergeable === true && gitHubPRstatusMount.status !== 500) {
+                this.setState({ displayVoteButton: 'vote' });
                 this.setState({ background: 'green' });
 	      } else if (gitHubPRstatusMount.mergeable === false && gitHubPRstatusMount.status !== 500) {
+                this.setState({ displayVoteButton: 'conflict' });
                 this.setState({ background: 'orange' });
               } else {
+                this.setState({ displayVoteButton: '?' });
                 this.setState({ background: 'gray' });
               }
               //console.log("dBool: " + this.state.dynamicBool)
@@ -266,16 +273,22 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 
               if (statusOpenMount) {
               //if (statusOpenMount && gitHubPRstatus.mergeable) {
+                this.setState({ displayVoteButton: 'open' });
                 this.setState({ background: 'royalblue' });
               } else if (statusClosedMount) {
+                this.setState({ displayVoteButton: 'closed' });
                 this.setState({ background: 'red' });
               } else if (statusMergedMount) {
+                this.setState({ displayVoteButton: 'merged' });
                 this.setState({ background: 'darkorchid' });
 	      } else if (gitHubPRstatus.mergeable === true && gitHubPRstatus.status !== 500) {
+                this.setState({ displayVoteButton: 'vote' });
                 this.setState({ background: 'green' });
 	      } else if (gitHubPRstatus.mergeable === false && gitHubPRstatus.status !== 500) {
+                this.setState({ displayVoteButton: 'conflict' });
                 this.setState({ background: 'orange' });
               } else {
+                this.setState({ displayVoteButton: '?' });
                 this.setState({ background: 'gray' });
               }
             })();
