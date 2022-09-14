@@ -160,6 +160,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
       // When the user clicks the button, open the modal
       const ce = React.createElement;
       var sideText;
+      var modalDisplay = 'hide'
 
       class TurboSrcButtonOpen extends React.Component {
         constructor(props) {
@@ -180,7 +181,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
         componentDidMount() {
           setTimeout(() => {
             (async () => {
-              const tsrcPRstatusComponent = this.state.tsrcPRstatus
+	      const tsrcPRstatusComponent = this.state.tsrcPRstatus
 
               const statusOpenComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 0 } );
               const statusClosedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 1 } );
@@ -193,7 +194,9 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 	      const checkVoteButtonConflict = commonUtil.isObjEqual(this.state.voteButton, { color: 'orange', text: 'conflict' } );
 	      const checkVoteButtonProblem = commonUtil.isObjEqual(this.state.voteButton, { color: 'gray', text: '?' } );
 
+	      modalDisplay = 'hide' // only show modal if open or on vote.
               if (statusOpenComponent) {
+	        modalDisplay = 'show'
               //if (statusOpenComponent && gitHubPRstatus.mergeable) {
 		if (!checkVoteButtonOpen) {
                    this.setState({ voteButton: { color: 'royalblue', text: 'open' } });
@@ -207,6 +210,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                   this.setState({ voteButton: { color: 'darkorchid', text: 'merged' } });
 	        }
 	      } else if (this.state.ghPRstatus.mergeable === true && this.state.ghPRstatus.status !== 500) {
+	        modalDisplay = 'show'
 		if (!checkVoteButtonVote) {
                   this.setState({ voteButton: { color: 'green', text: 'vote' } });
 		}
@@ -219,6 +223,8 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                   this.setState({ voteButton: { color: 'gray', text: '?' } });
 		}
               }
+
+	      // For modal.style.display (how it knows to popup if vote button clicked).
             })();
           });
         }
@@ -254,8 +260,10 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 	      const checkVoteButtonConflict = commonUtil.isObjEqual(this.state.voteButton, { color: 'orange', text: 'conflict' } );
 	      const checkVoteButtonProblem = commonUtil.isObjEqual(this.state.voteButton, { color: 'gray', text: '?' } );
 
+	      modalDisplay = 'hide' // only show modal if open or on vote.
               if (statusOpenComponent) {
               //if (statusOpenComponent && gitHubPRstatus.mergeable) {
+	        modalDisplay = 'show'
 		if (!checkVoteButtonOpen) {
                    this.setState({ voteButton: { color: 'royalblue', text: 'open' } });
 		}
@@ -268,6 +276,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                   this.setState({ voteButton: { color: 'darkorchid', text: 'merged' } });
 	        }
 	      } else if (this.state.ghPRstatus.mergeable === true && this.state.ghPRstatus.status !== 500) {
+	        modalDisplay = 'show'
 		if (!checkVoteButtonVote) {
                   this.setState({ voteButton: { color: 'green', text: 'vote' } });
 		}
@@ -586,11 +595,11 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
             const domContainerVoteButton = document.querySelector('#yes_vote_button');
             const domContainerVoteButton1 = document.querySelector('#no_vote_button');
 
-	    if (gitHubPRstatus.mergeable === true && gitHubPRstatus.status !== 500) {
+	    //if (modalDisplay === 'show') {
                modal.style.display = 'block';
-	    } else {
-               modal.style.display = 'none';
-	    }
+	    //} else {
+            //   modal.style.display = 'none';
+	    //}
 
             voteTotals = await postGetPRvoteTotals(user, repo, issue_id, contributor_id, side);
 
