@@ -180,27 +180,44 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
         componentDidMount() {
           setTimeout(() => {
             (async () => {
-
-	      const tsrcPRstatusComponent = this.state.tsrcPRstatus
-	      const gitHubPRstatusComponent = this.state.ghPRstatus
+              const tsrcPRstatusComponent = this.state.tsrcPRstatus
 
               const statusOpenComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 0 } );
               const statusClosedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 1 } );
               const statusMergedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 2 } );
+	      
+	      const checkVoteButtonOpen = commonUtil.isObjEqual(this.state.voteButton, { color: 'royalblue', text: 'open' } );
+	      const checkVoteButtonClosed = commonUtil.isObjEqual(this.state.voteButton, { color: 'red', text: 'closed' } );
+	      const checkVoteButtonMerged = commonUtil.isObjEqual(this.state.voteButton, { color: 'darkorchid', text: 'merged' } );
+	      const checkVoteButtonVote = commonUtil.isObjEqual(this.state.voteButton, { color: 'green', text: 'vote' } );
+	      const checkVoteButtonConflict = commonUtil.isObjEqual(this.state.voteButton, { color: 'orange', text: 'conflict' } );
+	      const checkVoteButtonProblem = commonUtil.isObjEqual(this.state.voteButton, { color: 'gray', text: '?' } );
 
               if (statusOpenComponent) {
               //if (statusOpenComponent && gitHubPRstatus.mergeable) {
-                this.setState({ voteButton: { color: 'royalblue', text: 'open' } });
+		if (!checkVoteButtonOpen) {
+                   this.setState({ voteButton: { color: 'royalblue', text: 'open' } });
+		}
               } else if (statusClosedComponent) {
-                this.setState({ voteButton: { color: 'red', text: 'closed' } });
+		if (!checkVoteButtonClosed) {
+                  this.setState({ voteButton: { color: 'red', text: 'closed' } });
+	        }
               } else if (statusMergedComponent) {
-                this.setState({ voteButton: { color: 'darkorchid', text: 'merged' } });
-	      } else if (gitHubPRstatusComponent.mergeable === true && gitHubPRstatusComponent.status !== 500) {
-                this.setState({ voteButton: { color: 'green', text: 'vote' } });
-	      } else if (gitHubPRstatusComponent.mergeable === false && gitHubPRstatusComponent.status !== 500) {
-                this.setState({ voteButton: { color: 'orange', text: 'conflict' } });
+		if (!checkVoteButtonMerged) {
+                  this.setState({ voteButton: { color: 'darkorchid', text: 'merged' } });
+	        }
+	      } else if (this.state.ghPRstatus.mergeable === true && this.state.ghPRstatus.status !== 500) {
+		if (!checkVoteButtonVote) {
+                  this.setState({ voteButton: { color: 'green', text: 'vote' } });
+		}
+	      } else if (this.state.ghPRstatus.mergeable === false && this.state.ghPRstatus.status !== 500) {
+		if (!checkVoteButtonConflict) {
+                  this.setState({ voteButton: { color: 'orange', text: 'conflict' } });
+		}
               } else {
-                this.setState({ voteButton: { color: 'gray', text: '?' } });
+		if (!checkVoteButtonProblem) {
+                  this.setState({ voteButton: { color: 'gray', text: '?' } });
+		}
               }
             })();
           });
@@ -217,14 +234,11 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                 this.state.side
               );
 	      
-	      if (this.state.tsrcPRstatus !== tsrcPRstatusComponent) {
-	        this.setState({ tsrcPRstatus: tsrcPRstatusComponent })
-	      }
-
               //console.log('status CDU: ', tsrcPRstatusUpdate)
+	      var gitHubPRstatusComponent = this.state.ghPRstatus
 	      try {
-	        const gitHubPRstatusComponent = await getGitHubPullRequest(this.state.user, this.state.repo, this.state.issueID)
-		if (gitHubPRstatusUpdate !== null) {
+	        gitHubPRstatusComponent = await getGitHubPullRequest(this.state.user, this.state.repo, this.state.issueID)
+		if (gitHubPRstatusComponent !== null && gitHubPRstatusComponent !== this.state.ghPRstatus) {
 	          this.setState({ ghPRstatus: gitHubPRstatusComponent })
 		}
 	      } catch(error) {
@@ -232,23 +246,42 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
               const statusOpenComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 0 } );
               const statusClosedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 1 } );
               const statusMergedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 2 } );
+	      
+	      const checkVoteButtonOpen = commonUtil.isObjEqual(this.state.voteButton, { color: 'royalblue', text: 'open' } );
+	      const checkVoteButtonClosed = commonUtil.isObjEqual(this.state.voteButton, { color: 'red', text: 'closed' } );
+	      const checkVoteButtonMerged = commonUtil.isObjEqual(this.state.voteButton, { color: 'darkorchid', text: 'merged' } );
+	      const checkVoteButtonVote = commonUtil.isObjEqual(this.state.voteButton, { color: 'green', text: 'vote' } );
+	      const checkVoteButtonConflict = commonUtil.isObjEqual(this.state.voteButton, { color: 'orange', text: 'conflict' } );
+	      const checkVoteButtonProblem = commonUtil.isObjEqual(this.state.voteButton, { color: 'gray', text: '?' } );
 
               if (statusOpenComponent) {
               //if (statusOpenComponent && gitHubPRstatus.mergeable) {
-                this.setState({ voteButton: { color: 'royalblue', text: 'open' } });
+		if (!checkVoteButtonOpen) {
+                   this.setState({ voteButton: { color: 'royalblue', text: 'open' } });
+		}
               } else if (statusClosedComponent) {
-                this.setState({ voteButton: { color: 'red', text: 'closed' } });
+		if (!checkVoteButtonClosed) {
+                  this.setState({ voteButton: { color: 'red', text: 'closed' } });
+	        }
               } else if (statusMergedComponent) {
-                this.setState({ voteButton: { color: 'darkorchid', text: 'merged' } });
+		if (!checkVoteButtonMerged) {
+                  this.setState({ voteButton: { color: 'darkorchid', text: 'merged' } });
+	        }
 	      } else if (this.state.ghPRstatus.mergeable === true && this.state.ghPRstatus.status !== 500) {
-                this.setState({ voteButton: { color: 'green', text: 'vote' } });
+		if (!checkVoteButtonVote) {
+                  this.setState({ voteButton: { color: 'green', text: 'vote' } });
+		}
 	      } else if (this.state.ghPRstatus.mergeable === false && this.state.ghPRstatus.status !== 500) {
-                this.setState({ voteButton: { color: 'orange', text: 'conflict' } });
+		if (!checkVoteButtonConflict) {
+                  this.setState({ voteButton: { color: 'orange', text: 'conflict' } });
+		}
               } else {
-                this.setState({ voteButton: { color: 'gray', text: '?' } });
+		if (!checkVoteButtonProblem) {
+                  this.setState({ voteButton: { color: 'gray', text: '?' } });
+		}
               }
             })();
-          }, 5000);
+          }, 1000);
         }
         render() {
           const handleClick = e => {
