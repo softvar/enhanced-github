@@ -194,8 +194,6 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                 this.state.side
               );
 	     
-	       tsrcPRstatus = tsrcPRstatusMount
-
 	        // interferes with statusMergedMount
 	      var gitHubPRstatusMount = this.state.ghPRstatus
 	      try {
@@ -257,12 +255,11 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
               );
 	      
 	       this.setState({ tsrcPRstatus: tsrcPRstatusUpdate})
-	      tsrcPRstatus = tsrcPRstatusUpdate
 
               //console.log('status CDU: ', tsrcPRstatusUpdate)
 	      try {
-	        gitHubPRstatus = await getGitHubPullRequest(this.state.user, this.state.repo, this.state.issueID)
-		if (gitHubPRstatus !== null) {
+	        const gitHubPRstatusUpdate = await getGitHubPullRequest(this.state.user, this.state.repo, this.state.issueID)
+		if (gitHubPRstatusUpdate !== null) {
 	          this.setState({ ghPRstatus: gitHubPRstatus})
 		}
 	      } catch(error) {
@@ -271,20 +268,20 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
               const statusClosedUpdate = commonUtil.isObjEqual(tsrcPRstatusUpdate, { status: 200, type: 1 } );
               const statusMergedUpdate = commonUtil.isObjEqual(tsrcPRstatusUpdate, { status: 200, type: 2 } );
 
-              if (statusOpenMount) {
-              //if (statusOpenMount && gitHubPRstatus.mergeable) {
+              if (statusOpenUpdate) {
+              //if (statusOpenUpdate && gitHubPRstatus.mergeable) {
                 this.setState({ displayVoteButton: 'open' });
                 this.setState({ background: 'royalblue' });
-              } else if (statusClosedMount) {
+              } else if (statusClosedUpdate) {
                 this.setState({ displayVoteButton: 'closed' });
                 this.setState({ background: 'red' });
-              } else if (statusMergedMount) {
+              } else if (statusMergedUpdate) {
                 this.setState({ displayVoteButton: 'merged' });
                 this.setState({ background: 'darkorchid' });
-	      } else if (gitHubPRstatus.mergeable === true && gitHubPRstatus.status !== 500) {
+	      } else if (this.state.ghPRstatus.mergeable === true && this.state.ghPRstatus.status !== 500) {
                 this.setState({ displayVoteButton: 'vote' });
                 this.setState({ background: 'green' });
-	      } else if (gitHubPRstatus.mergeable === false && gitHubPRstatus.status !== 500) {
+	      } else if (this.state.ghPRstatus.mergeable === false && this.state.ghPRstatus.status !== 500) {
                 this.setState({ displayVoteButton: 'conflict' });
                 this.setState({ background: 'orange' });
               } else {
@@ -296,7 +293,6 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
         }
         render() {
           const handleClick = e => {
-            console.log('handleClick');
             e.preventDefault();
             //modal.style.display = "none";
           };
@@ -454,46 +450,46 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 
         componentDidUpdate() {
           setTimeout(() => {
-            (async () => {
-              var voteTotalsReact = await postGetPRvoteTotals(
-                this.state.user,
-                this.state.repo,
-                this.state.issueID,
-                this.state.contributorID,
-                this.state.side
-              );
-              var voteYesTotals = await postGetPRvoteYesTotals(
-                this.state.user,
-                this.state.repo,
-                this.state.issueID,
-                this.state.contributorID,
-                this.state.side
-              );
-              var voteNoTotals = await postGetPRvoteNoTotals(
-                this.state.user,
-                this.state.repo,
-                this.state.issueID,
-                this.state.contributorID,
-                this.state.side
-              );
+            //(async () => {
+            //  var voteTotalsReact = await postGetPRvoteTotals(
+            //    this.state.user,
+            //    this.state.repo,
+            //    this.state.issueID,
+            //    this.state.contributorID,
+            //    this.state.side
+            //  );
+            //  var voteYesTotals = await postGetPRvoteYesTotals(
+            //    this.state.user,
+            //    this.state.repo,
+            //    this.state.issueID,
+            //    this.state.contributorID,
+            //    this.state.side
+            //  );
+            //  var voteNoTotals = await postGetPRvoteNoTotals(
+            //    this.state.user,
+            //    this.state.repo,
+            //    this.state.issueID,
+            //    this.state.contributorID,
+            //    this.state.side
+            //  );
 
-              voteTotalsReact = (Number(voteTotalsReact) * 100).toFixed(1).toString();
-              if (voteYesTotals && voteNoTotals) {
-                voteYesTotals = Number(voteYesTotals);
-                voteNoTotals = Number(voteNoTotals);
-                voteYesTotals = ((voteYesTotals / (voteYesTotals + voteNoTotals)) * 100).toFixed(1);
-                voteNoTotals = (100 - voteYesTotals).toFixed(1);
-                //this.setState({voteTotals: voteTotalsReact})
-                const voteArray = [voteYesTotals.toString(), voteNoTotals.toString(), voteTotalsReact];
-                this.setState({ votes: voteArray });
-                //this.setState({voteNoTotals: voteNoTotals})
-              } else {
-                //this.setState({voteTotals: "0.0"})
-                this.setState({ votes: ['0.0', '0.0'] });
-                //this.setState({voteNoTotals: "0.0"})
-              }
-              //console.log('status CDUV: ' + voteTotalsReact)
-            })();
+            //  voteTotalsReact = (Number(voteTotalsReact) * 100).toFixed(1).toString();
+            //  if (voteYesTotals && voteNoTotals) {
+            //    voteYesTotals = Number(voteYesTotals);
+            //    voteNoTotals = Number(voteNoTotals);
+            //    voteYesTotals = ((voteYesTotals / (voteYesTotals + voteNoTotals)) * 100).toFixed(1);
+            //    voteNoTotals = (100 - voteYesTotals).toFixed(1);
+            //    //this.setState({voteTotals: voteTotalsReact})
+            //    const voteArray = [voteYesTotals.toString(), voteNoTotals.toString(), voteTotalsReact];
+            //    this.setState({ votes: voteArray });
+            //    //this.setState({voteNoTotals: voteNoTotals})
+            //  } else {
+            //    //this.setState({voteTotals: "0.0"})
+            //    this.setState({ votes: ['0.0', '0.0'] });
+            //    //this.setState({voteNoTotals: "0.0"})
+            //  }
+            //  //console.log('status CDUV: ' + voteTotalsReact)
+            //})();
           }, 8000);
         }
         render() {
