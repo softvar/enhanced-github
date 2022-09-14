@@ -464,7 +464,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
               console.log('status CDMV: ' + voteTotalsReact);
             })();
             //this.setState({background: "yellow"})
-          }, 1000);
+          });
         }
 
         componentDidUpdate() {
@@ -509,7 +509,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
               }
               //console.log('status CDUV: ' + voteTotalsReact)
             })();
-          }, 1000);
+          }, 8000);
         }
         render() {
           const handleClick = e => {
