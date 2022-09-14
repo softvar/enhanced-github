@@ -172,39 +172,17 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
             background: 'white',
             dynamicBool: true,
 	    displayVoteButton: "?",
-	    tsrcPRstatus: { status: 200, type: 0 },
-	    ghPRstatus: {
-                        status: 500,
-                        mergeable: false,
-                        mergeCommitSha: "",
-                        state: "",
-                        baseBranch: ""
-            }
+	    tsrcPRstatus: this.props.tsrcPRstatus,
+	    ghPRstatus: this.props.ghPRstatus
           };
         }
 
         componentDidMount() {
           setTimeout(() => {
             (async () => {
-              const tsrcPRstatusMount = await postGetPRvoteStatus(
-                this.state.user,
-                this.state.repo,
-                this.state.issueID,
-                this.state.contributorName,
-                this.state.side
-              );
-	     
-	        // interferes with statusMergedMount
-	      var gitHubPRstatusMount = this.state.ghPRstatus
-	      try {
-	        gitHubPRstatusMount = await getGitHubPullRequest(this.state.user, this.state.repo, this.state.issueID)
-		if (gitHubPRstatusMount !== null) {
-	          this.setState({ ghPRstatus: gitHubPRstatusMount})
-		}
-	      } catch(error) {
-	      }
-	       this.setState({ tsrcPRstatus: tsrcPRstatusMount})
-	       //this.setState({ ghPRstatus: gitHubPRstatusMount})
+
+	      const tsrcPRstatusMount = this.state.tsrcPRstatus
+	      const gitHubPRstatusMount = this.state.ghPRstatus
 
               const statusOpenMount = commonUtil.isObjEqual(tsrcPRstatusMount, { status: 200, type: 0 } );
               const statusClosedMount = commonUtil.isObjEqual(tsrcPRstatusMount, { status: 200, type: 1 } );
@@ -230,16 +208,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                 this.setState({ displayVoteButton: '?' });
                 this.setState({ background: 'gray' });
               }
-              //console.log("dBool: " + this.state.dynamicBool)
-              //if (this.state.dynamicBool) {
-              //  this.setState({dynamicBool: false})
-              //  console.log("dBool: " + this.state.dynamicBool)
-              //} else {
-              //  this.setState({dynamicBool: true})
-              //  console.log("dBool: " + this.state.dynamicBool)
-              //}
             })();
-            //this.setState({background: "yellow"})
           });
         }
 
@@ -254,7 +223,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                 this.state.side
               );
 	      
-	       this.setState({ tsrcPRstatus: tsrcPRstatusUpdate})
+	      this.setState({ tsrcPRstatus: tsrcPRstatusUpdate})
 
               //console.log('status CDU: ', tsrcPRstatusUpdate)
 	      try {
@@ -571,7 +540,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
         displayOpenStatus = status === 'none' || status === 'open';
         domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}`);
         //if (displayOpenStatus) {
-        render(ce(TurboSrcButtonOpen, {issueID: issue_id}), domContainerTurboSrcButton); //} else {
+        render(ce(TurboSrcButtonOpen, {issueID: issue_id, tsrcPRstatus: tsrcPRstatus, ghPRstatus: gitHubPRstatus }), domContainerTurboSrcButton); //} else {
         // render(ce(TurboSrcButtonClosed), domContainerTurboSrcButton);
         //}
       }
