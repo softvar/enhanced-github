@@ -7,27 +7,18 @@ async function postCreateUser(
   repo,
   contributor_id,
   contributor_name,
-  contributor_signature
+  contributor_signature,
+  token
 ) {
-  superagent
-    .post(`${port}/graphql`)
-    .send(
-      //{ query: '{ name: 'Manny', species: 'cat' }' }
-      //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-      //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-      //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
-      //{ query: `{ getVoteEverything }` }
-      {
-        query: `{ createUser(owner: "${owner}", repo: "${repo}", contributor_id: "${contributor_id}", contributor_name: "${contributor_name}", contributor_signature: "${contributor_signature}") }`,
-      }
-      //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
-    ) // sends a JSON post body
-    .set("accept", "json")
-    .end((err, res) => {
-      //Calling the end function will send the request
-      const json = JSON.parse(res.text);
-      return json.data.createUser;
-    });
+    const res = await superagent
+      .post(`${port}/graphql`)
+      .send({
+        query: `{ createUser(owner: "${owner}", repo: "${repo}", contributor_id: "${contributor_id}", contributor_name: "${contributor_name}", contributor_signature: "${contributor_signature}", token: "${token}") }`,
+      })
+      .set("accept", "json");
+
+    const json = JSON.parse(res.text);
+    return json.data.createUser;
 }
 
 async function postGetContributorName(owner, repo, issue_id, contributor_id) {

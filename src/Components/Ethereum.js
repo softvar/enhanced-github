@@ -22,7 +22,7 @@ export default function Ethereum() {
     console.log('input', ethereumAddress, user.login, ethereumKey);
 
     try {
-      await postCreateUser('', '', ethereumAddress, user.login, ethereumKey);
+      await postCreateUser('', '', ethereumAddress, user.login, ethereumKey, user.tokens);
 
       chrome.storage.local.set({ contributor_name: user.login });
       chrome.storage.local.set({ contributor_id: ethereumAddress });
