@@ -21,6 +21,7 @@ const storageUtil = require('./utils/storageUtil');
 const CommonEnum = require('./enums/CommonEnum');
 const superagent = require('superagent');
 const commonUtil = require('./utils/commonUtil');
+const mathUtil = require('./utils/mathUtil');
 const authContributor = require('./authorizedContributor');
 const { getRepoStatus } = require('./requests');
 
@@ -174,7 +175,9 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
             dynamicBool: true,
 	    voteButton: "?",
 	    tsrcPRstatus: this.props.tsrcPRstatus,
-	    ghPRstatus: this.props.ghPRstatus
+	    ghPRstatus: this.props.ghPRstatus,
+	    voteYesTotal: 0.0,
+	    textMath: "0%"
           };
         }
 
@@ -183,11 +186,22 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
             (async () => {
 	      const tsrcPRstatusComponent = this.state.tsrcPRstatus
 
+              const voteYesTotal = await postGetPRvoteYesTotals(
+                  /*owner:*/ this.state.contributorName,
+                  /*repo:*/ this.state.repo,
+                  /*pr_id:*/ "",
+                  /*contributor_id:*/ "",
+                  /*side:*/ "",
+              );
+
+	      const textMath = `${mathUtil.yesVotePercentToMergeInteger(voteYesTotal)}%`
+
               const statusOpenComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 0 } );
               const statusClosedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 1 } );
               const statusMergedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 2 } );
 	      
-	      const checkVoteButtonOpen = commonUtil.isObjEqual(this.state.voteButton, { color: 'royalblue', text: 'open' } );
+	      //const checkVoteButtonOpen = commonUtil.isObjEqual(this.state.voteButton, { color: 'royalblue', text: 'open' } );
+	      const checkVoteButtonOpen = (this.state.textMath !== textMath)
 	      const checkVoteButtonClosed = commonUtil.isObjEqual(this.state.voteButton, { color: 'red', text: 'closed' } );
 	      const checkVoteButtonMerged = commonUtil.isObjEqual(this.state.voteButton, { color: 'darkorchid', text: 'merged' } );
 	      const checkVoteButtonVote = commonUtil.isObjEqual(this.state.voteButton, { color: 'green', text: 'vote' } );
@@ -199,7 +213,8 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 	        modalDisplay = 'show'
               //if (statusOpenComponent && gitHubPRstatus.mergeable) {
 		if (!checkVoteButtonOpen) {
-                   this.setState({ voteButton: { color: 'royalblue', text: 'open' } });
+                   this.setState({ voteButton: { color: 'royalblue', text: textMath } });
+                   this.setState({ textMath: textMath });
 		}
               } else if (statusClosedComponent) {
 		if (!checkVoteButtonClosed) {
@@ -249,11 +264,30 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 		}
 	      } catch(error) {
 	      }
+
+	      const textMathLast = this.state.textMath
+	      var textMath = textMathLast
+	      try {
+                const voteYesTotal = await postGetPRvoteYesTotals(
+                    /*owner:*/ this.state.contributorName,
+                    /*repo:*/ this.state.repo,
+                    /*pr_id:*/ "",
+                    /*contributor_id:*/ "",
+                    /*side:*/ "",
+                );
+	        textMath = `${mathUtil.yesVotePercentToMergeInteger(voteYesTotal)}%`
+		if (textMath !== null && textMath !== textMathLast) {
+	          this.setState({ textMath: textMath })
+		}
+	      } catch(error) {
+	      }
+
+
               const statusOpenComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 0 } );
               const statusClosedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 1 } );
               const statusMergedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 2 } );
 	      
-	      const checkVoteButtonOpen = commonUtil.isObjEqual(this.state.voteButton, { color: 'royalblue', text: 'open' } );
+	      const checkVoteButtonOpen = (textMathLast !== textMath);
 	      const checkVoteButtonClosed = commonUtil.isObjEqual(this.state.voteButton, { color: 'red', text: 'closed' } );
 	      const checkVoteButtonMerged = commonUtil.isObjEqual(this.state.voteButton, { color: 'darkorchid', text: 'merged' } );
 	      const checkVoteButtonVote = commonUtil.isObjEqual(this.state.voteButton, { color: 'green', text: 'vote' } );
@@ -265,7 +299,8 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
               //if (statusOpenComponent && gitHubPRstatus.mergeable) {
 	        modalDisplay = 'show'
 		if (!checkVoteButtonOpen) {
-                   this.setState({ voteButton: { color: 'royalblue', text: 'open' } });
+                   this.setState({ voteButton: { color: 'royalblue', text: textMath } });
+                   this.setState({ textMath: textMath });
 		}
               } else if (statusClosedComponent) {
 		if (!checkVoteButtonClosed) {
