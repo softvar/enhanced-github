@@ -4,7 +4,7 @@ export default function Login() {
   return (
     <div className="">
       <a
-        href={`https://github.com/login/oauth/authorize?scope=user:email&client_id=${process.env.GITHUB_CLIENT_ID}`}
+        href={`https://github.com/login/oauth/authorize?scope=user%20public_repo:email&client_id=${process.env.GITHUB_CLIENT_ID}`}
         className=""
         target="_blank"
       >
