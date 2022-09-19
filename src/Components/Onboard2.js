@@ -7,7 +7,7 @@ import Fail from './Fail';
 import Success from './Success';
 import storageUtil from '../utils/storageUtil';
 import { postCreateRepo } from '../requests';
-
+const {Octokit, App} = require("octokit");
 export default function Onboard2() {
   let user = useSelector(state => state.auth.user);
   const navigate = useNavigate();
@@ -28,26 +28,7 @@ export default function Onboard2() {
   let [length, setLength] = useState(false);
   let [errorText, setErrorText] = useState('');
 
-  const changeHandler = e => {
-    e.preventDefault();
-    setApiKey(e.target.value);
-    if (e.target.value.length) {
-      setLength(true);
-      setChecking(true);
-      setTimeout(() => {
-        setChecking(false);
-        if (e.target.value === 'ghp_123') {
-          setVerified(true);
-        } else {
-          setVerified(false);
-        }
-      }, 1000);
-    } else {
-      setLength(false);
-      setVerified(false);
-      setChecking(false);
-    }
-  };
+
 
   const createRepo = async () => {
     if (verified) {
@@ -69,16 +50,58 @@ export default function Onboard2() {
     }
   });
 
+  useEffect(()=>{
+    const checkScope = async() => {
+      if(!repo || !owner){
+        return
+      }
+    const octokit = new Octokit({ auth: user.token });
+    const res = await octokit.request(`GET /repos/${owner}/${repo}`)
+    Promise.resolve(res).then((object) => {
+      if(object.headers['x-oauth-scopes'].split(',').includes('public_repo')) {
+        setVerified(true)
+      } else {
+        setVerified(false)
+      }
+    },[owner, repo])
+    }
+
+    try {
+     checkScope()
+    } catch (error) {
+      console.log(error)
+    }
+  })
+
   if (loader) {
     return <Loader />;
   }
-  if (failed) {
-    return <Fail setFailed={setFailed} repo={repo} />;
-  }
-  if (successful) {
-    return <Success currency={currency} repo={repo} />;
-  }
 
+  if (!verified) {
+    return <div className="content">
+    <div className="onboard">
+      <span className="">
+        <h1>Tokenize This Repository</h1>
+      </span>
+      <span>Tokenizing {repo} will automatically create 1000000 tokens.</span>
+
+      <form name="create">
+        <div className="apiKey">
+          <span className="">Additional permissions are required to tokenize this repository</span>
+          <span className="">
+        <a href={`https://github.com/login/oauth/authorize?scope=user:email%20public_repo&client_id=${process.env.GITHUB_CLIENT_ID}`} target="_blank"><button type="button">Update Permissions</button></a>
+          </span>
+        </div>
+        <span>{errorText}</span>
+        <span className="items-center">
+          <button type="button" className="startButton">
+            Submit
+          </button>
+        </span>
+      </form>
+    </div>
+  </div>
+  } else {
   return (
     <div className="content">
       <div className="onboard">
@@ -88,36 +111,15 @@ export default function Onboard2() {
         <span>Tokenizing {repo} will automatically create 1000000 tokens.</span>
 
         <form name="create">
-          <div className="apiKey">
-            <span className="">Enter your Personal Access Token for {repo}</span>
-            <span className="">
-              <input
-                type="text"
-                name="apikey"
-                placeholder="ghp_123"
-                value={apiKey}
-                onChange={e => changeHandler(e)}
-                required
-              ></input>
-              {checking ? (
-                <img src={loadergif}></img>
-              ) : verified ? (
-                <img src="../../icons/success.png"></img>
-              ) : length ? (
-                <img src="../../icons/incorrect.png"></img>
-              ) : (
-                <img src="../../icons/warning.png"></img>
-              )}
-            </span>
-          </div>
+        
           <span>{errorText}</span>
           <span className="items-center">
             <button type="button" className="startButton" onClick={() => createRepo()}>
-              Review and Submit
+              Submit
             </button>
           </span>
         </form>
       </div>
     </div>
   );
-}
+}}
