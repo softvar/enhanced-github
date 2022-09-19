@@ -57,21 +57,17 @@ export default function Onboard2() {
       }
     const octokit = new Octokit({ auth: user.token });
     const res = await octokit.request(`GET /repos/${owner}/${repo}`)
+    
     Promise.resolve(res).then((object) => {
       if(object.headers['x-oauth-scopes'].split(',').includes('public_repo')) {
         setVerified(true)
       } else {
         setVerified(false)
-      }
-    },[owner, repo])
-    }
+      }})}
 
-    try {
-     checkScope()
-    } catch (error) {
-      console.log(error)
-    }
-  })
+      checkScope()
+  }, [owner,repo])
+
 
   if (loader) {
     return <Loader />;
