@@ -27,13 +27,12 @@ export default function Onboard2() {
   let [successful, setSuccessful] = useState(false);
   let [length, setLength] = useState(false);
   let [errorText, setErrorText] = useState('');
-
-
+  let [scope, setScope] = useState(false)
+  let [permissions,setPermissions] = useState(false)
 
   const createRepo = async () => {
-    if (verified) {
       setLoader(true);
-      await postCreateRepo(user.login, repo, '', user.ethereumAddress, '').then(res => {
+      await postCreateRepo(owner, repo, '', user.ethereumAddress, '').then(res => {
         setLoader(false);
         if (res === '201') {
           navigate('/home');
@@ -41,6 +40,54 @@ export default function Onboard2() {
           setErrorText('There was an error tokenizing this repository.');
         }
       });
+  };
+
+  const checkScope = async(token) => {
+    if(!repo || !owner){
+      return
+    }
+  const octokit = new Octokit({ auth: token });
+  const res = await octokit.request(`GET /users/${user.login}`)
+
+  Promise.resolve(res).then((object) => {
+    if(object.headers['x-oauth-scopes'].split(',').includes('public_repo')) {
+      setScope(true)
+    } else {
+      setScope(false)
+    }
+  })
+}
+
+const checkPermissions = async(token) => {
+  if(!repo || !owner){
+    return
+  }
+const octokit = new Octokit({ auth: token });
+const res = await octokit.request(`GET /repos/${owner}/${repo}`)
+
+Promise.resolve(res).then((object) => {
+  if(object.data.permissions.push) {
+    setPermissions(true)
+  } else {
+    setPermissions(false)
+  }
+})
+}
+
+  const changeHandler = e => {
+    e.preventDefault();
+    setApiKey(e.target.value);
+    if (e.target.value.length) {
+      setLength(true);
+      setChecking(true);
+      checkPermissions(e.target.value)
+      setTimeout(() => {
+        setChecking(false);
+      }, 2000);
+    } else {
+      setLength(false);
+      setVerified(false);
+      setChecking(false);
     }
   };
 
@@ -51,21 +98,8 @@ export default function Onboard2() {
   });
 
   useEffect(()=>{
-    const checkScope = async() => {
-      if(!repo || !owner){
-        return
-      }
-    const octokit = new Octokit({ auth: user.token });
-    const res = await octokit.request(`GET /repos/${owner}/${repo}`)
-    
-    Promise.resolve(res).then((object) => {
-      if(object.headers['x-oauth-scopes'].split(',').includes('public_repo')) {
-        setVerified(true)
-      } else {
-        setVerified(false)
-      }})}
-
-      checkScope()
+      checkScope(user.token)
+      checkPermissions(user.token)
   }, [owner,repo])
 
 
@@ -73,7 +107,7 @@ export default function Onboard2() {
     return <Loader />;
   }
 
-  if (!verified) {
+  if (!scope) {
     return <div className="content">
     <div className="onboard">
       <span className="">
@@ -83,20 +117,59 @@ export default function Onboard2() {
 
       <form name="create">
         <div className="apiKey">
-          <span className="">Additional permissions are required to tokenize this repository</span>
+          <span className=""><img src="../icons/warning.png" />Additional permissions are required to tokenize this repository</span>
           <span className="">
         <a href={`https://github.com/login/oauth/authorize?scope=user:email%20public_repo&client_id=${process.env.GITHUB_CLIENT_ID}`} target="_blank"><button type="button">Update Permissions</button></a>
           </span>
         </div>
         <span>{errorText}</span>
         <span className="items-center">
-          <button type="button" className="startButton">
+          <button type="button" className="disabledButton">
             Submit
           </button>
         </span>
       </form>
     </div>
   </div>
+  } else if(!permissions){
+  return( <div className="content">
+    <div className="onboard">
+      <span className="">
+        <h1>Tokenize This Repository</h1>
+      </span>
+      <span>Tokenizing {repo} will automatically create 1000000 tokens.</span>
+      <form name="create">
+        <div className="apiKey">
+        <span className="">You do not have permissions to make changes to this repository. Enter a valid Access Token for {repo}</span>
+            <span className="">
+              <input
+                type="text"
+                name="apikey"
+                placeholder=""
+                value={apiKey}
+                onChange={e => changeHandler(e)}
+                required
+              ></input>
+              {checking ? (
+                <img src={loadergif}></img>
+              ) : verified ? (
+                <img src="../../icons/success.png"></img>
+              ) : length ? (
+                <img src="../../icons/incorrect.png"></img>
+              ) : (
+                <img src="../../icons/warning.png"></img>
+              )}
+            </span>
+        </div>
+        <span>{errorText}</span>
+        <span className="items-center">
+        <button type="button" className="disabledButton">
+              Submit
+            </button>
+        </span>
+      </form>
+    </div>
+  </div> )
   } else {
   return (
     <div className="content">
@@ -107,7 +180,6 @@ export default function Onboard2() {
         <span>Tokenizing {repo} will automatically create 1000000 tokens.</span>
 
         <form name="create">
-        
           <span>{errorText}</span>
           <span className="items-center">
             <button type="button" className="startButton" onClick={() => createRepo()}>
