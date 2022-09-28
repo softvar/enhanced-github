@@ -126,12 +126,13 @@ async function postGetContributorTokenAmount(
    repo,
    pr_id,
    contributor_id,
-   side
+   side,
+   token
 ) {
   const res = await superagent
     .post(`${port}/graphql`)
       .send({
-        query: `{ getContributorTokenAmount(owner: "${owner}", repo: "${repo}", pr_id: "${pr_id}", contributor_id: "${contributor_id}", side: "${side}") { status, amount } }`,
+        query: `{ getContributorTokenAmount(owner: "${owner}", repo: "${repo}", pr_id: "${pr_id}", contributor_id: "${contributor_id}", side: "${side}", token: "${token}") { status, amount } }`,
       }) // sends a JSON post body
       .set("accept", "json");
     //.end((err, res) => {
