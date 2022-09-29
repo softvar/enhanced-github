@@ -142,7 +142,7 @@ async function postGetContributorTokenAmount(
     return json.data.getContributorTokenAmount;
 }
 
-async function postTransferTokens(owner, repo, from, to, amount) {
+async function postTransferTokens(owner, repo, from, to, amount, token) {
   superagent
     .post(`${port}/graphql`)
     .send(
@@ -152,7 +152,7 @@ async function postTransferTokens(owner, repo, from, to, amount) {
       //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
       //{ query: `{ getVoteEverything }` }
       {
-        query: `{ transferTokens(owner: "${owner}", repo: "${repo}", from: "${from}", to: "${to}", amount: "${amount}") }`,
+        query: `{ transferTokens(owner: "${owner}", repo: "${repo}", from: "${from}", to: "${to}", amount: "${amount}", token: "${token}") }`,
       }
       //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body
