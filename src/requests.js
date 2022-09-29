@@ -143,24 +143,18 @@ async function postGetContributorTokenAmount(
 }
 
 async function postTransferTokens(owner, repo, from, to, amount, token) {
-  superagent
-    .post(`${port}/graphql`)
-    .send(
-      //{ query: '{ name: 'Manny', species: 'cat' }' }
-      //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-      //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-      //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
-      //{ query: `{ getVoteEverything }` }
-      {
+    const res = await superagent
+      .post(`${port}/graphql`)
+      .send({
         query: `{ transferTokens(owner: "${owner}", repo: "${repo}", from: "${from}", to: "${to}", amount: "${amount}", token: "${token}") }`,
-      }
-      //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
-    ) // sends a JSON post body
-    .set("accept", "json")
-    .end((err, res) => {
-      // Calling the end function will send the request
-    });
-}
+      }) // sends a JSON post body
+      .set("accept", "json");
+    //   .end((err, res) => {
+    // Calling the end function will send the request
+    //   });
+    const json = JSON.parse(res.text);
+    return json.data.transferTokens;
+  }
 
 async function postNewPullRequest(owner, repo, issue_id, contributor_id, side) {
   superagent
