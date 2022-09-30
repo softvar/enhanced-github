@@ -146,7 +146,7 @@ async function postTransferTokens(owner, repo, from, to, amount, token) {
     const res = await superagent
       .post(`${port}/graphql`)
       .send({
-        query: `{ transferTokens(owner: "${owner}", repo: "${repo}", from: "${from}", to: "${to}", amount: "${amount}") }`,
+        query: `{ transferTokens(owner: "${owner}", repo: "${repo}", from: "${from}", to: "${to}", amount: "${amount}", token: "${token}") }`,
       }) // sends a JSON post body
       .set("accept", "json");
     //   .end((err, res) => {
