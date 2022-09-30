@@ -98,7 +98,7 @@ async function postGetContributorSignature(
   return json.data.getContributorSignature;
 }
 
-async function postCreateRepo(owner, repo, issue_id, contributor_id, side) {
+async function postCreateRepo(owner, repo, issue_id, contributor_id, side, token) {
   const res = await superagent
     .post(`${port}/graphql`)
     .send(
@@ -108,7 +108,7 @@ async function postCreateRepo(owner, repo, issue_id, contributor_id, side) {
       //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
       //{ query: `{ getVoteEverything }` }
       {
-        query: `{ createRepo(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }`,
+        query: `{ createRepo(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}", token: "${token}") }`,
       }
       //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body
@@ -146,7 +146,7 @@ async function postTransferTokens(owner, repo, from, to, amount, token) {
     const res = await superagent
       .post(`${port}/graphql`)
       .send({
-        query: `{ transferTokens(owner: "${owner}", repo: "${repo}", from: "${from}", to: "${to}", amount: "${amount}", token: "${token}") }`,
+        query: `{ transferTokens(owner: "${owner}", repo: "${repo}", from: "${from}", to: "${to}", amount: "${amount}") }`,
       }) // sends a JSON post body
       .set("accept", "json");
     //   .end((err, res) => {
