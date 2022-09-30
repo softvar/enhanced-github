@@ -176,7 +176,7 @@ async function postNewPullRequest(owner, repo, issue_id, contributor_id, side) {
     });
 }
 
-async function postSetVote(owner, repo, issue_id, contributor_id, side) {
+async function postSetVote(owner, repo, issue_id, contributor_id, side, token) {
   const res = await superagent
     .post(`${port}/graphql`)
     .send(
@@ -186,7 +186,7 @@ async function postSetVote(owner, repo, issue_id, contributor_id, side) {
       //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
       //{ query: `{ getVoteEverything }` }
       {
-        query: `{ setVote(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }`,
+        query: `{ setVote(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}", token: "${token}") }`,
       }
       //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body

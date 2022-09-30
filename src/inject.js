@@ -152,6 +152,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
   contributor_name = await getFromStorage('contributor_name');
   contributor_id = await getFromStorage('contributor_id');
   //Check if current contributor is authorized for this repo
+  const githubUser = await getFromStorage('githubUser').then(res=>JSON.parse(res))
 
   const isAuthorizedContributor = await get_authorized_contributor(contributor_id, repo_id);
   console.log('isAuthorizedContributor: ' + isAuthorizedContributor);
@@ -400,7 +401,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                 (async () => {
 
                   this.setState({ voted: 'valid', lastIssueId: issue_id, side: this.state.side });
-                  await postSetVote(user, repo, issue_id, contributor_id, this.state.side);
+                  await postSetVote(user, repo, issue_id, contributor_id, this.state.side, githubUser.token);
                   this.setState({ voted: 'done', lastIssueId: issue_id, side: this.state.side });
                   //var forkStatus = await postGetPRforkStatus(user, repo, issue_id, contributor_id);
                   //console.log('fork status');
