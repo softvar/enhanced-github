@@ -26,7 +26,7 @@ const authContributor = require('./authorizedContributor');
 const { getRepoStatus } = require('./requests');
 
 const { postSetVote,
-        postGetPRvoteStatus,
+        postGetPullRequest, // updated
         postGetPRvoteYesTotals,
         postGetPRvoteNoTotals,
         postGetPRvoteTotals,
@@ -134,7 +134,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
   repo_id = `${path.user}/${path.repo}`;
   repo = path.repo;
   user = path.user;
-  var tsrcPRstatus = await postGetPRvoteStatus(user, repo, issue_id, contributor_id, side);
+  var tsrcPRstatus = await postGetPullRequest(user, repo, issue_id, contributor_id, side);
   var gitHubPRstatus = await getGitHubPullRequest(user, repo, issue_id)
 
   //Set Github Repo and User from browser window for chrome extension
@@ -210,9 +210,12 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 	      } catch(error) {
 	      }
 
-              const statusOpenComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 0 } );
-              const statusClosedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 1 } );
-              const statusMergedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 2 } );
+              //const statusOpenComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 0 } );
+              const statusOpenComponent = (tsrcPRstatusComponent.status === 200 &&  tsrcPRstatusComponent.state  === "open")
+              //const statusClosedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 1 } );
+              const statusClosedComponent = (tsrcPRstatusComponent.status === 200 &&  tsrcPRstatusComponent.state  === "close")
+              //const statusMergedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 2 } );
+              const statusMergedComponent = (tsrcPRstatusComponent.status === 200 &&  tsrcPRstatusComponentstate.state === "merge")
 	      
 	      const checkVoteButtonOpen = commonUtil.isObjEqual(this.state.voteButton, { color: 'green', text: `${textMath}%` } );
 	      const checkVoteButtonClosed = commonUtil.isObjEqual(this.state.voteButton, { color: 'red', text: 'closed' } );
@@ -259,7 +262,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
         componentDidUpdate() {
           setTimeout(() => {
             (async () => {
-              const tsrcPRstatusComponent = await postGetPRvoteStatus(
+              const tsrcPRstatusComponent = await postGetPullRequest(
                 this.state.user,
                 this.state.repo,
                 this.state.issueID,
@@ -302,9 +305,12 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 	      }
 
 
-              const statusOpenComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 0 } );
-              const statusClosedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 1 } );
-              const statusMergedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 2 } );
+              //const statusOpenComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 0 } );
+              const statusOpenComponent = (tsrcPRstatusComponent.status === 200 &&  tsrcPRstatusComponent.state  === "open")
+              //const statusClosedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 1 } );
+              const statusClosedComponent = (tsrcPRstatusComponent.status === 200 &&  tsrcPRstatusComponent.state  === "close")
+              //const statusMergedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 2 } );
+              const statusMergedComponent = (tsrcPRstatusComponent.status === 200 &&  tsrcPRstatusComponentstate.state === "merge")
 	      
 	      //const checkVoteButtonOpen = (textMath !== null && textMath !== textMathLast);
 	      const checkVoteButtonOpen = commonUtil.isObjEqual(this.state.voteButton, { color: 'green', text: `${textMath}%` } );
@@ -612,17 +618,17 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
       //var span = document.getElementsByClassName("close")[0];
       var domContainerTurboSrcButton;
       var status;
-      var displayOpenStatus;
+      //var displayOpenStatus;
       for (var i = startIndex; i < containerItems.length; i++) {
         issue_id = containerItems[i].getAttribute('id');
         //if (i < 2) {
-        status = await postGetPRvoteStatus(user, repo, issue_id, contributor_id, side);
+        status = await postGetPullRequest(user, repo, issue_id, contributor_id, side);
 	// Update so knows what the state is inside.
 	tsrcPRstatus = status
         gitHubPRstatus = await getGitHubPullRequest(user, repo, issue_id)
 
         //console.log('status: ' + status)
-        displayOpenStatus = status === 'none' || status === 'open';
+        //displayOpenStatus = status.status === 200 &&  status.state === 'new' || status.status === 200 && status.state === 'open';
         domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}`);
         //if (displayOpenStatus) {
         render(ce(TurboSrcButtonOpen, {issueID: issue_id, tsrcPRstatus: tsrcPRstatus, ghPRstatus: gitHubPRstatus }), domContainerTurboSrcButton); //} else {
