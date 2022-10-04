@@ -350,7 +350,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 		}
               }
             })();
-          }, 5000);
+          }, 10000);
         }
         render() {
           const handleClick = e => {
@@ -406,7 +406,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                 (async () => {
 
                   this.setState({ voted: 'valid', lastIssueId: issue_id, side: this.state.side });
-                  await postSetVote(user, repo, issue_id, contributor_id, this.state.side);
+                  await postSetVote(user, repo, issue_id, issue_id, true, contributor_id, this.state.side);
                   this.setState({ voted: 'done', lastIssueId: issue_id, side: this.state.side });
                   //var forkStatus = await postGetPRforkStatus(user, repo, issue_id, contributor_id);
                   //console.log('fork status');
@@ -550,7 +550,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
             //  }
             //  //console.log('status CDUV: ' + voteTotalsReact)
             //})();
-          }, 8000);
+          }, 10000);
         }
         render() {
           const handleClick = e => {

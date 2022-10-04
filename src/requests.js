@@ -179,26 +179,26 @@ async function postNewPullRequest(owner, repo, defaultHash, contributor_id, side
       });
 }
 
-async function postSetVote(owner, repo, issue_id, contributor_id, side) {
-  const res = await superagent
-    .post(`${port}/graphql`)
-    .send(
-      //{ query: '{ name: 'Manny', species: 'cat' }' }
-      //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-      //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-      //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
-      //{ query: `{ getVoteEverything }` }
-      {
-        query: `{ setVote(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }`,
-      }
-      //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
-    ) // sends a JSON post body
-    .set("accept", "json");
-  //   .end((err, res) => {
-  //      Calling the end function will send the request
-  //   });
-  const json = JSON.parse(res.text);
-  return json.data.setVote;
+async function postSetVote(owner, repo, defaultHash, childDefaultHash, mergeable, contributor_id, side) {
+    const res = await superagent
+      .post(`${port}/graphql`)
+      .send(
+        //{ query: '{ name: 'Manny', species: 'cat' }' }
+        //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
+        //{ query: '{ getVote(defaultHash: "default", contributorId: 1) {side} }' }
+        //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
+        //{ query: `{ getVoteEverything }` }
+        {
+         query: `{ setVote(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", childDefaultHash: "${childDefaultHash}", mergeable: ${mergeable}, contributor_id: "${contributor_id}", side: "${side}") }`,
+        }
+        //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
+      ) // sends a JSON post body
+      .set("accept", "json");
+    //   .end((err, res) => {
+    //      Calling the end function will send the request
+    //   });
+    const json = JSON.parse(res.text);
+    return json.data.setVote;
 } 
 
   async function getRepoStatus(repo_id) {
