@@ -215,7 +215,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
               //const statusClosedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 1 } );
               const statusClosedComponent = (tsrcPRstatusComponent.status === 200 &&  tsrcPRstatusComponent.state  === "close")
               //const statusMergedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 2 } );
-              const statusMergedComponent = (tsrcPRstatusComponent.status === 200 &&  tsrcPRstatusComponentstate.state === "merge")
+              const statusMergedComponent = (tsrcPRstatusComponent.status === 200 &&  tsrcPRstatusComponent.state === "merge")
 	      
 	      const checkVoteButtonOpen = commonUtil.isObjEqual(this.state.voteButton, { color: 'green', text: `${textMath}%` } );
 	      const checkVoteButtonClosed = commonUtil.isObjEqual(this.state.voteButton, { color: 'red', text: 'closed' } );
@@ -301,7 +301,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
               //const statusClosedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 1 } );
               const statusClosedComponent = (tsrcPRstatusComponent.status === 200 &&  tsrcPRstatusComponent.state  === "close")
               //const statusMergedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 2 } );
-              const statusMergedComponent = (tsrcPRstatusComponent.status === 200 &&  tsrcPRstatusComponentstate.state === "merge")
+              const statusMergedComponent = (tsrcPRstatusComponent.status === 200 &&  tsrcPRstatusComponent.state === "merge")
 	      
 	      //const checkVoteButtonOpen = (textMath !== null && textMath !== textMathLast);
 	      const checkVoteButtonOpen = commonUtil.isObjEqual(this.state.voteButton, { color: 'green', text: `${textMath}%` } );
