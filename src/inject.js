@@ -262,16 +262,17 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
         componentDidUpdate() {
           setTimeout(() => {
             (async () => {
-              const tsrcPRstatusComponent = await postGetPullRequest(
-                this.state.user,
-                this.state.repo,
-                this.state.issueID,
-                this.state.contributorID,
-                this.state.side
-              );
-
+              let tsrcPRstatusComponent
 	      var textMath = this.state.voteButton.textMath
 	      try {
+
+                tsrcPRstatusComponent = await postGetPullRequest(
+                  this.state.user,
+                  this.state.repo,
+                  this.state.issueID,
+                  this.state.contributorID,
+                  this.state.side
+                );
                 const voteYesTotal = await postGetPRvoteYesTotals(
                     /*owner:*/ this.state.contributorName,
                     /*repo:*/ this.state.repo,
@@ -292,6 +293,9 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 	          textMath = resYes/2 + resNo/2
 		}
 	      } catch(error) {
+                  tsrcPRstatusComponent.status = 404
+		  tsrcPRstatusComponent.state  === "open"
+		  tsrcPRstatusComponent.mergeableCodeHost = true
 	      }
 
 
@@ -312,36 +316,49 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 	      const checkVoteButtonProblem = commonUtil.isObjEqual(this.state.voteButton, { color: 'gray', text: '?' } );
 
 	      modalDisplay = 'hide' // only show modal if open or on vote.
-              if (statusOpenComponent) {
+	      if (statusOpenComponent) {
               //if (statusOpenComponent && gitHubPRstatus.mergeable) {
 	        modalDisplay = 'show'
 		if (!checkVoteButtonOpen) {
                    this.setState({ voteButton: { color: 'green', text: `${textMath}%` } });
-		}
+		} else {
+                  this.setState({ voteButton: { color: 'gray', text: '?' } });
+	        }
               } else if (statusClosedComponent) {
 		if (!checkVoteButtonClosed) {
                   this.setState({ voteButton: { color: 'red', text: 'closed' } });
+		} else {
+                  this.setState({ voteButton: { color: 'gray', text: '?' } });
 	        }
               } else if (statusMergedComponent) {
 		if (!checkVoteButtonMerged) {
                   this.setState({ voteButton: { color: 'darkorchid', text: 'merged' } });
+		} else {
+                  this.setState({tsrcPRstatus: tsrcPRstatusComponent });
 	        }
 	      } else if (tsrcPRstatusComponent.mergeableCodeHost === true) {
 	        modalDisplay = 'show'
 		if (!checkVoteButtonVote) {
                   this.setState({ voteButton: { color: 'lightgreen', text: 'vote' } });
-		}
+		} else {
+                  this.setState({tsrcPRstatus: tsrcPRstatusComponent });
+	        }
 	      } else if (tsrcPRstatusComponent.mergeableCodeHost === false) {
 		if (!checkVoteButtonConflict) {
                   this.setState({ voteButton: { color: 'orange', text: 'conflict' } });
-		}
+		} else {
+                  this.setState({tsrcPRstatus: tsrcPRstatusComponent });
+	        }
               } else {
+		console.log('made it')
 		if (!checkVoteButtonProblem) {
                   this.setState({ voteButton: { color: 'gray', text: '?' } });
-		}
-              }
+		} else {
+                  this.setState({tsrcPRstatus: tsrcPRstatusComponent });
+	        }
+	      }
             })();
-          }, 3000);
+          }, 5000);
         }
         render() {
           const handleClick = e => {
@@ -541,7 +558,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
             //  }
             //  //console.log('status CDUV: ' + voteTotalsReact)
             //})();
-          }, 3000);
+          }, 5000);
         }
         render() {
           const handleClick = e => {
