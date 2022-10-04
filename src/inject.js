@@ -239,12 +239,12 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 		if (!checkVoteButtonMerged) {
                   this.setState({ voteButton: { color: 'darkorchid', text: 'merged' } });
 	        }
-	      } else if (tsrcPRstatusComponent.mergeable === true && tsrcPRstatusComponent.status !== 404) {
+	      } else if (tsrcPRstatusComponent.mergeableCodeHost === true) {
 	        modalDisplay = 'show'
 		if (!checkVoteButtonVote) {
                   this.setState({ voteButton: { color: 'lightgreen', text: 'vote' } });
 		}
-	      } else if (tsrcPRstatusComponent.mergeable === false && tsrcPRstatusComponent.status !== 404) {
+	      } else if (tsrcPRstatusComponent.mergeableCodeHost === false) {
 		if (!checkVoteButtonConflict) {
                   this.setState({ voteButton: { color: 'orange', text: 'conflict' } });
 		}
@@ -326,12 +326,12 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 		if (!checkVoteButtonMerged) {
                   this.setState({ voteButton: { color: 'darkorchid', text: 'merged' } });
 	        }
-	      } else if (tsrcPRstatusComponent.mergeable === true && tsrcPRstatusComponent.status !== 404) {
+	      } else if (tsrcPRstatusComponent.mergeableCodeHost === true) {
 	        modalDisplay = 'show'
 		if (!checkVoteButtonVote) {
                   this.setState({ voteButton: { color: 'lightgreen', text: 'vote' } });
 		}
-	      } else if (tsrcPRstatusComponent.mergeable === false && tsrcPRstatusComponent.status !== 404) {
+	      } else if (tsrcPRstatusComponent.mergeableCodeHost === false) {
 		if (!checkVoteButtonConflict) {
                   this.setState({ voteButton: { color: 'orange', text: 'conflict' } });
 		}
