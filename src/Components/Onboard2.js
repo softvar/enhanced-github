@@ -7,7 +7,7 @@ import Fail from './Fail';
 import Success from './Success';
 import storageUtil from '../utils/storageUtil';
 import { postCreateRepo } from '../requests';
-
+const {Octokit, App} = require("octokit");
 export default function Onboard2() {
   let user = useSelector(state => state.auth.user);
   const navigate = useNavigate();
@@ -27,6 +27,40 @@ export default function Onboard2() {
   let [successful, setSuccessful] = useState(false);
   let [length, setLength] = useState(false);
   let [errorText, setErrorText] = useState('');
+  let [scope, setScope] = useState(false)
+  let [permissions,setPermissions] = useState(false)
+
+  const checkScope = async(token) => {
+    if(!repo || !owner){
+      return
+    }
+  const octokit = new Octokit({ auth: token });
+  const res = await octokit.request(`GET /users/${user.login}`)
+
+  Promise.resolve(res).then((object) => {
+    if(object.headers['x-oauth-scopes'].split(',').includes('public_repo')) {
+      setScope(true)
+    } else {
+      setScope(false)
+    }
+  })
+}
+
+const checkPermissions = async(token) => {
+  if(!repo || !owner){
+    return
+  }
+const octokit = new Octokit({ auth: token });
+const res = await octokit.request(`GET /repos/${owner}/${repo}`)
+
+Promise.resolve(res).then((object) => {
+  if(object.data.permissions.push) {
+    setPermissions(true)
+  } else {
+    setPermissions(false)
+  }
+})
+}
 
   const changeHandler = e => {
     e.preventDefault();
@@ -34,14 +68,10 @@ export default function Onboard2() {
     if (e.target.value.length) {
       setLength(true);
       setChecking(true);
+      checkPermissions(e.target.value)
       setTimeout(() => {
         setChecking(false);
-        if (e.target.value === 'ghp_123') {
-          setVerified(true);
-        } else {
-          setVerified(false);
-        }
-      }, 1000);
+      }, 2000);
     } else {
       setLength(false);
       setVerified(false);
@@ -69,32 +99,55 @@ export default function Onboard2() {
     }
   });
 
+  useEffect(()=>{
+      checkScope(user.token)
+      checkPermissions(user.token)
+  }, [owner,repo])
+
+
   if (loader) {
     return <Loader />;
   }
-  if (failed) {
-    return <Fail setFailed={setFailed} repo={repo} />;
-  }
-  if (successful) {
-    return <Success currency={currency} repo={repo} />;
-  }
 
-  return (
-    <div className="content">
-      <div className="onboard">
-        <span className="">
-          <h1>Tokenize This Repository</h1>
+  if (!scope) {
+    return <div className="content">
+    <div className="onboard">
+      <span className="">
+        <h1>Tokenize This Repository</h1>
+      </span>
+      <span>Tokenizing {repo} will automatically create 1000000 tokens.</span>
+
+      <form name="create">
+        <div className="apiKey">
+          <span className=""><img src="../icons/warning.png" />Additional permissions are required to tokenize this repository</span>
+          <span className="">
+        <a href={`https://github.com/login/oauth/authorize?scope=user:email%20public_repo&client_id=${process.env.GITHUB_CLIENT_ID}`} target="_blank"><button type="button">Update Permissions</button></a>
+          </span>
+        </div>
+        <span>{errorText}</span>
+        <span className="items-center">
+          <button type="button" className="disabledButton">
+            Submit
+          </button>
         </span>
-        <span>Tokenizing {repo} will automatically create 1000000 tokens.</span>
-
-        <form name="create">
-          <div className="apiKey">
-            <span className="">Enter your Personal Access Token for {repo}</span>
+      </form>
+    </div>
+  </div>
+  } else if(!permissions){
+  return( <div className="content">
+    <div className="onboard">
+      <span className="">
+        <h1>Tokenize This Repository</h1>
+      </span>
+      <span>Tokenizing {repo} will automatically create 1000000 tokens.</span>
+      <form name="create">
+        <div className="apiKey">
+        <span className="">You do not have permissions to make changes to this repository. Enter a valid Access Token for {repo}</span>
             <span className="">
               <input
                 type="text"
                 name="apikey"
-                placeholder="ghp_123"
+                placeholder=""
                 value={apiKey}
                 onChange={e => changeHandler(e)}
                 required
@@ -109,15 +162,34 @@ export default function Onboard2() {
                 <img src="../../icons/warning.png"></img>
               )}
             </span>
-          </div>
+        </div>
+        <span>{errorText}</span>
+        <span className="items-center">
+        <button type="button" className="disabledButton">
+              Submit
+            </button>
+        </span>
+      </form>
+    </div>
+  </div> )
+  } else {
+  return (
+    <div className="content">
+      <div className="onboard">
+        <span className="">
+          <h1>Tokenize This Repository</h1>
+        </span>
+        <span>Tokenizing {repo} will automatically create 1000000 tokens.</span>
+
+        <form name="create">
           <span>{errorText}</span>
           <span className="items-center">
             <button type="button" className="startButton" onClick={() => createRepo()}>
-              Review and Submit
+              Submit
             </button>
           </span>
         </form>
       </div>
     </div>
   );
-}
+}}

@@ -46,6 +46,7 @@ export default function Routes() {
       return;
     } else if (user) {
       let githubUser = JSON.parse(user);
+      console.log(githubUser)
       //If turbo-src service server is running use following:
       getContributorId(githubUser.login)
         .then(res => (githubUser.ethereumAddress = res || 'none'))
