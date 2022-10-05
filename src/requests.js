@@ -98,6 +98,7 @@ async function postGetContributorSignature(
   return json.data.getContributorSignature;
 }
 
+
 async function postCreateRepo(owner, repo, defaultHash, contributor_id, side, token) {
     const res = await superagent
       .post(`${port}/graphql`)
@@ -131,6 +132,7 @@ async function postGetContributorTokenAmount(
         }
         //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
       ) // sends a JSON post body
+
       .set("accept", "json");
     //.end((err, res) => {
     // Calling the end function will send the request
@@ -179,6 +181,7 @@ async function postNewPullRequest(owner, repo, defaultHash, contributor_id, side
         // Calling the end function will send the request
       });
 }
+
 
 async function postSetVote(owner, repo, defaultHash, childDefaultHash, mergeable, contributor_id, side, token) {
     const res = await superagent
