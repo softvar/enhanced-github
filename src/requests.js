@@ -98,11 +98,11 @@ async function postGetContributorSignature(
   return json.data.getContributorSignature;
 }
 
-async function postCreateRepo(owner, repo, defaultHash, contributor_id, side) {
+async function postCreateRepo(owner, repo, defaultHash, contributor_id, side, token) {
     const res = await superagent
       .post(`${port}/graphql`)
       .send({
-        query: `{ createRepo(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`,
+        query: `{ createRepo(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", token: "${token}") }`,
       })
       .set("accept", "json");
 
@@ -115,7 +115,8 @@ async function postGetContributorTokenAmount(
   repo,
   defaultHash,
   contributor_id,
-  side
+  side,
+  token
 ) {
     const res = await superagent
       .post(`${port}/graphql`)
@@ -126,7 +127,7 @@ async function postGetContributorTokenAmount(
         //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
         //{ query: `{ getVoteEverything }` }
         {
-          query: `{ getContributorTokenAmount(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") { status, amount } }`,
+          query: `{ getContributorTokenAmount(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", token: "${token}") { status, amount } }`,
         }
         //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
       ) // sends a JSON post body
@@ -139,7 +140,7 @@ async function postGetContributorTokenAmount(
     return json.data.getContributorTokenAmount;
 }
 
-async function postTransferTokens(owner, repo, from, to, amount) {
+async function postTransferTokens(owner, repo, from, to, amount, token) {
   superagent
     .post(`${port}/graphql`)
     .send(
@@ -149,7 +150,7 @@ async function postTransferTokens(owner, repo, from, to, amount) {
       //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
       //{ query: `{ getVoteEverything }` }
       {
-        query: `{ transferTokens(owner: "${owner}", repo: "${repo}", from: "${from}", to: "${to}", amount: "${amount}") }`,
+        query: `{ transferTokens(owner: "${owner}", repo: "${repo}", from: "${from}", to: "${to}", amount: "${amount}", token: "${token}") }`,
       }
       //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body
@@ -179,7 +180,7 @@ async function postNewPullRequest(owner, repo, defaultHash, contributor_id, side
       });
 }
 
-async function postSetVote(owner, repo, defaultHash, childDefaultHash, mergeable, contributor_id, side) {
+async function postSetVote(owner, repo, defaultHash, childDefaultHash, mergeable, contributor_id, side, token) {
     const res = await superagent
       .post(`${port}/graphql`)
       .send(
@@ -189,7 +190,7 @@ async function postSetVote(owner, repo, defaultHash, childDefaultHash, mergeable
         //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
         //{ query: `{ getVoteEverything }` }
         {
-         query: `{ setVote(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", childDefaultHash: "${childDefaultHash}", mergeable: ${mergeable}, contributor_id: "${contributor_id}", side: "${side}") }`,
+         query: `{ setVote(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", childDefaultHash: "${childDefaultHash}", mergeable: ${mergeable}, contributor_id: "${contributor_id}", side: "${side}", token: "${token}") }`,
         }
         //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
       ) // sends a JSON post body
