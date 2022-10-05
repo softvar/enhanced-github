@@ -80,7 +80,7 @@ Promise.resolve(res).then((object) => {
   };
 
   const createRepo = async () => {
-    if (verified) {
+  
       setLoader(true);
       await postCreateRepo(owner, repo, '', user.ethereumAddress, '', user.token).then(res => {
         setLoader(false);
@@ -90,7 +90,7 @@ Promise.resolve(res).then((object) => {
           setErrorText('There was an error tokenizing this repository.');
         }
       });
-    }
+  
   };
 
   useEffect(() => {
@@ -166,7 +166,7 @@ Promise.resolve(res).then((object) => {
         <span>{errorText}</span>
         <span className="items-center">
         <button type="button" className="disabledButton">
-              Submit
+              Not permitted
             </button>
         </span>
       </form>
