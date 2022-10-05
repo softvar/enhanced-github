@@ -21,72 +21,72 @@ async function postCreateUser(
     return json.data.createUser;
 }
 
-async function postGetContributorName(owner, repo, issue_id, contributor_id) {
-  const res = await superagent
-    .post(`${port}/graphql`)
-    .send(
-      //{ query: '{ name: 'Manny', species: 'cat' }' }
-      //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-      //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-      //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
-      //{ query: `{ getVoteEverything }` }
-      {
-        query: `{ getContributorName(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}") }`,
-      }
-      //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
-    ) // sends a JSON post body
-    .set("accept", "json");
-  //.end((err, res) => {
-  // Calling the end function will send the request
-  //});
-  console.log("gqlr 123");
-  const json = JSON.parse(res.text);
-  console.log(json);
-  return json.data.getContributorName;
+async function postGetContributorName(owner, repo, defaultHash, contributor_id) {
+    const res = await superagent
+      .post(`${port}/graphql`)
+      .send(
+        //{ query: '{ name: 'Manny', species: 'cat' }' }
+        //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
+        //{ query: '{ getVote(defaultHash: "default", contributorId: 1) {side} }' }
+        //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
+        //{ query: `{ getVoteEverything }` }
+        {
+          query: `{ getContributorName(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}") }`,
+        }
+        //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
+      ) // sends a JSON post body
+      .set("accept", "json");
+    //.end((err, res) => {
+    // Calling the end function will send the request
+    //});
+    console.log("gqlr 123");
+    const json = JSON.parse(res.text);
+    console.log(json);
+    return json.data.getContributorName;
 }
 
-async function postGetContributorID(owner, repo, issue_id, contributor_name) {
-  const res = await superagent
-    .post(`${port}/graphql`)
-    .send(
-      //{ query: '{ name: 'Manny', species: 'cat' }' }
-      //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-      //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-      //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
-      //{ query: `{ getVoteEverything }` }
-      {
-        query: `{ getContributorID(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_name: "${contributor_name}") }`,
-      }
-      //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
-    ) // sends a JSON post body
-    .set("accept", "json");
-  //.end((err, res) => {
-  // Calling the end function will send the request
-  //});
-  console.log("gqlr 123");
-  const json = JSON.parse(res.text);
-  console.log(json);
-  return json.data.getContributorID;
+async function postGetContributorID(owner, repo, defaultHash, contributor_name) {
+    const res = await superagent
+      .post(`${port}/graphql`)
+      .send(
+        //{ query: '{ name: 'Manny', species: 'cat' }' }
+        //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
+        //{ query: '{ getVote(defaultHash: "default", contributorId: 1) {side} }' }
+        //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
+        //{ query: `{ getVoteEverything }` }
+        {
+          query: `{ getContributorID(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_name: "${contributor_name}") }`,
+        }
+        //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
+      ) // sends a JSON post body
+      .set("accept", "json");
+    //.end((err, res) => {
+    // Calling the end function will send the request
+    //});
+    console.log("gqlr 123");
+    const json = JSON.parse(res.text);
+    console.log(json);
+    return json.data.getContributorID;
 }
 
 async function postGetContributorSignature(
   owner,
   repo,
-  issue_id,
+  defaultHash,
   contributor_id
 ) {
   const res = await superagent
     .post(`${port}/graphql`)
     .send(
       //{ query: '{ name: 'Manny', species: 'cat' }' }
-      //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-      //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-      //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
+      //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
+      //{ query: '{ getVote(defaultHash: "default", contributorId: 1) {side} }' }
+      //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
       //{ query: `{ getVoteEverything }` }
       {
-        query: `{ getContributorSignature(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}") }`,
+        query: `{ getContributorSignature(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}") }`,
       }
-      //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
+      //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body
     .set("accept", "json");
   //.end((err, res) => {
@@ -98,50 +98,51 @@ async function postGetContributorSignature(
   return json.data.getContributorSignature;
 }
 
-async function postCreateRepo(owner, repo, issue_id, contributor_id, side) {
-  const res = await superagent
-    .post(`${port}/graphql`)
-    .send(
-      //{ query: '{ name: 'Manny', species: 'cat' }' }
-      //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-      //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-      //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
-      //{ query: `{ getVoteEverything }` }
-      {
-        query: `{ createRepo(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }`,
-      }
-      //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
-    ) // sends a JSON post body
-    .set("accept", "json");
-  //.end((err, res) => {
-  // Calling the end function will send the request
-  //});
-  const json = JSON.parse(res.text);
-  console.log(json);
-  return json.data.createRepo;
+
+async function postCreateRepo(owner, repo, defaultHash, contributor_id, side, token) {
+    const res = await superagent
+      .post(`${port}/graphql`)
+      .send({
+        query: `{ createRepo(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", token: "${token}") }`,
+      })
+      .set("accept", "json");
+
+    const json = JSON.parse(res.text);
+    return json.data.createRepo;
 }
 
 async function postGetContributorTokenAmount(
-   owner,
-   repo,
-   pr_id,
-   contributor_id,
-   side
+  owner,
+  repo,
+  defaultHash,
+  contributor_id,
+  side,
+  token
 ) {
-  const res = await superagent
-    .post(`${port}/graphql`)
-      .send({
-        query: `{ getContributorTokenAmount(owner: "${owner}", repo: "${repo}", pr_id: "${pr_id}", contributor_id: "${contributor_id}", side: "${side}") { status, amount } }`,
-      }) // sends a JSON post body
+    const res = await superagent
+      .post(`${port}/graphql`)
+      .send(
+        //{ query: '{ name: 'Manny', species: 'cat' }' }
+        //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
+        //{ query: '{ getVote(defaultHash: "default", contributorId: 1) {side} }' }
+        //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
+        //{ query: `{ getVoteEverything }` }
+        {
+          query: `{ getContributorTokenAmount(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", token: "${token}") { status, amount } }`,
+        }
+        //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
+      ) // sends a JSON post body
+
       .set("accept", "json");
     //.end((err, res) => {
     // Calling the end function will send the request
     //});
     const json = JSON.parse(res.text);
+    console.log(json);
     return json.data.getContributorTokenAmount;
 }
 
-async function postTransferTokens(owner, repo, from, to, amount) {
+async function postTransferTokens(owner, repo, from, to, amount, token) {
   superagent
     .post(`${port}/graphql`)
     .send(
@@ -151,7 +152,7 @@ async function postTransferTokens(owner, repo, from, to, amount) {
       //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
       //{ query: `{ getVoteEverything }` }
       {
-        query: `{ transferTokens(owner: "${owner}", repo: "${repo}", from: "${from}", to: "${to}", amount: "${amount}") }`,
+        query: `{ transferTokens(owner: "${owner}", repo: "${repo}", from: "${from}", to: "${to}", amount: "${amount}", token: "${token}") }`,
       }
       //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body
@@ -161,46 +162,47 @@ async function postTransferTokens(owner, repo, from, to, amount) {
     });
 }
 
-async function postNewPullRequest(owner, repo, issue_id, contributor_id, side) {
-  superagent
-    .post(`${port}/graphql`)
-    .send(
-      //{ query: '{ name: 'Manny', species: 'cat' }' }
-      //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-      //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-      //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
-      //{ query: `{ getVoteEverything }` }
-      {
-        query: `{ newPullRequest(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }`,
-      }
-      //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
-    ) // sends a JSON post body
-    .set("accept", "json")
-    .end((err, res) => {
-      // Calling the end function will send the request
-    });
+async function postNewPullRequest(owner, repo, defaultHash, contributor_id, side) {
+    superagent
+      .post(`${port}/graphql`)
+      .send(
+        //{ query: '{ name: 'Manny', species: 'cat' }' }
+        //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
+        //{ query: '{ getVote(defaultHash: "default", contributorId: 1) {side} }' }
+        //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
+        //{ query: `{ getVoteEverything }` }
+        {
+          query: `{ newPullRequest(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`,
+        }
+        //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
+      ) // sends a JSON post body
+      .set("accept", "json")
+      .end((err, res) => {
+        // Calling the end function will send the request
+      });
 }
 
-async function postSetVote(owner, repo, issue_id, contributor_id, side) {
-  const res = await superagent
-    .post(`${port}/graphql`)
-    .send(
-      //{ query: '{ name: 'Manny', species: 'cat' }' }
-      //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-      //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-      //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
-      //{ query: `{ getVoteEverything }` }
-      {
-        query: `{ setVote(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }`,
-      }
-      //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
-    ) // sends a JSON post body
-    .set("accept", "json");
-  //   .end((err, res) => {
-  //      Calling the end function will send the request
-  //   });
-  const json = JSON.parse(res.text);
-  return json.data.setVote;
+
+async function postSetVote(owner, repo, defaultHash, childDefaultHash, mergeable, contributor_id, side, token) {
+    const res = await superagent
+      .post(`${port}/graphql`)
+      .send(
+        //{ query: '{ name: 'Manny', species: 'cat' }' }
+        //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
+        //{ query: '{ getVote(defaultHash: "default", contributorId: 1) {side} }' }
+        //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
+        //{ query: `{ getVoteEverything }` }
+        {
+         query: `{ setVote(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", childDefaultHash: "${childDefaultHash}", mergeable: ${mergeable}, contributor_id: "${contributor_id}", side: "${side}", token: "${token}") }`,
+        }
+        //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
+      ) // sends a JSON post body
+      .set("accept", "json");
+    //   .end((err, res) => {
+    //      Calling the end function will send the request
+    //   });
+    const json = JSON.parse(res.text);
+    return json.data.setVote;
 } 
 
   async function getRepoStatus(repo_id) {
@@ -249,62 +251,62 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
   return json.data.getPRforkStatus;
 }
 
-async function postGetPRvoteStatus(owner, repo, pr_id, contributor_id, side) {
-  const res = await superagent
-    .post(`${port}/graphql`)
-    .send({
-      query: `{ getPRvoteStatus(owner: "${owner}", repo: "${repo}", pr_id: "${pr_id}", contributor_id: "${contributor_id}", side: "${side}") { status, type } }`,
-    })
-    .set("accept", "json");
-  //.end((err, res) => {
-  // Calling the end function will send the request
-  //});
-  const json = JSON.parse(res.text);
-  return json.data.getPRvoteStatus;
+async function postGetPullRequest(owner, repo, defaultHash, contributor_id, side) {
+   const res = await superagent
+     .post(`${port}/graphql`)
+     .send({
+       query: `{ getPullRequest(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") { status, state, repo_id, fork_branch, defaultHash, childDefaultHash, mergeableCodeHost } }`,
+     })
+     .set("accept", "json");
+   //.end((err, res) => {
+   // Calling the end function will send the request
+   //});
+   const json = JSON.parse(res.text);
+   return json.data.getPullRequest;
 }
 
 async function postGetPRpercentVotedQuorum(
   owner,
   repo,
-  issue_id,
+  defaultHash,
   contributor_id,
   side
 ) {
-  const res = await superagent
-    .post(`${port}/graphql`)
-    .send(
-      //{ query: '{ name: 'Manny', species: 'cat' }' }
-      //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-      //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-      //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
-      //{ query: `{ getVoteEverything }` }
-      {
-        query: `{ getPRvoteTotals(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }`,
-      }
-      //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
-    ) // sends a JSON post body
-    .set("accept", "json");
-  //.end((err, res) => {
-  // Calling the end function will send the request
-  //});
-  const json = JSON.parse(res.text);
-  console.log(json);
-  return json.data.percentVotedQuorum;
+    const res = await superagent
+      .post(`${port}/graphql`)
+      .send(
+        //{ query: '{ name: 'Manny', species: 'cat' }' }
+        //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
+        //{ query: '{ getVote(defaultHash: "default", contributorId: 1) {side} }' }
+        //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
+        //{ query: `{ getVoteEverything }` }
+        {
+          query: `{ getPRvoteTotals(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`,
+        }
+        //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
+      ) // sends a JSON post body
+      .set("accept", "json");
+    //.end((err, res) => {
+    // Calling the end function will send the request
+    //});
+    const json = JSON.parse(res.text);
+    console.log(json);
+    return json.data.percentVotedQuorum;
 }
 
-async function postGetPRvoteTotals(owner, repo, issue_id, contributor_id, side) {
+async function postGetPRvoteTotals(owner, repo, defaultHash, contributor_id, side) {
   const res = await superagent
     .post(`${port}/graphql`)
     .send(
       //{ query: '{ name: 'Manny', species: 'cat' }' }
-      //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-      //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-      //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
+      //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
+      //{ query: '{ getVote(defaultHash: "default", contributorId: 1) {side} }' }
+      //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
       //{ query: `{ getVoteEverything }` }
       {
-        query: `{ getPRvoteTotals(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }`,
+        query: `{ getPRvoteTotals(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`,
       }
-      //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
+      //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body
     .set("accept", "json");
   //.end((err, res) => {
@@ -318,7 +320,7 @@ async function postGetPRvoteTotals(owner, repo, issue_id, contributor_id, side) 
 async function postGetPRvoteYesTotals(
   owner,
   repo,
-  issue_id,
+  defaultHash,
   contributor_id,
   side
 ) {
@@ -326,14 +328,14 @@ async function postGetPRvoteYesTotals(
     .post(`${port}/graphql`)
     .send(
       //{ query: '{ name: 'Manny', species: 'cat' }' }
-      //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-      //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-      //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
+      //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
+      //{ query: '{ getVote(defaultHash: "default", contributorId: 1) {side} }' }
+      //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
       //{ query: `{ getVoteEverything }` }
       {
-        query: `{ getPRvoteYesTotals(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }`,
+        query: `{ getPRvoteYesTotals(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`,
       }
-      //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
+      //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body
     .set("accept", "json");
   //.end((err, res) => {
@@ -347,7 +349,7 @@ async function postGetPRvoteYesTotals(
 async function postGetPRvoteNoTotals(
   owner,
   repo,
-  issue_id,
+  defaultHash,
   contributor_id,
   side
 ) {
@@ -355,14 +357,14 @@ async function postGetPRvoteNoTotals(
     .post(`${port}/graphql`)
     .send(
       //{ query: '{ name: 'Manny', species: 'cat' }' }
-      //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-      //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-      //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
+      //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
+      //{ query: '{ getVote(defaultHash: "default", contributorId: 1) {side} }' }
+      //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
       //{ query: `{ getVoteEverything }` }
       {
-        query: `{ getPRvoteNoTotals(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }`,
+        query: `{ getPRvoteNoTotals(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`,
       }
-      //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
+      //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body
     .set("accept", "json");
   //.end((err, res) => {
@@ -373,44 +375,44 @@ async function postGetPRvoteNoTotals(
   return json.data.getPRvoteNoTotals;
 }
 
-async function postClosePullRequest(owner, repo, issue_id, contributor_id, side) {
-  superagent
-    .post(`${port}/graphql`)
-    .send(
-      //{ query: '{ name: 'Manny', species: 'cat' }' }
-      //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-      //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-      //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
-      //{ query: `{ getVoteEverything }` }
-      {
-        query: `{ closePullRequest(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }`,
-      }
-      //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
-    ) // sends a JSON post body
-    .set("accept", "json")
-    .end((err, res) => {
-      // Calling the end function will send the request
-    });
+async function postClosePullRequest(owner, repo, defaultHash, contributor_id, side) {
+    superagent
+      .post(`${port}/graphql`)
+      .send(
+        //{ query: '{ name: 'Manny', species: 'cat' }' }
+        //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
+        //{ query: '{ getVote(defaultHash: "default", contributorId: 1) {side} }' }
+        //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
+        //{ query: `{ getVoteEverything }` }
+        {
+          query: `{ closePullRequest(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`,
+        }
+        //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
+      ) // sends a JSON post body
+      .set("accept", "json")
+      .end((err, res) => {
+        // Calling the end function will send the request
+      });
 }
 
-async function postMergePullRequest(owner, repo, issue_id, contributor_id, side) { 
-  superagent
-    .post(`${port}/graphql`)
-    .send(
-      //{ query: '{ name: 'Manny', species: 'cat' }' }
-      //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
-      //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
-      //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
-      //{ query: `{ getVoteEverything }` }
-      {
-        query: `{ mergePullRequest(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}", side: "${side}") }`,
-      }
-      //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
-    ) // sends a JSON post body
-    .set("accept", "json")
-    .end((err, res) => {
-      // Calling the end function will send the request
-    });
+async function postMergePullRequest(owner, repo, defaultHash, contributor_id, side) { 
+    superagent
+      .post(`${port}/graphql`)
+      .send(
+        //{ query: '{ name: 'Manny', species: 'cat' }' }
+        //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
+        //{ query: '{ getVote(defaultHash: "default", contributorId: 1) {side} }' }
+        //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
+        //{ query: `{ getVoteEverything }` }
+        {
+          query: `{ mergePullRequest(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`,
+        }
+        //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
+      ) // sends a JSON post body
+      .set("accept", "json")
+      .end((err, res) => {
+        // Calling the end function will send the request
+      });
 }
 
 async function postCreatePullRequest(owner, repo, fork_branch, issue_id, title) {
@@ -451,11 +453,11 @@ async function postFork(owner, repo, org) {
     });
 }
 
-async function getGitHubPullRequest(owner, repo, pr_id)  {
+async function getGitHubPullRequest(owner, repo, defaultHash)  {
     const res = await superagent
       .post(`${port}/graphql`)
       .send({
-        query: `{ getGitHubPullRequest(owner: "${owner}", repo: "${repo}", pr_id: "${pr_id}") { status, mergeable, mergeCommitSha, state, baseBranch } }`,
+        query: `{ getGitHubPullRequest(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}") { status, mergeable, mergeCommitSha, state, baseBranch } }`,
       })
       .set("accept", "json");
     //.end((err, res) => {
@@ -479,7 +481,7 @@ export {
 	get_authorized_contributor,
 	postPullFork,
 	postGetPRforkStatus,
-	postGetPRvoteStatus,
+	postGetPullRequest,
 	postGetPRpercentVotedQuorum,
 	postGetPRvoteTotals,
 	postGetPRvoteYesTotals,

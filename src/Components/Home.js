@@ -41,7 +41,7 @@ export default function Home(props) {
 
   useEffect(() => {
     const getTokenAmount = async () => {
-      await postGetContributorTokenAmount(owner, repo, '', user.ethereumAddress, '')
+      await postGetContributorTokenAmount(owner, repo, '', user.ethereumAddress, '', user.token)
         .then(res => useCommas(res.amount))
         .then(tokens => setTokenAmount(tokens));
     };

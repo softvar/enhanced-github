@@ -30,18 +30,6 @@ export default function Onboard2() {
   let [scope, setScope] = useState(false)
   let [permissions,setPermissions] = useState(false)
 
-  const createRepo = async () => {
-      setLoader(true);
-      await postCreateRepo(owner, repo, '', user.ethereumAddress, '').then(res => {
-        setLoader(false);
-        if (res === '201') {
-          navigate('/home');
-        } else {
-          setErrorText('There was an error tokenizing this repository.');
-        }
-      });
-  };
-
   const checkScope = async(token) => {
     if(!repo || !owner){
       return
@@ -88,6 +76,20 @@ Promise.resolve(res).then((object) => {
       setLength(false);
       setVerified(false);
       setChecking(false);
+    }
+  };
+
+  const createRepo = async () => {
+    if (verified) {
+      setLoader(true);
+      await postCreateRepo(owner, repo, '', user.ethereumAddress, '', user.token).then(res => {
+        setLoader(false);
+        if (res === '201') {
+          navigate('/home');
+        } else {
+          setErrorText('There was an error tokenizing this repository.');
+        }
+      });
     }
   };
 

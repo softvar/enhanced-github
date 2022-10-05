@@ -5,14 +5,14 @@ import { useSelector } from 'react-redux';
 import { postTransferTokens } from '../requests';
 export default function Review(props) {
   const user = useSelector(state => state.auth.user);
-  let { recipientId, recipientName, tokens, amount, setReview, setTransfer, repo, tokenAmount } = props;
+  let { recipientId, recipientName, tokens, amount, setReview, setTransfer, owner, repo, tokenAmount } = props;
   let [success, setSuccess] = useState(false);
   let [loader, setLoader] = useState(false);
 
   const clickHandler = async e => {
     setLoader(true);
 
-    await postTransferTokens(user.login, repo, user.ethereumAddress, recipientId, amount)
+    await postTransferTokens(owner, repo, user.ethereumAddress, recipientId, amount, user.token)
       .catch(error => setLoader(false))
       .then(() => setSuccess(true))
       .then(() => setLoader(false));
