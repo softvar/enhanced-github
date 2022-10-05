@@ -416,7 +416,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 
                   this.setState({ voted: 'valid', lastIssueId: issue_id, side: this.state.side });
 
-                  await postSetVote(user, repo, issue_id, contributor_id, this.state.side, githubUser.token);
+                  await postSetVote(user, repo, issue_id, issue_id, false, contributor_id, this.state.side, githubUser.token);
                   this.setState({ voted: 'done', lastIssueId: issue_id, side: this.state.side });
                   //var forkStatus = await postGetPRforkStatus(user, repo, issue_id, contributor_id);
                   //console.log('fork status');
