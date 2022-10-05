@@ -322,13 +322,13 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 		if (!checkVoteButtonOpen) {
                    this.setState({ voteButton: { color: 'green', text: `${textMath}%` } });
 		} else {
-                  this.setState({ voteButton: { color: 'gray', text: '?' } });
+                  this.setState({tsrcPRstatus: tsrcPRstatusComponent });
 	        }
               } else if (statusClosedComponent) {
 		if (!checkVoteButtonClosed) {
                   this.setState({ voteButton: { color: 'red', text: 'closed' } });
 		} else {
-                  this.setState({ voteButton: { color: 'gray', text: '?' } });
+                  this.setState({tsrcPRstatus: tsrcPRstatusComponent });
 	        }
               } else if (statusMergedComponent) {
 		if (!checkVoteButtonMerged) {
