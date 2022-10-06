@@ -212,13 +212,15 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 	      console.log('tsrcPRstatusComponent ', tsrcPRstatusComponent)
 
               //const statusOpenComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 0 } );
+              const statusPreOpenComponent = (tsrcPRstatusComponent.status === 200 && tsrcPRstatusComponent.state  === "pre-open")
               const statusOpenComponent = (tsrcPRstatusComponent.status === 200 &&  tsrcPRstatusComponent.state  === "open")
               //const statusClosedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 1 } );
               const statusClosedComponent = (tsrcPRstatusComponent.status === 200 &&  tsrcPRstatusComponent.state  === "close")
               //const statusMergedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 2 } );
               const statusMergedComponent = (tsrcPRstatusComponent.status === 200 &&  tsrcPRstatusComponent.state === "merge")
 	      
-	      const checkVoteButtonOpen = commonUtil.isObjEqual(this.state.voteButton, { color: 'green', text: `${textMath}%` } );
+	      const checkVoteButtonPreOpen = commonUtil.isObjEqual(this.state.voteButton, { color: 'green', text: `${textMath}%` } );
+	      const checkVoteButtonOpen = commonUtil.isObjEqual(this.state.voteButton, { color: 'orchid', text: `${textMath}%` } );
 	      const checkVoteButtonClosed = commonUtil.isObjEqual(this.state.voteButton, { color: 'red', text: 'closed' } );
 	      const checkVoteButtonMerged = commonUtil.isObjEqual(this.state.voteButton, { color: 'darkorchid', text: 'merged' } );
 	      const checkVoteButtonVote = commonUtil.isObjEqual(this.state.voteButton, { color: 'lightgreen', text: 'vote' } );
@@ -226,11 +228,17 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 	      const checkVoteButtonProblem = commonUtil.isObjEqual(this.state.voteButton, { color: 'gray', text: '?' } );
 
 	      modalDisplay = 'hide' // only show modal if open or on vote.
-              if (statusOpenComponent) {
+              if (statusPreOpenComponent) {
+	        modalDisplay = 'show'
+              //if (statusOpenComponent && gitHubPRstatus.mergeable) {
+		if (!checkVoteButtonPreOpen) {
+                   this.setState({ voteButton: { color: 'green', text: `${textMath}%` } });
+		}
+	      } else if (statusOpenComponent) {
 	        modalDisplay = 'show'
               //if (statusOpenComponent && gitHubPRstatus.mergeable) {
 		if (!checkVoteButtonOpen) {
-                   this.setState({ voteButton: { color: 'green', text: `${textMath}%` } });
+                   this.setState({ voteButton: { color: 'orchid', text: `${textMath}%` } });
 		}
               } else if (statusClosedComponent) {
 		if (!checkVoteButtonClosed) {
@@ -301,6 +309,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 
 
 	      console.log('update tsrcPRstatusComponent ', tsrcPRstatusComponent)
+              const statusPreOpenComponent = (tsrcPRstatusComponent.status === 200 && tsrcPRstatusComponent.state  === "pre-open")
               //const statusOpenComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 0 } );
               const statusOpenComponent = (tsrcPRstatusComponent.status === 200 &&  tsrcPRstatusComponent.state  === "open")
               //const statusClosedComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 1 } );
@@ -309,7 +318,8 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
               const statusMergedComponent = (tsrcPRstatusComponent.status === 200 &&  tsrcPRstatusComponent.state === "merge")
 	      
 	      //const checkVoteButtonOpen = (textMath !== null && textMath !== textMathLast);
-	      const checkVoteButtonOpen = commonUtil.isObjEqual(this.state.voteButton, { color: 'green', text: `${textMath}%` } );
+	      const checkVoteButtonPreOpen = commonUtil.isObjEqual(this.state.voteButton, { color: 'green', text: `${textMath}%` } );
+	      const checkVoteButtonOpen = commonUtil.isObjEqual(this.state.voteButton, { color: 'orchid', text: `${textMath}%` } );
 	      const checkVoteButtonClosed = commonUtil.isObjEqual(this.state.voteButton, { color: 'red', text: 'closed' } );
 	      const checkVoteButtonMerged = commonUtil.isObjEqual(this.state.voteButton, { color: 'darkorchid', text: 'merged' } );
 	      const checkVoteButtonVote = commonUtil.isObjEqual(this.state.voteButton, { color: 'lightgreen', text: 'vote' } );
@@ -317,11 +327,19 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 	      const checkVoteButtonProblem = commonUtil.isObjEqual(this.state.voteButton, { color: 'gray', text: '?' } );
 
 	      modalDisplay = 'hide' // only show modal if open or on vote.
-	      if (statusOpenComponent) {
+              if (statusPreOpenComponent) {
+	        modalDisplay = 'show'
+              //if (statusOpenComponent && gitHubPRstatus.mergeable) {
+		if (!checkVoteButtonPreOpen) {
+                   this.setState({ voteButton: { color: 'green', text: `${textMath}%` } });
+		} else {
+                  this.setState({tsrcPRstatus: tsrcPRstatusComponent });
+	        }
+	      } else if (statusOpenComponent) {
               //if (statusOpenComponent && gitHubPRstatus.mergeable) {
 	        modalDisplay = 'show'
 		if (!checkVoteButtonOpen) {
-                   this.setState({ voteButton: { color: 'green', text: `${textMath}%` } });
+                   this.setState({ voteButton: { color: 'orchid', text: `${textMath}%` } });
 		} else {
                   this.setState({tsrcPRstatus: tsrcPRstatusComponent });
 	        }
