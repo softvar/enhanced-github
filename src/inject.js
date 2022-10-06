@@ -271,17 +271,15 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
         componentDidUpdate() {
           setTimeout(() => {
             (async () => {
-              let tsrcPRstatusComponent
-	      var textMath = this.state.voteButton.textMath
-	      try {
-
-                tsrcPRstatusComponent = await postGetPullRequest(
+              let tsrcPRstatusComponent = await postGetPullRequest(
                   this.state.user,
                   this.state.repo,
                   this.state.issueID,
                   this.state.contributorID,
                   this.state.side
                 );
+	      var textMath = this.state.voteButton.textMath
+	      try {
                 const voteYesTotal = await postGetPRvoteYesTotals(
                     /*owner:*/ this.state.contributorName,
                     /*repo:*/ this.state.repo,
@@ -302,13 +300,19 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 	          textMath = resYes/2 + resNo/2
 		}
 	      } catch(error) {
-                  tsrcPRstatusComponent.status = 404
-		  tsrcPRstatusComponent.state  === "open"
-		  tsrcPRstatusComponent.mergeableCodeHost = true
+		textMath = ""
 	      }
 
 
 	      console.log('update tsrcPRstatusComponent ', tsrcPRstatusComponent)
+              const statusProblemComponent = (tsrcPRstatusComponent === null || tsrcPRstatusComponent  === undefined)
+
+	      if (statusProblemComponent) {
+		 tsrcPRstatusComponent = {}
+                 tsrcPRstatusComponent.status = this.state.tsrcPRstatus.status
+                 tsrcPRstatusComponent.state = this.state.tsrcPRstatus.state
+	      }
+	      
               const statusPreOpenComponent = (tsrcPRstatusComponent.status === 200 && tsrcPRstatusComponent.state  === "pre-open")
               //const statusOpenComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 0 } );
               const statusOpenComponent = (tsrcPRstatusComponent.status === 200 &&  tsrcPRstatusComponent.state  === "open")
@@ -368,6 +372,8 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 		} else {
                   this.setState({tsrcPRstatus: tsrcPRstatusComponent });
 	        }
+	      } else if (tsrcPRstatusComponent.mergeableCodeHost === true) {
+                  this.setState({ voteButton: { color: 'lightgreen', text: 'vote' } });
               } else {
 		console.log('made it')
 		if (!checkVoteButtonProblem) {
