@@ -24,7 +24,7 @@ export default function Transfer(props) {
     from: user.ethereumAddress,
     recipientId: 'none',
     recipientName: '',
-    amount: ''
+    amount: 0
   });
 
   useEffect(() => {

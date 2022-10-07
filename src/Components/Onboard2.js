@@ -8,6 +8,7 @@ import Success from './Success';
 import storageUtil from '../utils/storageUtil';
 import { postCreateRepo } from '../requests';
 const {Octokit, App} = require("octokit");
+const jwt = require("jsonwebtoken");
 export default function Onboard2() {
   let user = useSelector(state => state.auth.user);
   const navigate = useNavigate();
@@ -30,11 +31,21 @@ export default function Onboard2() {
   let [scope, setScope] = useState(false)
   let [permissions,setPermissions] = useState(false)
 
+
   const checkScope = async(token) => {
     if(!repo || !owner){
       return
     }
-  const octokit = new Octokit({ auth: token });
+
+    let octokit
+    // If token is longer, it must be a hashed token. For testing, it might not be hashed - temporary solution:
+    if(token.length > 45) {
+      const tokenRes = jwt.verify(token, process.env.JWT)
+      octokit = new Octokit({ auth: tokenRes.githubToken });
+    } else {
+      octokit = new Octokit({ auth: token });
+    }
+
   const res = await octokit.request(`GET /users/${user.login}`)
 
   Promise.resolve(res).then((object) => {
@@ -50,7 +61,15 @@ const checkPermissions = async(token) => {
   if(!repo || !owner){
     return
   }
-const octokit = new Octokit({ auth: token });
+    let octokit
+    // If token is longer, it must be a hashed token. For testing, it might not be hashed - temporary solution:
+    if(token.length > 45) {
+      const tokenRes = jwt.verify(token, process.env.JWT)
+      octokit = new Octokit({ auth: tokenRes.githubToken });
+    } else {
+      octokit = new Octokit({ auth: token });
+    }
+
 const res = await octokit.request(`GET /repos/${owner}/${repo}`)
 
 Promise.resolve(res).then((object) => {

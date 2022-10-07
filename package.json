@@ -41,6 +41,7 @@
     "graphql": "^16.0.1",
     "graphql-ws": "^5.5.5",
     "https": "^1.0.0",
+    "jsonwebtoken": "^8.5.1",
     "namor": "^2.0.3",
     "node-fetch": "^2.6.7",
     "octokit": "^2.0.7",
