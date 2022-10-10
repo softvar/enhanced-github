@@ -37,7 +37,7 @@ const { postSetVote,
         getGitHubPullRequest
       } = require('./requests')
 
-const port = "http://localhost:4000";
+const port = "https://turbosrc-service.fly.dev"
 
 var isRepoTurboSrcToken = false;
 
@@ -189,14 +189,14 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 	      var textMath = this.state.voteButton.textMath
 	      try {
                 const voteYesTotal = await postGetPRvoteYesTotals(
-                    /*owner:*/ this.state.contributorName,
+                    /*owner:*/ this.state.user,
                     /*repo:*/ this.state.repo,
                     /*pr_id:*/ this.state.issueID,
                     /*contributor_id:*/ "",
                     /*side:*/ "",
                 );
                 const voteNoTotal = await postGetPRvoteNoTotals(
-                    /*owner:*/ this.state.contributorName,
+                    /*owner:*/ this.state.user,
                     /*repo:*/ this.state.repo,
                     /*pr_id:*/ this.state.issueID,
                     /*contributor_id:*/ "",
@@ -281,21 +281,25 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 	      var textMath = this.state.voteButton.textMath
 	      try {
                 const voteYesTotal = await postGetPRvoteYesTotals(
-                    /*owner:*/ this.state.contributorName,
+                    /*owner:*/ this.state.user,
                     /*repo:*/ this.state.repo,
                     /*pr_id:*/ this.state.issueID,
                     /*contributor_id:*/ "",
                     /*side:*/ "",
                 );
                 const voteNoTotal = await postGetPRvoteNoTotals(
-                    /*owner:*/ this.state.contributorName,
+                    /*owner:*/ this.state.user,
                     /*repo:*/ this.state.repo,
                     /*pr_id:*/ this.state.issueID,
                     /*contributor_id:*/ "",
                     /*side:*/ "",
                 );
+		console.log('voteYes ', voteYesTotal)
+		console.log('voteYNo ', voteNoTotal)
                 const resYes = mathUtil.votePercentToMergeInteger(voteYesTotal)
                 const resNo = mathUtil.votePercentToMergeInteger(voteNoTotal)
+		console.log('resYes ', resYes)
+		console.log('resNo ', resNo)
 		if (resYes !== null && resNo !== null) {
 	          textMath = resYes/2 + resNo/2
 		}
