@@ -185,7 +185,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
         componentDidMount() {
           setTimeout(() => {
             (async () => {
-	      const tsrcPRstatusComponent = this.state.tsrcPRstatus
+	      let tsrcPRstatusComponent = this.state.tsrcPRstatus
 
 	      var textMath = this.state.voteButton.textMath
 	      try {
@@ -211,6 +211,13 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 	      } catch(error) {
 	      }
 	      console.log('tsrcPRstatusComponent ', tsrcPRstatusComponent)
+              const statusProblemComponent = (tsrcPRstatusComponent === null || tsrcPRstatusComponent  === undefined)
+	      if (statusProblemComponent) {
+		 tsrcPRstatusComponent = {}
+                 tsrcPRstatusComponent.mergeableCodeHost = true
+                 tsrcPRstatusComponent.status = 404
+                 tsrcPRstatusComponent.state = ""
+	      }
 
               //const statusOpenComponent = commonUtil.isObjEqual(tsrcPRstatusComponent, { status: 200, type: 0 } );
               const statusPreOpenComponent = (tsrcPRstatusComponent.status === 200 && tsrcPRstatusComponent.state  === "pre-open")
