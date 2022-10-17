@@ -5,10 +5,10 @@ import App from './App.js';
 const e = React.createElement;
 var issueId = 'waiting...';
 chrome.tabs.query(
-                 {active:true},
+                 {active:true, lastFocusedWindow:true},
                  tabs=>{
                             const tab=tabs[0];
-                            console.log("URL:", tab.url)
+                            console.log("URL:", tab)
                             }
                              )
 
