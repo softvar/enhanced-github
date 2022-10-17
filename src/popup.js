@@ -4,6 +4,14 @@ import App from './App.js';
 
 const e = React.createElement;
 var issueId = 'waiting...';
+chrome.tabs.query(
+                 {active:true},
+                 tabs=>{
+                            const tab=tabs[0];
+                            console.log("URL:", tab.url)
+                            }
+                             )
+
 
 document.addEventListener('DOMContentLoaded', function() {
   const domContainer = document.querySelector('#rootcontainer');
