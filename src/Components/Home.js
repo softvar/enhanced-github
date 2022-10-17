@@ -28,7 +28,7 @@ export default function Home(props) {
     chrome.storage.local.set({ contributor_name: user.login });
     chrome.storage.local.set({ contributor_id: user.ethereumAddress });
   });
-
+console.log('home props:', props)
   let [tokenized, setTokenized] = useState(false);
 
   useEffect(() => {

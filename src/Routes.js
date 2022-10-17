@@ -17,13 +17,14 @@ import { useEffect, useState } from 'react';
 import superagent from 'superagent';
 import { postGetContributorID, postCreateUser, postGetContributorSignature } from './requests';
 
-export default function Routes() {
+export default function Routes(props) {
   const auth = useSelector(state => state.auth);
   const dispatch = useDispatch();
   //Same values:
   //ethereumAddress === contributor_id
   //ethereumKey === contributor_signature
-
+console.log(props)
+const currentRepo = {props}
   let [user, setUser] = useState('');
 
   useEffect(() => {
@@ -63,7 +64,7 @@ export default function Routes() {
         <Header />
         <Switch>
           <Route exact path="/popup.html" element={<Home />} />
-          <Route exact path="/home" element={<Home />} />
+          <Route exact path="/home" element={<Home currentRepo={currentRepo} />} />
           <Route exact path="/ethereum" element={<Ethereum />} />
           <Route exact path="/settings" element={<Account />} />
           <Route exact path="/onboard" element={<Onboard />} />

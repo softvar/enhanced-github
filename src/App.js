@@ -4,10 +4,10 @@ import Routes from './Routes';
 import store from './store/store';
 import { Provider } from 'react-redux';
 
-export default function App() {
+export default function App(props) {
   return (
     <Provider store={store}>
-      <Routes />
+      <Routes currentRepo={props.currentRepo} />
     </Provider>
   );
 }
