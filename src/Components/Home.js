@@ -43,6 +43,20 @@ export default function Home() {
     getTokenAmount();
   });
 
+  if(owner === 'none' && repo === 'none') {
+    return (
+      <div className="content">
+      <div className="home">
+        <section>
+          <div className="repo">
+            Please visit a Github repo page in your browser to use Turbosrc.           
+          </div>
+        </section>
+      </div>
+    </div>
+    )
+  }
+
   return (
     <div className="content">
       <div className="home">
