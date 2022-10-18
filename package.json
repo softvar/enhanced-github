@@ -76,6 +76,6 @@
   },
   "engineStrict": true,
   "engines": {
-    "node": ">= 10.16.0"
+    "node": ">= 16.18.0"
   }
 }
