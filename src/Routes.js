@@ -13,6 +13,7 @@ import Ethereum from './Components/Ethereum';
 import Home from './Components/Home';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuth } from './store/auth';
+import { setRepo } from './store/repo';
 import { useEffect, useState } from 'react';
 import superagent from 'superagent';
 import { postGetContributorID, postCreateUser, postGetContributorSignature } from './requests';
@@ -20,13 +21,15 @@ import { postGetContributorID, postCreateUser, postGetContributorSignature } fro
 export default function Routes(props) {
   const auth = useSelector(state => state.auth);
   const dispatch = useDispatch();
+
+  useEffect(()=>{
+    dispatch(setRepo(props.currentRepo))
+    },[])
+    
   //Same values:
   //ethereumAddress === contributor_id
   //ethereumKey === contributor_signature
-console.log(props)
-const currentRepo = {props}
   let [user, setUser] = useState('');
-
   useEffect(() => {
     if (auth.isLoggedIn) {
       return;
@@ -64,7 +67,7 @@ const currentRepo = {props}
         <Header />
         <Switch>
           <Route exact path="/popup.html" element={<Home />} />
-          <Route exact path="/home" element={<Home currentRepo={currentRepo} />} />
+          <Route exact path="/home" element={<Home />} />
           <Route exact path="/ethereum" element={<Ethereum />} />
           <Route exact path="/settings" element={<Account />} />
           <Route exact path="/onboard" element={<Onboard />} />

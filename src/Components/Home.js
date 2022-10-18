@@ -6,8 +6,10 @@ import { postGetContributorTokenAmount, getRepoStatus } from '../requests';
 import useCommas from '../hooks/useCommas';
 const port = process.env.PORT || 'http://localhost:4000';
 
-export default function Home(props) {
+export default function Home() {
   const user = useSelector(state => state.auth.user);
+  const repo = useSelector(state => state.repo.name)
+  const owner = useSelector(state => state.repo.owner.login)
   const navigate = useNavigate();
   let name = user?.name;
   let username = user?.login;
@@ -16,19 +18,12 @@ export default function Home(props) {
 
   let avatar = user?.avatar_url || null;
 
-  let [repo, setRepo] = useState('');
-  let [owner, setOwner] = useState('');
-
   useEffect(() => {
-    //Get repo/owner from current browser window
-    chrome.storage.local.get(['repo'], data => setRepo(data.repo));
-    chrome.storage.local.get(['owner'], data => setOwner(data.owner));
-
     //Set current logged in contributor/id to chrome storage for inject to verify user for voting
     chrome.storage.local.set({ contributor_name: user.login });
     chrome.storage.local.set({ contributor_id: user.ethereumAddress });
   });
-console.log('home props:', props)
+
   let [tokenized, setTokenized] = useState(false);
 
   useEffect(() => {
