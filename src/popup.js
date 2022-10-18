@@ -15,6 +15,9 @@ chrome.tabs.query(
     fetch(`https://api.github.com/repos/${user}/${repo}`).then((response) => response.json())
     .then((data) => {
       console.log('data', data)
+      if(data?.message === 'Not Found'){
+        data = {owner: {login: 'none'}, repo: 'none'}
+      }
       const domContainer = document.querySelector('#rootcontainer');
       ReactDOM.render(e(App, {currentRepo: data}), domContainer);
     })
