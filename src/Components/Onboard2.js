@@ -9,16 +9,14 @@ import storageUtil from '../utils/storageUtil';
 import { postCreateRepo } from '../requests';
 const {Octokit, App} = require("octokit");
 const jwt = require("jsonwebtoken");
+import Home from './Home';
 export default function Onboard2() {
   let user = useSelector(state => state.auth.user);
+  const repo = useSelector(state => state.repo.name)
+  const owner = useSelector(state => state.repo.owner.login)
   const navigate = useNavigate();
-  //For testing
-  let [repo, setRepo] = useState('');
-  let [owner, setOwner] = useState('');
-  let currency = repo;
 
-  chrome.storage.local.get(['repo'], data => setRepo(data.repo));
-  chrome.storage.local.get(['owner'], data => setOwner(data.owner));
+  let currency = repo;
 
   let [failed, setFailed] = useState(false);
   let [apiKey, setApiKey] = useState('');
@@ -123,6 +121,9 @@ Promise.resolve(res).then((object) => {
       checkPermissions(user.token)
   }, [owner,repo])
 
+ if (owner === 'none' && repo === 'none') {
+  return <Home />
+ }
 
   if (loader) {
     return <Loader />;
