@@ -8,8 +8,9 @@ import { postGetContributorID, postGetContributorTokenAmount } from '../requests
 import useCommas from '../hooks/useCommas';
 export default function Transfer(props) {
   let user = useSelector(state => state.auth.user);
-  let [repo, setRepo] = useState('');
-  let [owner, setOwner] = useState('');
+  const repo = useSelector(state => state.repo.name);
+  const owner = useSelector(state => state.repo.owner.login);
+
   const navigate = useNavigate();
   let [errorText, setErrorText] = useState(' ');
   let [checking, setChecking] = useState(false);
@@ -26,11 +27,6 @@ export default function Transfer(props) {
     recipientName: '',
     amount: 0
   });
-
-  useEffect(() => {
-    chrome.storage.local.get(['repo'], data => setRepo(data.repo));
-    chrome.storage.local.get(['owner'], data => setOwner(data.owner));
-  }, []);
 
   let [review, setReview] = useState(false);
 

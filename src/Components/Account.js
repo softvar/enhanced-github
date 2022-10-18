@@ -6,18 +6,14 @@ import { postGetContributorTokenAmount } from '../requests';
 import useCommas from '../hooks/useCommas';
 export default function Account() {
   const user = useSelector(state => state.auth.user);
+  const repo = useSelector(state => state.repo.name);
+  const owner = useSelector(state => state.repo.owner.login);
+
   const navigate = useNavigate();
   let name = user?.name;
   let username = user?.login;
   let [tokenAmount, setTokenAmount] = useState('');
   let avatar = user?.avatar_url || null;
-  let [repo, setRepo] = useState('');
-  let [owner, setOwner] = useState('');
-
-  useEffect(() => {
-    chrome.storage.local.get(['repo'], data => setRepo(data.repo));
-    chrome.storage.local.get(['owner'], data => setOwner(data.owner));
-  }, []);
 
   useEffect(() => {
     const getTokenAmount = async () => {
