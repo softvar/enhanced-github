@@ -79,20 +79,7 @@ export default function Home() {
               {tokenAmount || 0} tokens
             </span>
           ) : null}
-
           <div className="data">
-            
-          </div>
-
-          <div>
-            <span className="items-center">
-              <button type="button" className="homeButton">
-                Trade
-              </button>
-              <button type="button" className="homeButton">
-                Transfer
-              </button>
-            </span>
           </div>
         </section>
         {tokenized ? null : (
