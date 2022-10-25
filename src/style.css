@@ -239,17 +239,13 @@ div a {
 }
 
 .createButton {
-  width: 22rem;
   background-color: var(--primary);
   border-radius: 20px;
-  padding: .2rem 1rem .2rem 1rem;
+  padding: 1rem 2rem 1rem 2rem;
   border: none;
   color: #FFF;
-}
-
-.createButton img {
-  height: 1.5rem;
-  margin: 0 1rem 0 .2rem;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .login {
