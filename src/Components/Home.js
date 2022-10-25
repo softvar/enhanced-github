@@ -62,9 +62,6 @@ export default function Home() {
       <div className="home">
         <section>
           <div className="repo">
-            <span>
-              <img src="../icons/repository.png" />{' '}
-            </span>
             <span className="repoOwner">
               <a href={`https://github.com/JeffreyLWood/${owner}`} target="_blank">
                 {owner}
