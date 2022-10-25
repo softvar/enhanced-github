@@ -48,7 +48,7 @@ export default function Home() {
       <div className="content">
       <div className="home">
         <section>
-          <div className="repo">
+          <div className="votePower">
             Please visit a Github repo page in your browser to use Turbosrc.           
           </div>
         </section>
