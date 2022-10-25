@@ -80,14 +80,13 @@ export default function Home() {
             </span>
           ) : null}
           <div>
-            {tokenized ? 'This is already a turbosrc project.' : 'This project is not on turbosrc.'} 
+            {tokenized ? 'This is already a turbosrc project.' : 'This project is not on turbosrc.'}
           </div>
         </section>
         {tokenized ? null : (
           <div>
             <button type="button" className="createButton" onClick={() => navigate('/onboard')}>
-              <img src="../../icons/turbo-src48.png" />
-              Tokenize {repo}
+              Create
             </button>
           </div>
         )}
