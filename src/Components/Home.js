@@ -79,7 +79,8 @@ export default function Home() {
               {tokenAmount || 0} tokens
             </span>
           ) : null}
-          <div className="data">
+          <div>
+            {tokenized ? 'This is already a turbosrc project.' : 'This project is not on turbosrc.'} 
           </div>
         </section>
         {tokenized ? null : (
