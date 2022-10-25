@@ -39,7 +39,7 @@ export default function Account() {
               </a>
             </li>
             <li className="secondary tokensLine">
-              <span>{` ${tokenAmount || 0} ${repo}`}</span> tokens
+              <span>{` ${tokenAmount || 0} ${repo}`}</span> VotePower
             </li>
           </ul>
         </span>
