@@ -134,7 +134,7 @@ export default function Onboard2() {
             <div className="apiKey">
               <span className="">
                 <img src="../icons/warning.png" />
-                Additional permissions are required to tokenize this repository
+                Additional permissions are required to create this repository
               </span>
               <span className="">
                 <a
