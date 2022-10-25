@@ -65,6 +65,7 @@ div a {
   justify-content: center;
   overflow-y: auto;
   overflow-x: hidden;
+  padding: .5rem;
 }
 
 .items-center {
@@ -494,7 +495,6 @@ div a {
   width: 100%;
   justify-content: flex-start;
   min-height: 25rem;
-  padding: .5rem;
 }
 
 .centeredWrapper {
