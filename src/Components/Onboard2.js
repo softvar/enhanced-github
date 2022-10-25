@@ -134,23 +134,18 @@ export default function Onboard2() {
             <div className="apiKey">
               <span className="">
                 <img src="../icons/warning.png" />
-                Additional permissions are required to create this repository
+                Additional permissions are required to create this repository.
               </span>
               <span className="">
                 <a
                   href={`https://github.com/login/oauth/authorize?scope=user:email%20public_repo&client_id=${process.env.GITHUB_CLIENT_ID}`}
                   target="_blank"
                 >
-                  <button type="button">Update Permissions</button>
+                  <button type="button" className="startButton">Update Permissions</button>
                 </a>
               </span>
             </div>
             <span>{errorText}</span>
-            <span className="items-center">
-              <button type="button" className="disabledButton">
-                Submit
-              </button>
-            </span>
           </form>
         </div>
       </div>
@@ -159,10 +154,6 @@ export default function Onboard2() {
     return (
       <div className="content">
         <div className="onboard">
-          <span className="">
-            <h1>Tokenize This Repository</h1>
-          </span>
-          <span>Tokenizing {repo} will automatically create 1000000 tokens.</span>
           <form name="create">
             <div className="apiKey">
               <span className="">
