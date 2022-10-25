@@ -132,9 +132,9 @@ export default function Onboard2() {
         <div className="onboard">
           <form name="create">
             <div className="apiKey">
-              <span className="">
+              <span>
                 <img src="../icons/warning.png" />
-                Additional permissions are required to create this repository.
+                Turbosrc would like read/write access to your public repos including their, code, commit statuses, repository projects, and deployment statuses.
               </span>
               <span className="">
                 <a
