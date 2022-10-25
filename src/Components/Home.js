@@ -75,18 +75,19 @@ export default function Home() {
             </span>
           </div>
           {tokenized ? 
-            <span className="repoTokens">
+            <span>
             {tokenAmount === 0 ?
               'You do not have votepower in this project.'
               : `${tokenAmount} votepower`}
             </span>
             : null}
-          <div>
+          <div className="notOnTurbosrc">
             {tokenized ? `` : `${owner}/${repo} is not on turbosrc.`}
           </div>
         </section>
+        <div className="data"></div>
         {tokenized ? null : (
-          <div>
+          <div className="centeredWrapper">
             <button type="button" className="createButton" onClick={() => navigate('/onboard')}>
               Create
             </button>

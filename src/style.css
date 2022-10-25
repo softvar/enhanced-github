@@ -496,6 +496,13 @@ div a {
   min-height: 25rem;
 }
 
+.centeredWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
 .home section {
   margin-bottom: 1.5rem;
 }
@@ -546,13 +553,17 @@ div a {
   height: 1rem;
 }
 
+.notOnTurbosrc {
+  font-size: 18px;
+  font-weight: 500;
+}
+
 .data {
   color: var(--secondary);
   margin: 1rem 0 1rem 0;
   height: 10rem;
   width: 100%;
-  display: flex;
-  align-items: flex-end;
+  display: block;
   justify-content: center;
   background-color: var(--lightbg);
 }
