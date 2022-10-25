@@ -246,6 +246,7 @@ div a {
   color: #FFF;
   font-size: 18px;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .login {
