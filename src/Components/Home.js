@@ -74,13 +74,15 @@ export default function Home() {
               </a>
             </span>
           </div>
-          {tokenized ? (
+          {tokenized ? 
             <span className="repoTokens">
-              {tokenAmount || 0} tokens
+            {tokenAmount === 0 ?
+              'You do not have votepower in this project.'
+              : `${tokenAmount} votepower`}
             </span>
-          ) : null}
+            : null}
           <div>
-            {tokenized ? 'This is already a turbosrc project.' : 'This project is not on turbosrc.'}
+            {tokenized ? `` : `${owner}/${repo} is not on turbosrc.`}
           </div>
         </section>
         {tokenized ? null : (
