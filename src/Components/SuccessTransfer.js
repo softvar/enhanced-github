@@ -21,9 +21,9 @@ export default function SuccessTransfer(props) {
           <img src="../../icons/success.png" className="success" />
         </span>
         <span className="items-center">
-          You have sent {amount} {repo} tokens to {recipientName}
+          You have sent {amount} {repo} VotePower to {recipientName}
         </span>
-        <span className="items-center">Your remaining balance is {balance} tokens.</span>
+        <span className="items-center">Your remaining balance is {balance} VotePower.</span>
         <span className="items-center">
           <button type="button" className="startButton" onClick={e => clickHandler(e)}>
             Make another transfer
