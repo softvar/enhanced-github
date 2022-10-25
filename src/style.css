@@ -239,12 +239,13 @@ div a {
 }
 
 .createButton {
+  width: 12rem;
   background-color: var(--primary);
   border-radius: 20px;
   padding: 1rem 2rem 1rem 2rem;
   border: none;
   color: #FFF;
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 600;
   cursor: pointer;
 }
