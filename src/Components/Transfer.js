@@ -129,16 +129,16 @@ export default function Transfer(props) {
     <div className="content items-center">
       <div className="transferContent">
         <header>
-          <h2>Transfer {repo} Tokens</h2>
+          <h2>Transfer {repo} VotePower</h2>
           <span className="balance">
-            You currently have <text>{` ${tokenString || 0} ${repo}`}</text> tokens
+            You currently have <text>{` ${tokenString || 0} ${repo}`}</text> VotePower
           </span>
         </header>
 
         <form name="transfer" className="transfer">
           <span>
             <label htmlFor="transfer" className="">
-              Who would you like to transfer tokens to?
+              Who would you like to transfer VotePower to?
             </label>
             <div>
               <input
@@ -163,7 +163,7 @@ export default function Transfer(props) {
           </span>
 
           <span>
-            <label htmlFor="amount">How many tokens would you like to send?</label>
+            <label htmlFor="amount">How much VotePower would you like to send?</label>
             <input type="number" name="amount" value={transfer.amount} onChange={e => changeHandler(e)} required />
             <p className="errorText">{invalidText}</p>
           </span>
