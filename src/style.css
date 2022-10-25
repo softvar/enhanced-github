@@ -226,9 +226,8 @@ div a {
 }
 
 .apiKey span {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
+  font-size: 18px;
+  margin: 1rem;
 }
 
 .apiKey span img {
