@@ -76,9 +76,6 @@ export default function Home() {
           </div>
           {tokenized ? (
             <span className="repoTokens">
-              <span>
-                <img src="../icons/tokens.png" />
-              </span>
               {tokenAmount || 0} tokens
             </span>
           ) : null}
