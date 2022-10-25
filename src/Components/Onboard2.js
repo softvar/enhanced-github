@@ -102,7 +102,7 @@ export default function Onboard2() {
       if (res === '201') {
         navigate('/home');
       } else {
-        setErrorText('There was an error tokenizing this repository.');
+        setErrorText('There was an error creating this repository.');
       }
     });
   };
