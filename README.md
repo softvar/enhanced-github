@@ -1,4 +1,4 @@
-Unless you're in alpha launch, you won't be able to use this directly with cloud hosted Turbosrc. You'll have to launch it locally or on the cloud yourself and edit where necessary to do so. Further documentation is forthcoming.
+This only works for Chrome or anything downstream of Chromium. Unless you're in alpha launch, you won't be able to use this directly with cloud hosted Turbosrc. You'll have to launch it locally or on the cloud yourself and edit where necessary to do so. Further documentation is forthcoming.
 
 ## extension install
 
