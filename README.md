@@ -10,9 +10,7 @@ git clone https://github.com/turbo-src/extension
 
 Install.
 
-```
-yarn install
-```
+`yarn install`
 
 Build everything.
 
@@ -24,4 +22,4 @@ The above command will create or update a `dist/` directory, which is used to lo
 
 2. Enable developer mode.
 
-3. Click on load unpacked extension and select the generated folder.
+3. Click on load unpacked extension and select the `dist/` folder.
