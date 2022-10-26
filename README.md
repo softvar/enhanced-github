@@ -5,7 +5,7 @@ Unless you're in alpha launch, you won't be able to use this directly with cloud
 Clone the repo.
 
 ```
-git clone https://github.com/turbo-src/extension`
+git clone https://github.com/turbo-src/extension
 ```
 
 Install.
