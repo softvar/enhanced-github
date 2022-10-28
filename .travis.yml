@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - 10.16.0
+  - 16.18.0
   - node
 install:
   - yarn install
