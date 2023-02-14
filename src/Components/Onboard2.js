@@ -6,7 +6,7 @@ import Loader from './Loader';
 import Fail from './Fail';
 import Success from './Success';
 import storageUtil from '../utils/storageUtil';
-import { postCreateRepo } from '../requests';
+import { postCreateRepo, postCheckGithubTokenPermissions } from '../requests';
 import Home from './Home';
 export default function Onboard2() {
   const user = useSelector(state => state.auth.user);
@@ -28,7 +28,15 @@ export default function Onboard2() {
   const [permissions, setPermissions] = useState(false);
 
   const checkPermissions = async token => {
-    
+    try {
+      await postCheckGithubTokenPermissions(owner, repo, user.githubUsername, token).then(res => {
+        setScope(res.public_repo_scopes);
+        setPermissions(res.push_permissions);
+      })
+    } catch (error) {
+      console.log(error)
+      setErrorText(error.message)
+    }
   };
 
   const changeHandler = e => {
