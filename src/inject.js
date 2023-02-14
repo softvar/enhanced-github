@@ -435,13 +435,29 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
             //console.log(JSON.parse(voteJSON).issue_id)
 
             //return turboBtnData['turbo-btn-data']['issue_id']
-            return `
-              user: ${user}
-              repo: ${repo}
-              issue_id: ${issue_id}
-              contributor: ${contributor_name}
-              side: ${this.state.side}
-              `;
+
+            return (
+              <div>
+                <br></br>
+                <br></br>
+                user: {user} <br />
+                repo: {repo} <br />
+                issue_id: {issue_id} <br />
+                contributor: {contributor_name} <br />
+                side: {this.state.side} <br />
+              </div>
+            );
+
+            //return (
+            //   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridGap: '10px', position: relative, top: '100px' }}>
+            //     <div>User: {user}</div>
+            //     <div>Repo: {repo}</div>
+            //     <div>Issue ID: {issue_id}</div>
+            //     <div>Contributor: {contributor_name}</div>
+            //     <div>Side: {this.state.side}</div>
+            //     <div></div>
+            //   </div>
+            //);
           }
 
           return ce(
