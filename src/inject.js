@@ -440,6 +440,8 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
               <div>
                 <br></br>
                 <br></br>
+                <br></br>
+                <br></br>
                 user: {user} <br />
                 repo: {repo} <br />
                 issue_id: {issue_id} <br />
@@ -447,17 +449,6 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                 side: {this.state.side} <br />
               </div>
             );
-
-            //return (
-            //   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridGap: '10px', position: relative, top: '100px' }}>
-            //     <div>User: {user}</div>
-            //     <div>Repo: {repo}</div>
-            //     <div>Issue ID: {issue_id}</div>
-            //     <div>Contributor: {contributor_name}</div>
-            //     <div>Side: {this.state.side}</div>
-            //     <div></div>
-            //   </div>
-            //);
           }
 
           return ce(
@@ -823,7 +814,7 @@ function createModal() {
           <div id="yes_vote_button"></div>
           <div id="no_vote_button"></div>
         </div>
-          <p>Some text in the Modal..</p>
+          <p></p>
       </div>
     </div>
     `;
