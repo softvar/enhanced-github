@@ -99,7 +99,23 @@ async function postGetContributorSignature(
   return json.data.getContributorSignature;
 }
 
-
+async function postCheckGithubTokenPermissions(
+  owner,
+  repo,
+  contributor_name,
+  token,
+) {
+  const res = await superagent
+    .post(`${port}/graphql`)
+    .send(
+      {
+        query: `{ checkGithubTokenPermissions(owner: "${owner}", repo: "${repo}", contributor_name: "${contributor_name}", token: "${token}") { public_repo_scopes, push_permissions }}`,
+      }
+    ) 
+    .set("accept", "json");
+  const json = JSON.parse(res.text);
+  return json.data.checkGithubTokenPermissions;
+}
 async function postCreateRepo(owner, repo, defaultHash, contributor_id, side, token) {
     const res = await superagent
       .post(`${port}/graphql`)
@@ -473,6 +489,7 @@ export {
 	postGetContributorName,
 	postGetContributorID,
 	postGetContributorSignature,
+  postCheckGithubTokenPermissions,
 	postCreateRepo,
 	postGetContributorTokenAmount,
 	postTransferTokens,
