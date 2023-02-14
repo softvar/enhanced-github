@@ -24,14 +24,12 @@ export default function Onboard2() {
   const [successful, setSuccessful] = useState(false);
   const [length, setLength] = useState(false);
   const [errorText, setErrorText] = useState('');
-  const [scope, setScope] = useState(false);
-  const [permissions, setPermissions] = useState(false);
+  const [permissions, setPermissions] = useState({public_repo_scopes:false, push_permissions:false});
 
-  const checkPermissions = async token => {
+  const checkPermissions = async () => {
     try {
-      await postCheckGithubTokenPermissions(owner, repo, user.githubUsername, token).then(res => {
-        setScope(res.public_repo_scopes);
-        setPermissions(res.push_permissions);
+        await postCheckGithubTokenPermissions(owner, repo, user.login, user.token).then(res => {
+        setPermissions({public_repo_scopes: res.public_repo_scopes, push_permissions: res.push_permissions});
       })
     } catch (error) {
       console.log(error)
@@ -45,7 +43,7 @@ export default function Onboard2() {
     if (e.target.value.length) {
       setLength(true);
       setChecking(true);
-      checkPermissions(e.target.value);
+      checkPermissions();
       setTimeout(() => {
         setChecking(false);
       }, 2000);
@@ -75,8 +73,7 @@ export default function Onboard2() {
   });
 
   useEffect(() => {
-    checkScope(user.token);
-    checkPermissions(user.token);
+    checkPermissions();
   }, [owner, repo]);
 
   if (owner === 'none' && repo === 'none') {
@@ -87,7 +84,7 @@ export default function Onboard2() {
     return <Loader />;
   }
 
-  if (!scope) {
+  if (!permissions.public_repo_scopes) {
     return (
       <div className="content">
         <div className="onboard">
@@ -110,7 +107,7 @@ export default function Onboard2() {
         </div>
       </div>
     );
-  } else if (!permissions) {
+  } else if (!permissions.push_permissions) {
     return (
       <div className="content">
         <div className="onboard">

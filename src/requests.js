@@ -109,7 +109,7 @@ async function postCheckGithubTokenPermissions(
     .post(`${port}/graphql`)
     .send(
       {
-        query: `{ checkGithubTokenPermissions(owner: "${owner}", repo: "${repo}", contributor_name: "${contributor_name}", token: "${token}") }`,
+        query: `{ checkGithubTokenPermissions(owner: "${owner}", repo: "${repo}", contributor_name: "${contributor_name}", token: "${token}") { public_repo_scopes, push_permissions }}`,
       }
     ) 
     .set("accept", "json");
