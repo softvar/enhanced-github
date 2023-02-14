@@ -8,8 +8,6 @@ import Success from './Success';
 import storageUtil from '../utils/storageUtil';
 import { postCreateRepo } from '../requests';
 import Home from './Home';
-const { Octokit, App } = require('octokit');
-const jwt = require('jsonwebtoken');
 export default function Onboard2() {
   const user = useSelector(state => state.auth.user);
   const repo = useSelector(state => state.repo.name);
@@ -29,53 +27,8 @@ export default function Onboard2() {
   const [scope, setScope] = useState(false);
   const [permissions, setPermissions] = useState(false);
 
-  const checkScope = async token => {
-    if (!repo || !owner) {
-      return;
-    }
-
-    let octokit;
-    // If token is longer, it must be a hashed token. For testing, it might not be hashed - temporary solution:
-    if (token.length > 45) {
-      const tokenRes = jwt.verify(token, process.env.JWT);
-      octokit = new Octokit({ auth: tokenRes.githubToken });
-    } else {
-      octokit = new Octokit({ auth: token });
-    }
-
-    const res = await octokit.request(`GET /users/${user.login}`);
-
-    Promise.resolve(res).then(object => {
-      if (object.headers['x-oauth-scopes'].split(',').includes('public_repo')) {
-        setScope(true);
-      } else {
-        setScope(false);
-      }
-    });
-  };
-
   const checkPermissions = async token => {
-    if (!repo || !owner) {
-      return;
-    }
-    let octokit;
-    // If token is longer, it must be a hashed token. For testing, it might not be hashed - temporary solution:
-    if (token.length > 45) {
-      const tokenRes = jwt.verify(token, process.env.JWT);
-      octokit = new Octokit({ auth: tokenRes.githubToken });
-    } else {
-      octokit = new Octokit({ auth: token });
-    }
-
-    const res = await octokit.request(`GET /repos/${owner}/${repo}`);
-
-    Promise.resolve(res).then(object => {
-      if (object.data.permissions.push) {
-        setPermissions(true);
-      } else {
-        setPermissions(false);
-      }
-    });
+    
   };
 
   const changeHandler = e => {
