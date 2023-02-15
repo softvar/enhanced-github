@@ -5,7 +5,6 @@ import superagent from 'superagent';
 import { postGetContributorTokenAmount, getRepoStatus } from '../requests';
 import useCommas from '../hooks/useCommas';
 const port = process.env.PORT || 'http://localhost:4000';
-import { postCreateUser } from '../requests';
 
 export default function Home() {
   const user = useSelector(state => state.auth.user);

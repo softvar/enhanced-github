@@ -45,22 +45,27 @@ export default function Routes(props) {
     const getContributorSignature = async function(contributorId) {
       return await postGetContributorSignature('', '', '', contributorId).then(res => res);
     };
-
-    if (auth.isLoggedIn === true && auth.user.ethereumAddress !== 'none' && auth.user.ethereumKey !== 'none') {
+    const createUser = async function(owner, repo, contributorid, contributor_name, contributorsignature, token) {
+      await postCreateUser(owner, repo, contributorid, contributor_name, contributorsignature, token).then(res=>res)
+    }
+    if (auth.user.ethereumAddress !== 'none' && auth.user.ethereumKey !== 'none') {
       return;
     } else if (user) {
       let githubUser = JSON.parse(user);
-      console.log(githubUser)
+      console.log('boom', auth, githubUser)
+      createUser('', '', 'none', githubUser.login, 'none', githubUser.token)
       //If turbo-src service server is running use following:
       getContributorId(githubUser.login)
-        .then(res => (githubUser.ethereumAddress = res || 'none'))
+        .then(res => (githubUser.ethereumAddress = res))
         .then(() =>
-          getContributorSignature(githubUser.ethereumAddress).then(key => (githubUser.ethereumKey = key || 'none'))
+          getContributorSignature(githubUser.ethereumAddress).then(key => (githubUser.ethereumKey = key))
         );
       dispatch(setAuth(githubUser));
     }
   }, [user]);
-
+  useEffect(()=>{
+console.log('authy', auth)
+  })
   return auth.isLoggedIn ? (
     <BrowserRouter>
       <div className="container">
