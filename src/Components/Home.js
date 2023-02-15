@@ -18,16 +18,6 @@ export default function Home() {
 
   let avatar = user?.avatar_url || null;
 
-  const createUser = async () =>{
-    await postCreateUser('', '', user.ethereumAddress, user.login, user.ethereumKey, user.token)
-  }
-
-  useEffect(()=>{
-    if(user.ethereumAddress === 'none' || user.ethereumKey === 'none'){
-      createUser()
-    }
-  }, [])
-
   useEffect(() => {
     //Set current logged in contributor/id to chrome storage for inject to verify user for voting
     chrome.storage.local.set({ contributor_name: user.login });
