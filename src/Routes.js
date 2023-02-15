@@ -52,7 +52,6 @@ export default function Routes(props) {
       return;
     } else if (user) {
       let githubUser = JSON.parse(user);
-      console.log('boom', auth, githubUser)
       createUser('', '', 'none', githubUser.login, 'none', githubUser.token)
       //If turbo-src service server is running use following:
       getContributorId(githubUser.login)
@@ -64,7 +63,6 @@ export default function Routes(props) {
     }
   }, [user]);
   useEffect(()=>{
-console.log('authy', auth)
   })
   return auth.isLoggedIn ? (
     <BrowserRouter>
