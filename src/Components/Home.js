@@ -5,6 +5,7 @@ import superagent from 'superagent';
 import { postGetContributorTokenAmount, getRepoStatus } from '../requests';
 import useCommas from '../hooks/useCommas';
 const port = process.env.PORT || 'http://localhost:4000';
+import { postCreateUser } from '../requests';
 
 export default function Home() {
   const user = useSelector(state => state.auth.user);
@@ -17,6 +18,16 @@ export default function Home() {
   let [tokenAmount, setTokenAmount] = useState('');
 
   let avatar = user?.avatar_url || null;
+
+  const createUser = async () =>{
+    await postCreateUser('', '', user.ethereumAddress, user.login, user.ethereumKey, user.token)
+  }
+
+  useEffect(()=>{
+    if(user.ethereumAddress === 'none' || user.ethereumKey === 'none'){
+      createUser()
+    }
+  }, [])
 
   useEffect(() => {
     //Set current logged in contributor/id to chrome storage for inject to verify user for voting
