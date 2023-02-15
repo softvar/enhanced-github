@@ -30,7 +30,7 @@
     "file-download"
   ],
   "dependencies": {
-    "clipboard": "^2.0.6"
+    "clipboard": "^2.0.11"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
@@ -76,6 +76,6 @@
   },
   "engineStrict": true,
   "engines": {
-    "node": ">= 10.16.0"
+    "node": ">= 16.18.0"
   }
 }
