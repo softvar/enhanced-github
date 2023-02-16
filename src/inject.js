@@ -436,13 +436,20 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
             //console.log(JSON.parse(voteJSON).issue_id)
 
             //return turboBtnData['turbo-btn-data']['issue_id']
-            return `
-              user: ${user}
-              repo: ${repo}
-              issue_id: ${issue_id}
-              contributor: ${contributor_name}
-              side: ${this.state.side}
-              `;
+
+            return (
+              <div>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                user: {user} <br />
+                repo: {repo} <br />
+                issue_id: {issue_id} <br />
+                contributor: {contributor_name} <br />
+                side: {this.state.side} <br />
+              </div>
+            );
           }
 
           return ce(
@@ -809,7 +816,7 @@ function createModal() {
           <div id="yes_vote_button"></div>
           <div id="no_vote_button"></div>
         </div>
-          <p>Some text in the Modal..</p>
+          <p></p>
       </div>
     </div>
     `;
