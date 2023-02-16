@@ -6,10 +6,8 @@ import Loader from './Loader';
 import Fail from './Fail';
 import Success from './Success';
 import storageUtil from '../utils/storageUtil';
-import { postCreateRepo } from '../requests';
+import { postCreateRepo, postCheckGithubTokenPermissions } from '../requests';
 import Home from './Home';
-const { Octokit, App } = require('octokit');
-const jwt = require('jsonwebtoken');
 export default function Onboard2() {
   const user = useSelector(state => state.auth.user);
   const repo = useSelector(state => state.repo.name);
@@ -26,56 +24,17 @@ export default function Onboard2() {
   const [successful, setSuccessful] = useState(false);
   const [length, setLength] = useState(false);
   const [errorText, setErrorText] = useState('');
-  const [scope, setScope] = useState(false);
-  const [permissions, setPermissions] = useState(false);
+  const [permissions, setPermissions] = useState({public_repo_scopes:false, push_permissions:false});
 
-  const checkScope = async token => {
-    if (!repo || !owner) {
-      return;
+  const checkPermissions = async () => {
+    try {
+        await postCheckGithubTokenPermissions(owner, repo, user.login, user.token).then(res => {
+        setPermissions({public_repo_scopes: res.public_repo_scopes, push_permissions: res.push_permissions});
+      })
+    } catch (error) {
+      console.log(error)
+      setErrorText(error.message)
     }
-
-    let octokit;
-    // If token is longer, it must be a hashed token. For testing, it might not be hashed - temporary solution:
-    if (token.length > 45) {
-      const tokenRes = jwt.verify(token, process.env.JWT);
-      octokit = new Octokit({ auth: tokenRes.githubToken });
-    } else {
-      octokit = new Octokit({ auth: token });
-    }
-
-    const res = await octokit.request(`GET /users/${user.login}`);
-
-    Promise.resolve(res).then(object => {
-      if (object.headers['x-oauth-scopes'].split(',').includes('public_repo')) {
-        setScope(true);
-      } else {
-        setScope(false);
-      }
-    });
-  };
-
-  const checkPermissions = async token => {
-    if (!repo || !owner) {
-      return;
-    }
-    let octokit;
-    // If token is longer, it must be a hashed token. For testing, it might not be hashed - temporary solution:
-    if (token.length > 45) {
-      const tokenRes = jwt.verify(token, process.env.JWT);
-      octokit = new Octokit({ auth: tokenRes.githubToken });
-    } else {
-      octokit = new Octokit({ auth: token });
-    }
-
-    const res = await octokit.request(`GET /repos/${owner}/${repo}`);
-
-    Promise.resolve(res).then(object => {
-      if (object.data.permissions.push) {
-        setPermissions(true);
-      } else {
-        setPermissions(false);
-      }
-    });
   };
 
   const changeHandler = e => {
@@ -84,7 +43,7 @@ export default function Onboard2() {
     if (e.target.value.length) {
       setLength(true);
       setChecking(true);
-      checkPermissions(e.target.value);
+      checkPermissions();
       setTimeout(() => {
         setChecking(false);
       }, 2000);
@@ -114,8 +73,7 @@ export default function Onboard2() {
   });
 
   useEffect(() => {
-    checkScope(user.token);
-    checkPermissions(user.token);
+    checkPermissions();
   }, [owner, repo]);
 
   if (owner === 'none' && repo === 'none') {
@@ -126,7 +84,7 @@ export default function Onboard2() {
     return <Loader />;
   }
 
-  if (!scope) {
+  if (!permissions.public_repo_scopes) {
     return (
       <div className="content">
         <div className="onboard">
@@ -149,7 +107,7 @@ export default function Onboard2() {
         </div>
       </div>
     );
-  } else if (!permissions) {
+  } else if (!permissions.push_permissions) {
     return (
       <div className="content">
         <div className="onboard">

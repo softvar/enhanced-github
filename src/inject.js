@@ -173,6 +173,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
             repo: repo,
             issueID: this.props.issueID,
             contributorName: contributor_name,
+            contributorID: contributor_id,
             background: 'white',
             dynamicBool: true,
 	    voteButton: { color: 'gray', text: '?' },
@@ -193,14 +194,14 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                     /*owner:*/ this.state.user,
                     /*repo:*/ this.state.repo,
                     /*pr_id:*/ this.state.issueID,
-                    /*contributor_id:*/ "",
+                    /*contributor_id:*/ this.state.contributorID,
                     /*side:*/ "",
                 );
                 const voteNoTotal = await postGetPRvoteNoTotals(
                     /*owner:*/ this.state.user,
                     /*repo:*/ this.state.repo,
                     /*pr_id:*/ this.state.issueID,
-                    /*contributor_id:*/ "",
+                    /*contributor_id:*/ this.state.contributorID,
                     /*side:*/ "",
                 );
                 const resYes = mathUtil.votePercentToMergeInteger(voteYesTotal)
@@ -292,14 +293,14 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                     /*owner:*/ this.state.user,
                     /*repo:*/ this.state.repo,
                     /*pr_id:*/ this.state.issueID,
-                    /*contributor_id:*/ "",
+                    /*contributor_id:*/ this.state.contributorID,
                     /*side:*/ "",
                 );
                 const voteNoTotal = await postGetPRvoteNoTotals(
                     /*owner:*/ this.state.user,
                     /*repo:*/ this.state.repo,
                     /*pr_id:*/ this.state.issueID,
-                    /*contributor_id:*/ "",
+                    /*contributor_id:*/ this.state.contributorID,
                     /*side:*/ "",
                 );
 		console.log('voteYes ', voteYesTotal)
@@ -435,13 +436,20 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
             //console.log(JSON.parse(voteJSON).issue_id)
 
             //return turboBtnData['turbo-btn-data']['issue_id']
-            return `
-              user: ${user}
-              repo: ${repo}
-              issue_id: ${issue_id}
-              contributor: ${contributor_name}
-              side: ${this.state.side}
-              `;
+
+            return (
+              <div>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                user: {user} <br />
+                repo: {repo} <br />
+                issue_id: {issue_id} <br />
+                contributor: {contributor_name} <br />
+                side: {this.state.side} <br />
+              </div>
+            );
           }
 
           return ce(
@@ -503,6 +511,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
             user: user,
             repo: repo,
             issueID: issue_id,
+            contributorID: contributor_id,
             contributorName: contributor_name,
             votes: ['0.0', '0.0']
           };
@@ -515,7 +524,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                 this.state.user,
                 this.state.repo,
                 this.state.issueID,
-                this.state.contributorName,
+                this.state.contributorID,
                 this.state.side
               );
               var voteYesTotals = await postGetPRvoteYesTotals(
@@ -807,7 +816,7 @@ function createModal() {
           <div id="yes_vote_button"></div>
           <div id="no_vote_button"></div>
         </div>
-          <p>Some text in the Modal..</p>
+          <p></p>
       </div>
     </div>
     `;

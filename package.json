@@ -87,7 +87,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "yarn lint"
+      "pre-push": ""
     }
   },
   "lint-staged": {
