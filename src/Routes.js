@@ -16,7 +16,7 @@ import { setAuth } from './store/auth';
 import { setRepo } from './store/repo';
 import { useEffect, useState } from 'react';
 import superagent from 'superagent';
-import { postGetContributorID, postCreateUser, postGetContributorSignature } from './requests';
+import { postFindOrCreateUser } from './requests';
 
 export default function Routes(props) {
   const auth = useSelector(state => state.auth);
@@ -38,32 +38,23 @@ export default function Routes(props) {
   });
 
   useEffect(() => {
-    const getContributorId = async function(githubUsername) {
-      return await postGetContributorID('', '', '', githubUsername).then(res => res);
-    };
-
-    const getContributorSignature = async function(contributorId) {
-      return await postGetContributorSignature('', '', '', contributorId).then(res => res);
-    };
-    const createUser = async function(owner, repo, contributorid, contributor_name, contributorsignature, token) {
-      await postCreateUser(owner, repo, contributorid, contributor_name, contributorsignature, token).then(res=>res)
+    const findOrCreateUser = async function(owner, repo, contributor_id, contributor_name, contributor_signature, token) {
+      return await postFindOrCreateUser(owner, repo, contributor_id, contributor_name, contributor_signature, token).then(res => res)
     }
-    if (auth.user.ethereumAddress !== 'none' && auth.user.ethereumKey !== 'none') {
+    if (auth.isLoggedIn && auth.user.ethereumAddress !== 'none' && auth.user.ethereumKey !== 'none') {
       return;
     } else if (user) {
       let githubUser = JSON.parse(user);
-      createUser('', '', 'none', githubUser.login, 'none', githubUser.token)
-      //If turbo-src service server is running use following:
-      getContributorId(githubUser.login)
-        .then(res => (githubUser.ethereumAddress = res))
-        .then(() =>
-          getContributorSignature(githubUser.ethereumAddress).then(key => (githubUser.ethereumKey = key))
-        );
+
+      findOrCreateUser('', '', 'none', githubUser.login, 'none', githubUser.token)
+      .then(res => {
+        githubUser.ethereumAddress = res.contributor_id,
+        githubUser.ethereumKey = res.contributor_signature});
+
       dispatch(setAuth(githubUser));
     }
   }, [user]);
-  useEffect(()=>{
-  })
+ 
   return auth.isLoggedIn ? (
     <BrowserRouter>
       <div className="container">
