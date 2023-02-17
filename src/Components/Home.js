@@ -40,7 +40,9 @@ export default function Home() {
         .then(res => useCommas(res.amount))
         .then(tokens => setTokenAmount(tokens));
     };
-    getTokenAmount();
+    setTimeout(()=>{
+      getTokenAmount()
+    }, 500)
   });
 
   if(owner === 'none' && repo === 'none') {

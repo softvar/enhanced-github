@@ -173,6 +173,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
             repo: repo,
             issueID: this.props.issueID,
             contributorName: contributor_name,
+            contributorID: contributor_id,
             background: 'white',
             dynamicBool: true,
 	    voteButton: { color: 'gray', text: '?' },
@@ -193,14 +194,14 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                     /*owner:*/ this.state.user,
                     /*repo:*/ this.state.repo,
                     /*pr_id:*/ this.state.issueID,
-                    /*contributor_id:*/ "",
+                    /*contributor_id:*/ this.state.contributorID,
                     /*side:*/ "",
                 );
                 const voteNoTotal = await postGetPRvoteNoTotals(
                     /*owner:*/ this.state.user,
                     /*repo:*/ this.state.repo,
                     /*pr_id:*/ this.state.issueID,
-                    /*contributor_id:*/ "",
+                    /*contributor_id:*/ this.state.contributorID,
                     /*side:*/ "",
                 );
                 const resYes = mathUtil.votePercentToMergeInteger(voteYesTotal)
@@ -292,14 +293,14 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                     /*owner:*/ this.state.user,
                     /*repo:*/ this.state.repo,
                     /*pr_id:*/ this.state.issueID,
-                    /*contributor_id:*/ "",
+                    /*contributor_id:*/ this.state.contributorID,
                     /*side:*/ "",
                 );
                 const voteNoTotal = await postGetPRvoteNoTotals(
                     /*owner:*/ this.state.user,
                     /*repo:*/ this.state.repo,
                     /*pr_id:*/ this.state.issueID,
-                    /*contributor_id:*/ "",
+                    /*contributor_id:*/ this.state.contributorID,
                     /*side:*/ "",
                 );
 		console.log('voteYes ', voteYesTotal)
@@ -510,6 +511,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
             user: user,
             repo: repo,
             issueID: issue_id,
+            contributorID: contributor_id,
             contributorName: contributor_name,
             votes: ['0.0', '0.0']
           };
@@ -522,7 +524,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
                 this.state.user,
                 this.state.repo,
                 this.state.issueID,
-                this.state.contributorName,
+                this.state.contributorID,
                 this.state.side
               );
               var voteYesTotals = await postGetPRvoteYesTotals(

@@ -98,7 +98,23 @@ async function postGetContributorSignature(
   console.log(json);
   return json.data.getContributorSignature;
 }
-
+async function postFindOrCreateUser(
+  owner,
+  repo,
+  contributor_id,
+  contributor_name,
+  contributor_signature,
+  token) {
+    console.log('extension findOrCreateUser called')
+  const res = await superagent
+    .post(`${port}/graphql`)
+    .send({
+      query: `{ findOrCreateUser(owner: "${owner}", repo: "${repo}", contributor_id: "${contributor_id}", contributor_name: "${contributor_name}", contributor_signature: "${contributor_signature}", token: "${token}") {contributor_name, contributor_id, contributor_signature, token}}`,
+    })
+    .set("accept", "json");
+  const json = JSON.parse(res.text);
+  return json.data.findOrCreateUser;
+}
 async function postCheckGithubTokenPermissions(
   owner,
   repo,
@@ -490,6 +506,7 @@ export {
 	postGetContributorID,
 	postGetContributorSignature,
   postCheckGithubTokenPermissions,
+  postFindOrCreateUser,
 	postCreateRepo,
 	postGetContributorTokenAmount,
 	postTransferTokens,
