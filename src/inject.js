@@ -38,7 +38,7 @@ const { postSetVote,
       } = require('./requests')
 
 //const port = "http://localhost:4000";
-const port = "turbosrc-reibase-alternate-service.fly.dev"
+const port = "https://turbosrc-reibase-alternate-service.fly.dev"
 
 var isRepoTurboSrcToken = false;
 

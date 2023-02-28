@@ -1,7 +1,7 @@
 const superagent = require("superagent");
 
 //const port = "http://localhost:4000";
-const port = "turbosrc-reibase-alternate-service.fly.dev"
+const port = "https://turbosrc-reibase-alternate-service.fly.dev"
 
 async function postCreateUser(
   owner,
