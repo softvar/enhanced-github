@@ -37,8 +37,9 @@ const { postSetVote,
         getGitHubPullRequest
       } = require('./requests')
 
-const port = "http://localhost:4000";
+//const port = "http://localhost:4000";
 //const port = "https://turbosrc-service.fly.dev"
+const port = "https://turbosrc-marialis.dev";
 
 var isRepoTurboSrcToken = false;
 
@@ -79,7 +80,7 @@ fetch('https://turbosrc-auth.fly.dev/authenticate', {
 // Add to requests.js (reconcile privateStoreRequests.js
 async function get_authorized_contributor(contributor_id, repo_id) {
     const res = await superagent
-      .post(`${port}/graphql`)
+      .post(`${port}`)
       .send({
         query: `{ getAuthorizedContributor(contributor_id: "${contributor_id}", repo_id: "${repo_id}") }`,
       })
@@ -92,7 +93,7 @@ async function get_authorized_contributor(contributor_id, repo_id) {
 
 async function postPullFork(owner, repo, issue_id, contributor_id) {
   return await superagent
-    .post(`${port}/graphql`)
+    .post(`${port}`)
     .send({
       query: `{ getPRfork(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}") }`
     }) // sends a JSON post body
@@ -101,7 +102,7 @@ async function postPullFork(owner, repo, issue_id, contributor_id) {
 
 async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
   const res = await superagent
-    .post(`${port}/graphql`)
+    .post(`${port}`)
     .send({
       query: `{ getPRforkStatus(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}") }`
     }) // sends a JSON post body
