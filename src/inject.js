@@ -25,7 +25,7 @@ const mathUtil = require('./utils/mathUtil');
 const authContributor = require('./authorizedContributor');
 const { getRepoStatus } = require('./requests');
 import VoteTotalMain from './Components/VoteTotalMain';
-
+import VoteButton from './Components/VoteButton';
 const { postSetVote,
         postGetPullRequest, // updated
         postGetPRvoteYesTotals,
@@ -416,6 +416,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
         }
       }
       
+      /*
       class VoteButton extends React.Component {
         constructor(props) {
           super(props);
@@ -504,7 +505,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
             sideText
           );
         }
-      } 
+      } */
       
       /*
       class VoteTotalMain extends React.Component {
@@ -723,10 +724,10 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 
             sideText = 'yes';
             render(ce(VoteTotalMain, {user: user, repo: repo, issueID: issue_id, contributorID: contributor_id, contributorName: contributor_name}), domContainerVoteTotalMain);
-            //render(ce(VoteButton), {user: user, repo: repo, issueID: issue_id, contributorName: contributor_name, voted: '', lastIssueId: '', side: sideText, githubUser: githubUser }, domContainerVoteButton);
-            render(ce(VoteButton), domContainerVoteButton);
+            render(ce(VoteButton, {user: user, repo: repo, issueID: issue_id, contributorID: contributor_id, contributorName: contributor_name, side: sideText, githubUser: githubUser }), domContainerVoteButton);
+            //render(ce(VoteButton), domContainerVoteButton);
             sideText = 'no';
-            render(ce(VoteButton), domContainerVoteButton1);
+            render(ce(VoteButton, {user: user, repo: repo, issueID: issue_id, contributorID: contributor_id, contributorName: contributor_name, side: sideText, githubUser: githubUser }), domContainerVoteButton1);
           } else if (idName === '') {
             modal.style.display = 'none';
           }
