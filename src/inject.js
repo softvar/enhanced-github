@@ -24,6 +24,7 @@ const commonUtil = require('./utils/commonUtil');
 const mathUtil = require('./utils/mathUtil');
 const authContributor = require('./authorizedContributor');
 const { getRepoStatus } = require('./requests');
+import VoteTotalMain from './Components/VoteTotalMain';
 
 const { postSetVote,
         postGetPullRequest, // updated
@@ -414,7 +415,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
           );
         }
       }
-
+      
       class VoteButton extends React.Component {
         constructor(props) {
           super(props);
@@ -422,6 +423,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
         }
 
         render() {
+          console.log("hi hello good morning");
           if (this.state.voted === 'pull' && issue_id === this.state.lastIssueId) {
             return 'Verifying. This may take a few a couple minutes...';
           }
@@ -502,8 +504,9 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
             sideText
           );
         }
-      }
-
+      } 
+      
+      /*
       class VoteTotalMain extends React.Component {
         constructor(props) {
           super(props);
@@ -621,7 +624,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
             </div>
           );
         }
-      }
+      } */
 
       const containerItems = document.querySelectorAll('.js-issue-row');
 
@@ -719,7 +722,8 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
             voteTotals = await postGetPRvoteTotals(user, repo, issue_id, contributor_id, side);
 
             sideText = 'yes';
-            render(ce(VoteTotalMain), domContainerVoteTotalMain);
+            render(ce(VoteTotalMain, {user: user, repo: repo, issueID: issue_id, contributorID: contributor_id, contributorName: contributor_name}), domContainerVoteTotalMain);
+            //render(ce(VoteButton), {user: user, repo: repo, issueID: issue_id, contributorName: contributor_name, voted: '', lastIssueId: '', side: sideText, githubUser: githubUser }, domContainerVoteButton);
             render(ce(VoteButton), domContainerVoteButton);
             sideText = 'no';
             render(ce(VoteButton), domContainerVoteButton1);
