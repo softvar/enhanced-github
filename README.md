@@ -14,7 +14,21 @@ Install.
 
 Build everything.
 
-`yarn dev`
+`yarn devLocal`
+
+Build for online endpoint
+
+`yarn devOnline`
+
+But you'll need a config.devOnline.json in the project root directory.
+
+```
+{
+    "port": "https://your-domain"
+}
+```
+
+Note you'll likely want to setup you endoint so that you don't need to append `/graphql` to the port.
 
 The above command will create or update a `dist/` directory, which is used to load the extension.
 
