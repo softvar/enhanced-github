@@ -24,7 +24,7 @@ But you'll need a config.devOnline.json in the project root directory.
 
 ```
 {
-    "port": "https://your-domain"
+    "url": "https://your-domain"
 }
 ```
 

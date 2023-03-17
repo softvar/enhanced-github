@@ -5,7 +5,7 @@ const CONFIG = require('./config.js');
 //const port = "https://turbosrc-service.fly.dev"
 //const port = "https://turbosrc-marialis.dev";
 
-const port = CONFIG.port
+const url = CONFIG.url
 
 
 async function postCreateUser(
@@ -17,7 +17,7 @@ async function postCreateUser(
   token
 ) {
     const res = await superagent
-      .post(`${port}`)
+      .post(`${url}`)
       .send({
         query: `{ createUser(owner: "${owner}", repo: "${repo}", contributor_id: "${contributor_id}", contributor_name: "${contributor_name}", contributor_signature: "${contributor_signature}", token: "${token}") }`,
       })
@@ -29,7 +29,7 @@ async function postCreateUser(
 
 async function postGetContributorName(owner, repo, defaultHash, contributor_id) {
     const res = await superagent
-      .post(`${port}`)
+      .post(`${url}`)
       .send(
         //{ query: '{ name: 'Manny', species: 'cat' }' }
         //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
@@ -53,7 +53,7 @@ async function postGetContributorName(owner, repo, defaultHash, contributor_id) 
 
 async function postGetContributorID(owner, repo, defaultHash, contributor_name) {
     const res = await superagent
-      .post(`${port}`)
+      .post(`${url}`)
       .send(
         //{ query: '{ name: 'Manny', species: 'cat' }' }
         //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
@@ -82,7 +82,7 @@ async function postGetContributorSignature(
   contributor_id
 ) {
   const res = await superagent
-    .post(`${port}`)
+    .post(`${url}`)
     .send(
       //{ query: '{ name: 'Manny', species: 'cat' }' }
       //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
@@ -112,7 +112,7 @@ async function postFindOrCreateUser(
   token) {
     console.log('extension findOrCreateUser called')
   const res = await superagent
-    .post(`${port}`)
+    .post(`${url}`)
     .send({
       query: `{ findOrCreateUser(owner: "${owner}", repo: "${repo}", contributor_id: "${contributor_id}", contributor_name: "${contributor_name}", contributor_signature: "${contributor_signature}", token: "${token}") {contributor_name, contributor_id, contributor_signature, token}}`,
     })
@@ -127,7 +127,7 @@ async function postCheckGithubTokenPermissions(
   token,
 ) {
   const res = await superagent
-    .post(`${port}`)
+    .post(`${url}`)
     .send(
       {
         query: `{ checkGithubTokenPermissions(owner: "${owner}", repo: "${repo}", contributor_name: "${contributor_name}", token: "${token}") { public_repo_scopes, push_permissions }}`,
@@ -139,7 +139,7 @@ async function postCheckGithubTokenPermissions(
 }
 async function postCreateRepo(owner, repo, defaultHash, contributor_id, side, token) {
     const res = await superagent
-      .post(`${port}`)
+      .post(`${url}`)
       .send({
         query: `{ createRepo(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", token: "${token}") }`,
       })
@@ -158,7 +158,7 @@ async function postGetContributorTokenAmount(
   token
 ) {
     const res = await superagent
-      .post(`${port}`)
+      .post(`${url}`)
       .send(
         //{ query: '{ name: 'Manny', species: 'cat' }' }
         //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
@@ -182,7 +182,7 @@ async function postGetContributorTokenAmount(
 
 async function postTransferTokens(owner, repo, from, to, amount, token) {
   superagent
-    .post(`${port}`)
+    .post(`${url}`)
     .send(
       //{ query: '{ name: 'Manny', species: 'cat' }' }
       //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
@@ -202,7 +202,7 @@ async function postTransferTokens(owner, repo, from, to, amount, token) {
 
 async function postNewPullRequest(owner, repo, defaultHash, contributor_id, side) {
     superagent
-      .post(`${port}`)
+      .post(`${url}`)
       .send(
         //{ query: '{ name: 'Manny', species: 'cat' }' }
         //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
@@ -223,7 +223,7 @@ async function postNewPullRequest(owner, repo, defaultHash, contributor_id, side
 
 async function postSetVote(owner, repo, defaultHash, childDefaultHash, mergeable, contributor_id, side, token) {
     const res = await superagent
-      .post(`${port}`)
+      .post(`${url}`)
       .send(
         //{ query: '{ name: 'Manny', species: 'cat' }' }
         //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
@@ -245,7 +245,7 @@ async function postSetVote(owner, repo, defaultHash, childDefaultHash, mergeable
 
   async function getRepoStatus(repo_id) {
     const res = await superagent
-      .post(`${port}`)
+      .post(`${url}`)
       .send({
         query: `{ getRepoStatus(repo_id: "${repo_id}" ) { status, exists } }`
       })
@@ -259,7 +259,7 @@ async function postSetVote(owner, repo, defaultHash, childDefaultHash, mergeable
 
 async function get_authorized_contributor(contributor_id, repo_id) {
   return await superagent
-    .post(`${port}`)
+    .post(`${url}`)
     .send({
       query: `{ getAuthorizedContributor(contributor_id: "${contributor_id}", repo_id: "${repo_id}") }`,
     })
@@ -277,7 +277,7 @@ async function postPullFork(owner, repo, issue_id, contributor_id) {
 
 async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
   const res = await superagent
-    .post(`${port}`)
+    .post(`${url}`)
     .send({
       query: `{ getPRforkStatus(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}") }`,
     }) // sends a JSON post body
@@ -291,7 +291,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 
 async function postGetPullRequest(owner, repo, defaultHash, contributor_id, side) {
    const res = await superagent
-     .post(`${port}`)
+     .post(`${url}`)
      .send({
        query: `{ getPullRequest(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") { status, state, repo_id, fork_branch, defaultHash, childDefaultHash, mergeableCodeHost } }`,
      })
@@ -311,7 +311,7 @@ async function postGetPRpercentVotedQuorum(
   side
 ) {
     const res = await superagent
-      .post(`${port}`)
+      .post(`${url}`)
       .send(
         //{ query: '{ name: 'Manny', species: 'cat' }' }
         //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
@@ -334,7 +334,7 @@ async function postGetPRpercentVotedQuorum(
 
 async function postGetPRvoteTotals(owner, repo, defaultHash, contributor_id, side) {
   const res = await superagent
-    .post(`${port}`)
+    .post(`${url}`)
     .send(
       //{ query: '{ name: 'Manny', species: 'cat' }' }
       //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
@@ -363,7 +363,7 @@ async function postGetPRvoteYesTotals(
   side
 ) {
   const res = await superagent
-    .post(`${port}`)
+    .post(`${url}`)
     .send(
       //{ query: '{ name: 'Manny', species: 'cat' }' }
       //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
@@ -392,7 +392,7 @@ async function postGetPRvoteNoTotals(
   side
 ) {
   const res = await superagent
-    .post(`${port}`)
+    .post(`${url}`)
     .send(
       //{ query: '{ name: 'Manny', species: 'cat' }' }
       //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
@@ -415,7 +415,7 @@ async function postGetPRvoteNoTotals(
 
 async function postClosePullRequest(owner, repo, defaultHash, contributor_id, side) {
     superagent
-      .post(`${port}`)
+      .post(`${url}`)
       .send(
         //{ query: '{ name: 'Manny', species: 'cat' }' }
         //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
@@ -435,7 +435,7 @@ async function postClosePullRequest(owner, repo, defaultHash, contributor_id, si
 
 async function postMergePullRequest(owner, repo, defaultHash, contributor_id, side) { 
     superagent
-      .post(`${port}`)
+      .post(`${url}`)
       .send(
         //{ query: '{ name: 'Manny', species: 'cat' }' }
         //{ query: '{ newPullRequest(defaultHash: "first", contributorId: "1", side: 1) { vote_code } }' }
@@ -455,7 +455,7 @@ async function postMergePullRequest(owner, repo, defaultHash, contributor_id, si
 
 async function postCreatePullRequest(owner, repo, fork_branch, issue_id, title) {
   superagent
-    .post(`${port}`)
+    .post(`${url}`)
     .send(
       //{ query: '{ name: 'Manny', species: 'cat' }' }
       //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
@@ -475,7 +475,7 @@ async function postCreatePullRequest(owner, repo, fork_branch, issue_id, title) 
 
 async function postFork(owner, repo, org) {
   superagent
-    .post(`${port}`)
+    .post(`${url}`)
     .send(
       //{ query: '{ name: 'Manny', species: 'cat' }' }
       //{ query: '{ newPullRequest(pr_id: "first", contributorId: "1", side: 1) { vote_code } }' }
@@ -493,7 +493,7 @@ async function postFork(owner, repo, org) {
 
 async function getGitHubPullRequest(owner, repo, defaultHash)  {
     const res = await superagent
-      .post(`${port}`)
+      .post(`${url}`)
       .send({
         query: `{ getGitHubPullRequest(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}") { status, mergeable, mergeCommitSha, state, baseBranch } }`,
       })
