@@ -8,7 +8,6 @@ export default class VoteButton extends React.Component {
     }
 
     render() {
-      console.log("hi hello good morning");
       if (this.state.voted === 'pull' && this.props.issueID === this.state.lastIssueId) {
         return 'Verifying. This may take a few a couple minutes...';
       }
@@ -45,10 +44,10 @@ export default class VoteButton extends React.Component {
           onClick: () => {
             (async () => {
 
-              this.setState({ voted: 'valid', lastIssueId: this.props.issue_id, side: this.props.side });
-
-              await postSetVote(this.props.user, this.props.repo, this.props.issue_id, this.props.issueID, false, this.props.contributorID, this.props.side, this.props.githubUser.token);
-              this.setState({ voted: 'done', lastIssueId: this.props.issue_id, side: this.state.side });
+              this.setState({ voted: 'valid', lastIssueId: this.props.issueID, side: this.state.side });
+              
+              await postSetVote(this.props.user, this.props.repo, this.props.issueID, this.props.issueID, false, this.props.contributorID, this.state.side, this.props.githubUser.token);
+              this.setState({ voted: 'done', lastIssueId: this.props.issueID, side: this.state.side });
               //var forkStatus = await postGetPRforkStatus(user, repo, issue_id, contributor_id);
               //console.log('fork status');
               //console.log(forkStatus);

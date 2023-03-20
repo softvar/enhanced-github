@@ -26,6 +26,7 @@ const authContributor = require('./authorizedContributor');
 const { getRepoStatus } = require('./requests');
 import VoteTotalMain from './Components/VoteTotalMain';
 import VoteButton from './Components/VoteButton';
+//import TurboSrcButtonOpen from './Components/TurboSrcButtonOpen';
 const { postSetVote,
         postGetPullRequest, // updated
         postGetPRvoteYesTotals,
@@ -690,6 +691,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
         //displayOpenStatus = status.status === 200 &&  status.state === 'new' || status.status === 200 && status.state === 'open';
         domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}`);
         //if (displayOpenStatus) {
+        //render(ce(TurboSrcButtonOpen, {user: user, repo: repo, issueID: issue_id, contributorName: contributor_name, contributorID: contributor_id, tsrcPRstatus: tsrcPRstatus }), domContainerTurboSrcButton); //} else {
         render(ce(TurboSrcButtonOpen, {issueID: issue_id, tsrcPRstatus: tsrcPRstatus }), domContainerTurboSrcButton); //} else {
         // render(ce(TurboSrcButtonClosed), domContainerTurboSrcButton);
         //}
