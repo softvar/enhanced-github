@@ -19,7 +19,6 @@ export default class VoteButton extends React.Component {
       }
       if (this.state.voted === 'done' && this.props.issueID === this.state.lastIssueId) {
         //const voteData = votes.closest("[data-index]")
-        //console.log(JSON.parse(voteJSON).issue_id)
 
         //return turboBtnData['turbo-btn-data']['issue_id']
 
@@ -49,29 +48,18 @@ export default class VoteButton extends React.Component {
               await postSetVote(this.props.user, this.props.repo, this.props.issueID, this.props.issueID, false, this.props.contributorID, this.state.side, this.props.githubUser.token);
               this.setState({ voted: 'done', lastIssueId: this.props.issueID, side: this.state.side });
               //var forkStatus = await postGetPRforkStatus(user, repo, issue_id, contributor_id);
-              //console.log('fork status');
-              //console.log(forkStatus);
+              
               //if (forkStatus === 'notOnGithub') {
               //  console.log('notOnGithub');
               //  this.setState({ voted: 'notOnGithub', lastIssueId: issue_id, side: this.state.side });
               //} else if (forkStatus === 'valid') {
-              //  console.log('valid', user, repo, issue_id, contributor_id, this.state.side);
               //  await postSetVote(user, repo, issue_id, contributor_id, this.state.side);
               //  this.setState({ voted: 'done', lastIssueId: issue_id, side: this.state.side });
               //} else if (forkStatus === 'pull') {
-              //  console.log('i 201');
               //  this.setState({ voted: 'pull', lastIssueId: issue_id, side: this.state.side });
-              //  console.log('i 203');
-              //  console.log(user);
-              //  console.log(repo);
-              //  console.log(issue_id);
-              //  console.log(contributor_id);
-              //  console.log(this.state.side);
-              //  console.log('i 209');
+            
               //  await postPullFork(user, repo, issue_id, contributor_id, this.state.side);
-              //  console.log('i 211');
               //  forkStatus = await postGetPRforkStatus(user, repo, issue_id, contributor_id, this.state.side);
-              //  console.log('i 213');
               //  if (forkStatus === 'valid') {
               //    this.setState({ voted: 'valid', lastIssueId: issue_id, side: this.state.side });
               //    await postSetVote(user, repo, issue_id, contributor_id, this.state.side);

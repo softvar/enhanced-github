@@ -94,7 +94,6 @@ async function get_authorized_contributor(contributor_id, repo_id) {
       .set("accept", "json");
 
       const json = JSON.parse(res.text);
-      console.log('getAuthorizedContributor:' + json.data.getAuthorizedContributor);
       return json.data.getAuthorizedContributor;
 }
 
@@ -139,7 +138,6 @@ async function postPullFork(owner, repo, issue_id, contributor_id) {
   //Check if repo is tokenized
   const resIsRepoTurboSrcToken = await getRepoStatus(repo_id);
   const isRepoTurboSrcToken = resIsRepoTurboSrcToken.exists;
-  console.log('isRepoTurboSrcToken: ' + isRepoTurboSrcToken)
   //Function to get items from chrome storage set from Extension
   let getFromStorage = keys =>
     new Promise((resolve, reject) => chrome.storage.local.get([keys], result => resolve(result[keys])));
@@ -150,7 +148,6 @@ async function postPullFork(owner, repo, issue_id, contributor_id) {
   const githubUser = await getFromStorage('githubUser').then(res=>JSON.parse(res))
 
   const isAuthorizedContributor = await get_authorized_contributor(contributor_id, repo_id);
-  console.log('isAuthorizedContributor: ' + isAuthorizedContributor);
 
   const readyStateCheckInterval = setInterval(async function() {
     if ((document.readyState === 'complete') & (isRepoTurboSrcToken === true) & (isAuthorizedContributor === true)) {
@@ -180,7 +177,6 @@ async function postPullFork(owner, repo, issue_id, contributor_id) {
         var btnHtml = createButtonHtml(i, issue_id, contributor_id, side); //these function args are not being used 
         var modalHtml = createModal();
         if (i < 1) {
-          //console.log(i)
           html = btnHtml + modalHtml;
         } else {
           html = btnHtml;
@@ -221,7 +217,6 @@ async function postPullFork(owner, repo, issue_id, contributor_id) {
 	tsrcPRstatus = status
         gitHubPRstatus = await getGitHubPullRequest(user, repo, issue_id)
 
-        //console.log('status: ' + status)
         //displayOpenStatus = status.status === 200 &&  status.state === 'new' || status.status === 200 && status.state === 'open';
         domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}`);
         //if (displayOpenStatus) {
@@ -233,18 +228,14 @@ async function postPullFork(owner, repo, issue_id, contributor_id) {
       document.addEventListener(
         'click',
         async function(event) {
-          //console.log('new event')
-          //console.log(event.target.parentElement.id)
+         
           const divHTML = event.target.parentElement;
           var idName = divHTML.id;
           const idBtnSplit = idName.split('turbo-src-btn');
-          //console.log(idBtnSplit)
           if (idBtnSplit.length > 1) {
-            //console.log('turbo-src button click')
             const idNameSplit = idName.split('-');
             issue_id = idNameSplit[3];
-            //console.log(issue_id)
-            //console.log(contributor_id)
+            
             const domContainerVoteTotalMain = document.querySelector('#vote-total-main');
             const domContainerVoteButton = document.querySelector('#yes_vote_button');
             const domContainerVoteButton1 = document.querySelector('#no_vote_button');

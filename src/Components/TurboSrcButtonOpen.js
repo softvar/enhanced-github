@@ -29,13 +29,8 @@ export default class TurboSrcButtonOpen extends React.Component {
     componentDidMount() {
       setTimeout(() => {
         (async () => {
-            console.log(this.state.user,
-                this.state.repo,
-                this.state.issueID,
-                this.state.contributorID,
-                this.state.side + "All I have at the very very begnmning of the component did mount")
+            
       let tsrcPRstatusComponent = this.state.tsrcPRstatus
-      console.log(this.state.tsrcPRstatus + "this is tsrcPRstatusComponent");
 
       var textMath = this.state.voteButton.textMath
       try {
@@ -60,7 +55,6 @@ export default class TurboSrcButtonOpen extends React.Component {
     }
       } catch(error) {
       }
-      console.log('tsrcPRstatusComponent ', tsrcPRstatusComponent)
           const statusProblemComponent = (tsrcPRstatusComponent === null || tsrcPRstatusComponent  === undefined)
       if (statusProblemComponent) {
      tsrcPRstatusComponent = {}
@@ -129,11 +123,7 @@ export default class TurboSrcButtonOpen extends React.Component {
     componentDidUpdate() {
       setTimeout(() => {
         (async () => {
-            console.log(this.state.user,
-                this.state.repo,
-                this.state.issueID,
-                this.state.contributorID,
-                this.state.side + "this is everything")
+            
           let tsrcPRstatusComponent = await postGetPullRequest(
               this.state.user,
               this.state.repo,
@@ -157,12 +147,10 @@ export default class TurboSrcButtonOpen extends React.Component {
                 /*contributor_id:*/ this.state.contributorID,
                 /*side:*/ "",
             );
-    console.log('voteYes ', voteYesTotal)
-    console.log('voteYNo ', voteNoTotal)
+    
             const resYes = mathUtil.votePercentToMergeInteger(voteYesTotal)
             const resNo = mathUtil.votePercentToMergeInteger(voteNoTotal)
-    console.log('resYes ', resYes)
-    console.log('resNo ', resNo)
+    
     if (resYes !== null && resNo !== null) {
           textMath = resYes/2 + resNo/2
     }
@@ -171,7 +159,6 @@ export default class TurboSrcButtonOpen extends React.Component {
       }
 
 
-      console.log('update tsrcPRstatusComponent ', tsrcPRstatusComponent)
           const statusProblemComponent = (tsrcPRstatusComponent === null || tsrcPRstatusComponent  === undefined)
 
       if (statusProblemComponent) {
@@ -242,7 +229,6 @@ export default class TurboSrcButtonOpen extends React.Component {
       } else if (tsrcPRstatusComponent.mergeableCodeHost === true) {
               this.setState({ voteButton: { color: 'lightgreen', text: 'vote' } });
           } else {
-    console.log('made it')
     if (!checkVoteButtonProblem) {
               this.setState({ voteButton: { color: 'gray', text: '?' } });
     } else {

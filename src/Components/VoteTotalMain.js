@@ -25,7 +25,6 @@ export default class VoteTotalMain extends React.Component {
     }
 
     componentDidMount() {
-      console.log(this.props);
       setTimeout(() => {
         (async () => {
           var voteTotalsReact = await postGetPRvoteTotals(
