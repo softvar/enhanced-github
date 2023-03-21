@@ -38,7 +38,8 @@ const { postSetVote,
         postNewPullRequest,
         postGetContributorID,
         postGetContributorName,
-        getGitHubPullRequest
+        getGitHubPullRequest,
+        postGetPRforkStatus
       } = require('./requests')
 
 const CONFIG = require('./config.js');
@@ -99,25 +100,11 @@ async function get_authorized_contributor(contributor_id, repo_id) {
 
 async function postPullFork(owner, repo, issue_id, contributor_id) {
   return await superagent
-    .post(`${url}`)
+    .post(`${url}`) //this is the only difference between this function and the nearly identical postGetPullRequest function in requests.js
     .send({
       query: `{ getPRfork(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}") }`
     }) // sends a JSON post body
     .set('accept', 'json');
-}
-
-async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
-  const res = await superagent
-    .post(`${url}`)
-    .send({
-      query: `{ getPRforkStatus(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}") }`
-    }) // sends a JSON post body
-    .set('accept', 'json');
-  //const resJSON = JSON.parseFromString(res.text)
-  //console.log(resJSON)
-  //return resJSON.data.getPRforkStatus
-  const json = JSON.parse(res.text);
-  return json.data.getPRforkStatus;
 }
 
 (async function() {
