@@ -25,6 +25,7 @@ const mathUtil = require('./utils/mathUtil');
 const authContributor = require('./authorizedContributor');
 const { getRepoStatus } = require('./requests');
 const createModal = require('./Components/createModal');
+const createButtonHtml = require('./Components/createButtonHtml');
 import VoteTotalMain from './Components/VoteTotalMain';
 import VoteButton from './Components/VoteButton';
 import TurboSrcButtonOpen from './Components/TurboSrcButtonOpen';
@@ -189,7 +190,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
       for (var i = startIndex; i < containerItems.length; i++) {
         issue_id = containerItems[i].getAttribute('id');
         side = 'NA';
-        var btnHtml = createButtonHtml(i, issue_id, contributor_id, side);
+        var btnHtml = createButtonHtml(i, issue_id, contributor_id, side); //these function args are not being used 
         var modalHtml = createModal();
         if (i < 1) {
           //console.log(i)
@@ -301,22 +302,3 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
 })();
 
 
-
-function createButtonHtml(index, issue_id, contributor_id) {
-  return `
-      <div id='turbo-src-btn-${issue_id}'></div>
-    `;
-}
-//#yes_vote_button, #no_vote_button {
-//  display: inline-block;
-//  padding: 20px;
-//}
-
-//.modal-center {
-//  margin: 0;
-//  position: absolute;
-//  top: 15%;
-//  left: 50%;
-//  -ms-transform: translate(-50%, -50%);
-//  transform: translate(-50%, -50%);
-//}
