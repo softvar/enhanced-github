@@ -29,6 +29,8 @@ const createButtonHtml = require('./Components/createButtonHtml');
 import VoteTotalMain from './Components/VoteTotalMain';
 import VoteButton from './Components/VoteButton';
 import TurboSrcButtonOpen from './Components/TurboSrcButtonOpen';
+import RefreshButton from './Components/RefreshButton';
+//import FuncTurboSrcButtonOpen from './Components/FuncTurboSrcButtonOpen';
 const { postSetVote,
         postGetPullRequest, // updated
         postGetPRvoteYesTotals,
@@ -61,6 +63,9 @@ var side;
 var contributor_id;
 var contributor_name;
 var voteTotals;
+const clickedState = {
+  clicked: false
+}
 
 //OAuth Code: ***
 //Github redirects to localhost:5000/authenticated?code=...
@@ -106,6 +111,8 @@ async function postPullFork(owner, repo, issue_id, contributor_id) {
     .set('accept', 'json');
 }
 
+
+
 (async function() {
   window.enhancedGithub = {
     config: {}
@@ -148,14 +155,12 @@ async function postPullFork(owner, repo, issue_id, contributor_id) {
   const githubUser = await getFromStorage('githubUser').then(res=>JSON.parse(res))
 
   const isAuthorizedContributor = await get_authorized_contributor(contributor_id, repo_id);
-
   const readyStateCheckInterval = setInterval(async function() {
     if ((document.readyState === 'complete') & (isRepoTurboSrcToken === true) & (isAuthorizedContributor === true)) {
       // When the user clicks the button, open the modal
       const ce = React.createElement;
       var sideText;
       var modalDisplay = 'hide'
-
       
       
 
@@ -209,22 +214,36 @@ async function postPullFork(owner, repo, issue_id, contributor_id) {
       var domContainerTurboSrcButton;
       var status;
       //var displayOpenStatus;
-      for (var i = startIndex; i < containerItems.length; i++) {
-        issue_id = containerItems[i].getAttribute('id');
-        //if (i < 2) {
-        status = await postGetPullRequest(user, repo, issue_id, contributor_id, side);
-	// Update so knows what the state is inside.
-	tsrcPRstatus = status
-        gitHubPRstatus = await getGitHubPullRequest(user, repo, issue_id)
+      const renderVoteButtons = async () => {
 
-        //displayOpenStatus = status.status === 200 &&  status.state === 'new' || status.status === 200 && status.state === 'open';
-        domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}`);
-        //if (displayOpenStatus) {
-        render(ce(TurboSrcButtonOpen, {user: user, repo: repo, issueID: issue_id, contributorName: contributor_name, contributorID: contributor_id, tsrcPRstatus: tsrcPRstatus, side: side }), domContainerTurboSrcButton); //} else {
-        // render(ce(TurboSrcButtonClosed), domContainerTurboSrcButton);
-        //}
+          for (var i = startIndex; i < containerItems.length; i++) {
+            issue_id = containerItems[i].getAttribute('id');
+            //if (i < 2) {
+            status = await postGetPullRequest(user, repo, issue_id, contributor_id, side);
+      // Update so knows what the state is inside.
+      tsrcPRstatus = status
+            gitHubPRstatus = await getGitHubPullRequest(user, repo, issue_id)
+
+            //displayOpenStatus = status.status === 200 &&  status.state === 'new' || status.status === 200 && status.state === 'open';
+            domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}`);
+            //if (displayOpenStatus) {
+            console.log("loading...");
+            render(ce(TurboSrcButtonOpen, {user: user, repo: repo, issueID: issue_id, contributorName: contributor_name, contributorID: contributor_id, tsrcPRstatus: tsrcPRstatus, side: side, clicked: clickedState.clicked }), domContainerTurboSrcButton); //} else {
+            // render(ce(TurboSrcButtonClosed), domContainerTurboSrcButton);
+            //}
+          }
+          
+      } 
+      renderVoteButtons();
+      const handleRefresh = () => {
+        console.log("Refresh button actually clicked!");
+        clickedState.clicked = !clickedState.clicked;
+        console.log(clickedState.clicked + " is the new state");
+        renderVoteButtons();
+        
       }
-
+      render(React.createElement(RefreshButton, {refresh: handleRefresh}), document.getElementById('js-flash-container'));
+      
       document.addEventListener(
         'click',
         async function(event) {
@@ -278,5 +297,6 @@ async function postPullFork(owner, repo, issue_id, contributor_id) {
     }
   }, 10);
 })();
+
 
 
