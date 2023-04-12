@@ -28,9 +28,11 @@ const createModal = require('./Components/createModal');
 const createButtonHtml = require('./Components/createButtonHtml');
 import VoteTotalMain from './Components/VoteTotalMain';
 import VoteButton from './Components/VoteButton';
-import TurboSrcButtonOpen from './Components/TurboSrcButtonOpen';
+//import TurboSrcButtonOpen from './Components/TurboSrcButtonOpen';
 import RefreshButton from './Components/RefreshButton';
+import TwoUseEffectButtonOpen from './Components/TwoUseEffectButtonOpen';
 //import FuncTurboSrcButtonOpen from './Components/FuncTurboSrcButtonOpen';
+//import TwoUseEffectButtonOpen from './Components/TwoUseEffectButtonOpen';
 const { postSetVote,
         postGetPullRequest, // updated
         postGetPRvoteYesTotals,
@@ -228,7 +230,7 @@ async function postPullFork(owner, repo, issue_id, contributor_id) {
             domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}`);
             //if (displayOpenStatus) {
             console.log("loading...");
-            render(ce(TurboSrcButtonOpen, {user: user, repo: repo, issueID: issue_id, contributorName: contributor_name, contributorID: contributor_id, tsrcPRstatus: tsrcPRstatus, side: side, clicked: clickedState.clicked }), domContainerTurboSrcButton); //} else {
+            render(ce(TwoUseEffectButtonOpen, {user: user, repo: repo, issueID: issue_id, contributorName: contributor_name, contributorID: contributor_id, tsrcPRstatus: tsrcPRstatus, side: side, clicked: clickedState.clicked }), domContainerTurboSrcButton); //} else {
             // render(ce(TurboSrcButtonClosed), domContainerTurboSrcButton);
             //}
           }

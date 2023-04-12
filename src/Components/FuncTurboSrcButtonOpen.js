@@ -5,7 +5,7 @@ import commonUtil from '../utils/commonUtil';
 import mathUtil from '../utils/mathUtil';
 import { Button } from 'react-bootstrap';
 import RefreshButton from './RefreshButton';
-let modalDisplay = 'hide';
+//let modalDisplay = 'hide';
 let clickedRefresh = false;
 
 export default function FuncTurboSrcButtonOpen(props){
@@ -31,7 +31,7 @@ export default function FuncTurboSrcButtonOpen(props){
   useEffect(() => {
     
     (async () => {
-      setClicked(props.clicked);
+      //setClicked(props.clicked);
       console.log("It's working!");
       let tsrcPRstatusComponent = tsrcPRstatus;
       let textMath = voteButton.textMath;
@@ -65,7 +65,11 @@ export default function FuncTurboSrcButtonOpen(props){
       console.log("tsrcPRstatusComponent: ", tsrcPRstatusComponent);
       //console.log("voteNoTotal: ", voteNoTotal);
       //console.log("voteYesTotal: ", voteYesTotal);
+      setTsrcPRstatus(tsrcPRstatusComponent);
+     
+      
 
+      /*
       const statusProblemComponent = tsrcPRstatusComponent === null || tsrcPRstatusComponent === undefined;
       if (statusProblemComponent) {
         tsrcPRstatusComponent = {};
@@ -73,6 +77,7 @@ export default function FuncTurboSrcButtonOpen(props){
         tsrcPRstatusComponent.status = 404;
         tsrcPRstatusComponent.state = "";
       }
+      
       const statusPreOpenComponent =
         tsrcPRstatusComponent.status === 200 && tsrcPRstatusComponent.state === "pre-open";
       const statusOpenComponent =
@@ -88,9 +93,9 @@ export default function FuncTurboSrcButtonOpen(props){
       const checkVoteButtonVote = commonUtil.isObjEqual(voteButton, { color: 'lightgreen', text: 'vote' } );
       const checkVoteButtonConflict = commonUtil.isObjEqual(voteButton, { color: 'orange', text: 'conflict' } );
       const checkVoteButtonProblem = commonUtil.isObjEqual(voteButton, { color: 'gray', text: '?' } );
-      modalDisplay = 'hide' // only show modal if open or on vote.
+      //modalDisplay = 'hide' // only show modal if open or on vote.
           if (statusPreOpenComponent) {
-            modalDisplay = 'show'
+            //modalDisplay = 'show'
           //if (statusOpenComponent && gitHubPRstatus.mergeable) {
               if (!checkVoteButtonPreOpen) {
                 setVoteButton({ color: 'green', text: `${textMath}%` });
@@ -99,7 +104,7 @@ export default function FuncTurboSrcButtonOpen(props){
               }
           } else if (statusOpenComponent) {
           //if (statusOpenComponent && gitHubPRstatus.mergeable) {
-          modalDisplay = 'show'
+          //modalDisplay = 'show'
             if (!checkVoteButtonOpen) {
               setVoteButton({color: 'orchid', text: `${textMath}%` });
             } else {
@@ -121,7 +126,7 @@ export default function FuncTurboSrcButtonOpen(props){
               setTsrcPRstatus(tsrcPRstatusComponent);
             }
           } else if (tsrcPRstatusComponent.mergeableCodeHost === true) {
-            modalDisplay = 'show'
+            //modalDisplay = 'show'
             if (!checkVoteButtonVote) {
               setVoteButton({ color: 'lightgreen', text: 'vote' });
             } else {
@@ -142,9 +147,35 @@ export default function FuncTurboSrcButtonOpen(props){
                 setTsrcPRstatus(tsrcPRstatusComponent);
               }
           }
+          */
           
         })();
-  }, [props.clicked, tsrcPRstatus, textMath, voteButton.color]  );
+  }, [props.clicked]);
+
+  useEffect(() => {
+    if (props.tsrcPRstatus.status === 404 || props.tsrcPRstatus === undefined){
+      setVoteButton({ color: 'gray', text: '?' });
+    }
+    if (tsrcPRstatus.status === 200 && tsrcPRstatus.state === "pre-open"){
+      setVoteButton({ color: 'green', text: `${textMath}%` });
+    }
+    else if (tsrcPRstatus.status === 200 && tsrcPRstatus.state === "open"){
+      setVoteButton({ color: 'orchid', text: `${textMath}%` });
+    }
+    else if (tsrcPRstatus.status === 200 && tsrcPRstatus.state === "close"){
+      setVoteButton({ color: 'red', text: 'closed' });
+    }
+    else if (tsrcPRstatus.status === 200 && tsrcPRstatus.state === "merge"){
+      setVoteButton({ color: 'darkorchid', text: 'merged' });
+    }
+    else if (tsrcPRstatus.status === 200 && tsrcPRstatus.state === "vote"){
+      setVoteButton({ color: 'lightgreen', text: 'vote' });
+    }
+    else if (tsrcPRstatus.status === 200 && tsrcPRstatus.state === "conflict"){
+      setVoteButton({ color: 'orange', text: 'conflict' });
+    }
+  }, [tsrcPRstatus, props.tsrcPRstatus]);
+
   return (
     <Button
       // variant="open" className="textColor bgColor"
