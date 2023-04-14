@@ -1,79 +1,51 @@
-import React from 'react';
-const { postSetVote } = require('../requests');
-const ce = React.createElement;
-export default class VoteButton extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = { voted: '', lastIssueId: '', side: this.props.side };
-    }
+import React, { useState } from 'react';
+import { postSetVote } from '../requests';
 
-    render() {
-      if (this.state.voted === 'pull' && this.props.issueID === this.state.lastIssueId) {
-        return 'Verifying. This may take a few a couple minutes...';
-      }
-      if (this.state.voted === 'problem' && this.props.issueID === this.state.lastIssueId) {
-        return 'Something went wrong';
-      }
-      if (this.state.voted === 'notOnGithub' && this.props.issueID === this.state.lastIssueId) {
-        return "Pull request isn't valid on github (path to fork doesn't exist).";
-      }
-      if (this.state.voted === 'done' && this.props.issueID === this.state.lastIssueId) {
-        //const voteData = votes.closest("[data-index]")
+function VoteButton(props) {
+  const [voted, setVoted] = useState('');
+  const [lastIssueId, setLastIssueId] = useState('');
+  const [side, setSide] = useState(props.side);
 
-        //return turboBtnData['turbo-btn-data']['issue_id']
+  if (voted === 'pull' && props.issueID === lastIssueId) {
+    return 'Verifying. This may take a few a couple minutes...';
+  }
+  if (voted === 'problem' && props.issueID === lastIssueId) {
+    return 'Something went wrong';
+  }
+  if (voted === 'notOnGithub' && props.issueID === lastIssueId) {
+    return "Pull request isn't valid on github (path to fork doesn't exist).";
+  }
+  if (voted === 'done' && props.issueID === lastIssueId) {
+    return (
+      <div>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        user: {props.user} <br />
+        repo: {props.repo} <br />
+        issue_id: {props.issueID} <br />
+        contributor: {props.contributorName} <br />
+        side: {props.side} <br />
+      </div>
+    );
+  }
 
-        return (
-          <div>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            user: {this.props.user} <br />
-            repo: {this.props.repo} <br />
-            issue_id: {this.props.issueID} <br />
-            contributor: {this.props.contributorName} <br />
-            side: {this.props.side} <br />
-          </div>
-        );
-      }
+  return (
+    <button
+      onClick={async () => {
+        setVoted('valid');
+        setLastIssueId(props.issueID);
+        setSide(side);
+        await postSetVote(props.user, props.repo, props.issueID, props.issueID, false, props.contributorID, side, props.githubUser.token);
+        
+        setVoted('done');
+        setLastIssueId(props.issueID);
+        setSide(side);
+      }}>
+      {props.side}
+    </button>
+  );
+}
 
-      return ce(
-        'button',
-        {
-          onClick: () => {
-            (async () => {
-
-              this.setState({ voted: 'valid', lastIssueId: this.props.issueID, side: this.state.side });
-              
-              await postSetVote(this.props.user, this.props.repo, this.props.issueID, this.props.issueID, false, this.props.contributorID, this.state.side, this.props.githubUser.token);
-              this.setState({ voted: 'done', lastIssueId: this.props.issueID, side: this.state.side });
-              //var forkStatus = await postGetPRforkStatus(user, repo, issue_id, contributor_id);
-              
-              //if (forkStatus === 'notOnGithub') {
-              //  console.log('notOnGithub');
-              //  this.setState({ voted: 'notOnGithub', lastIssueId: issue_id, side: this.state.side });
-              //} else if (forkStatus === 'valid') {
-              //  await postSetVote(user, repo, issue_id, contributor_id, this.state.side);
-              //  this.setState({ voted: 'done', lastIssueId: issue_id, side: this.state.side });
-              //} else if (forkStatus === 'pull') {
-              //  this.setState({ voted: 'pull', lastIssueId: issue_id, side: this.state.side });
-            
-              //  await postPullFork(user, repo, issue_id, contributor_id, this.state.side);
-              //  forkStatus = await postGetPRforkStatus(user, repo, issue_id, contributor_id, this.state.side);
-              //  if (forkStatus === 'valid') {
-              //    this.setState({ voted: 'valid', lastIssueId: issue_id, side: this.state.side });
-              //    await postSetVote(user, repo, issue_id, contributor_id, this.state.side);
-              //    this.setState({ voted: 'done', lastIssueId: issue_id, side: this.state.side });
-              //  } else {
-              //    this.setState({ voted: 'problem', lastIssueId: issue_id, side: this.state.side });
-              //  }
-              //} else {
-              //  this.setState({ voted: 'problem', lastIssueId: issue_id, side: this.state.side });
-              //}
-            })();
-          }
-        },
-        this.props.side
-      );
-    }
-  } 
+export default VoteButton;
