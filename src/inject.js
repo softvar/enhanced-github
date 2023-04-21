@@ -28,7 +28,7 @@ const createModal = require('./Components/createModal');
 const createButtonHtml = require('./Components/createButtonHtml');
 import VoteTotalMain from './Components/VoteTotalMain';
 import VoteButton from './Components/VoteButton';
-import TurboSrcButtonOpen from './Components/TurboSrcButtonOpen';
+import TurboSrcButtonOpen from './Components/VoteStatusButton';
 import RefreshButton from './Components/RefreshButton';
 
 const { postSetVote,
