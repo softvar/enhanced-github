@@ -12,7 +12,7 @@ export default function VoteStatusButton(props){
     const [issueID, setIssueID] = useState(props.issueID);
     const [contributorID, setContributorID] = useState(props.contributorID);
     const [voteStatusButton, setVoteStatusButton] = useState({ color: 'gray', text: '?' });
-    let [tsrcPRStatus, setTsrcPRStatus] = useState(props.tsrcPRstatus);
+    const [tsrcPRStatus, setTsrcPRStatus] = useState(props.tsrcPRstatus);
     const [voteYesTotalState, setVoteYesTotalState] = useState(0.0);
     const [voteNoTotalState, setVoteNoTotalState] = useState(0.0);
     const [voteTotals, setVoteTotals] = useState(0);
@@ -30,14 +30,16 @@ export default function VoteStatusButton(props){
     useEffect(() => {
       const fetchVoteStatus = async () => {
       let textMath = voteStatusButton.textMath;
+      let tsrcPRStatusComponent
       try {
-        setTsrcPRStatus = await postGetPullRequest(
+          tsrcPRStatusComponent = await postGetPullRequest(
           user,
           repo,
           issueID,
           contributorID,
           side
           );
+          setTsrcPRStatus(res)
         const voteYesTotal = await postGetPRvoteYesTotals(
           user,
           repo,
@@ -60,6 +62,7 @@ export default function VoteStatusButton(props){
         }
         setVoteYesTotalState(voteYesTotal);
         setVoteNoTotalState(voteNoTotal);
+        setTsrcPRStatus(tsrcPRStatusComponent);
         console.log('tsrcPRStatus:', tsrcPRStatus)
         console.log('voteYesTotal:', voteYesTotal)
         console.log('voteNoTotal:', voteNoTotal)
@@ -73,7 +76,7 @@ export default function VoteStatusButton(props){
         };
 
         fetchVoteStatus();
-    }, [clicked]);
+    }, [props.clicked]);
 
     useEffect(() => {
     const buttonColor = buttonStyle[tsrcPRStatus.state][0]
@@ -81,7 +84,7 @@ export default function VoteStatusButton(props){
     console.log('buttonColor:', buttonColor)
     console.log('buttonText:', buttonText)
     setVoteStatusButton({color: buttonColor, text: buttonText});
-    }, [voteYesTotalState, voteNoTotalState, props.tsrcPRstatus, voteTotals]);
+    }, [voteYesTotalState, voteNoTotalState, tsrcPRStatus, voteTotals]);
 
     const handleClick = (e) => {
         e.preventDefault();
