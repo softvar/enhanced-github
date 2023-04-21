@@ -39,7 +39,6 @@ export default function VoteStatusButton(props){
           contributorID,
           side
           );
-          setTsrcPRStatus(res)
         const voteYesTotal = await postGetPRvoteYesTotals(
           user,
           repo,
