@@ -3,15 +3,17 @@ import { postSetVote, postGetPullRequest, postGetPRvoteYesTotals, postGetPRvoteN
 
 function VoteTotalMain(props) {
   const [votes, setVotes] = useState(['0.0', '0.0']);
-  const { user, repo, issue_id, contributor_id, contributor_name, side } = props;
+  const { user, repo, issueID, contributorID, contributorName, side } = props;
 
   useEffect(() => {
     const fetchVoteTotals = async () => {
       try {
-        var voteTotalsReact = await postGetPRvoteTotals(user, repo, issue_id, contributor_id, side);
-        var voteYesTotals = await postGetPRvoteYesTotals(user, repo, issue_id, contributor_id, side);
-        var voteNoTotals = await postGetPRvoteNoTotals(user, repo, issue_id, contributor_id, side);
-
+        var voteTotalsReact = await postGetPRvoteTotals(user, repo, issueID, contributorID, side);
+        var voteYesTotals = await postGetPRvoteYesTotals(user, repo, issueID, contributorID, side);
+        var voteNoTotals = await postGetPRvoteNoTotals(user, repo, issueID, contributorID, side);
+        console.log('voteYestotals: ' + voteYesTotals);
+        console.log('voteNototals: ' + voteNoTotals);
+        console.log(props)
         voteTotalsReact = (Number(voteTotalsReact) * 100).toFixed(1).toString();
         if (voteYesTotals && voteNoTotals) {
           voteYesTotals = Number(voteYesTotals);
@@ -30,7 +32,7 @@ function VoteTotalMain(props) {
     };
 
     fetchVoteTotals();
-  }, [user, repo, issue_id, contributor_id, side]);
+  }, [user, repo, issueID, contributorID, side]);
 
   const handleClick = (e) => {
   };
