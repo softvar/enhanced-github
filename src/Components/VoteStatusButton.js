@@ -62,12 +62,6 @@ export default function VoteStatusButton(props){
         setVoteYesTotalState(voteYesTotal);
         setVoteNoTotalState(voteNoTotal);
         setTsrcPRStatus(tsrcPRStatusComponent);
-        console.log('tsrcPRStatus:', tsrcPRStatus)
-        console.log('voteYesTotal:', voteYesTotal)
-        console.log('voteNoTotal:', voteNoTotal)
-        console.log('resYes:', resYes)
-        console.log('resNo:', resNo)
-        console.log('textMath:', textMath)
       } catch (error) {
         console.log('fetchVoteStatus error:', error)
         textMath = "";
@@ -80,8 +74,6 @@ export default function VoteStatusButton(props){
     useEffect(() => {
     const buttonColor = buttonStyle[tsrcPRStatus.state][0]
     const buttonText = buttonStyle[tsrcPRStatus.state][1]
-    console.log('buttonColor:', buttonColor)
-    console.log('buttonText:', buttonText)
     setVoteStatusButton({color: buttonColor, text: buttonText});
     }, [voteYesTotalState, voteNoTotalState, tsrcPRStatus, voteTotals]);
 
