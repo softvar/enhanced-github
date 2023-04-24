@@ -72,9 +72,15 @@ export default function VoteStatusButton(props){
     }, [props.clicked]);
 
     useEffect(() => {
-    const buttonColor = buttonStyle[tsrcPRStatus.state][0]
-    const buttonText = buttonStyle[tsrcPRStatus.state][1]
-    setVoteStatusButton({color: buttonColor, text: buttonText});
+        if(!tsrcPRStatus) {
+          return;
+        }
+        if(!tsrcPRStatus.mergeableCodeHost) {
+          tsrcPRStatus.state = 'conflict';
+        }
+        const buttonColor = buttonStyle[tsrcPRStatus.state][0]
+        const buttonText = buttonStyle[tsrcPRStatus.state][1]
+        setVoteStatusButton({color: buttonColor, text: buttonText});
     }, [voteYesTotalState, voteNoTotalState, tsrcPRStatus, voteTotals]);
 
     const handleClick = (e) => {
