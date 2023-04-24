@@ -12,7 +12,9 @@ cursor: move; /* fallback if grab cursor is unsupported */
 cursor: grab;
 cursor: -moz-grab;
 cursor: -webkit-grab;
-filter: drop-shadow(3px 3px 6px #000000)
+filter: drop-shadow(3px 3px 6px #000000);
+position: absolute;
+z-index: 100;
 `;
 
 const rotateElementOnClickForHalfSecondWithTransition = () => {
