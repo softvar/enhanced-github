@@ -6,3 +6,6 @@ node_modules/
 .DS_Store
 coverage
 .vscode
+
+config.devOnline.json
+src/config.js
