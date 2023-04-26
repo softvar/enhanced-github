@@ -30,28 +30,22 @@ import VoteTotalMain from './Components/VoteTotalMain';
 import VoteButton from './Components/VoteButton';
 import VoteStatusButton from './Components/VoteStatusButton';
 import RefreshButton from './Components/RefreshButton';
+import ModalVote from './Components/ModalVote';
 
 const { postSetVote,
         postGetPullRequest, // updated
-        postGetPRvoteYesTotals,
-        postGetPRvoteNoTotals,
         postGetPRvoteTotals,
-        postCreateRepo,
-        postNewPullRequest,
-        postGetContributorID,
-        postGetContributorName,
-        getGitHubPullRequest,
-        postGetPRforkStatus
+        getGitHubPullRequest
       } = require('./requests')
 
 
-const CONFIG = require('./config.js');
+      const CONFIG = require('./config.js');
 //const port = "http://localhost:4000";
 //const port = "https://turbosrc-service.fly.dev"
 //const port = "https://turbosrc-marialis.dev";
 const url = CONFIG.url
 
-
+    
 var isRepoTurboSrcToken = false;
 
 var modal;
@@ -103,29 +97,10 @@ async function get_authorized_contributor(contributor_id, repo_id) {
       const json = JSON.parse(res.text);
       return json.data.getAuthorizedContributor;
 }
-
-async function postPullFork(owner, repo, issue_id, contributor_id) {
-  return await superagent
-    .post(`${url}`) //this is the only difference between this function and the nearly identical postGetPullRequest function in requests.js
-    .send({
-      query: `{ getPRfork(owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}") }`
-    }) // sends a JSON post body
-    .set('accept', 'json');
-}
-
-
-
 (async function() {
   window.enhancedGithub = {
     config: {}
   };
-  const getStorageData = key =>
-    new Promise((resolve, reject) =>
-      chrome.storage.sync.get(key, result =>
-        chrome.runtime.lastError ? reject(Error(chrome.runtime.lastError.message)) : resolve(result)
-      )
-    );
-
   const setStorageData = data =>
     new Promise((resolve, reject) =>
       chrome.storage.sync.set(data, () =>
@@ -163,8 +138,6 @@ async function postPullFork(owner, repo, issue_id, contributor_id) {
       const ce = React.createElement;
       var sideText;
       var modalDisplay = 'hide'
-      
-      
 
       const containerItems = document.querySelectorAll('.js-issue-row');
 
@@ -260,21 +233,17 @@ async function postPullFork(owner, repo, issue_id, contributor_id) {
             const domContainerVoteTotalMain = document.querySelector('#vote-total-main');
             const domContainerVoteButton = document.querySelector('#yes_vote_button');
             const domContainerVoteButton1 = document.querySelector('#no_vote_button');
-
-	    //if (modalDisplay === 'show') {
+            
+   //if (modalDisplay === 'show') {
                modal.style.display = 'block';
 	    //} else {
             //   modal.style.display = 'none';
-	    //}
-
+	    //}   
+            const domContainerModal = document.getElementById('myModal');
+	    
             voteTotals = await postGetPRvoteTotals(user, repo, issue_id, contributor_id, side);
-
-            sideText = 'yes';
-            render(ce(VoteTotalMain, {user: user, repo: repo, issueID: issue_id, contributorID: contributor_id, contributorName: contributor_name}), domContainerVoteTotalMain);
-            render(ce(VoteButton, {user: user, repo: repo, issueID: issue_id, contributorID: contributor_id, contributorName: contributor_name, side: sideText, githubUser: githubUser }), domContainerVoteButton);
-            sideText = 'no';
-            render(ce(VoteButton, {user: user, repo: repo, issueID: issue_id, contributorID: contributor_id, contributorName: contributor_name, side: sideText, githubUser: githubUser }), domContainerVoteButton1);
-          } else if (idName === '') {
+            render(ce(ModalVote, {user: user, repo: repo, issueID: issue_id, contributorID: contributor_id, contributorName: contributor_name, voteTotals: voteTotals, githubUser: githubUser}), domContainerModal);
+            } else if (idName === '') {
             modal.style.display = 'none';
           }
         },
