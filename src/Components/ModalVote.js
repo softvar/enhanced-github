@@ -12,6 +12,7 @@ background-color: #fefefe;
   height: 100%;
   width: 33%;
   text-align: center;
+  color: black;
   `;
 
   const BtnGroupVote = styled.div`
@@ -22,7 +23,7 @@ background-color: #fefefe;
   button {
     background-color: #04AA6D; /* Green background */
     border: 1px solid green; /* Green border */
-    color: white; /* White text */
+    color: black; /* White text */
     padding: 10px 24px; /* Some padding */
     cursor: pointer; /* Pointer/hand icon */
     float: left; /* Float the buttons side by side - Still needed ? */
