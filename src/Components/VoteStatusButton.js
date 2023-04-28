@@ -12,14 +12,14 @@ export default function VoteStatusButton(props){
     const [issueID, setIssueID] = useState(props.issueID);
     const [contributorID, setContributorID] = useState(props.contributorID);
     const [voteStatusButton, setVoteStatusButton] = useState({ color: 'gray', text: '?' });
-    const [tsrcPRStatus, setTsrcPRStatus] = useState(props.tsrcPRstatus);
+    const [tsrcPRStatus, setTsrcPRStatus] = useState(props.tsrcPRstatus || {state: 'vote', mergeableCodeHost: true});
     const [voteYesTotalState, setVoteYesTotalState] = useState(0.0);
     const [voteNoTotalState, setVoteNoTotalState] = useState(0.0);
     const [voteTotals, setVoteTotals] = useState(0);
     const [side, setSide] = useState(props.side);
     const [clicked, setClicked] = useState(props.clicked);
     const buttonStyle = {
-      '': ['lightgreen', 'vote'],
+      vote: ['lightgreen', 'vote'],
       'pre-open': ['green', voteTotals],
       open: ['orchid', voteTotals],
       conflict: ['orange', 'conflict'],
@@ -72,6 +72,7 @@ export default function VoteStatusButton(props){
     }, [props.clicked]);
 
     useEffect(() => {
+      console.log('tsrcPRStatus:', tsrcPRStatus)
         if(!tsrcPRStatus) {
           return;
         }
