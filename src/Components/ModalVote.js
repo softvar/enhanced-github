@@ -9,10 +9,9 @@ background-color: #fefefe;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
-  height: 100%;
+  height: 75%;
   width: 33%;
   text-align: center;
-  color: black;
   `;
 
   const BtnGroupVote = styled.div`
@@ -20,15 +19,30 @@ background-color: #fefefe;
   width: 100%;
   justify-content: center;
   flex-direction: row; /* Display buttons horizontally in flexbox */
-  button {
+  
+  &:after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  &:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+  }`;
+
+  const YesButton = styled(VoteButton)`
     background-color: #04AA6D; /* Green background */
     border: 1px solid green; /* Green border */
-    color: black; /* White text */
+    color: black; 
     padding: 10px 24px; /* Some padding */
     cursor: pointer; /* Pointer/hand icon */
     float: left; /* Float the buttons side by side - Still needed ? */
     margin: 1rem;
-  }`;
+    `;
+
+    const NoButton = styled(YesButton)`
+        background-color: #f44336;
+    `;
+
 
 const ModalVote = (props) => {
     let user = props.user;
@@ -49,10 +63,8 @@ const ModalVote = (props) => {
             </VoteTotalMain>
           <BtnGroupVote>
             <VoteButton user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} side={'yes'}  githubUser={githubUser} id="yes_vote_button">
-                <button>Yes</button>
             </VoteButton>
             <VoteButton user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} side={'no'} githubUser={githubUser} id="no_vote_button">
-                <button>No</button>
             </VoteButton>
           </BtnGroupVote>
         </ModalContent>

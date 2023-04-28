@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { postSetVote, postGetPullRequest, postGetPRvoteYesTotals, postGetPRvoteNoTotals, postGetPRvoteTotals, postCreateRepo, postNewPullRequest, postGetContributorID, postGetContributorName, getGitHubPullRequest } from '../requests';
+import styled from 'styled-components';
+//import LinearProgress from '@mui/material/LinearProgress';
+
+const VoteText = styled.p`
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap');
+font-family: 'Inter', sans-serif;
+color: black;
+`;
 
 function VoteTotalMain(props) {
   const [votes, setVotes] = useState(['0.0', '0.0']);
@@ -36,13 +44,18 @@ function VoteTotalMain(props) {
 
   const handleClick = (e) => {
   };
-
   return (
     <div>
-      <p>Yes {votes[0]}% | No {votes[1]}% </p>
-      <p>Total Voted {votes[2]}%</p>
+      <VoteText>Yes {votes[0]}% | No {votes[1]}% </VoteText>
+      <VoteText>Total Voted {votes[2]}%</VoteText>
+
+
     </div>
   );
 }
+// progress bar code
+// uninstall npm pckgs
+//      <LinearProgress color="success" variant="determinate" value={votes[0]} />
+//      <LinearProgress color="secondary" variant="determinate" value={votes[1]} /> 
 
 export default VoteTotalMain;

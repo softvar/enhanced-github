@@ -1,5 +1,19 @@
 import React, { useState } from 'react';
 import { postSetVote } from '../requests';
+import styled from 'styled-components';
+
+const Vote = styled.button`
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap');
+
+    background-color: ${props => props.$option ? "#04AA6D" : "#D33131"};
+    border: 0px solid green;
+    color: white; 
+    padding: 10px 24px; /* Some padding */
+    cursor: pointer; /* Pointer/hand icon */
+    float: left; /* Float the buttons side by side - Still needed ? */
+    margin: 1rem;
+    font-family: 'Inter', sans-serif;
+    `;
 
 function VoteButton(props) {
   const [voted, setVoted] = useState('');
@@ -18,10 +32,6 @@ function VoteButton(props) {
   if (voted === 'done' && props.issueID === lastIssueId) {
     return (
       <div>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
         user: {props.user} <br />
         repo: {props.repo} <br />
         issue_id: {props.issueID} <br />
@@ -32,7 +42,7 @@ function VoteButton(props) {
   }
 
   return (
-    <button
+    <Vote $option={props.side === 'yes'}
       onClick={async () => {
         setVoted('valid');
         setLastIssueId(props.issueID);
@@ -44,7 +54,7 @@ function VoteButton(props) {
         setSide(side);
       }}>
       {props.side}
-    </button>
+    </Vote>
   );
 }
 
