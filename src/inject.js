@@ -26,8 +26,6 @@ const authContributor = require('./authorizedContributor');
 const { getRepoStatus } = require('./requests');
 const createModal = require('./Components/createModal');
 const createButtonHtml = require('./Components/createButtonHtml');
-import VoteTotalMain from './Components/VoteTotalMain';
-import VoteButton from './Components/VoteButton';
 import VoteStatusButton from './Components/VoteStatusButton';
 import RefreshButton from './Components/RefreshButton';
 import ModalVote from './Components/ModalVote';
