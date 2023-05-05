@@ -3,16 +3,18 @@ import { postSetVote } from '../requests';
 import styled from 'styled-components';
 
 const Vote = styled.button`
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
 
-    background-color: ${props => props.$option ? "#04AA6D" : "#D33131"};
+    background-color: ${props => props.$option ? "#038800" : "#D33131"};
     border: 0px solid green;
     color: white; 
-    padding: 10px 24px; /* Some padding */
+    padding: 10px 34px; /* Some padding */
     cursor: pointer; /* Pointer/hand icon */
     float: left; /* Float the buttons side by side - Still needed ? */
     margin: 1rem;
     font-family: 'Inter', sans-serif;
+    font-size:24px;
+    border-radius: 5px;
     `;
 
 function VoteButton(props) {
@@ -42,7 +44,7 @@ function VoteButton(props) {
   }
 
   return (
-    <Vote $option={props.side === 'yes'}
+    <Vote $option={props.side === 'YES'}
       onClick={async () => {
         setVoted('valid');
         setLastIssueId(props.issueID);

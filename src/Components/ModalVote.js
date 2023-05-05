@@ -3,15 +3,17 @@ import React, { useState, useEffect } from 'react';
 import VoteTotalMain from './VoteTotalMain';
 import VoteButton from './VoteButton';
 import styled from 'styled-components';
+import VotesTable from './VotesTable';
 
 const ModalContent = styled.div`
 background-color: #fefefe;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
-  height: 75%;
-  width: 33%;
+  height: 95%;
+  width: 700px;
   text-align: center;
+  overflow-y: auto;
   `;
 
   const BtnGroupVote = styled.div`
@@ -62,11 +64,12 @@ const ModalVote = (props) => {
                 <h2>Vote Total</h2>
             </VoteTotalMain>
           <BtnGroupVote>
-            <VoteButton user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} side={'yes'}  githubUser={githubUser} id="yes_vote_button">
+            <VoteButton user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} side={'YES'}  githubUser={githubUser} id="yes_vote_button">
             </VoteButton>
-            <VoteButton user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} side={'no'} githubUser={githubUser} id="no_vote_button">
+            <VoteButton user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} side={'NO'} githubUser={githubUser} id="no_vote_button">
             </VoteButton>
           </BtnGroupVote>
+          <VotesTable />
         </ModalContent>
     );
 }
