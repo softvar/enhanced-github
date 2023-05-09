@@ -55,11 +55,10 @@ const voteDataFromAPI = [
 
 const VotesTableRow = styled.div`
 
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    color:black;
+    display: grid;
+    grid-template-columns: 14fr 7fr 7fr 3fr;
+    color: black;
+    justify-items: start;
 
 `;
 

@@ -1,21 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-function getMinutesSince(timestamp) {
+function getDurationSince(timestamp) {
     const now = new Date();
     const createdAt = new Date(timestamp);
     const diffInMs = now - createdAt;
-    const diffInMinutes = Math.round(diffInMs / 1000 / 60);
-    return diffInMinutes;
+    const diffInSeconds = Math.round(diffInMs / 1000);
+  
+    if (diffInSeconds < 60) {
+      return diffInSeconds + " S";
+    } else if (diffInSeconds < 3600) {
+      const diffInMinutes = Math.floor(diffInSeconds / 60);
+      return diffInMinutes + " MIN";
+    } else if (diffInSeconds < 86400) {
+      const diffInHours = Math.floor(diffInSeconds / 3600);
+      return diffInHours + " HR";
+    } else {
+      const diffInDays = Math.floor(diffInSeconds / 86400);
+      return diffInDays + " D";
+    }
   }
+  
   
 
 const VoteRow = styled.div`
-    display: flex; 
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 10fr 5fr 5fr 2fr;
     padding: 4px;
+    gap: 15px;
+    justify-items: start;
     background-color: ${props => props.$option ? "#FFF" : "#F1F1F1"}
 `;
 
@@ -34,14 +47,18 @@ const SideText = styled(Text)`
     color: ${props => props.$option ? "#038800" : "#D33131"};
 `;
 
+function makeAllCaps(str) {
+    return str.toUpperCase();
+  }
+  
 export default function row(props){    
     return(
         <div>
             <VoteRow $option={props.index % 2 == 0}>
                 <Text>{props.id}</Text>
                 <Text>{props.votepower}</Text>
-                <SideText $option={props.side === 'yes'}>{props.side}</SideText>
-                <Text>{props.age}</Text>
+                <SideText $option={props.side === 'yes'}>{makeAllCaps(props.side)}</SideText>
+                <Text>{getDurationSince(props.age)}</Text>
             </VoteRow>
         </div>
     )
