@@ -64,9 +64,9 @@ const ModalVote = (props) => {
                 <h2>Vote Total</h2>
             </VoteTotalMain>
           <BtnGroupVote>
-            <VoteButton user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} side={'YES'}  githubUser={githubUser} id="yes_vote_button">
+            <VoteButton user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} side={'yes'}  githubUser={githubUser} id="yes_vote_button">
             </VoteButton>
-            <VoteButton user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} side={'NO'} githubUser={githubUser} id="no_vote_button">
+            <VoteButton user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} side={'no'} githubUser={githubUser} id="no_vote_button">
             </VoteButton>
           </BtnGroupVote>
           <VotesTable />

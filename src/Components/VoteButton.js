@@ -20,7 +20,7 @@ const Vote = styled.button`
 function VoteButton(props) {
   const [voted, setVoted] = useState('');
   const [lastIssueId, setLastIssueId] = useState('');
-  const [side, setSide] = useState(props.side);
+  const [side, setSide] = useState(props.side.toLowerCase());
 
   if (voted === 'pull' && props.issueID === lastIssueId) {
     return 'Verifying. This may take a few a couple minutes...';
@@ -43,19 +43,18 @@ function VoteButton(props) {
     );
   }
 
+  console.log('side ' + side);
+
   return (
-    <Vote $option={props.side === 'YES'}
+    <Vote $option={props.side === 'yes'}
       onClick={async () => {
         setVoted('valid');
         setLastIssueId(props.issueID);
-        setSide(side);
         await postSetVote(props.user, props.repo, props.issueID, props.issueID, false, props.contributorID, side, props.githubUser.token);
         
         setVoted('done');
-        setLastIssueId(props.issueID);
-        setSide(side);
       }}>
-      {props.side}
+      {props.side.toUpperCase()}
     </Vote>
   );
 }

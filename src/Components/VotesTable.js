@@ -70,6 +70,11 @@ font-size: 15px;
 color: black;
 `;
 
+const votesTable = styled.div`
+    margin-top: 20px;
+`; 
+
+
 export default function VotesTable(props){
     return(
         <div className='votes-table'>

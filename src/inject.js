@@ -194,8 +194,10 @@ async function get_authorized_contributor(contributor_id, repo_id) {
             //if (i < 2) {
             status = await postGetPullRequest(user, repo, issue_id, contributor_id, side);
       // Update so knows what the state is inside.
-      tsrcPRstatus = status
-            gitHubPRstatus = await getGitHubPullRequest(user, repo, issue_id)
+      let testVoteTotals = await postGetPRvoteTotals(user, repo, issue_id, contributor_id, side);
+      tsrcPRstatus = status;
+            console.log("testing out status: ", status);
+            gitHubPRstatus = await getGitHubPullRequest(user, repo, issue_id);
 
             //displayOpenStatus = status.status === 200 &&  status.state === 'new' || status.status === 200 && status.state === 'open';
             domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}`);

@@ -25,17 +25,16 @@ function getDurationSince(timestamp) {
 
 const VoteRow = styled.div`
     display: grid;
-    grid-template-columns: 10fr 5fr 5fr 2fr;
+    grid-template-columns: 46% 23% 22% 9%;
     padding: 4px;
-    gap: 15px;
     justify-items: start;
     background-color: ${props => props.$option ? "#FFF" : "#F1F1F1"}
 `;
 
 const Text = styled.p`
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap'); 
 font-family: 'Inter', sans-serif;
-font-weight: 400;
+font-weight: 300;
 font-size: 12px;
 color: #313131; //add conditional for red/green color
 margin-top: 5px;
