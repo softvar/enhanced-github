@@ -4,6 +4,7 @@ import VoteTotalMain from './VoteTotalMain';
 import VoteButton from './VoteButton';
 import styled from 'styled-components';
 import VotesTable from './VotesTable';
+const { postGetVotes } = require('../requests');
 
 const ModalContent = styled.div`
 background-color: #fefefe;
@@ -55,6 +56,21 @@ const ModalVote = (props) => {
     let vote_totals = props.voteTotals;
     let githubUser = props.githubUser;
 
+    let repoID = `${user}/${repo}`
+
+    const getVotes = async () => {
+      try {
+        const res = await postGetVotes(repoID, issue_id, contributor_id)
+        console.log('get votes res:', res)
+      } catch (error) {
+        console.log('res get votes error:', error) 
+      }
+    }
+
+    useEffect(()=> {
+      getVotes()
+    }
+    )
     
 
     return (
