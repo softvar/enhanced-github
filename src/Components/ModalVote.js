@@ -4,6 +4,7 @@ import VoteTotalMain from './VoteTotalMain';
 import VoteButton from './VoteButton';
 import styled from 'styled-components';
 import VotesTable from './VotesTable';
+import VoteTotalResults from './VoteTotalResults';
 const { postGetVotes } = require('../requests');
 
 const ModalContent = styled.div`
@@ -55,13 +56,31 @@ const ModalVote = (props) => {
     let contributer_name = props.contributerName;
     let vote_totals = props.voteTotals;
     let githubUser = props.githubUser;
-
+    const [voted, setVoted] = useState(false);
+    const [forkBranch, setForkBranch] = useState('');
+    const [title, setTitle] = useState('');
+    const [baseBranch, setBaseBranch] = useState('');
+    const [votePower, setVotePower] = useState(0);
+    const [totalYesVotes, setTotalYesVotes] = useState(0);
+    const [totalNoVotes, setTotalNoVotes] = useState(0);
+    const [res, setRes] = useState({});//[yesVotes, noVotes]
+    const [allVotes, setAllVotes] = useState([]);//[yesVotes, noVotes
     let repoID = `${user}/${repo}`
 
     const getVotes = async () => {
       try {
         const res = await postGetVotes(repoID, issue_id, contributor_id)
         console.log('get votes res:', res)
+        setVoted(res.voteData.contributor.voted);
+        setForkBranch(res.forkBranch);
+        setBaseBranch(res.baseBranch);
+        setTitle(res.title);
+        setVotePower(res.voteData.contributor.votePower);
+        setTotalYesVotes(res.voteData.voteTotals.totalYesVotes);
+        setTotalNoVotes(res.voteData.voteTotals.totalNoVotes);
+        setRes(res);
+        setAllVotes(res.voteData.votes);
+
       } catch (error) {
         console.log('res get votes error:', error) 
       }
@@ -69,23 +88,26 @@ const ModalVote = (props) => {
 
     useEffect(()=> {
       getVotes()
-    }
-    )
-    
-
+      }
+    ,[]);
+    console.log('res:', res)
+    console.log('voted in modalvote:', voted);
+    //make new component called voteTotalResults.js to display the red and green vote totals + progress bar
     return (
   
         <ModalContent>
-            <VoteTotalMain user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} githubUser={githubUser} id="vote-total-main">
+            <VoteTotalMain user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} githubUser={githubUser} title={title} forkBranch={forkBranch} yesVotes={totalYesVotes} noVotes={totalNoVotes} votePower={votePower} baseBranch={baseBranch} id="vote-total-main">
                 <h2>Vote Total</h2>
             </VoteTotalMain>
           <BtnGroupVote>
-            <VoteButton user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} side={'yes'}  githubUser={githubUser} id="yes_vote_button">
+            <VoteButton user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} side={'yes'}  githubUser={githubUser} id="yes_vote_button" voted={voted}>
             </VoteButton>
-            <VoteButton user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} side={'no'} githubUser={githubUser} id="no_vote_button">
+            <VoteButton user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} side={'no'} githubUser={githubUser} id="no_vote_button" voted={voted}>
             </VoteButton>
           </BtnGroupVote>
-          <VotesTable />
+          <VoteTotalResults yesVotes={totalYesVotes} noVotes={totalNoVotes} totalVotes={totalYesVotes + totalNoVotes} id="vote-total-results" />
+
+          <VotesTable allVotes={allVotes}/>
         </ModalContent>
     );
 }

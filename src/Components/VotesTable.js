@@ -56,7 +56,7 @@ const voteDataFromAPI = [
 const VotesTableRow = styled.div`
 
     display: grid;
-    grid-template-columns: 14fr 7fr 7fr 3fr;
+    grid-template-columns: 14fr 8fr 5fr 3fr;
     color: black;
     justify-items: start;
 
@@ -76,6 +76,7 @@ const votesTable = styled.div`
 
 
 export default function VotesTable(props){
+    const { allVotes } = props;
     return(
         <div className='votes-table'>
             <VotesTableRow>
@@ -84,7 +85,7 @@ export default function VotesTable(props){
                 <RowHeading>SIDE</RowHeading>
                 <RowHeading>AGE</RowHeading>
             </VotesTableRow>
-            {voteDataFromAPI.map((vote, index) => (
+            {allVotes.map((vote, index) => (
                 <Row 
                 id={vote.contributor_id} 
                 votepower={vote.votePower}

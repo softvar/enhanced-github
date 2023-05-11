@@ -6,6 +6,7 @@ const Vote = styled.button`
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
 
     background-color: ${props => props.$option ? "#038800" : "#D33131"};
+    display: ${props => props.$display ? "none" : "block"};
     border: 0px solid green;
     color: white; 
     padding: 10px 34px; /* Some padding */
@@ -43,10 +44,11 @@ function VoteButton(props) {
     );
   }
 
-  console.log('side ' + side);
+  console.log('props.voted:', props.voted);
 
   return (
     <Vote $option={props.side === 'yes'}
+      $display={props.voted}
       onClick={async () => {
         setVoted('valid');
         setLastIssueId(props.issueID);
