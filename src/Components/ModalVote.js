@@ -65,34 +65,38 @@ const ModalVote = (props) => {
     const [totalNoVotes, setTotalNoVotes] = useState(0);
     const [res, setRes] = useState({});//[yesVotes, noVotes]
     const [allVotes, setAllVotes] = useState([]);//[yesVotes, noVotes
-    let repoID = `${user}/${repo}`
+    const [chosenSide, setChosenSide] = useState(''); //yes or no
+    const [yesPercent, setYesPercent] = useState(0);
+    const [noPercent, setNoPercent] = useState(0);
+    const [totalPercent, setTotalPercent] = useState(0);
 
-    const getVotes = async () => {
-      try {
-        const res = await postGetVotes(repoID, issue_id, contributor_id)
-        console.log('get votes res:', res)
-        setVoted(res.voteData.contributor.voted);
-        setForkBranch(res.forkBranch);
-        setBaseBranch(res.baseBranch);
-        setTitle(res.title);
-        setVotePower(res.voteData.contributor.votePower);
-        setTotalYesVotes(res.voteData.voteTotals.totalYesVotes);
-        setTotalNoVotes(res.voteData.voteTotals.totalNoVotes);
-        setRes(res);
-        setAllVotes(res.voteData.votes);
+   
+      //console.log('get votes res:', props.voteRes)
+      useEffect(() => {
+        setForkBranch(props.voteRes.forkBranch);
+      setBaseBranch(props.voteRes.baseBranch);
+      setTitle(props.voteRes.title);
+      if (props.voteRes.voteData){
+        setVoted(props.voteRes.voteData.contributor.voted);
+        setVotePower(props.voteRes.voteData.contributor.votePower);
+        setTotalYesVotes(props.voteRes.voteData.voteTotals.totalYesVotes);
+        setTotalNoVotes(props.voteRes.voteData.voteTotals.totalNoVotes);
+        setChosenSide(props.voteRes.voteData.contributor.side);
+        setYesPercent(props.voteRes.voteData.voteTotals.yesPercent);
+        setAllVotes(props.voteRes.voteData.votes);
+        setNoPercent(props.voteRes.voteData.voteTotals.noPercent);
+        setTotalPercent(props.voteRes.voteData.voteTotals.totalVotePercent);
+        }   
+        setRes(props.voteRes);
+      }, [props.voteRes]);
 
-      } catch (error) {
-        console.log('res get votes error:', error) 
-      }
-    }
+      
 
-    useEffect(()=> {
-      getVotes()
-      }
-    ,[]);
-    console.log('res:', res)
-    console.log('voted in modalvote:', voted);
+    
+    
     //make new component called voteTotalResults.js to display the red and green vote totals + progress bar
+
+    //input side={"yes"}, voted={false}, chosenSide={""}
     return (
   
         <ModalContent>
@@ -100,12 +104,13 @@ const ModalVote = (props) => {
                 <h2>Vote Total</h2>
             </VoteTotalMain>
           <BtnGroupVote>
-            <VoteButton user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} side={'yes'}  githubUser={githubUser} id="yes_vote_button" voted={voted}>
+
+            <VoteButton voted={false} side={'yes'} chosenSide={chosenSide} user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} githubUser={githubUser} id="yes_vote_button">
             </VoteButton>
-            <VoteButton user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} side={'no'} githubUser={githubUser} id="no_vote_button" voted={voted}>
+            <VoteButton voted={false} side={'no'} chosenSide={chosenSide} user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} githubUser={githubUser} id="no_vote_button">
             </VoteButton>
           </BtnGroupVote>
-          <VoteTotalResults yesVotes={totalYesVotes} noVotes={totalNoVotes} totalVotes={totalYesVotes + totalNoVotes} id="vote-total-results" />
+          <VoteTotalResults totalPercent={totalPercent} yesPercent={yesPercent} noPercent={noPercent} yesVotes={totalYesVotes} noVotes={totalNoVotes} totalVotes={totalYesVotes + totalNoVotes} id="vote-total-results" />
 
           <VotesTable allVotes={allVotes}/>
         </ModalContent>

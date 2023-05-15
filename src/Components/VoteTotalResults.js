@@ -20,7 +20,8 @@ const No = styled(Yes)`
 const Results = styled.div`
     display: flex;
     flex-direction: column;
-
+    width: 100%;
+    margin: 0 auto;
 `;
 
 function addCommas(num) {
@@ -44,14 +45,13 @@ function addCommas(num) {
   
 
 const VoteTotalResults = (props) => {
-    const { yesVotes, noVotes, totalVotes } = props;
-    
+    const { yesPercent, noPercent, totalPercent, yesVotes, noVotes, totalVotes } = props;
 
     return (
         <Results>
             <Yes>{yesVotes}</Yes>
             <No>{noVotes}</No>
-            <ProgressBar yesVotes={yesVotes} noVotes={noVotes} totalVotes={totalVotes} />
+            <ProgressBar yesVotes={yesPercent} noVotes={noPercent} totalVotes={totalPercent} />
         </Results>
     )
 }

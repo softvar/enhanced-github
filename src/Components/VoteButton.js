@@ -1,13 +1,32 @@
 import React, { useState } from 'react';
 import { postSetVote } from '../requests';
 import styled from 'styled-components';
-
+//    background-color: ${props => props.$option ? "#038800" : "#D33131"};
+//${props.$option === 'no' ? 'background-color: #D33131;' : ''} was in line 19
 const Vote = styled.button`
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
 
-    background-color: ${props => props.$option ? "#038800" : "#D33131"};
-    display: ${props => props.$display ? "none" : "block"};
-    border: 0px solid green;
+    ${props => props.$voted && `
+    /* Disable the opposite button when a vote has been cast */
+    ${props.$chosenSide === 'yes' && props.$option === 'no' ? 'background-color: #B7B7B7;' : ''}
+    ${props.$chosenSide === 'no' && props.$option === 'yes' ? 'background-color: #B7B7B7;' : ''}
+   
+  `}
+
+  ${props => props.$voted && `
+    /* Disable the opposite button when a vote has been cast */
+    ${props.$chosenSide === 'yes' && props.$option === 'yes' ? 'background-color: #038800;' : ''}
+    ${props.$chosenSide === 'no' && props.$option === 'no' ? 'background-color: #038800;' : ''}
+    
+  `}
+
+  ${props => !props.$voted && `
+    /* Styles for when no vote has been cast */
+    ${props.$option === 'yes' ? 'background-color: #038800;' : '#D33131;'}
+    
+  `}
+
+    border: none;
     color: white; 
     padding: 10px 34px; /* Some padding */
     cursor: pointer; /* Pointer/hand icon */
@@ -44,11 +63,16 @@ function VoteButton(props) {
     );
   }
 
-  console.log('props.voted:', props.voted);
+  console.log('props.voted for this one!!!!!:', props.voted);
+  console.log('props.chosenSide for this one!!!!!:', props.chosenSide);
+  console.log('props.side for this one!!!!!:', props.side);
 
   return (
-    <Vote $option={props.side === 'yes'}
-      $display={props.voted}
+    <Vote 
+      $voted={props.voted}
+      $chosenSide={props.chosenSide}
+      $option={props.side}
+      
       onClick={async () => {
         setVoted('valid');
         setLastIssueId(props.issueID);
