@@ -25,16 +25,26 @@ display: flex;
 
 const ProgressBar = (props) => {
     const { yesVotes, noVotes, totalVotes } = props;
-    let yesVotesPercent = yesVotes*100;
-    let noVotesPercent = noVotes*100;
-    let remainingVotesPercent = Math.abs(1 - totalVotes)*100; 
-
+    let yesVotesPercent = yesVotes*100*2;
+    let noVotesPercent = noVotes*100*2;
+    let remainingVotesPercent = Math.abs(0.5 - totalVotes)*100*2; 
+//use conditional jsx to render correct order of bars based on which has the most votes
     return (
         <VoteBar>
-            <NoBar flexBasis={noVotesPercent} />
-            <YesBar flexBasis={yesVotesPercent}/>
-            <RemainingBar flexBasis={remainingVotesPercent} />
-        </VoteBar>
+        {yesVotesPercent >= noVotesPercent ? (
+            <>
+                <NoBar flexBasis={noVotesPercent} />
+                <YesBar flexBasis={yesVotesPercent} />
+            </>
+        ) 
+        : (
+            <>
+                <YesBar flexBasis={yesVotesPercent} />
+                <NoBar flexBasis={noVotesPercent} />
+            </>
+        )}
+        <RemainingBar flexBasis={remainingVotesPercent} />
+    </VoteBar>
     )
 }
 

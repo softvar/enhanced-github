@@ -105,9 +105,9 @@ const ModalVote = (props) => {
             </VoteTotalMain>
           <BtnGroupVote>
 
-            <VoteButton voted={false} side={'yes'} chosenSide={chosenSide} user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} githubUser={githubUser} id="yes_vote_button">
+            <VoteButton voted={voted} side={'yes'} chosenSide={chosenSide} user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} githubUser={githubUser} id="yes_vote_button">
             </VoteButton>
-            <VoteButton voted={false} side={'no'} chosenSide={chosenSide} user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} githubUser={githubUser} id="no_vote_button">
+            <VoteButton voted={voted} side={'no'} chosenSide={chosenSide} user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} githubUser={githubUser} id="no_vote_button">
             </VoteButton>
           </BtnGroupVote>
           <VoteTotalResults totalPercent={totalPercent} yesPercent={yesPercent} noPercent={noPercent} yesVotes={totalYesVotes} noVotes={totalNoVotes} totalVotes={totalYesVotes + totalNoVotes} id="vote-total-results" />

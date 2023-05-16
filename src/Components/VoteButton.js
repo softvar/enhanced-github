@@ -6,14 +6,14 @@ import styled from 'styled-components';
 const Vote = styled.button`
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
 
-    ${props => props.$voted && `
+    ${props => props.$voted == true && `
     /* Disable the opposite button when a vote has been cast */
     ${props.$chosenSide === 'yes' && props.$option === 'no' ? 'background-color: #B7B7B7;' : ''}
     ${props.$chosenSide === 'no' && props.$option === 'yes' ? 'background-color: #B7B7B7;' : ''}
    
   `}
 
-  ${props => props.$voted && `
+  ${props => props.$voted == true && `
     /* Disable the opposite button when a vote has been cast */
     ${props.$chosenSide === 'yes' && props.$option === 'yes' ? 'background-color: #038800;' : ''}
     ${props.$chosenSide === 'no' && props.$option === 'no' ? 'background-color: #038800;' : ''}
@@ -22,7 +22,7 @@ const Vote = styled.button`
 
   ${props => !props.$voted && `
     /* Styles for when no vote has been cast */
-    ${props.$option === 'yes' ? 'background-color: #038800;' : '#D33131;'}
+    ${props.$option === 'yes' ? 'background-color: #038800;' : 'background-color: #D33131;'}
     
   `}
 
@@ -35,6 +35,10 @@ const Vote = styled.button`
     font-family: 'Inter', sans-serif;
     font-size:24px;
     border-radius: 5px;
+
+    && disabled {
+      background-color: #B7B7B7;
+    }
     `;
 
 function VoteButton(props) {
@@ -72,7 +76,7 @@ function VoteButton(props) {
       $voted={props.voted}
       $chosenSide={props.chosenSide}
       $option={props.side}
-      
+
       onClick={async () => {
         setVoted('valid');
         setLastIssueId(props.issueID);
