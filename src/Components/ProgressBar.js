@@ -28,7 +28,7 @@ const ProgressBar = (props) => {
     let difference = 1/quorum
     let yesVotesPercent = yesVotes*100*difference;
     let noVotesPercent = noVotes*100*difference;
-    let remainingVotesPercent = quorum - totalVotes*100*difference;
+    let remainingVotesPercent = (quorum - totalVotes)*100*difference;
 
 //use conditional jsx to render correct order of bars based on which has the most votes
     return (
