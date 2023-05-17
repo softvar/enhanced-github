@@ -518,7 +518,7 @@ async function postGetVotes (repo, defaultHash, contributor_id) {
             voted, side, votePower, createdAt, contributor_id
           },
           voteTotals {
-            totalVotes, totalYesVotes, totalNoVotes, votesToQuorum, votesToMerge, votesToClose, totalVotePercent, yesPercent, noPercent 
+            totalVotes, totalYesVotes, totalNoVotes, votesToQuorum, votesToMerge, votesToClose, totalVotePercent, yesPercent, noPercent, quorum
           },
           votes { contributor_id, side, votePower, createdAt }
           },
