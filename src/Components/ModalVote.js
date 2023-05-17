@@ -69,8 +69,9 @@ const ModalVote = (props) => {
     const [yesPercent, setYesPercent] = useState(0);
     const [noPercent, setNoPercent] = useState(0);
     const [totalPercent, setTotalPercent] = useState(0);
+    const [quorum, setQuorum] = useState(.5);
 
-   
+
       //console.log('get votes res:', props.voteRes)
       useEffect(() => {
         setForkBranch(props.voteRes.forkBranch);
@@ -86,6 +87,7 @@ const ModalVote = (props) => {
         setAllVotes(props.voteRes.voteData.votes);
         setNoPercent(props.voteRes.voteData.voteTotals.noPercent);
         setTotalPercent(props.voteRes.voteData.voteTotals.totalVotePercent);
+        setQuorum(props.voteRes.voteData.voteTotals.quorum);
         }   
         setRes(props.voteRes);
       }, [props.voteRes]);
@@ -110,7 +112,7 @@ const ModalVote = (props) => {
             <VoteButton voted={voted} side={'no'} chosenSide={chosenSide} user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} githubUser={githubUser} id="no_vote_button">
             </VoteButton>
           </BtnGroupVote>
-          <VoteTotalResults totalPercent={totalPercent} yesPercent={yesPercent} noPercent={noPercent} yesVotes={totalYesVotes} noVotes={totalNoVotes} totalVotes={totalYesVotes + totalNoVotes} id="vote-total-results" />
+          <VoteTotalResults totalPercent={totalPercent} yesPercent={yesPercent} noPercent={noPercent} yesVotes={totalYesVotes} noVotes={totalNoVotes} totalVotes={totalYesVotes + totalNoVotes} quorum={quorum} id="vote-total-results" />
 
           <VotesTable allVotes={allVotes}/>
         </ModalContent>

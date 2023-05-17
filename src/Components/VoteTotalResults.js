@@ -45,13 +45,13 @@ function addCommas(num) {
   
 
 const VoteTotalResults = (props) => {
-    const { yesPercent, noPercent, totalPercent, yesVotes, noVotes, totalVotes } = props;
+    const { yesPercent, noPercent, totalPercent, yesVotes, noVotes, totalVotes, quorum } = props;
 
     return (
         <Results>
             <Yes>{yesVotes}</Yes>
             <No>{noVotes}</No>
-            <ProgressBar yesVotes={yesPercent} noVotes={noPercent} totalVotes={totalPercent} />
+            <ProgressBar yesVotes={yesPercent} noVotes={noPercent} totalVotes={totalPercent} quorum={quorum} />
         </Results>
     )
 }

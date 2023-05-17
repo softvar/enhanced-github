@@ -24,10 +24,12 @@ display: flex;
 `;
 
 const ProgressBar = (props) => {
-    const { yesVotes, noVotes, totalVotes } = props;
-    let yesVotesPercent = yesVotes*100*2;
-    let noVotesPercent = noVotes*100*2;
-    let remainingVotesPercent = Math.abs(0.5 - totalVotes)*100*2; 
+    const { yesVotes, noVotes, totalVotes, quorum } = props;
+    let difference = 1/quorum
+    let yesVotesPercent = yesVotes*100*difference;
+    let noVotesPercent = noVotes*100*difference;
+    let remainingVotesPercent = quorum - totalVotes*100*difference;
+
 //use conditional jsx to render correct order of bars based on which has the most votes
     return (
         <VoteBar>
