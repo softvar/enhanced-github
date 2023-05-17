@@ -71,6 +71,11 @@ function makeAllCaps(str) {
   
   
 export default function row(props){    
+  let [ticker, setTicker] = useState(0)
+
+  useEffect(()=>{
+    setTimeout(()=>{setTicker(ticker+=1)}, 1000)
+  },[ticker])
     return(
         <div>
             <VoteRow $option={props.index % 2 == 0}>
