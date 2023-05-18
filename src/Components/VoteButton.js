@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 import { postSetVote } from '../requests';
 import styled from 'styled-components';
+import { io } from "socket.io-client";
+const socket = io("http://localhost:4000/", {
+  withCredentials: true,
+  extraHeaders: {
+    "my-custom-header": "abcd"
+  }
+}
+  );
 //    background-color: ${props => props.$option ? "#038800" : "#D33131"};
 //${props.$option === 'no' ? 'background-color: #D33131;' : ''} was in line 19
 const Vote = styled.button`
@@ -81,7 +89,7 @@ function VoteButton(props) {
         setVoted('valid');
         setLastIssueId(props.issueID);
         await postSetVote(props.user, props.repo, props.issueID, props.issueID, false, props.contributorID, side, props.githubUser.token);
-        
+        socket.emit('vote cast');
         setVoted('done');
       }}>
       {props.side.toUpperCase()}

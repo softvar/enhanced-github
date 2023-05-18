@@ -206,27 +206,19 @@ async function get_authorized_contributor(contributor_id, repo_id) {
       let getVotesRes;
       //var displayOpenStatus;
       const renderVoteButtons = async () => {
-
+        console.log('RENDER VOTE BUTTONS CALLED')
           for (var i = startIndex; i < containerItems.length; i++) {
             issue_id = containerItems[i].getAttribute('id');
-            //if (i < 2) {
             status = await postGetPullRequest(user, repo, issue_id, contributor_id, side);
-      // Update so knows what the state is inside.
-      let testVoteTotals = await postGetPRvoteTotals(user, repo, issue_id, contributor_id, side);
-      tsrcPRstatus = status;
-            console.log("testing out status: ", status);
-              gitHubPRstatus = await getGitHubPullRequest(user, repo, issue_id);
-            //displayOpenStatus = status.status === 200 &&  status.state === 'new' || status.status === 200 && status.state === 'open';
+            tsrcPRstatus = status;
+            gitHubPRstatus = await getGitHubPullRequest(user, repo, issue_id);
             domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}`);
-            //if (displayOpenStatus) {
-            console.log("loading...");
             render(ce(VoteStatusButton, {user: user, repo: repo, issueID: issue_id, contributorName: contributor_name, contributorID: contributor_id, tsrcPRstatus: tsrcPRstatus, side: side, clicked: clickedState.clicked }), domContainerTurboSrcButton); //} else {
-            // render(ce(TurboSrcButtonClosed), domContainerTurboSrcButton);
-            //}
           }
-          
       } 
+
       renderVoteButtons();
+
       const handleRefresh = () => {
         console.log("Refresh button actually clicked!");
         clickedState.clicked = !clickedState.clicked;
@@ -234,6 +226,11 @@ async function get_authorized_contributor(contributor_id, repo_id) {
         renderVoteButtons();
         
       }
+
+      socket.on('vote cast', function() {
+       handleRefresh()
+      });
+
       render(React.createElement(RefreshButton, {refresh: handleRefresh}), document.getElementById('js-flash-container'));
       
       document.addEventListener(
