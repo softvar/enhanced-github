@@ -26,6 +26,7 @@ export default function VoteStatusButton(props){
       merge: ['darkorchid', 'merged'],
       close: ['red', 'closed']
     };
+    
 
     useEffect(() => {
       const fetchVoteStatus = async () => {
