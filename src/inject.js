@@ -29,6 +29,14 @@ const createButtonHtml = require('./Components/createButtonHtml');
 import VoteStatusButton from './Components/VoteStatusButton';
 import RefreshButton from './Components/RefreshButton';
 import ModalVote from './Components/ModalVote';
+import { io } from "socket.io-client";
+const socket = io("http://localhost:4000/", {
+  withCredentials: true,
+  extraHeaders: {
+    "my-custom-header": "abcd"
+  }
+}
+  );
 
 const { postSetVote,
         postGetPullRequest, // updated
@@ -61,6 +69,14 @@ var voteTotals;
 const clickedState = {
   clicked: false
 }
+
+socket.on("connect", () => {
+  console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+});
+
+socket.on("disconnect", () => {
+  console.log(socket.id); // undefined
+});
 
 //OAuth Code: ***
 //Github redirects to localhost:5000/authenticated?code=...
