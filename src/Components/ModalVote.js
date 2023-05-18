@@ -56,6 +56,8 @@ const ModalVote = (props) => {
     let contributer_name = props.contributerName;
     let vote_totals = props.voteTotals;
     let githubUser = props.githubUser;
+    const [disabled, setDisabled] = useState(false);
+    const [disabledButton, setDisabledButton] = useState(false);
     const [voted, setVoted] = useState(false);
     const [forkBranch, setForkBranch] = useState('');
     const [title, setTitle] = useState('');
@@ -70,7 +72,16 @@ const ModalVote = (props) => {
     const [noPercent, setNoPercent] = useState(0);
     const [totalPercent, setTotalPercent] = useState(0);
     const [quorum, setQuorum] = useState(.5);
-
+    const voteableStates = new Set([
+      'vote',
+      'pre-open',
+      'open'
+    ]);
+    const notVoteableStates = new Set([
+      'conflict',
+      'merge',
+      'close'
+    ])  ;
 
       //console.log('get votes res:', props.voteRes)
       useEffect(() => {
@@ -88,11 +99,17 @@ const ModalVote = (props) => {
         setNoPercent(props.voteRes.voteData.voteTotals.noPercent);
         setTotalPercent(props.voteRes.voteData.voteTotals.totalVotePercent);
         setQuorum(props.voteRes.voteData.voteTotals.quorum);
-        }   
+        } 
+        if (voteableStates.has(props.voteRes.state)) {
+          setDisabled(false);
+        } else if (notVoteableStates.has(props.voteRes.state)) {
+          setDisabled(true);
+        }
+ 
         setRes(props.voteRes);
       }, [props.voteRes]);
 
-      
+
 
     
     
@@ -107,9 +124,9 @@ const ModalVote = (props) => {
             </VoteTotalMain>
           <BtnGroupVote>
 
-            <VoteButton voted={voted} side={'yes'} chosenSide={chosenSide} user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} githubUser={githubUser} id="yes_vote_button">
+            <VoteButton disabled={disabled} voted={voted} side={'yes'} chosenSide={chosenSide} user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} githubUser={githubUser} id="yes_vote_button">
             </VoteButton>
-            <VoteButton voted={voted} side={'no'} chosenSide={chosenSide} user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} githubUser={githubUser} id="no_vote_button">
+            <VoteButton disabled={disabled} voted={voted} side={'no'} chosenSide={chosenSide} user={user} repo={repo} issueID={issue_id} contributorID={contributor_id} contributerName={contributer_name} voteTotals={vote_totals} githubUser={githubUser} id="no_vote_button">
             </VoteButton>
           </BtnGroupVote>
           <VoteTotalResults totalPercent={totalPercent} yesPercent={yesPercent} noPercent={noPercent} yesVotes={totalYesVotes} noVotes={totalNoVotes} totalVotes={totalYesVotes + totalNoVotes} quorum={quorum} id="vote-total-results" />
