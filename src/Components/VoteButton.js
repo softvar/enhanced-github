@@ -90,7 +90,10 @@ function VoteButton(props) {
     if (props.disabled === true || props.voted == true && props.chosenSide != props.side) {
       setDisabledButton(true);
     }
-  }, [props.disabled]);
+  }, [props.disabled, props.voted, props.chosenSide, props.side]);
+
+  console.log(disabledButton + " OIHWEIUHGAEIURHGIUEHRGOIAEHRGIUOAHGIUAHRGIUAHERGUI;AEHRGIUAEHRGI;A");
+
 
   return props.voted && props.chosenSide === props.side ? (
     <SelectedVote
@@ -102,7 +105,6 @@ function VoteButton(props) {
       >
         {props.side.toUpperCase()}
         </SelectedVote>
-
     
   ) : (
 
