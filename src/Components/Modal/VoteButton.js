@@ -49,8 +49,50 @@ const SelectedVote = styled(Vote)`
           /* Styles for when no vote has been cast */
           ${props.$option === 'yes' ? 'background-color: #038800;' : 'background-color: #D33131;'}
         `}
+        cursor: auto;
   }
 `;
+//The VotButton react component renders a Button styled component with the below variations based on a switch case:
+//Button:
+//VoteYesButton
+//VotedYesButton
+//VoteNoButton
+//VotedNoButton
+//DisabledVoteYesButton
+
+const Button = styled.button`
+border: none;
+color: white;
+padding: 10px 34px;
+cursor: pointer;
+float: left;
+margin: 1rem;
+font-family: 'Inter', sans-serif;
+font-size: 24px;
+border-radius: 5px;
+`
+
+const VoteYesButton = styled(Button)`
+background-color: #038800;
+`
+const VoteNoButton = styled(Button)`
+background-color: #D33131;
+`
+const VotedYesButton = styled(VoteYesButton)`
+&: disabled {
+cursor: auto;
+}
+`
+const VotedNoButton = styled(VoteNoButton)`
+&: disabled {
+cursor: auto;
+}
+`
+const DisabledVoteButton = styled(Button)`
+&: disabled {
+  background-color: #B7B7B7;
+}
+`
 
 function VoteButton(props) {
   const [voted, setVoted] = useState('');
@@ -67,6 +109,9 @@ function VoteButton(props) {
     }
   }, [props.disabled, props.voted, props.chosenSide, props.side]);
 
+  //set case based on above:
+  
+  //render switch cases:
   return props.voted && props.chosenSide === props.side ? (
     <SelectedVote $voted={issueVoted} $chosenSide={chosenSide} $option={option} disabled={true}>
       {props.side.toUpperCase()}
@@ -84,13 +129,11 @@ function VoteButton(props) {
           props.user,
           props.repo,
           props.issueID,
-          props.issueID,
           false,
           props.contributorID,
           side,
           props.githubUser.token
         );
-
         setVoted('done');
       }}
     >

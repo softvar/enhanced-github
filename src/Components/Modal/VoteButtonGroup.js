@@ -19,7 +19,9 @@ const BtnGroupVote = styled.div`
 `;
 
 export default function VoteButtonGroup({disabled, voted, chosenSide, user, repo, issueID, contributorID, contributorName, voteTotals, githubUser}) {
-
+  //if disabled: disabled buttons:
+  //if voted: chosen side === side > checkmark else gray
+  //if !disabled: enabled buttons
   return (
     <BtnGroupVote>
       <VoteButton
@@ -32,9 +34,7 @@ export default function VoteButtonGroup({disabled, voted, chosenSide, user, repo
         issueID={issueID}
         contributorID={contributorID}
         contributerName={contributorName}
-        voteTotals={voteTotals}
         githubUser={githubUser}
-        id="yes_vote_button"
       ></VoteButton>
       <VoteButton
         disabled={disabled}
@@ -46,9 +46,7 @@ export default function VoteButtonGroup({disabled, voted, chosenSide, user, repo
         issueID={issueID}
         contributorID={contributorID}
         contributerName={contributorName}
-        voteTotals={voteTotals}
         githubUser={githubUser}
-        id="no_vote_button"
       ></VoteButton>
     </BtnGroupVote>
   );

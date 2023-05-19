@@ -95,7 +95,6 @@ const ModalVote = props => {
       <VoteButtonGroup
         disabled={disabled}
         voted={voted}
-        side={'yes'}
         chosenSide={chosenSide}
         user={user}
         repo={repo}
