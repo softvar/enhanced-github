@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-//import ModalVoteStyles from './ModalVoteStyles.css';
 import VoteTotalMain from './VoteTotalMain';
 import VoteButton from './VoteButton';
 import styled from 'styled-components';
 import VotesTable from './VotesTable';
 import VoteTotalResults from './VoteTotalResults';
-const { postGetVotes } = require('../requests');
 
 const ModalContent = styled.div`
 background-color: #fefefe;

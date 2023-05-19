@@ -24,11 +24,11 @@ const commonUtil = require('./utils/commonUtil');
 const mathUtil = require('./utils/mathUtil');
 const authContributor = require('./authorizedContributor');
 const { getRepoStatus } = require('./requests');
-const createModal = require('./Components/createModal');
+const createModal = require('./Components/Modal/createModal');
 const createButtonHtml = require('./Components/createButtonHtml');
 import VoteStatusButton from './Components/VoteStatusButton';
 import RefreshButton from './Components/RefreshButton';
-import ModalVote from './Components/ModalVote';
+import ModalVote from './Components/Modal/ModalVote';
 
 const { postSetVote,
         postGetPullRequest, // updated
