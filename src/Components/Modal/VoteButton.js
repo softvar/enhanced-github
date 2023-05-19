@@ -80,7 +80,7 @@ function VoteButton({
   const voteHandler = async e => {
     e.preventDefault();
     console.log(user, repo, issueID, contributorID, side, githubUser.token);
-    await postSetVote(user, repo, issueID, false, contributorID, side, githubUser.token);
+    await postSetVote(user, repo, issueID, false, true, contributorID, side, githubUser.token);
     //also needs to setSide, setVoted, setDisabled...?
   };
 
