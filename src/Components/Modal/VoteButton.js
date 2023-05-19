@@ -2,56 +2,47 @@ import React, { useState, useEffect } from 'react';
 import { postSetVote } from '../../requests';
 import styled from 'styled-components';
 
-const Vote = styled.button`
+const Button = styled.button`
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-  ${props =>
-    props.$voted == true &&
-    `
-    /* Disable the opposite button when a vote has been cast */
-    ${props.$chosenSide === 'yes' && props.$option === 'no' ? 'background-color: #B7B7B7;' : ''}
-    ${props.$chosenSide === 'no' && props.$option === 'yes' ? 'background-color: #B7B7B7;' : ''}
-   
-  `}
-  &:disabled {
-    background-color: #b7b7b7;
-  }
 
-  ${props =>
-    props.$voted == true &&
-    `
-    /* Disable the opposite button when a vote has been cast */
-    ${props.$chosenSide === 'yes' && props.$option === 'yes' ? 'background-color: #038800;' : ''}
-    ${props.$chosenSide === 'no' && props.$option === 'no' ? 'background-color: #038800;' : ''}
-  `}
-
-  ${props =>
-    !props.$voted &&
-    `
-    /* Styles for when no vote has been cast */
-    ${props.$option === 'yes' ? 'background-color: #038800;' : 'background-color: #D33131;'}
-  `}
-    border: none;
+  border: none;
   color: white;
-  padding: 10px 34px; /* Some padding */
-  cursor: pointer; /* Pointer/hand icon */
-  float: left; /* Float the buttons side by side - Still needed ? */
+  padding: 10px 34px;
+  cursor: pointer;
+  float: left;
   margin: 1rem;
   font-family: 'Inter', sans-serif;
   font-size: 24px;
   border-radius: 5px;
 `;
 
-const SelectedVote = styled(Vote)`
-  &:disabled {
-    ${props =>
-      !props.$voted &&
-      `
-          /* Styles for when no vote has been cast */
-          ${props.$option === 'yes' ? 'background-color: #038800;' : 'background-color: #D33131;'}
-        `}
-        cursor: auto;
+const VoteYesButton = styled(Button)`
+  background-color: #038800;
+`;
+const VoteNoButton = styled(Button)`
+  background-color: #d33131;
+`;
+const SelectedYesButton = styled(VoteYesButton)`
+  &: disabled {
+    cursor: auto;
   }
 `;
+const SelectedNoButton = styled(VoteNoButton)`
+  &: disabled {
+    cursor: auto;
+  }
+`;
+const DisabledVoteYesButton = styled(Button)`
+  &: disabled {
+    background-color: #b7b7b7;
+  }
+`;
+const DisabledVoteNoButton = styled(Button)`
+  &: disabled {
+    background-color: #b7b7b7;
+  }
+`;
+
 //The VotButton react component renders a Button styled component with the below variations based on a switch case:
 //Button:
 //VoteYesButton
@@ -60,86 +51,95 @@ const SelectedVote = styled(Vote)`
 //VotedNoButton
 //DisabledVoteYesButton
 
-const Button = styled.button`
-border: none;
-color: white;
-padding: 10px 34px;
-cursor: pointer;
-float: left;
-margin: 1rem;
-font-family: 'Inter', sans-serif;
-font-size: 24px;
-border-radius: 5px;
-`
-
-const VoteYesButton = styled(Button)`
-background-color: #038800;
-`
-const VoteNoButton = styled(Button)`
-background-color: #D33131;
-`
-const VotedYesButton = styled(VoteYesButton)`
-&: disabled {
-cursor: auto;
-}
-`
-const VotedNoButton = styled(VoteNoButton)`
-&: disabled {
-cursor: auto;
-}
-`
-const DisabledVoteButton = styled(Button)`
-&: disabled {
-  background-color: #B7B7B7;
-}
-`
-
-function VoteButton(props) {
-  const [voted, setVoted] = useState('');
-  const [lastIssueId, setLastIssueId] = useState('');
-  const [side, setSide] = useState(props.side.toLowerCase());
+function VoteButton({
+  disabled,
+  setDisabled,
+  voted,
+  setVoted,
+  side,
+  chosenSide,
+  setChosenSide,
+  user,
+  repo,
+  issueID,
+  contributorID,
+  contributerName,
+  githubUser
+}) {
   const [disabledButton, setDisabledButton] = useState(false);
-  const [issueVoted, setIssueVoted] = useState(props.voted);
-  const [chosenSide, setChosenSide] = useState(props.chosenSide);
-  const [option, setOption] = useState(props.side);
+  const [option, setOption] = useState(side);
+  const [buttonType, setButtonType] = useState('VoteButton');
 
   useEffect(() => {
-    if (props.disabled === true || (props.voted == true && props.chosenSide != props.side)) {
+    // disabled handler possibly not needed as disabled can be set in parent component ModalVote based on voted prop or status prop
+    if (disabled === true || (voted == true && chosenSide != side)) {
       setDisabledButton(true);
     }
-  }, [props.disabled, props.voted, props.chosenSide, props.side]);
+  }, [disabled, voted, chosenSide, side]);
 
-  //set case based on above:
-  
-  //render switch cases:
-  return props.voted && props.chosenSide === props.side ? (
-    <SelectedVote $voted={issueVoted} $chosenSide={chosenSide} $option={option} disabled={true}>
-      {props.side.toUpperCase()}
-    </SelectedVote>
-  ) : (
-    <Vote
-      $voted={issueVoted}
-      $chosenSide={chosenSide}
-      $option={option}
-      disabled={disabledButton}
-      onClick={async () => {
-        setVoted('valid');
-        setLastIssueId(props.issueID);
-        await postSetVote(
-          props.user,
-          props.repo,
-          props.issueID,
-          false,
-          props.contributorID,
-          side,
-          props.githubUser.token
-        );
-        setVoted('done');
-      }}
-    >
-      {props.side.toUpperCase()}
-    </Vote>
-  );
+  const voteHandler = async e => {
+    e.preventDefault();
+    console.log(user, repo, issueID, contributorID, side, githubUser.token);
+    await postSetVote(user, repo, issueID, false, contributorID, side, githubUser.token);
+    //also needs to setSide, setVoted, setDisabled...?
+  };
+
+  //Set switch case use effect:
+  useEffect(() => {
+    if (side === 'yes' && !voted && !disabled) {
+      setButtonType('VoteYesButton');
+    }
+    if (side === 'no' && !voted && !disabled) {
+      setButtonType('VoteNoButton');
+    }
+    if (side === 'yes' && chosenSide === 'yes' && disabled) {
+      setButtonType('SelectedYesButton');
+    }
+    //logic for above buttons...:
+  }, []);
+
+  switch (buttonType) {
+    case 'VoteYesButton':
+      return (
+        <VoteYesButton value={side} onClick={e => voteHandler(e)}>
+          {side.toUpperCase()}
+        </VoteYesButton>
+      );
+    case 'VoteNoButton':
+      return <VoteNoButton onClick={e => voteHandler(e)}>{side.toUpperCase()}</VoteNoButton>;
+    case 'VotedYesButton':
+      return <SelectedYesButton disabled={disabled}>{side.toUpperCase()}</SelectedYesButton>;
+    //etc...
+    default:
+      return <VoteYesButton>{side.toUpperCase()}</VoteYesButton>;
+  }
 }
+// return props.voted && props.chosenSide === props.side ? (
+//   <SelectedVote $voted={issueVoted} $chosenSide={chosenSide} $option={option} disabled={true}>
+//     {props.side.toUpperCase()}
+//   </SelectedVote>
+// ) : (
+//   <Vote
+//     $voted={issueVoted}
+//     $chosenSide={chosenSide}
+//     $option={option}
+//     disabled={disabledButton}
+//     onClick={async () => {
+//       setVoted('valid');
+//       await postSetVote(
+//         props.user,
+//         props.repo,
+//         props.issueID,
+//         false,
+//         props.contributorID,
+//         side,
+//         props.githubUser.token
+//       );
+//       setVoted('done');
+//     }}
+//   >
+//     {props.side.toUpperCase()}
+//   </Vote>
+// );
 
 export default VoteButton;

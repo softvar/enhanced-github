@@ -43,7 +43,6 @@ const ModalVote = props => {
   const voteableStates = new Set(['vote', 'pre-open', 'open']);
   const notVoteableStates = new Set(['conflict', 'merge', 'close']);
 
-  //console.log('get votes res:', props.voteRes)
   useEffect(() => {
     setForkBranch(props.voteRes.forkBranch);
     setBaseBranch(props.voteRes.baseBranch);
@@ -69,9 +68,6 @@ const ModalVote = props => {
     setRes(props.voteRes);
   }, [props.voteRes]);
 
-  //make new component called voteTotalResults.js to display the red and green vote totals + progress bar
-
-  //input side={"yes"}, voted={false}, chosenSide={""}
   return (
     <ModalContent>
       <VoteTotalMain
@@ -94,8 +90,11 @@ const ModalVote = props => {
       </VoteTotalMain>
       <VoteButtonGroup
         disabled={disabled}
+        setDisabled={setDisabled}
         voted={voted}
+        setVoted={setVoted}
         chosenSide={chosenSide}
+        setChosenSide={setChosenSide}
         user={user}
         repo={repo}
         issueID={issue_id}
