@@ -99,20 +99,12 @@ function VoteButton({
   //Set switch case use effect:
   useEffect(() => {
 
-    console.log(disabled + " this is the disabled prop");
-    console.log(voted + " this is the voted prop");
-    console.log(chosenSide + " this is the chosenSide prop");
-    console.log(side + " this is the side prop");
+   
     // disabled handler possibly not needed as disabled can be set in parent component ModalVote based on voted prop or status prop
     if (disabled === true || (voted == true && chosenSide !== side)) {
       setDisabledButton(true);
     }
-    console.log('disabledButton:', disabledButton);
-
-
-    console.log('disabledButton check check check:', disabledButton);
-    console.log('side:', side);
-    console.log('voted:', voted);
+    
     if (side === 'yes' && !voted) {
       setButtonType('VoteYesButton');
     }
