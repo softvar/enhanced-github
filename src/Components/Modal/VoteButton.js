@@ -2,6 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { postSetVote } from '../../requests';
 import styled from 'styled-components';
 
+const Wrapper = styled.div`
+  margin: 1rem;
+  display: flex;
+  align-items: center;
+
+  img {
+    position: relative;
+    right: 10%;
+    width: 30px;
+    height: auto;
+  }
+`;
+
 const Button = styled.button`
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
@@ -23,12 +36,14 @@ const VoteNoButton = styled(Button)`
   background-color: #d33131;
 `;
 const SelectedYesButton = styled(VoteYesButton)`
-  &: disabled {
+  &:disabled {
+    background-color:lightgreen;
     cursor: auto;
   }
 `;
 const SelectedNoButton = styled(VoteNoButton)`
-  &: disabled {
+  &:disabled {
+    background-color:hotpink;
     cursor: auto;
   }
 `;
@@ -71,10 +86,7 @@ function VoteButton({
   const [buttonType, setButtonType] = useState('VoteButton');
 
   useEffect(() => {
-    // disabled handler possibly not needed as disabled can be set in parent component ModalVote based on voted prop or status prop
-    if (disabled === true || (voted == true && chosenSide != side)) {
-      setDisabledButton(true);
-    }
+   
   }, [disabled, voted, chosenSide, side]);
 
   const voteHandler = async e => {
@@ -86,17 +98,44 @@ function VoteButton({
 
   //Set switch case use effect:
   useEffect(() => {
-    if (side === 'yes' && !voted && !disabled) {
+
+    console.log(disabled + " this is the disabled prop");
+    console.log(voted + " this is the voted prop");
+    console.log(chosenSide + " this is the chosenSide prop");
+    console.log(side + " this is the side prop");
+    // disabled handler possibly not needed as disabled can be set in parent component ModalVote based on voted prop or status prop
+    if (disabled === true || (voted == true && chosenSide !== side)) {
+      setDisabledButton(true);
+    }
+    console.log('disabledButton:', disabledButton);
+
+
+    console.log('disabledButton check check check:', disabledButton);
+    console.log('side:', side);
+    console.log('voted:', voted);
+    if (side === 'yes' && !voted) {
       setButtonType('VoteYesButton');
     }
-    if (side === 'no' && !voted && !disabled) {
+    if (side === 'no' && !voted) {
       setButtonType('VoteNoButton');
     }
-    if (side === 'yes' && chosenSide === 'yes' && disabled) {
+    
+    if (side === 'yes' && (disabled || (voted == true && chosenSide !== side))) {
+      setButtonType('DisabledYesButton');
+    }
+    if (side === 'no' && (disabled || (voted == true && chosenSide !== side))) {
+      setButtonType('DisabledNoButton');
+    }
+    if ((side === 'yes' && voted && chosenSide === 'yes')) {
       setButtonType('SelectedYesButton');
     }
     //logic for above buttons...:
-  }, []);
+    if (side === 'no' && voted && chosenSide === 'no') {
+      setButtonType('SelectedNoButton');
+    }
+    console.log(buttonType + "button type type type");
+
+  }, [disabled, voted, chosenSide, side, buttonType]);
 
   switch (buttonType) {
     case 'VoteYesButton':
@@ -107,8 +146,14 @@ function VoteButton({
       );
     case 'VoteNoButton':
       return <VoteNoButton onClick={e => voteHandler(e)}>{side.toUpperCase()}</VoteNoButton>;
-    case 'VotedYesButton':
-      return <SelectedYesButton disabled={disabled}>{side.toUpperCase()}</SelectedYesButton>;
+    case 'SelectedYesButton':
+      return <SelectedYesButton disabled={true}>{side.toUpperCase()}</SelectedYesButton>;
+    case 'SelectedNoButton':
+        return <SelectedNoButton disabled={true}>{side.toUpperCase()}</SelectedNoButton>;
+    case 'DisabledYesButton':
+      return <DisabledVoteYesButton disabled={true}>{side.toUpperCase()}</DisabledVoteYesButton>;
+    case 'DisabledNoButton':
+        return <DisabledVoteNoButton disabled={true}>{side.toUpperCase()}</DisabledVoteNoButton>;
     //etc...
     default:
       return <VoteYesButton>{side.toUpperCase()}</VoteYesButton>;
