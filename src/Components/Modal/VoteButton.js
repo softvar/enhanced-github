@@ -23,7 +23,7 @@ const Button = styled.button`
   padding: 10px 34px;
   cursor: pointer;
   float: left;
-  margin: 1rem;
+  margin: 30px 45px 20px 45px;
   font-family: 'Inter', sans-serif;
   font-size: 24px;
   border-radius: 5px;
@@ -37,24 +37,26 @@ const VoteNoButton = styled(Button)`
 `;
 const SelectedYesButton = styled(VoteYesButton)`
   &:disabled {
-    background-color:lightgreen;
-    cursor: auto;
+    background-color:#038800;
+    cursor: default;
   }
 `;
 const SelectedNoButton = styled(VoteNoButton)`
   &:disabled {
-    background-color:hotpink;
-    cursor: auto;
+    background-color:#d33131;
+    cursor: default;
   }
 `;
 const DisabledVoteYesButton = styled(Button)`
   &: disabled {
     background-color: #b7b7b7;
+    cursor: default;
   }
 `;
 const DisabledVoteNoButton = styled(Button)`
   &: disabled {
     background-color: #b7b7b7;
+    cursor: default;
   }
 `;
 

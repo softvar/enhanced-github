@@ -1,5 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import tsrclogo from './tsrclogo.png';
+
+
+const Logo = styled.div`
+  background-image: url(${tsrclogo});
+  background-size: cover;
+  background-position: center;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+`;
+
 
 const VoteText = styled.p`
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
@@ -39,14 +51,21 @@ margin-bottom: 0px;
 const VoteTopicText = styled(VoteText)`
 font-weight: 400;
 font-size: 12px;
-color: #6A6868;
 text-align:left;
 margin-bottom: 0px;
+color: #0500FF;
+display: flex;
+flex-direction: row;
+gap:5px;
+`;
 
+const VoteTopicNormalText = styled(VoteText)`
+color: #6A6868;
 `;
 
 const Slash = styled(VoteTopicText)`
   font-size: 27px;
+  color:black;
 `;
 
 const TopModalTitle = styled.div`
@@ -63,6 +82,13 @@ flex-direction: row;
 align-items: center;
 gap: 10px;
 `;
+
+const VotedStatus = styled.div`
+display: flex;
+flex-direction: row;
+align-items: center;
+margin: 0 auto;
+`
 
 function VoteTotalMain(props) {
   const { user, repo, issueID, contributorID, contributorName, side, title, baseBranch, forkBranch, votePower } = props;
@@ -81,7 +107,8 @@ function VoteTotalMain(props) {
           <MediumText>{votePower} VotePower</MediumText>
         </TopModalTitle>
         <PullRequestTitle>{title}</PullRequestTitle>
-        <VoteTopicText>{forkBranch} into {baseBranch}</VoteTopicText>
+        <VoteTopicText>{forkBranch} <VoteTopicNormalText>into</VoteTopicNormalText> {baseBranch}</VoteTopicText>
+
       </div>
       
       

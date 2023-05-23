@@ -4,16 +4,16 @@ import styled from 'styled-components';
 import VotesTable from './VotesTable';
 import VoteTotalResults from './VoteTotalResults';
 import VoteButtonGroup from './VoteButtonGroup';
+import VoteText from './VoteText';
 
 const ModalContent = styled.div`
-  background-color: #fefefe;
+  background-color: #fff;
   margin: auto;
   padding: 20px;
-  border: 1px solid #888;
-  height: 95%;
+  height: 770px;
   width: 700px;
   text-align: center;
-  overflow-y: auto;
+  box-shadow: 0px 12px 20px -1px rgba(0, 0, 0, 0.18);
 `;
 
 const ModalVote = props => {
@@ -40,6 +40,7 @@ const ModalVote = props => {
   const [noPercent, setNoPercent] = useState(0);
   const [totalPercent, setTotalPercent] = useState(0);
   const [quorum, setQuorum] = useState(0.5);
+  const [userVotedAt, setUserVotedAt] = useState(''); //date
   const voteableStates = new Set(['vote', 'pre-open', 'open']);
   const notVoteableStates = new Set(['conflict', 'merge', 'close']);
 
@@ -53,6 +54,7 @@ const ModalVote = props => {
       setTotalYesVotes(props.voteRes.voteData.voteTotals.totalYesVotes);
       setTotalNoVotes(props.voteRes.voteData.voteTotals.totalNoVotes);
       setChosenSide(props.voteRes.voteData.contributor.side);
+      setUserVotedAt(props.voteRes.voteData.contributor.createdAt);
       setYesPercent(props.voteRes.voteData.voteTotals.yesPercent);
       setAllVotes(props.voteRes.voteData.votes);
       setNoPercent(props.voteRes.voteData.voteTotals.noPercent);
@@ -67,7 +69,7 @@ const ModalVote = props => {
 
     setRes(props.voteRes);
   }, [props.voteRes]);
-
+  //userVotedAt={userVotedAt}
   return (
     <ModalContent>
       <VoteTotalMain
@@ -88,6 +90,12 @@ const ModalVote = props => {
       >
         <h2>Vote Total</h2>
       </VoteTotalMain>
+      <VoteText
+        disabled={disabled}
+        voted={voted}
+        chosenSide={chosenSide}
+        userVotedAt={userVotedAt}
+      />
       <VoteButtonGroup
         disabled={disabled}
         setDisabled={setDisabled}

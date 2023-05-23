@@ -20,7 +20,7 @@ const VoteBar = styled.div`
 display: flex; 
     height: 7px;
     width: 100%;
-    margin: 10px auto;
+    margin: 15px auto 25px auto;
 `;
 
 const ProgressBar = (props) => {

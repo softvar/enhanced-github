@@ -25,8 +25,8 @@ function getDurationSince(timestamp) {
 
 const VoteRow = styled.div`
     display: grid;
-    grid-template-columns: 47% 27% 17% 9%;
-    padding: 4px;
+    grid-template-columns: 63% 20% 10% 7%;
+    padding:4px 10px 4px 10px;
     justify-items: start;
     background-color: ${props => props.$option ? "#FFF" : "#F1F1F1"}
 `;

@@ -4,10 +4,10 @@ import ProgressBar from './ProgressBar';
 //create progress bar
 
 const Yes = styled.div`
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap');
     color: #038800;
     font-family: 'Inter', sans-serif;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 14px;
     text-align: left;
     margin-top: 6px;
