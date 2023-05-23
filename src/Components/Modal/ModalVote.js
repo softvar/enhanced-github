@@ -10,7 +10,7 @@ const ModalContent = styled.div`
   background-color: #fff;
   margin: auto;
   padding: 20px;
-  height: 770px;
+  height: 720px;
   width: 700px;
   text-align: center;
   box-shadow: 0px 12px 20px -1px rgba(0, 0, 0, 0.18);

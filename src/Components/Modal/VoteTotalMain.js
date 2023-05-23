@@ -35,10 +35,13 @@ margin-bottom: 0px;
 `;
 
 const MediumText = styled(VoteText)`
-font-weight: 500;
+font-weight: 500; 
 font-size: 14px;
 margin-bottom: 0px;
-
+color: #4A00BA;
+background: #E7F0FF;
+padding: 5px 8px;
+letter-spacing: .2px;
 `;
 
 const BoldText = styled(VoteText)`
@@ -57,9 +60,10 @@ color: #0500FF;
 display: flex;
 flex-direction: row;
 gap:5px;
+letter-spacing: .2px;
 `;
 
-const VoteTopicNormalText = styled(VoteText)`
+const VoteTopicNormalText = styled.span`
 color: #6A6868;
 `;
 

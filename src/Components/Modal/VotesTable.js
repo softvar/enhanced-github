@@ -23,7 +23,7 @@ color: black;
 const VoteTableSection = styled.div`
     margin-top: 20px;
     height: 340px;
-    overflow-y: scroll;
+    overflow-y: auto;
 
 `; 
 
