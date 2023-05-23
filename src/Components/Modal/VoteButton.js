@@ -6,11 +6,12 @@ const Wrapper = styled.div`
   margin: 1rem;
   display: flex;
   align-items: center;
+  width: 120px;
 
   img {
     position: relative;
-    right: 10%;
-    width: 30px;
+    right: 15%;
+    width: 40px;
     height: auto;
   }
 `;
@@ -20,7 +21,7 @@ const Button = styled.button`
 
   border: none;
   color: white;
-  padding: 10px 34px;
+  padding: 8px 34px;
   cursor: pointer;
   float: left;
   font-family: 'Inter', sans-serif;
@@ -134,9 +135,11 @@ function VoteButton({
     case 'SelectedYesButton':
       return <Wrapper>
         <SelectedYesButton disabled={true}>{side.toUpperCase()}</SelectedYesButton>
+        <img src="https://reibase.rs/greencheck.png" />
       </Wrapper>;
     case 'SelectedNoButton':
         return  <Wrapper><SelectedNoButton disabled={true}>{side.toUpperCase()}</SelectedNoButton>
+        <img src="https://reibase.rs/redcheck.png" />
         </Wrapper>;
     case 'DisabledYesButton':
       return  <Wrapper><DisabledVoteYesButton disabled={true}>{side.toUpperCase()}</DisabledVoteYesButton>
