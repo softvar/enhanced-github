@@ -15,7 +15,6 @@ const Logo = styled.div`
 
 const VoteText = styled.p`
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
-/* Regular = 400, Medium = 500, SemiBold = 600, Bold = 700 */
 font-family: 'Inter', sans-serif;
 color: black;
 `;
@@ -118,8 +117,6 @@ function VoteTotalMain(props) {
     </div>
   );
 }
-// progress bar code
-// uninstall npm pckgs
 
 
 export default VoteTotalMain;
