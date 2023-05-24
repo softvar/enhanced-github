@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
+const Unit = styled.span`
+font-size: 10px;
+`
 function getDurationSince(timestamp) {
     const now = new Date();
     const createdAt = new Date(timestamp);
@@ -8,16 +11,16 @@ function getDurationSince(timestamp) {
     const diffInSeconds = Math.round(diffInMs / 1000);
   
     if (diffInSeconds < 60) {
-      return diffInSeconds + " S";
+      return (<>{diffInSeconds} <Unit>S</Unit></>);
     } else if (diffInSeconds < 3600) {
       const diffInMinutes = Math.floor(diffInSeconds / 60);
-      return diffInMinutes + " MIN";
+      return (<>{diffInMinutes} <Unit>MIN</Unit></>);
     } else if (diffInSeconds < 86400) {
       const diffInHours = Math.floor(diffInSeconds / 3600);
-      return diffInHours + " HR";
+      return (<>{diffInHours} <Unit>HR</Unit></>);
     } else {
       const diffInDays = Math.floor(diffInSeconds / 86400);
-      return diffInDays + " D";
+      return (<>{diffInDays} <Unit>D</Unit></>);
     }
   }
   
