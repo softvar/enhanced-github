@@ -24,16 +24,17 @@ const commonUtil = require('./utils/commonUtil');
 const mathUtil = require('./utils/mathUtil');
 const authContributor = require('./authorizedContributor');
 const { getRepoStatus } = require('./requests');
-const createModal = require('./Components/createModal');
+const createModal = require('./Components/Modal/createModal');
 const createButtonHtml = require('./Components/createButtonHtml');
 import VoteStatusButton from './Components/VoteStatusButton';
 import RefreshButton from './Components/RefreshButton';
-import ModalVote from './Components/ModalVote';
+import ModalVote from './Components/Modal/ModalVote';
 
 const { postSetVote,
         postGetPullRequest, // updated
         postGetPRvoteTotals,
-        getGitHubPullRequest
+        getGitHubPullRequest,
+        postGetVotes  
       } = require('./requests')
 
 
@@ -186,6 +187,7 @@ async function get_authorized_contributor(contributor_id, repo_id) {
       //var span = document.getElementsByClassName("close")[0];
       var domContainerTurboSrcButton;
       var status;
+      let getVotesRes;
       //var displayOpenStatus;
       const renderVoteButtons = async () => {
 
@@ -194,9 +196,10 @@ async function get_authorized_contributor(contributor_id, repo_id) {
             //if (i < 2) {
             status = await postGetPullRequest(user, repo, issue_id, contributor_id, side);
       // Update so knows what the state is inside.
-      tsrcPRstatus = status
-            gitHubPRstatus = await getGitHubPullRequest(user, repo, issue_id)
-
+      let testVoteTotals = await postGetPRvoteTotals(user, repo, issue_id, contributor_id, side);
+      tsrcPRstatus = status;
+            console.log("testing out status: ", status);
+              gitHubPRstatus = await getGitHubPullRequest(user, repo, issue_id);
             //displayOpenStatus = status.status === 200 &&  status.state === 'new' || status.status === 200 && status.state === 'open';
             domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}`);
             //if (displayOpenStatus) {
@@ -240,7 +243,9 @@ async function get_authorized_contributor(contributor_id, repo_id) {
             const domContainerModal = document.getElementById('myModal');
 	    
             voteTotals = await postGetPRvoteTotals(user, repo, issue_id, contributor_id, side);
-            render(ce(ModalVote, {user: user, repo: repo, issueID: issue_id, contributorID: contributor_id, contributorName: contributor_name, voteTotals: voteTotals, githubUser: githubUser}), domContainerModal);
+            getVotesRes = await postGetVotes(repo_id, issue_id, contributor_id);
+            console.log(JSON.stringify(getVotesRes) + " is the getVotesRes");
+            render(ce(ModalVote, {user: user, repo: repo, issueID: issue_id, contributorID: contributor_id, contributorName: contributor_name, voteTotals: voteTotals, githubUser: githubUser, voteRes: getVotesRes}), domContainerModal);
             } else if (idName === '') {
             modal.style.display = 'none';
           }
