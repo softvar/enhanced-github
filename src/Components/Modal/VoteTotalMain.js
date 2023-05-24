@@ -48,11 +48,10 @@ const BoldText = styled(VoteText)`
 font-weight: 700;
 font-size: 27px;
 margin-bottom: 0px;
-
 `;
 
 const VoteTopicText = styled(VoteText)`
-font-weight: 400;
+font-weight: 300;
 font-size: 12px;
 text-align:left;
 margin-bottom: 0px;

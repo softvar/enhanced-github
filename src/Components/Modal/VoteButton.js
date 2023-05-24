@@ -23,7 +23,6 @@ const Button = styled.button`
   padding: 10px 34px;
   cursor: pointer;
   float: left;
-  margin: 30px 45px 20px 45px;
   font-family: 'Inter', sans-serif;
   font-size: 24px;
   border-radius: 5px;
@@ -60,14 +59,6 @@ const DisabledVoteNoButton = styled(Button)`
   }
 `;
 
-//The VotButton react component renders a Button styled component with the below variations based on a switch case:
-//Button:
-//VoteYesButton
-//VotedYesButton
-//VoteNoButton
-//VotedNoButton
-//DisabledVoteYesButton
-
 function VoteButton({
   disabled,
   setDisabled,
@@ -93,15 +84,12 @@ function VoteButton({
 
   const voteHandler = async e => {
     e.preventDefault();
-    console.log(user, repo, issueID, contributorID, side, githubUser.token);
-    await postSetVote(user, repo, issueID, false, true, contributorID, side, githubUser.token);
+    await postSetVote(user, repo, issueID, issueID, false, contributorID, side, githubUser.token);
     //also needs to setSide, setVoted, setDisabled...?
   };
 
   //Set switch case use effect:
   useEffect(() => {
-
-   
     // disabled handler possibly not needed as disabled can be set in parent component ModalVote based on voted prop or status prop
     if (disabled === true || (voted == true && chosenSide !== side)) {
       setDisabledButton(true);
@@ -133,24 +121,31 @@ function VoteButton({
 
   switch (buttonType) {
     case 'VoteYesButton':
-      return (
+      return (<Wrapper>
         <VoteYesButton value={side} onClick={e => voteHandler(e)}>
           {side.toUpperCase()}
         </VoteYesButton>
+        </Wrapper>
       );
     case 'VoteNoButton':
-      return <VoteNoButton onClick={e => voteHandler(e)}>{side.toUpperCase()}</VoteNoButton>;
+      return <Wrapper>
+       <VoteNoButton onClick={e => voteHandler(e)}>{side.toUpperCase()}</VoteNoButton>
+       </Wrapper>;
     case 'SelectedYesButton':
-      return <SelectedYesButton disabled={true}>{side.toUpperCase()}</SelectedYesButton>;
+      return <Wrapper>
+        <SelectedYesButton disabled={true}>{side.toUpperCase()}</SelectedYesButton>
+      </Wrapper>;
     case 'SelectedNoButton':
-        return <SelectedNoButton disabled={true}>{side.toUpperCase()}</SelectedNoButton>;
+        return  <Wrapper><SelectedNoButton disabled={true}>{side.toUpperCase()}</SelectedNoButton>
+        </Wrapper>;
     case 'DisabledYesButton':
-      return <DisabledVoteYesButton disabled={true}>{side.toUpperCase()}</DisabledVoteYesButton>;
+      return  <Wrapper><DisabledVoteYesButton disabled={true}>{side.toUpperCase()}</DisabledVoteYesButton>
+      </Wrapper>;
     case 'DisabledNoButton':
-        return <DisabledVoteNoButton disabled={true}>{side.toUpperCase()}</DisabledVoteNoButton>;
+        return  <Wrapper><DisabledVoteNoButton disabled={true}>{side.toUpperCase()}</DisabledVoteNoButton></Wrapper>;
     //etc...
     default:
-      return <VoteYesButton>{side.toUpperCase()}</VoteYesButton>;
+      return  <Wrapper><VoteYesButton>{side.toUpperCase()}</VoteYesButton> </Wrapper>;
   }
 }
 // return props.voted && props.chosenSide === props.side ? (

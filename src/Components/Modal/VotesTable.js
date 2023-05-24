@@ -3,13 +3,11 @@ import styled from 'styled-components';
 import Row from './Row.js';
 
 const VotesTableRow = styled.div`
-
     display: grid;
     grid-template-columns: 63% 20% 10% 7%;
     color: black;
     justify-items: start;
     padding: 4px 10px 4px 10px;
-
 `;
 
 const RowHeading = styled.h2`
@@ -22,9 +20,8 @@ color: black;
 
 const VoteTableSection = styled.div`
     margin-top: 20px;
-    height: 340px;
+    height: 300px;
     overflow-y: auto;
-
 `; 
 
 
