@@ -6,10 +6,16 @@ const Decision = styled.div`
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap'); 
     font-family: 'Inter', sans-serif;
     font-size: 27px;
-    font-weight: 700;
+    font-weight: 600;
     text-align: center;
     color: black;
     margin: 20px auto 0 auto;
+`;
+const YesGreen = styled.span`
+    color: #038800;
+`;
+const NoRed = styled.span`
+    color: #D33131;
 `;
 
 function formatDate(inputDate) {
@@ -27,7 +33,7 @@ function VoteText({
   userVotedAt
 })  {
     const [textType, setTextType] = useState('');
-    
+
     useEffect(() => {
         if (!voted) {
             setTextType('Decision');
@@ -55,13 +61,13 @@ function VoteText({
         case 'Yes':
             return (
                 <Decision>
-                    You voted YES to merge on {formatDate(userVotedAt)}
+                    You voted <YesGreen>YES</YesGreen> to merge on {formatDate(userVotedAt)}
                 </Decision>
             );
         case 'No':
             return (
                 <Decision>
-                    You voted NO to close on {formatDate(userVotedAt)}
+                    You voted <NoRed>NO</NoRed> to close on {formatDate(userVotedAt)}
                 </Decision>
             );
         case 'None':
