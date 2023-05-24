@@ -506,6 +506,30 @@ async function getGitHubPullRequest(owner, repo, defaultHash)  {
     return json.data.getGitHubPullRequest;
 }
 
+async function postGetVotes (repo, defaultHash, contributor_id) {
+  const res = await superagent
+  .post(`${url}`)
+    .send({
+      query: `
+      { getVotes(repo: "${repo}", defaultHash: "${defaultHash}", contributor_id:"${contributor_id}") 
+      { status, repo_id, title, head, remoteURL, baseBranch, forkBranch, childDefaultHash, defaultHash, mergeable, state
+        voteData {
+          contributor {
+            voted, side, votePower, createdAt, contributor_id
+          },
+          voteTotals {
+            totalVotes, totalYesVotes, totalNoVotes, votesToQuorum, votesToMerge, votesToClose, totalVotePercent, yesPercent, noPercent, quorum
+          },
+          votes { contributor_id, side, votePower, createdAt }
+          },
+        }
+}
+    `},
+    ).set("accept", "json");
+    const json = JSON.parse(res.text);
+    return json.data.getVotes
+  }
+
 export {
 	postCreateUser,
 	postGetContributorName,
@@ -530,5 +554,6 @@ export {
 	postMergePullRequest,
 	postCreatePullRequest,
 	postFork,
-        getGitHubPullRequest
+        getGitHubPullRequest,
+  postGetVotes
 }

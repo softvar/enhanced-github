@@ -24,16 +24,17 @@ const commonUtil = require('./utils/commonUtil');
 const mathUtil = require('./utils/mathUtil');
 const authContributor = require('./authorizedContributor');
 const { getRepoStatus } = require('./requests');
-const createModal = require('./Components/createModal');
+const createModal = require('./Components/Modal/createModal');
 const createButtonHtml = require('./Components/createButtonHtml');
 import VoteStatusButton from './Components/VoteStatusButton';
 import RefreshButton from './Components/RefreshButton';
-import ModalVote from './Components/ModalVote';
+import ModalVote from './Components/Modal/ModalVote';
 
 const { postSetVote,
         postGetPullRequest, // updated
         postGetPRvoteTotals,
-        getGitHubPullRequest
+        getGitHubPullRequest,
+        postGetVotes  
       } = require('./requests')
 
 
@@ -186,6 +187,7 @@ async function get_authorized_contributor(contributor_id, repo_id) {
       //var span = document.getElementsByClassName("close")[0];
       var domContainerTurboSrcButton;
       var status;
+      let getVotesRes;
       //var displayOpenStatus;
       const renderVoteButtons = async () => {
 
@@ -194,13 +196,12 @@ async function get_authorized_contributor(contributor_id, repo_id) {
             //if (i < 2) {
             status = await postGetPullRequest(user, repo, issue_id, contributor_id, side);
       // Update so knows what the state is inside.
-      tsrcPRstatus = status
-            gitHubPRstatus = await getGitHubPullRequest(user, repo, issue_id)
-
+      let testVoteTotals = await postGetPRvoteTotals(user, repo, issue_id, contributor_id, side);
+      tsrcPRstatus = status;
+              gitHubPRstatus = await getGitHubPullRequest(user, repo, issue_id);
             //displayOpenStatus = status.status === 200 &&  status.state === 'new' || status.status === 200 && status.state === 'open';
             domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}`);
             //if (displayOpenStatus) {
-            console.log("loading...");
             render(ce(VoteStatusButton, {user: user, repo: repo, issueID: issue_id, contributorName: contributor_name, contributorID: contributor_id, tsrcPRstatus: tsrcPRstatus, side: side, clicked: clickedState.clicked }), domContainerTurboSrcButton); //} else {
             // render(ce(TurboSrcButtonClosed), domContainerTurboSrcButton);
             //}
@@ -209,9 +210,7 @@ async function get_authorized_contributor(contributor_id, repo_id) {
       } 
       renderVoteButtons();
       const handleRefresh = () => {
-        console.log("Refresh button actually clicked!");
         clickedState.clicked = !clickedState.clicked;
-        console.log(clickedState.clicked + " is the new state");
         renderVoteButtons();
         
       }
@@ -240,7 +239,8 @@ async function get_authorized_contributor(contributor_id, repo_id) {
             const domContainerModal = document.getElementById('myModal');
 	    
             voteTotals = await postGetPRvoteTotals(user, repo, issue_id, contributor_id, side);
-            render(ce(ModalVote, {user: user, repo: repo, issueID: issue_id, contributorID: contributor_id, contributorName: contributor_name, voteTotals: voteTotals, githubUser: githubUser}), domContainerModal);
+            getVotesRes = await postGetVotes(repo_id, issue_id, contributor_id);
+            render(ce(ModalVote, {user: user, repo: repo, issueID: issue_id, contributorID: contributor_id, contributorName: contributor_name, voteTotals: voteTotals, githubUser: githubUser, voteRes: getVotesRes}), domContainerModal);
             } else if (idName === '') {
             modal.style.display = 'none';
           }

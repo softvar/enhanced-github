@@ -165,9 +165,7 @@ const commonUtil = {
       return true;
   }
 };
-
 function isObject(object) {
   return object != null && typeof object === 'object';
 }
-
 module.exports = commonUtil;
