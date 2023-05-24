@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import superagent from 'superagent';
-import { postGetContributorTokenAmount, getRepoStatus } from '../requests';
+import { postGetContributorTokenAmount, getRepoStatus, postGetRepoData } from '../requests';
 import useCommas from '../hooks/useCommas';
 const port = process.env.PORT || 'http://localhost:4000';
 
@@ -45,7 +45,15 @@ export default function Home() {
     }, 500)
   });
 
-  if(owner === 'none' && repo === 'none') {
+const getRepoDataHandler = async () => {
+  return await postGetRepoData(`${owner}/${repo}`, user.ethereumAddress).then(res => console.log('getRepoData res:', res))
+}
+
+useEffect(() => {
+  setTimeout(()=>{getRepoDataHandler()}, 500)
+}, [])
+
+if(owner === 'none' && repo === 'none') {
     return (
       <div className="content">
       <div className="home">
