@@ -24,24 +24,9 @@ const VoteTableSection = styled.div`
     overflow-y: auto;
 `; 
 
-const VotesTablePlaceHolder = styled.div`
-margin-top: 10px;
-height: 345px;
-overflow-y: auto;
-
-heading {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    font-family: 'Fira Code', monospace;
-    font-size: 20px;
-    color: #333;
-}
-`
 
 export default function VotesTable(props){
     const { allVotes } = props;
-    console.log(allVotes)
     return(
         <VoteTableSection>
             <VotesTableRow>
@@ -50,11 +35,7 @@ export default function VotesTable(props){
                 <RowHeading>SIDE</RowHeading>
                 <RowHeading>AGE</RowHeading>
             </VotesTableRow>
-            {allVotes === [] ? 
-            <VotesTablePlaceHolder>
-            <heading>No one has voted on this pull request yet</heading>
-            </VotesTablePlaceHolder> : 
-            allVotes.map((vote, index) => (
+            {allVotes.map((vote, index) => (
                 <Row 
                 id={vote.contributor_id} 
                 votepower={vote.votePower}
