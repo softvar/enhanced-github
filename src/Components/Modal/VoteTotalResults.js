@@ -4,10 +4,13 @@ import ProgressBar from './ProgressBar';
 
 const Results = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
   width: 100%;
-  margin: 0 auto;
-`;
+  height: 60px;
+  margin-top: 10px;
+  `;
 
 const VoteTotalResults = props => {
   const { yesPercent, noPercent, totalPercent, yesVotes, noVotes, totalVotes, quorum } = props;

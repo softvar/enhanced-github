@@ -5,7 +5,9 @@ import VoteButton from './VoteButton';
 const BtnGroupVote = styled.div`
   display: flex;
   width: 100%;
+  height: 80px;
   justify-content: center;
+  align-items: center;
   flex-direction: row; 
 
   &:after {

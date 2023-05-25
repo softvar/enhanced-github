@@ -41,7 +41,8 @@ const VoteBar = styled.div`
   display: flex;
   height: 17px;
   width: 100%;
-  margin: 5px auto 0px auto;
+  margin-bottom: 4px;
+  padding: 0px 10px;
 `;
 
 const ProgressBar = ({ yesPercent, yesVotes, noPercent, noVotes, totalPercent, quorum }) => {

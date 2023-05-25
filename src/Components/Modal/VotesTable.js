@@ -19,8 +19,8 @@ color: black;
 `;
 
 const VoteTableSection = styled.div`
-    margin-top: 20px;
-    height: 300px;
+    margin-top: 10px;
+    height: 345px;
     overflow-y: auto;
 `; 
 
