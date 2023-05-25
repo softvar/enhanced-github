@@ -3,7 +3,7 @@ import { postSetVote } from '../../requests';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  margin: 1rem;
+  margin: 0rem 2rem 0rem 2rem;
   display: flex;
   align-items: center;
   width: 120px;

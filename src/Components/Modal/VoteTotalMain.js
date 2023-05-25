@@ -12,7 +12,9 @@ const Logo = styled.div`
   margin: 0 auto;
 `;
 
-
+const Heading = styled.div`
+height: 80px;
+`
 const VoteText = styled.p`
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
 font-family: 'Inter', sans-serif;
@@ -21,16 +23,18 @@ color: black;
 
 const OwnerText = styled(VoteText)`
 font-weight: 500;
-font-size: 27px;
+font-size: 26px;
 margin-bottom: 0px;
 `
 
 const PullRequestTitle = styled(VoteText)`
 font-weight: 600;
+letter-spacing: .1px;
 color: #656565;
 font-size: 12px;
 text-align: left;
 margin-bottom: 0px;
+overflow: ellipsis;
 `;
 
 const MediumText = styled(VoteText)`
@@ -45,15 +49,17 @@ letter-spacing: .2px;
 
 const BoldText = styled(VoteText)`
 font-weight: 700;
-font-size: 27px;
+font-size: 26px;
 margin-bottom: 0px;
 `;
 
 const VoteTopicText = styled(VoteText)`
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
+font-family: 'Roboto Mono', monospace;
 font-weight: 300;
 font-size: 12px;
+line-height: 20px;
 text-align:left;
-margin-bottom: 0px;
 color: #0500FF;
 display: flex;
 flex-direction: row;
@@ -66,7 +72,7 @@ color: #6A6868;
 `;
 
 const Slash = styled(VoteTopicText)`
-  font-size: 27px;
+  font-size: 26px;
   color:black;
 `;
 
@@ -99,22 +105,16 @@ function VoteTotalMain(props) {
   const handleClick = (e) => {
   };
   return (
-    <div>
-      <div className='name'>
+    <Heading>
         <TopModalTitle>
           <OwnerRepo>
             <OwnerText>{user}</OwnerText><Slash>/</Slash><BoldText> {repo}</BoldText>
-            
           </OwnerRepo>
           <MediumText>{votePower} VotePower</MediumText>
         </TopModalTitle>
-        <PullRequestTitle>{title}</PullRequestTitle>
+        <PullRequestTitle>#{issueID.split("_")[1]} {title}</PullRequestTitle>
         <VoteTopicText>{forkBranch} <VoteTopicNormalText>into</VoteTopicNormalText> {baseBranch}</VoteTopicText>
-
-      </div>
-      
-      
-    </div>
+    </Heading>
   );
 }
 
