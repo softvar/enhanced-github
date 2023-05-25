@@ -24,6 +24,7 @@ const ModalVote = props => {
   let contributor_name = props.contributorName;
   let vote_totals = props.voteTotals;
   let githubUser = props.githubUser;
+  let toggleModal = props.toggleModal;
   const [disabled, setDisabled] = useState(false);
   const [disabledButton, setDisabledButton] = useState(false);
   const [voted, setVoted] = useState(false);
@@ -86,6 +87,7 @@ const ModalVote = props => {
         noVotes={totalNoVotes}
         votePower={votePower}
         baseBranch={baseBranch}
+        toggleModal={toggleModal}
         id="vote-total-main"
       >
         <h2>Vote Total</h2>

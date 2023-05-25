@@ -14,6 +14,8 @@ const Logo = styled.div`
 
 const Heading = styled.div`
 height: 80px;
+display: flex;
+flex-direction: column;
 `
 const VoteText = styled.p`
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
@@ -98,14 +100,44 @@ align-items: center;
 margin: 0 auto;
 `
 
+const TopBar = styled.div`
+height: 18px;
+margin-bottom: 5px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+
+span, div {
+  cursor: pointer;
+}
+
+img {
+  width: 18px;
+  height: auto;
+}
+
+div {
+  display: block;
+  height: 18px;
+  width: 18px;
+  background-image: url('https://reibase.rs/closeicon.png');
+  background-repeat: no-repeat;
+  font-weight: 300;
+}
+`
+
 function VoteTotalMain(props) {
-  const { user, repo, issueID, contributorID, contributorName, side, title, baseBranch, forkBranch, votePower } = props;
+  const { user, repo, issueID, contributorID, contributorName, side, title, baseBranch, forkBranch, votePower, toggleModal } = props;
 
 
   const handleClick = (e) => {
   };
   return (
     <Heading>
+      <TopBar>
+      <a href="https://turbosrc.org/" target="_blank"><span><img src="https://reibase.rs/turbo-src128.png" /></span></a>
+      <div id="closeModal" onClick={(event) => toggleModal(event)}>X</div>
+      </TopBar>
         <TopModalTitle>
           <OwnerRepo>
             <OwnerText>{user}</OwnerText><Slash>/</Slash><BoldText> {repo}</BoldText>

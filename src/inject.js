@@ -189,6 +189,30 @@ async function get_authorized_contributor(contributor_id, repo_id) {
       var status;
       let getVotesRes;
       //var displayOpenStatus;
+
+      const toggleModal = async (event) => {
+        event.preventDefault()
+       if(event.target.id === 'myModal' || event.target.id === 'closeModal') {
+          modal.style.display = 'none';
+          }
+        console.log(event.target.id)
+        const divHTML = event.target.parentElement;
+        var idName = divHTML.id;
+        const idBtnSplit = idName.split('turbo-src-btn');
+        if (idBtnSplit.length > 1) {
+          const idNameSplit = idName.split('-');
+          issue_id = idNameSplit[3];
+          modal.style.display = 'block';
+          const domContainerModal = document.getElementById('myModal');
+          voteTotals = await postGetPRvoteTotals(user, repo, issue_id, contributor_id, side);
+          getVotesRes = await postGetVotes(repo_id, issue_id, contributor_id);
+          render(ce(ModalVote, {user: user, repo: repo, issueID: issue_id, contributorID: contributor_id, contributorName: contributor_name, voteTotals: voteTotals, githubUser: githubUser, voteRes: getVotesRes, toggleModal: toggleModal}), domContainerModal);
+          }
+
+      }
+
+      document.addEventListener('click', function (event) {toggleModal(event)})
+
       const renderVoteButtons = async () => {
 
           for (var i = startIndex; i < containerItems.length; i++) {
@@ -202,7 +226,7 @@ async function get_authorized_contributor(contributor_id, repo_id) {
             //displayOpenStatus = status.status === 200 &&  status.state === 'new' || status.status === 200 && status.state === 'open';
             domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}`);
             //if (displayOpenStatus) {
-            render(ce(VoteStatusButton, {user: user, repo: repo, issueID: issue_id, contributorName: contributor_name, contributorID: contributor_id, tsrcPRstatus: tsrcPRstatus, side: side, clicked: clickedState.clicked }), domContainerTurboSrcButton); //} else {
+            render(ce(VoteStatusButton, {user: user, repo: repo, issueID: issue_id, contributorName: contributor_name, contributorID: contributor_id, tsrcPRstatus: tsrcPRstatus, side: side, clicked: clickedState.clicked, toggleModal: toggleModal }), domContainerTurboSrcButton); //} else {
             // render(ce(TurboSrcButtonClosed), domContainerTurboSrcButton);
             //}
           }
@@ -216,37 +240,7 @@ async function get_authorized_contributor(contributor_id, repo_id) {
       }
       render(React.createElement(RefreshButton, {refresh: handleRefresh}), document.getElementById('js-flash-container'));
       
-      document.addEventListener(
-        'click',
-        async function(event) {
-         
-          const divHTML = event.target.parentElement;
-          var idName = divHTML.id;
-          const idBtnSplit = idName.split('turbo-src-btn');
-          if (idBtnSplit.length > 1) {
-            const idNameSplit = idName.split('-');
-            issue_id = idNameSplit[3];
-            
-            const domContainerVoteTotalMain = document.querySelector('#vote-total-main');
-            const domContainerVoteButton = document.querySelector('#yes_vote_button');
-            const domContainerVoteButton1 = document.querySelector('#no_vote_button');
-            
-   //if (modalDisplay === 'show') {
-               modal.style.display = 'block';
-	    //} else {
-            //   modal.style.display = 'none';
-	    //}   
-            const domContainerModal = document.getElementById('myModal');
-	    
-            voteTotals = await postGetPRvoteTotals(user, repo, issue_id, contributor_id, side);
-            getVotesRes = await postGetVotes(repo_id, issue_id, contributor_id);
-            render(ce(ModalVote, {user: user, repo: repo, issueID: issue_id, contributorID: contributor_id, contributorName: contributor_name, voteTotals: voteTotals, githubUser: githubUser, voteRes: getVotesRes}), domContainerModal);
-            } else if (idName === '') {
-            modal.style.display = 'none';
-          }
-        },
-        false
-      );
+
 
       //if (voted === true) {
       messageListenerUtil.addListners();
