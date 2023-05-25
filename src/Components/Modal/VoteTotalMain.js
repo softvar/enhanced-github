@@ -28,7 +28,7 @@ margin-bottom: 0px;
 const PullRequestTitle = styled(VoteText)`
 font-weight: 600;
 color: #656565;
-font-size: 12px;
+font-size: 14px;
 text-align: left;
 margin-bottom: 0px;
 `;
@@ -50,6 +50,8 @@ margin-bottom: 0px;
 `;
 
 const VoteTopicText = styled(VoteText)`
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300&display=swap');
+font-family: 'Fira Code', monospace;
 font-weight: 300;
 font-size: 12px;
 text-align:left;
@@ -58,7 +60,7 @@ color: #0500FF;
 display: flex;
 flex-direction: row;
 gap:5px;
-letter-spacing: .2px;
+letter-spacing: .5px;
 `;
 
 const VoteTopicNormalText = styled.span`
