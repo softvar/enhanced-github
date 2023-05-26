@@ -25,6 +25,7 @@ const ModalVote = props => {
   let vote_totals = props.voteTotals;
   let githubUser = props.githubUser;
   let toggleModal = props.toggleModal;
+  let getVotes = props.getVotes
   const [disabled, setDisabled] = useState(false);
   const [disabledButton, setDisabledButton] = useState(false);
   const [voted, setVoted] = useState(false);
@@ -44,7 +45,7 @@ const ModalVote = props => {
   const [userVotedAt, setUserVotedAt] = useState(''); //date
   const voteableStates = new Set(['vote', 'pre-open', 'open']);
   const notVoteableStates = new Set(['conflict', 'merge', 'close']);
-
+  const [clickVoteHandler, setClickVoteHandler] = useState(false)
   useEffect(() => {
     setForkBranch(props.voteRes.forkBranch);
     setBaseBranch(props.voteRes.baseBranch);
@@ -70,6 +71,24 @@ const ModalVote = props => {
 
     setRes(props.voteRes);
   }, [props.voteRes]);
+  
+  const updateVotesHandler = async () => await getVotes().then(res => {
+    setVoted(res.voteData.contributor.voted);
+    setVotePower(res.voteData.contributor.votePower);
+    setTotalYesVotes(res.voteData.voteTotals.totalYesVotes);
+    setTotalNoVotes(res.voteData.voteTotals.totalNoVotes);
+    setChosenSide(res.voteData.contributor.side);
+    setUserVotedAt(res.voteData.contributor.createdAt);
+    setYesPercent(res.voteData.voteTotals.yesPercent);
+    setAllVotes(res.voteData.votes);
+    setNoPercent(res.voteData.voteTotals.noPercent);
+    setTotalPercent(res.voteData.voteTotals.totalVotePercent);
+  })
+
+  useEffect(()=>{
+    updateVotesHandler()
+  },[clickVoteHandler])
+
   //userVotedAt={userVotedAt}
   return (
     <ModalContent>
@@ -103,6 +122,8 @@ const ModalVote = props => {
         setDisabled={setDisabled}
         voted={voted}
         setVoted={setVoted}
+        clickVoteHandler={clickVoteHandler}
+        setClickVoteHandler={setClickVoteHandler}
         chosenSide={chosenSide}
         setChosenSide={setChosenSide}
         user={user}

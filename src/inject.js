@@ -188,6 +188,7 @@ async function get_authorized_contributor(contributor_id, repo_id) {
       var domContainerTurboSrcButton;
       var status;
       let getVotesRes;
+      let getVotes = async () => await postGetVotes(repo_id, issue_id, contributor_id);
       //var displayOpenStatus;
 
       const toggleModal = async (event) => {
@@ -195,7 +196,6 @@ async function get_authorized_contributor(contributor_id, repo_id) {
        if(event.target.id === 'myModal' || event.target.id === 'closeModal') {
           modal.style.display = 'none';
           }
-        console.log(event.target.id)
         const divHTML = event.target.parentElement;
         var idName = divHTML.id;
         const idBtnSplit = idName.split('turbo-src-btn');
@@ -205,8 +205,8 @@ async function get_authorized_contributor(contributor_id, repo_id) {
           modal.style.display = 'block';
           const domContainerModal = document.getElementById('myModal');
           voteTotals = await postGetPRvoteTotals(user, repo, issue_id, contributor_id, side);
-          getVotesRes = await postGetVotes(repo_id, issue_id, contributor_id);
-          render(ce(ModalVote, {user: user, repo: repo, issueID: issue_id, contributorID: contributor_id, contributorName: contributor_name, voteTotals: voteTotals, githubUser: githubUser, voteRes: getVotesRes, toggleModal: toggleModal}), domContainerModal);
+          getVotesRes = await getVotes();
+          render(ce(ModalVote, {user: user, repo: repo, issueID: issue_id, contributorID: contributor_id, contributorName: contributor_name, voteTotals: voteTotals, githubUser: githubUser, voteRes: getVotesRes, getVotes: getVotes, toggleModal: toggleModal}), domContainerModal);
           }
 
       }
