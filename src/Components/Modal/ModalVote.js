@@ -45,6 +45,8 @@ const ModalVote = props => {
   let vote_totals = props.voteTotals;
   let githubUser = props.githubUser;
   const [loading, setLoading] = useState(true);
+  let toggleModal = props.toggleModal;
+  let getVotes = props.getVotes
   const [disabled, setDisabled] = useState(false);
   const [disabledButton, setDisabledButton] = useState(false);
   const [voted, setVoted] = useState(false);
@@ -64,7 +66,7 @@ const ModalVote = props => {
   const [userVotedAt, setUserVotedAt] = useState(''); //date
   const voteableStates = new Set(['vote', 'pre-open', 'open']);
   const notVoteableStates = new Set(['conflict', 'merge', 'close']);
-
+  const [clickVoteHandler, setClickVoteHandler] = useState(false)
   useEffect(() => {
     
     setTimeout(()=> setLoading(false), 1500);
@@ -98,11 +100,28 @@ const ModalVote = props => {
 
     setRes(props.voteRes);
   }, [props.voteRes]);
+  
+  const updateVotesHandler = async () => await getVotes().then(res => {
+    setVoted(res.voteData.contributor.voted);
+    setVotePower(res.voteData.contributor.votePower);
+    setTotalYesVotes(res.voteData.voteTotals.totalYesVotes);
+    setTotalNoVotes(res.voteData.voteTotals.totalNoVotes);
+    setChosenSide(res.voteData.contributor.side);
+    setUserVotedAt(res.voteData.contributor.createdAt);
+    setYesPercent(res.voteData.voteTotals.yesPercent);
+    setAllVotes(res.voteData.votes);
+    setNoPercent(res.voteData.voteTotals.noPercent);
+    setTotalPercent(res.voteData.voteTotals.totalVotePercent);
+  })
+
+  useEffect(()=>{
+    updateVotesHandler()
+  },[clickVoteHandler])
+
   //userVotedAt={userVotedAt}
   return (
     <ModalContent> 
       { loading ? (
-
       <>
         <SkeletonGrid>
             <div>
@@ -131,65 +150,64 @@ const ModalVote = props => {
               <Skeleton animation="wave" variant="text" width={580} height={50} />
               <Skeleton animation="wave" variant="text" width={580} height={50} />
               <Skeleton animation="wave" variant="text" width={580} height={50} />
-
             </div>
             <div></div>
         </SkeletonGrid>
       </>
-
-      
       ) : (  
-        
       <>
-        <VoteTotalMain
-          user={user}
-          repo={repo}
-          issueID={issue_id}
-          contributorID={contributor_id}
-          contributorName={contributor_name}
-          voteTotals={vote_totals}
-          githubUser={githubUser}
-          title={title}
-          forkBranch={forkBranch}
-          yesVotes={totalYesVotes}
-          noVotes={totalNoVotes}
-          votePower={votePower}
-          baseBranch={baseBranch}
-          id="vote-total-main"
-        >
-          <h2>Vote Total</h2>
-        </VoteTotalMain>
-        <VoteText
-          disabled={disabled}
-          voted={voted}
-          chosenSide={chosenSide}
-          userVotedAt={userVotedAt}
-        />
-        <VoteButtonGroup
-          disabled={disabled}
-          setDisabled={setDisabled}
-          voted={voted}
-          setVoted={setVoted}
-          chosenSide={chosenSide}
-          setChosenSide={setChosenSide}
-          user={user}
-          repo={repo}
-          issueID={issue_id}
-          contributorID={contributor_id}
-          contributorName={contributor_name}
-          voteTotals={vote_totals}
-          githubUser={githubUser}
-        />
-        <VoteTotalResults
-          totalPercent={totalPercent}
-          yesPercent={yesPercent}
-          noPercent={noPercent}
-          yesVotes={totalYesVotes}
-          noVotes={totalNoVotes}
-          totalVotes={totalYesVotes + totalNoVotes}
-          quorum={quorum}
-          id="vote-total-results"
-        />
+      <VoteTotalMain
+        user={user}
+        repo={repo}
+        issueID={issue_id}
+        contributorID={contributor_id}
+        contributorName={contributor_name}
+        voteTotals={vote_totals}
+        githubUser={githubUser}
+        title={title}
+        forkBranch={forkBranch}
+        yesVotes={totalYesVotes}
+        noVotes={totalNoVotes}
+        votePower={votePower}
+        baseBranch={baseBranch}
+        toggleModal={toggleModal}
+        id="vote-total-main"
+      >
+        <h2>Vote Total</h2>
+      </VoteTotalMain>
+      <VoteText
+        disabled={disabled}
+        voted={voted}
+        chosenSide={chosenSide}
+        userVotedAt={userVotedAt}
+      />
+      <VoteButtonGroup
+        disabled={disabled}
+        setDisabled={setDisabled}
+        voted={voted}
+        setVoted={setVoted}
+        clickVoteHandler={clickVoteHandler}
+        setClickVoteHandler={setClickVoteHandler}
+        chosenSide={chosenSide}
+        setChosenSide={setChosenSide}
+        user={user}
+        repo={repo}
+        issueID={issue_id}
+        contributorID={contributor_id}
+        contributorName={contributor_name}
+        voteTotals={vote_totals}
+        githubUser={githubUser}
+      />
+      <VoteTotalResults
+        totalPercent={totalPercent}
+        yesPercent={yesPercent}
+        noPercent={noPercent}
+        yesVotes={totalYesVotes}
+        noVotes={totalNoVotes}
+        totalVotes={totalYesVotes + totalNoVotes}
+        quorum={quorum}
+        id="vote-total-results"
+      />
         <VotesTable allVotes={allVotes} />
       </>
       )}

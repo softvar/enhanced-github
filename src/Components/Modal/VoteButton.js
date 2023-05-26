@@ -73,7 +73,9 @@ function VoteButton({
   issueID,
   contributorID,
   contributerName,
-  githubUser
+  githubUser,
+  clickVoteHandler,
+  setClickVoteHandler
 }) {
   const [disabledButton, setDisabledButton] = useState(false);
   const [option, setOption] = useState(side);
@@ -86,7 +88,8 @@ function VoteButton({
   const voteHandler = async e => {
     e.preventDefault();
     await postSetVote(user, repo, issueID, issueID, false, contributorID, side, githubUser.token);
-    //also needs to setSide, setVoted, setDisabled...?
+    // Toggle clickVoteHandler to update vote data
+    setClickVoteHandler(!clickVoteHandler)
   };
 
   //Set switch case use effect:
