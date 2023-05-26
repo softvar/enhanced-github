@@ -3,13 +3,23 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const Decision = styled.div`
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap'); 
-    font-family: 'Inter', sans-serif;
-    font-size: 27px;
-    font-weight: 700;
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap');
+    font-family: 'Inter', monospace;
+    margin-top: 20px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    color: black;
-    margin: 20px auto 0 auto;
+    font-size: 22px;
+    font-weight: 300;
+    color: #333;
+`;
+const YesGreen = styled.span`
+    color: #038800;
+`;
+const NoRed = styled.span`
+    color: #D33131;
 `;
 
 function formatDate(inputDate) {
@@ -27,7 +37,7 @@ function VoteText({
   userVotedAt
 })  {
     const [textType, setTextType] = useState('');
-    
+
     useEffect(() => {
         if (!voted) {
             setTextType('Decision');
@@ -49,31 +59,41 @@ function VoteText({
         case 'Decision':
             return (
                 <Decision>
-                    Vote YES to merge and NO to close
+                    <span>
+                    Vote <YesGreen>yes</YesGreen> to merge and <NoRed>no</NoRed> to close
+                </span>
                 </Decision>
             );
         case 'Yes':
             return (
                 <Decision>
-                    You voted YES to merge on {formatDate(userVotedAt)}
+                    <span>
+                    You voted <YesGreen>yes</YesGreen> to merge on {formatDate(userVotedAt)}
+                </span>
                 </Decision>
             );
         case 'No':
             return (
                 <Decision>
-                    You voted NO to close on {formatDate(userVotedAt)}
+                    <span>
+                    You voted <NoRed>no</NoRed> to close on {formatDate(userVotedAt)}
+                </span>
                 </Decision>
             );
         case 'None':
             return (
                 <Decision>
-                    This Pull Request is not voteable
+                    <span>
+                    This pull request is not voteable
+                </span>
                 </Decision>
             );
         default:
             return (
                 <Decision>
+                    <span>
                     default
+                </span>
                 </Decision>
             );
     }

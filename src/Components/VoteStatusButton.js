@@ -87,12 +87,13 @@ export default function VoteStatusButton(props){
 
     const handleClick = (e) => {
         e.preventDefault();
+        props.toggleModal(e)
     };
 
     return (
         <Button
         style={{ color: 'white', background: voteStatusButton.color }}
-        onClick={handleClick}
+        onClick={(e) => handleClick(e)}
         >
         {voteStatusButton.text}
         </Button>

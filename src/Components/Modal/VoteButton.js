@@ -3,14 +3,15 @@ import { postSetVote } from '../../requests';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  margin: 1rem;
+  margin: 0rem 2rem 0rem 2rem;
   display: flex;
   align-items: center;
+  width: 120px;
 
   img {
     position: relative;
-    right: 10%;
-    width: 30px;
+    right: 15%;
+    width: 40px;
     height: auto;
   }
 `;
@@ -20,7 +21,7 @@ const Button = styled.button`
 
   border: none;
   color: white;
-  padding: 10px 34px;
+  padding: 8px 34px;
   cursor: pointer;
   float: left;
   font-family: 'Inter', sans-serif;
@@ -72,7 +73,9 @@ function VoteButton({
   issueID,
   contributorID,
   contributerName,
-  githubUser
+  githubUser,
+  clickVoteHandler,
+  setClickVoteHandler
 }) {
   const [disabledButton, setDisabledButton] = useState(false);
   const [option, setOption] = useState(side);
@@ -85,7 +88,8 @@ function VoteButton({
   const voteHandler = async e => {
     e.preventDefault();
     await postSetVote(user, repo, issueID, issueID, false, contributorID, side, githubUser.token);
-    //also needs to setSide, setVoted, setDisabled...?
+    // Toggle clickVoteHandler to update vote data
+    setClickVoteHandler(!clickVoteHandler)
   };
 
   //Set switch case use effect:
@@ -134,9 +138,11 @@ function VoteButton({
     case 'SelectedYesButton':
       return <Wrapper>
         <SelectedYesButton disabled={true}>{side.toUpperCase()}</SelectedYesButton>
+        <img src="https://reibase.rs/greencheck.png" />
       </Wrapper>;
     case 'SelectedNoButton':
         return  <Wrapper><SelectedNoButton disabled={true}>{side.toUpperCase()}</SelectedNoButton>
+        <img src="https://reibase.rs/redcheck.png" />
         </Wrapper>;
     case 'DisabledYesButton':
       return  <Wrapper><DisabledVoteYesButton disabled={true}>{side.toUpperCase()}</DisabledVoteYesButton>

@@ -5,8 +5,10 @@ import VoteButton from './VoteButton';
 const BtnGroupVote = styled.div`
   display: flex;
   width: 100%;
+  height: 80px;
   justify-content: center;
-  flex-direction: row; /* Display buttons horizontally in flexbox */
+  align-items: center;
+  flex-direction: row; 
 
   &:after {
     content: '';
@@ -14,14 +16,11 @@ const BtnGroupVote = styled.div`
     display: table;
   }
   &:not(:last-child) {
-    border-right: none; /* Prevent double borders */
+    border-right: none; 
   }
 `;
 
-export default function VoteButtonGroup({disabled, setDisabled, setVoted, voted, setChosenSide, chosenSide, user, repo, issueID, contributorID, contributorName, voteTotals, githubUser}) {
-  //if disabled: disabled buttons:
-  //if voted: chosen side === side > checkmark else gray
-  //if !disabled: enabled buttons
+export default function VoteButtonGroup({disabled, setDisabled, clickVoteHandler, setClickVoteHandler, setVoted, voted, setChosenSide, chosenSide, user, repo, issueID, contributorID, contributorName, voteTotals, githubUser}) {
   return (
     <BtnGroupVote>
       <VoteButton
@@ -29,6 +28,8 @@ export default function VoteButtonGroup({disabled, setDisabled, setVoted, voted,
         setDisabled={setDisabled}
         voted={voted}
         setVoted={setVoted}
+        clickVoteHandler={clickVoteHandler}
+        setClickVoteHandler={setClickVoteHandler}
         side={'yes'}
         chosenSide={chosenSide}
         setChosenSide={setChosenSide}
@@ -44,6 +45,8 @@ export default function VoteButtonGroup({disabled, setDisabled, setVoted, voted,
         setDisabled={setDisabled}
         voted={voted}
         setVoted={setVoted}
+        clickVoteHandler={clickVoteHandler}
+        setClickVoteHandler={setClickVoteHandler}
         side={'no'}
         chosenSide={chosenSide}
         setChosenSide={setChosenSide}
