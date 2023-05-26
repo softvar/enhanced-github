@@ -195,6 +195,7 @@ async function get_authorized_contributor(contributor_id, repo_id) {
         event.preventDefault()
        if(event.target.id === 'myModal' || event.target.id === 'closeModal') {
           modal.style.display = 'none';
+          unmountComponentAtNode(document.getElementById('myModal'))
           }
         const divHTML = event.target.parentElement;
         var idName = divHTML.id;
