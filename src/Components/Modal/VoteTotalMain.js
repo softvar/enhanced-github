@@ -117,17 +117,15 @@ img {
 }
 
 div {
+  position: relative;
   display: block;
   height: 18px;
   width: 18px;
-  background-image: url('https://reibase.rs/closeicon.png');
-  background-repeat: no-repeat;
-  font-weight: 300;
 }
 `
 
 function VoteTotalMain(props) {
-  const { user, repo, issueID, contributorID, contributorName, side, title, baseBranch, forkBranch, votePower, toggleModal } = props;
+  const { user, repo, issueID, contributorID, contributorName, side, title, baseBranch, forkBranch, votePower } = props;
 
 
   const handleClick = (e) => {
@@ -135,8 +133,8 @@ function VoteTotalMain(props) {
   return (
     <Heading>
       <TopBar>
-      <a href="https://turbosrc.org/" target="_blank"><span><img src="https://reibase.rs/turbo-src128.png" /></span></a>
-      <div id="closeModal" onClick={(event) => toggleModal(event)}>X</div>
+      <span><a href="https://turbosrc.org/" target="_blank"><img src="https://reibase.rs/turbo-src128.png" /></a></span>
+      <div id="closeModal"><img id="closeModal" src="https://reibase.rs/closeicon.png" /></div>
       </TopBar>
         <TopModalTitle>
           <OwnerRepo>
