@@ -1,16 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import tsrclogo from './tsrclogo.png';
-
-
-const Logo = styled.div`
-  background-image: url(${tsrclogo});
-  background-size: cover;
-  background-position: center;
-  width: 100px;
-  height: 100px;
-  margin: 0 auto;
-`;
 
 const Heading = styled.div`
 height: 80px;
