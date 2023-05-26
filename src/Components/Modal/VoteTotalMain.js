@@ -83,6 +83,30 @@ flex-direction: row;
 align-items: center;
 margin: 0 auto;
 `
+function addCommas(num) {
+  if (num === 0) {
+    return "0";
+  }
+
+  // convert the number to a string
+  let numStr = num.toString();
+
+  // split the string into an array of characters
+  let numArr = numStr.split("");
+
+  // determine the position of the first comma
+  let firstCommaPos = numArr.length > 3 ? numArr.length % 3 || 3 : 0;
+
+  // add commas after every third digit starting from the first comma position
+  for (let i = firstCommaPos; i < numArr.length; i += 4) {
+    numArr.splice(i, 0, ",");
+  }
+
+  // join the array of characters back into a string
+  return numArr.join("");
+}
+
+
 
 const TopBar = styled.div`
 height: 18px;
@@ -117,7 +141,7 @@ function VoteTotalMain(props) {
           <OwnerRepo>
             <OwnerText>{user} /</OwnerText><BoldText> {repo}</BoldText>
           </OwnerRepo>
-          <MediumText>{votePower} VotePower</MediumText>
+          <MediumText>{addCommas(votePower)} VotePower</MediumText>
         </TopModalTitle>
         <PullRequestTitle>#{issueID.split("_")[1]} {title}</PullRequestTitle>
         <VoteTopicText>{forkBranch} <VoteTopicNormalText>into</VoteTopicNormalText> {baseBranch}</VoteTopicText>

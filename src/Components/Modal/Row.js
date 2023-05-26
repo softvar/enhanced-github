@@ -61,7 +61,7 @@ function makeAllCaps(str) {
     let numArr = numStr.split("");
   
     // determine the position of the first comma
-    let firstCommaPos = numArr.length % 3;
+    let firstCommaPos = numArr.length > 3 ? numArr.length % 3 || 3 : 0;
   
     // add commas after every third digit starting from the first comma position
     for (let i = firstCommaPos; i < numArr.length; i += 4) {
@@ -71,6 +71,7 @@ function makeAllCaps(str) {
     // join the array of characters back into a string
     return numArr.join("");
   }
+  
   
   
 export default function row(props){    
