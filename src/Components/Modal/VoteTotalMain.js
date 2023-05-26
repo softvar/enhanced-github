@@ -62,11 +62,6 @@ const VoteTopicNormalText = styled.span`
 color: #6A6868;
 `;
 
-const Slash = styled(VoteTopicText)`
-  font-size: 26px;
-  color:black;
-`;
-
 const TopModalTitle = styled.div`
 display: flex;
 flex-direction: row;
@@ -96,20 +91,13 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 
-span, div {
+div {
   cursor: pointer;
 }
 
-img {
-  width: 18px;
-  height: auto;
-}
-
-div {
-  position: relative;
-  display: block;
+div img {
+  width: auto;
   height: 18px;
-  width: 18px;
 }
 `
 
@@ -122,12 +110,12 @@ function VoteTotalMain(props) {
   return (
     <Heading>
       <TopBar>
-      <span><a href="https://turbosrc.org/" target="_blank"><img src="https://reibase.rs/turbo-src128.png" /></a></span>
+      <div><a href="https://turbosrc.org/" target="_blank"><img src="https://reibase.rs/turbo-src128.png" /></a></div>
       <div id="closeModal"><img id="closeModal" src="https://reibase.rs/closeicon.png" /></div>
       </TopBar>
         <TopModalTitle>
           <OwnerRepo>
-            <OwnerText>{user}</OwnerText><Slash>/</Slash><BoldText> {repo}</BoldText>
+            <OwnerText>{user} /</OwnerText><BoldText> {repo}</BoldText>
           </OwnerRepo>
           <MediumText>{votePower} VotePower</MediumText>
         </TopModalTitle>
