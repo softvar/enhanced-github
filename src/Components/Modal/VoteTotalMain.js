@@ -1,19 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import tsrclogo from './tsrclogo.png';
-
-
-const Logo = styled.div`
-  background-image: url(${tsrclogo});
-  background-size: cover;
-  background-position: center;
-  width: 100px;
-  height: 100px;
-  margin: 0 auto;
-`;
 
 const Heading = styled.div`
 height: 80px;
+display: flex;
+flex-direction: column;
 `
 const VoteText = styled.p`
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
@@ -71,11 +62,6 @@ const VoteTopicNormalText = styled.span`
 color: #6A6868;
 `;
 
-const Slash = styled(VoteTopicText)`
-  font-size: 26px;
-  color:black;
-`;
-
 const TopModalTitle = styled.div`
 display: flex;
 flex-direction: row;
@@ -98,6 +84,23 @@ align-items: center;
 margin: 0 auto;
 `
 
+const TopBar = styled.div`
+height: 18px;
+margin-bottom: 5px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+
+div {
+  cursor: pointer;
+}
+
+div img {
+  width: auto;
+  height: 18px;
+}
+`
+
 function VoteTotalMain(props) {
   const { user, repo, issueID, contributorID, contributorName, side, title, baseBranch, forkBranch, votePower } = props;
 
@@ -106,9 +109,13 @@ function VoteTotalMain(props) {
   };
   return (
     <Heading>
+      <TopBar>
+      <div><a href="https://turbosrc.org/" target="_blank"><img src="https://reibase.rs/turbo-src128.png" /></a></div>
+      <div id="closeModal"><img id="closeModal" src="https://reibase.rs/closeicon.png" /></div>
+      </TopBar>
         <TopModalTitle>
           <OwnerRepo>
-            <OwnerText>{user}</OwnerText><Slash>/</Slash><BoldText> {repo}</BoldText>
+            <OwnerText>{user} /</OwnerText><BoldText> {repo}</BoldText>
           </OwnerRepo>
           <MediumText>{votePower} VotePower</MediumText>
         </TopModalTitle>

@@ -20,7 +20,7 @@ const BtnGroupVote = styled.div`
   }
 `;
 
-export default function VoteButtonGroup({disabled, setDisabled, setVoted, voted, setChosenSide, chosenSide, user, repo, issueID, contributorID, contributorName, voteTotals, githubUser}) {
+export default function VoteButtonGroup({disabled, setDisabled, clickVoteHandler, setClickVoteHandler, setVoted, voted, setChosenSide, chosenSide, user, repo, issueID, contributorID, contributorName, voteTotals, githubUser}) {
   return (
     <BtnGroupVote>
       <VoteButton
@@ -28,6 +28,8 @@ export default function VoteButtonGroup({disabled, setDisabled, setVoted, voted,
         setDisabled={setDisabled}
         voted={voted}
         setVoted={setVoted}
+        clickVoteHandler={clickVoteHandler}
+        setClickVoteHandler={setClickVoteHandler}
         side={'yes'}
         chosenSide={chosenSide}
         setChosenSide={setChosenSide}
@@ -43,6 +45,8 @@ export default function VoteButtonGroup({disabled, setDisabled, setVoted, voted,
         setDisabled={setDisabled}
         voted={voted}
         setVoted={setVoted}
+        clickVoteHandler={clickVoteHandler}
+        setClickVoteHandler={setClickVoteHandler}
         side={'no'}
         chosenSide={chosenSide}
         setChosenSide={setChosenSide}
