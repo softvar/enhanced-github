@@ -192,7 +192,6 @@ async function get_authorized_contributor(contributor_id, repo_id) {
       //var displayOpenStatus;
 
       const toggleModal = async (event) => {
-        event.preventDefault()
        if(event.target.id === 'myModal' || event.target.id === 'closeModal') {
           modal.style.display = 'none';
           unmountComponentAtNode(document.getElementById('myModal'))
