@@ -16,7 +16,7 @@ const OwnerText = styled(VoteText)`
 font-weight: 500;
 font-size: 26px;
 margin-bottom: 0px;
-`
+`;
 
 const PullRequestTitle = styled(VoteText)`
 font-weight: 600;
