@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
+const Unit = styled.span`
+font-size: 10px;
+`
 function getDurationSince(timestamp) {
     const now = new Date();
     const createdAt = new Date(timestamp);
@@ -8,16 +11,16 @@ function getDurationSince(timestamp) {
     const diffInSeconds = Math.round(diffInMs / 1000);
   
     if (diffInSeconds < 60) {
-      return diffInSeconds + " S";
+      return (<>{diffInSeconds} <Unit>S</Unit></>);
     } else if (diffInSeconds < 3600) {
       const diffInMinutes = Math.floor(diffInSeconds / 60);
-      return diffInMinutes + " MIN";
+      return (<>{diffInMinutes} <Unit>MIN</Unit></>);
     } else if (diffInSeconds < 86400) {
       const diffInHours = Math.floor(diffInSeconds / 3600);
-      return diffInHours + " HR";
+      return (<>{diffInHours} <Unit>HR</Unit></>);
     } else {
       const diffInDays = Math.floor(diffInSeconds / 86400);
-      return diffInDays + " D";
+      return (<>{diffInDays} <Unit>D</Unit></>);
     }
   }
   
@@ -25,8 +28,8 @@ function getDurationSince(timestamp) {
 
 const VoteRow = styled.div`
     display: grid;
-    grid-template-columns: 47% 27% 17% 9%;
-    padding: 4px;
+    grid-template-columns: 63% 20% 10% 7%;
+    padding:4px 10px 4px 10px;
     justify-items: start;
     background-color: ${props => props.$option ? "#FFF" : "#F1F1F1"}
 `;
@@ -58,7 +61,7 @@ function makeAllCaps(str) {
     let numArr = numStr.split("");
   
     // determine the position of the first comma
-    let firstCommaPos = numArr.length % 3;
+    let firstCommaPos = numArr.length > 3 ? numArr.length % 3 || 3 : 0;
   
     // add commas after every third digit starting from the first comma position
     for (let i = firstCommaPos; i < numArr.length; i += 4) {
@@ -68,6 +71,7 @@ function makeAllCaps(str) {
     // join the array of characters back into a string
     return numArr.join("");
   }
+  
   
   
 export default function row(props){    
