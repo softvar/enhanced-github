@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import superagent from 'superagent';
-import { postGetContributorTokenAmount, getRepoStatus, postGetRepoData } from '../requests';
+import { postGetRepoData } from '../requests';
 import useCommas from '../hooks/useCommas';
 import styled from 'styled-components';
 import PullRequestRow from './PullRequestRow.js';
@@ -76,7 +76,6 @@ const PullRequestHeading = styled.p`
 font-family: 'Inter', sans-serif;
 font-weight: 600;
 color: black;
-
 `;
 
 const port = process.env.PORT || 'http://localhost:4000';
@@ -87,6 +86,7 @@ export default function Home() {
   const owner = useSelector(state => state.repo.owner.login)
   const [pullRequests, setPullRequests] = useState([]);
   const [res, setRes] = useState({});
+  const [tokenized, setTokenized] = useState(false);
   const navigate = useNavigate();
   let name = user?.name;
   let username = user?.login;
@@ -99,42 +99,24 @@ export default function Home() {
     //Set current logged in contributor/id to chrome storage for inject to verify user for voting
     chrome.storage.local.set({ contributor_name: user.login });
     chrome.storage.local.set({ contributor_id: user.ethereumAddress });
+
   });
-
-  let [tokenized, setTokenized] = useState(false);
-
-  useEffect(() => {
-    const useGetRepoStatus = async id => {
-      await getRepoStatus(id).then(res => setTokenized(res.exists));
-    };
-
-    useGetRepoStatus(`${owner}/${repo}`);
-  }, [owner, repo, tokenized]);
-
-  useEffect(() => {
-    const getTokenAmount = async () => {
-      await postGetContributorTokenAmount(owner, repo, '', user.ethereumAddress, '', user.token)
-        .then(res => useCommas(res.amount))
-        .then(tokens => setTokenAmount(tokens));
-    };
-    setTimeout(()=>{
-      getTokenAmount()
-    }, 500)
-  });
-
+  
   const getRepoDataHandler = async () => {
     try {
       const response = await postGetRepoData(`${owner}/${repo}`, user.ethereumAddress).then(res => {
+        setTokenized(true);
         setPullRequests(res.pullRequests);
         setRes(res);
-        console.log('resHandler:', res);
+        console.log('resHandler:' + res);
+        let tokens = useCommas(res.contributor.votePower);
+        setTokenAmount(tokens);
       });
       console.log('getRepoData response:', response);
     } catch (error) {
       console.error('Error fetching repo data:', error);
     }
   };
-  
 
 useEffect(() => {
   setTimeout(()=>{getRepoDataHandler()}, 500)
