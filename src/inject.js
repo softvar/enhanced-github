@@ -246,7 +246,7 @@ async function get_authorized_contributor(contributor_id, repo_id) {
             // render(ce(TurboSrcButtonClosed), domContainerTurboSrcButton);
             //}
           }
-
+          
       } 
 
       renderVoteButtons();
