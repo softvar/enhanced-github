@@ -230,6 +230,7 @@ async function get_authorized_contributor(contributor_id, repo_id) {
       document.addEventListener('click', function (event) {toggleModal(event)})
 
       const renderVoteButtons = async () => {
+        
           for (var i = startIndex; i < containerItems.length; i++) {
             issue_id = containerItems[i].getAttribute('id');
             //if (i < 2) {
@@ -245,7 +246,7 @@ async function get_authorized_contributor(contributor_id, repo_id) {
             // render(ce(TurboSrcButtonClosed), domContainerTurboSrcButton);
             //}
           }
-          
+
       } 
 
       renderVoteButtons();
