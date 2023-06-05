@@ -252,11 +252,17 @@ async function get_authorized_contributor(contributor_id, repo_id) {
       const handleRefresh = () => {
         clickedState.clicked = !clickedState.clicked;
         renderVoteButtons();
-        
       }
 
-      socket.on('vote cast', function() {
-       handleRefresh()
+      const updateVoteButton = async (issueID) => {
+          issue_id = issueID
+          domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}`);
+          render(ce(VoteStatusButton, {user: user, repo: repo, issueID: issue_id, contributorName: contributor_name, contributorID: contributor_id, tsrcPRstatus: tsrcPRstatus, side: side, clicked: clickedState.clicked, toggleModal: toggleModal }), domContainerTurboSrcButton);
+        } 
+
+      socket.on('vote received', function(ownerFromServer, repoFromServer, issueIDFromServer) {
+        clickedState.clicked = !clickedState.clicked;
+        updateVoteButton(issueIDFromServer)
       });
 
       render(React.createElement(RefreshButton, {refresh: handleRefresh}), document.getElementById('js-flash-container'));
