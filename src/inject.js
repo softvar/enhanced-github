@@ -262,7 +262,9 @@ async function get_authorized_contributor(contributor_id, repo_id) {
 
       socket.on('vote received', function(ownerFromServer, repoFromServer, issueIDFromServer) {
         clickedState.clicked = !clickedState.clicked;
-        updateVoteButton(issueIDFromServer)
+        if(user === ownerFromServer && repo === repoFromServer) {
+          updateVoteButton(issueIDFromServer)
+        }
       });
 
       render(React.createElement(RefreshButton, {refresh: handleRefresh}), document.getElementById('js-flash-container'));
