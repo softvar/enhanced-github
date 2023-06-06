@@ -27,9 +27,7 @@ export default function VoteStatusButton(props){
       close: ['red', 'closed']
     };
     
-
-    useEffect(() => {
-      const fetchVoteStatus = async () => {
+    const fetchVoteStatus = async () => {
       let textMath = voteStatusButton.textMath;
       let tsrcPRStatusComponent
       try {
@@ -69,8 +67,9 @@ export default function VoteStatusButton(props){
       }
         };
 
+    useEffect(() => {
         fetchVoteStatus();
-    }, [props.clicked]);
+    }, [props.socketEvents]);
 
     useEffect(() => {
       console.log('tsrcPRStatus:', tsrcPRStatus)
@@ -84,6 +83,7 @@ export default function VoteStatusButton(props){
         const buttonText = buttonStyle[tsrcPRStatus.state][1]
         setVoteStatusButton({color: buttonColor, text: buttonText});
     }, [voteYesTotalState, voteNoTotalState, tsrcPRStatus, voteTotals]);
+
 
     const handleClick = (e) => {
         e.preventDefault();

@@ -228,6 +228,7 @@ async function get_authorized_contributor(contributor_id, repo_id) {
       }
 
       document.addEventListener('click', function (event) {toggleModal(event)})
+      let socketEvents = 0
 
       const renderVoteButtons = async () => {
         
@@ -242,7 +243,7 @@ async function get_authorized_contributor(contributor_id, repo_id) {
             //displayOpenStatus = status.status === 200 &&  status.state === 'new' || status.status === 200 && status.state === 'open';
             domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}`);
             //if (displayOpenStatus) {
-            render(ce(VoteStatusButton, {user: user, repo: repo, issueID: issue_id, contributorName: contributor_name, contributorID: contributor_id, tsrcPRstatus: tsrcPRstatus, side: side, clicked: clickedState.clicked, toggleModal: toggleModal }), domContainerTurboSrcButton); //} else {
+            render(ce(VoteStatusButton, {socketEvents: socketEvents, user: user, repo: repo, issueID: issue_id, contributorName: contributor_name, contributorID: contributor_id, tsrcPRstatus: tsrcPRstatus, side: side, clicked: clickedState.clicked, toggleModal: toggleModal }), domContainerTurboSrcButton); //} else {
             // render(ce(TurboSrcButtonClosed), domContainerTurboSrcButton);
             //}
           }
@@ -250,7 +251,6 @@ async function get_authorized_contributor(contributor_id, repo_id) {
       } 
 
       renderVoteButtons();
-
       const handleRefresh = () => {
         clickedState.clicked = !clickedState.clicked;
         renderVoteButtons();
@@ -259,12 +259,12 @@ async function get_authorized_contributor(contributor_id, repo_id) {
       const updateVoteButton = async (issueID) => {
           issue_id = issueID
           domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}`);
-          render(ce(VoteStatusButton, {user: user, repo: repo, issueID: issue_id, contributorName: contributor_name, contributorID: contributor_id, tsrcPRstatus: tsrcPRstatus, side: side, clicked: clickedState.clicked, toggleModal: toggleModal }), domContainerTurboSrcButton);
+          render(ce(VoteStatusButton, {socketEvents: socketEvents, user: user, repo: repo, issueID: issue_id, contributorName: contributor_name, contributorID: contributor_id, tsrcPRstatus: tsrcPRstatus, side: side, clicked: clickedState.clicked, toggleModal: toggleModal }), domContainerTurboSrcButton);
         } 
 
       socket.on('vote received', function(ownerFromServer, repoFromServer, issueIDFromServer) {
-        clickedState.clicked = !clickedState.clicked;
         if(user === ownerFromServer && repo === repoFromServer) {
+          socketEvents+=1
           updateVoteButton(issueIDFromServer)
         }
       });
