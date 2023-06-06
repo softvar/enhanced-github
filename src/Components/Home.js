@@ -23,6 +23,34 @@ padding: 5px 8px;
 letter-spacing: .2px;
 `;
 
+const NotOwnRepo = styled.div`
+  @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 300;
+  font-size: 14px;
+  letter-spacing: .2px;
+  text-align:center;
+  position: relative;
+  top: 150px;
+`;
+const CenteredWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 80%;
+  margin: 30px auto;
+  gap: 50px;
+  flex-direction: column;
+`;
+
+const CreateRepo = styled.span`
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
+font-family: 'Roboto Mono', monospace;
+font-weight: 300;
+font-size: 14px;
+color: #001AFF;
+background-color:#e5eefd;
+`;
+
 const BoldText = styled(VoteText)`
 font-weight: 700;
 font-size: 26px;
@@ -78,6 +106,32 @@ font-weight: 600;
 color: black;
 `;
 
+const RepoButton = styled.button`
+  background-color: #313131;
+  color: white;
+  width: 200px;
+  height: 50px;
+  border: none;
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  `;
+
+
+  const CreateNotice = styled.span`
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
+font-family: 'Inter', sans-serif;
+font-weight: 400;
+font-size:14px;
+color: black;
+text-align: center;
+margin: 1rem auto;
+`;
+
+  const BtnSpan = styled.span`
+text-align: center;
+`;
+
 const port = process.env.PORT || 'http://localhost:4000';
 
 export default function Home() {
@@ -105,7 +159,9 @@ export default function Home() {
   const getRepoDataHandler = async () => {
     try {
       const response = await postGetRepoData(`${owner}/${repo}`, user.ethereumAddress).then(res => {
-        setTokenized(true);
+        if (res != null || res != undefined){
+          setTokenized(true);
+        }
         setPullRequests(res.pullRequests);
         setRes(res);
         console.log('resHandler:' + res);
@@ -130,9 +186,9 @@ if(owner === 'none' && repo === 'none') {
       <div className="content">
       <div className="home">
         <section>
-          <div className="votePower">
+          <NotOwnRepo>
             Please visit a Github repo page in your browser to use Turbosrc.           
-          </div>
+          </NotOwnRepo>
         </section>
       </div>
     </div>
@@ -170,12 +226,15 @@ if(owner === 'none' && repo === 'none') {
             </div>
           )}
         </section>
+        {tokenized && (
+
         <DataHeading>
           <PullRequestHeading>Status</PullRequestHeading>
           <PullRequestHeading>Pull Request</PullRequestHeading>
           <PullRequestHeading>Yes</PullRequestHeading>
           <PullRequestHeading>No</PullRequestHeading>
         </DataHeading>
+        )}
         {tokenized && (
           <Data>
             {pullRequests.map((pr, index) => (
@@ -191,11 +250,14 @@ if(owner === 'none' && repo === 'none') {
           </Data>
           )}
         {tokenized ? null : (
-          <div className="centeredWrapper">
-            <button type="button" className="createButton" onClick={() => navigate('/onboard')}>
-              Create
-            </button>
-          </div>
+          <CenteredWrapper>
+            <CreateNotice>
+            If you are the maintainer of <CreateRepo>{owner}/{repo}</CreateRepo> you can add it to Turbosrc
+            </CreateNotice>
+            <RepoButton type="button" onClick={() => navigate('/onboard')}>
+              Continue →
+            </RepoButton>
+          </CenteredWrapper> 
         )}
       </div>
     </Content>
