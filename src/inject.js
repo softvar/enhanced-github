@@ -29,14 +29,7 @@ const createButtonHtml = require('./Components/createButtonHtml');
 import VoteStatusButton from './Components/VoteStatusButton';
 import RefreshButton from './Components/RefreshButton';
 import ModalVote from './Components/Modal/ModalVote';
-import { io } from "socket.io-client";
-const socket = io("http://localhost:4000/", {
-  withCredentials: true,
-  extraHeaders: {
-    "my-custom-header": "abcd"
-  }
-}
-  );
+const {socket} = require('./socketConfig')
 
 const { postSetVote,
         postGetPullRequest, // updated
@@ -269,7 +262,7 @@ async function get_authorized_contributor(contributor_id, repo_id) {
         }
       });
 
-      render(React.createElement(RefreshButton, {refresh: handleRefresh}), document.getElementById('js-flash-container'));
+      !socket.id && render(React.createElement(RefreshButton, {refresh: handleRefresh}), document.getElementById('js-flash-container'));
       
 
 
