@@ -94,7 +94,6 @@ const ModalVote = props => {
     });
 
   useEffect(() => {
-    console.log(socketEvents)
     updateVotesHandler();
   }, [clickVoteHandler, socketEvents]);
 

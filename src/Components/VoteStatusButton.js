@@ -69,7 +69,7 @@ export default function VoteStatusButton(props){
 
     useEffect(() => {
         fetchVoteStatus();
-    }, [props.socketEvents]);
+    }, [props.socketEvents, clicked]);
 
     useEffect(() => {
       console.log('tsrcPRStatus:', tsrcPRStatus)

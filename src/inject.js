@@ -252,7 +252,7 @@ async function get_authorized_contributor(contributor_id, repo_id) {
       const updateVoteStatusButton = async (issueID) => {
           issue_id = issueID
           domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}`);
-          render(ce(VoteStatusButton, {socketEvents: socketEvents, user: user, repo: repo, issueID: issue_id, contributorName: contributor_name, contributorID: contributor_id, tsrcPRstatus: tsrcPRstatus, side: side, clicked: clickedState.clicked, toggleModal: toggleModal }), domContainerTurboSrcButton);
+          render(ce(VoteStatusButton, {user: user, repo: repo, issueID: issue_id, contributorName: contributor_name, contributorID: contributor_id, tsrcPRstatus: tsrcPRstatus, side: side, clicked: clickedState.clicked, toggleModal: toggleModal, socketEvents: socketEvents }), domContainerTurboSrcButton);
         } 
 
       const updateModalVotesTable = async (issueID) => {
