@@ -257,6 +257,8 @@ async function get_authorized_contributor(contributor_id, repo_id) {
 
       socket.on('vote received', function(ownerFromServer, repoFromServer, issueIDFromServer) {
         if(user === ownerFromServer && repo === repoFromServer) {
+          //To update the correct VoteStatus button we need to both update the socketEvents variable 
+          //and call the React render function for it.
           socketEvents+=1
           updateVoteButton(issueIDFromServer)
         }
