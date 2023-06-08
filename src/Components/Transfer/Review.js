@@ -38,7 +38,6 @@ h3 {
 const TransferSummary = styled.div`
 width: 100%;
 height: auto;
-padding: 0rem 1rem;
 `
 
 const Table = styled.div`
