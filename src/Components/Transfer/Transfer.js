@@ -156,6 +156,7 @@ border: none;
 cursor: pointer;
 background-color: #313131;
 margin-top: 2rem;
+font-size: 16px;
 
 :disabled {
   background-color: #B7B7B7;
