@@ -123,7 +123,7 @@ export default function Review(props) {
     return <Loader />;
   }
 
-  if (success) {
+  // if (success) {
     return (
       <SuccessTransfer
         recipientId={recipientId}
@@ -137,61 +137,61 @@ export default function Review(props) {
         repo={repo}
       />
     );
-  }
+  // }
 
-  return (
-    <Content>
-      <Header>
-        <h1>
-          Transfer Summary
-        </h1>
-        <h3>
-          Please review before submitting.
-        </h3>
-      </Header>
-      <TransferSummary>
-        <Table>
-          <ul>
-          <li>
-            <span>Repository</span> <span>{owner}/{repo}</span>
-          </li>
-          <li>
-            <span>From</span> <span>{user.login}</span>
-          </li>
-            <li>
-              <span>To</span> <span>{recipientName}</span>
-            </li>
-            {/* <li>
-              <span>Recipient Id:</span> <span>{recipientId}</span>
-            </li> */}
-            <li>
-              <span >Amount</span>
-              <span>
-                {amount} {tokens}
-              </span>
-            </li>
-            <li>
-              <span >Network</span>
-              <span>
-               Turbosrc
-              </span>
-            </li>
-          </ul>
-        </Table>
-      </TransferSummary>
-      <Continue>
-          <div onClick={() => setReview(false)}>
-            <span>
-              <img src="../../../icons/leftarrow.png" />
-            </span>
-            <span>
-              Back
-           </span>
-          </div>
-          <ContinueButton type="button" onClick={e => clickHandler(e)}>
-            Submit
-          </ContinueButton>
-          </Continue>
-    </Content>
-  );
+  // return (
+  //   <Content>
+  //     <Header>
+  //       <h1>
+  //         Transfer Summary
+  //       </h1>
+  //       <h3>
+  //         Please review before submitting.
+  //       </h3>
+  //     </Header>
+  //     <TransferSummary>
+  //       <Table>
+  //         <ul>
+  //         <li>
+  //           <span>Repository</span> <span>{owner}/{repo}</span>
+  //         </li>
+  //         <li>
+  //           <span>From</span> <span>{user.login}</span>
+  //         </li>
+  //           <li>
+  //             <span>To</span> <span>{recipientName}</span>
+  //           </li>
+  //           {/* <li>
+  //             <span>Recipient Id:</span> <span>{recipientId}</span>
+  //           </li> */}
+  //           <li>
+  //             <span >Amount</span>
+  //             <span>
+  //               {amount} {tokens}
+  //             </span>
+  //           </li>
+  //           <li>
+  //             <span >Network</span>
+  //             <span>
+  //              Turbosrc
+  //             </span>
+  //           </li>
+  //         </ul>
+  //       </Table>
+  //     </TransferSummary>
+  //     <Continue>
+  //         <div onClick={() => setReview(false)}>
+  //           <span>
+  //             <img src="../../../icons/leftarrow.png" />
+  //           </span>
+  //           <span>
+  //             Back
+  //          </span>
+  //         </div>
+  //         <ContinueButton type="button" onClick={e => clickHandler(e)}>
+  //           Submit
+  //         </ContinueButton>
+  //         </Continue>
+  //   </Content>
+  // );
 }
