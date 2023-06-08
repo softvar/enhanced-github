@@ -6,6 +6,163 @@ import superagent from 'superagent';
 import loadergif from '../loader.gif';
 import { postGetContributorID, postGetContributorTokenAmount } from '../requests';
 import useCommas from '../hooks/useCommas';
+import styled from 'styled-components';
+
+const Content = styled.div`
+height: 27rem;
+width: 100%;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+overflow-y: auto;
+overflow-x: hidden;
+padding: 1rem;
+`;
+
+const Header = styled.div`
+width: 100%;
+margin-bottom: 2rem;
+display: flex;
+flex-direction: column;
+
+h1 {
+  font-size: 22px;
+  font-weight: 400;
+}
+
+h3 {
+  font-size: 12px;
+  font-weight: 300;
+  color: #313131;
+}
+`
+const Form = styled.form`
+display: flex;
+flex-direction: column;
+width: 100%;
+
+label {
+  font-size: 12px;
+  font-weight: 300;
+}
+
+input {
+  outline: none;
+  border: .5px solid #313131;
+  padding: .3rem;
+}
+`;
+
+const Repository = styled.section`
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+margin-bottom: 2rem;
+
+div:nth-child(1) {
+  width: 10%;
+}
+
+div:nth-child(2) {
+  width: 80%;
+}
+
+.highlight {
+background-color: #E7F0FF;
+padding: .3rem;
+color: #5200FF;
+font-weight: 300;
+font-family: 'Roboto Mono', monospace;
+}
+`
+
+const Recipient = styled.section`
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+
+div:nth-child(1) {
+  margin-top: 5px;
+  width: 10%;
+}
+
+div:nth-child(2) {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  span:nth-child(1) {
+    flex-grow: 1;
+
+    input {
+      width: 100%;
+    }
+  }
+}
+
+img {
+  margin-left: .5rem;
+  height: 16px;
+  width: 16px;
+}
+`
+const ErrorText = styled.div`
+font-size: 10px;
+font-style: italic;
+color: var(--secondary);
+display: flex;
+justify-content: right;
+width: 100%;
+height: 24px;
+margin-top: .4rem;
+margin-bottom: .4rem;
+
+div {
+  width: 80%;
+}
+`
+
+const Amount = styled.section`
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+margin-bottom: .4rem;
+
+div:nth-child(1) {
+  height: 20px;
+  width: 10%;
+}
+
+div:nth-child(2) {
+  width: 80%;
+}
+`
+
+const Continue = styled.section`
+width: 100%;
+text-align: center;
+`
+
+const ContinueButton = styled.button`
+width: 220px;
+height: 45px;
+color: #fff;
+font-weight: 300;
+outline: none;
+border: none;
+cursor: pointer;
+background-color: #313131;
+margin-top: 2rem;
+
+:disabled {
+  background-color: #B7B7B7;
+  color: #6A6868;
+  cursor: auto;
+}
+`
 export default function Transfer(props) {
   let user = useSelector(state => state.auth.user);
   const repo = useSelector(state => state.repo.name);
@@ -16,6 +173,8 @@ export default function Transfer(props) {
   let [checking, setChecking] = useState(false);
   let [verified, setVerified] = useState(false);
   let [length, setLength] = useState(false);
+  let [error, setError] = useState(true);
+
 
   let [tokenAmount, setTokenAmount] = useState('');
   let [tokenString, setTokenString] = useState('');
@@ -54,19 +213,25 @@ export default function Transfer(props) {
       setChecking(false);
       setVerified(false);
       setLength(false);
+      setError(true)
     }
     if (transfer.recipientName.length > 1 && transfer.recipientId === 'none') {
-      setErrorText('Turbo-Src user not found');
+      setErrorText('User not found');
       setChecking(false);
       setVerified(false);
       setLength(true);
+      setError(true)
     }
     if (transfer.recipientId !== 'none') {
-      setErrorText(`User Id: ${transfer.recipientId}`);
+      setErrorText(`${transfer.recipientId}`);
       setChecking(false);
       setVerified(true);
       setLength(true);
+      if (transfer.amount >= 1) {
+        setError(false)
+      }
     }
+    
   }, [transfer]);
 
   const changeHandler = e => {
@@ -126,21 +291,32 @@ export default function Transfer(props) {
     );
   }
   return (
-    <div className="content items-center">
-      <div className="transferContent">
-        <header>
-          <h2>Transfer {repo} VotePower</h2>
-          <span className="balance">
-            You currently have <text>{` ${tokenString || 0} ${repo}`}</text> VotePower
-          </span>
-        </header>
+    <Content>
+        <Header>
+         <h1>Transfer VotePower</h1>
+         <h3>Powered by Turbosrc</h3>
+        </Header>
 
-        <form name="transfer" className="transfer">
-          <span>
-            <label htmlFor="transfer" className="">
-              Who would you like to transfer VotePower to?
-            </label>
+        <Form name="transfer">
+        <Repository>
             <div>
+              <label htmlFor="repo" />Repository
+            </div>
+            <div>
+              <span className="highlight">{owner}/{repo}</span>
+            </div>
+        </Repository>
+
+           
+        <Recipient>
+          <div>
+            <label htmlFor="recipientName">
+              Recipient
+            </label>
+          </div>
+
+            <div>
+              <span>
               <input
                 type="text"
                 name="recipientName"
@@ -149,6 +325,8 @@ export default function Transfer(props) {
                 placeholder="Username"
                 required
               />
+              </span>
+              <span>
               {checking ? (
                 <img src={loadergif}></img>
               ) : verified ? (
@@ -158,23 +336,36 @@ export default function Transfer(props) {
               ) : (
                 <img src="../../icons/warning.png"></img>
               )}
+              </span>
+                </div>
+            </Recipient>
+            <ErrorText>
+             <div>
+              {errorText}
+             </div>
+            </ErrorText>
+        
+          <Amount>
+            <div>
+              <label htmlFor="amount">Amount:</label>
             </div>
-            <p className="errorText">{errorText}</p>
-          </span>
-
-          <span>
-            <label htmlFor="amount">How much VotePower would you like to send?</label>
+            <div>
             <input type="number" name="amount" value={transfer.amount} onChange={e => changeHandler(e)} required />
-            <p className="errorText">{invalidText}</p>
-          </span>
+            </div>
+          </Amount>
+          <ErrorText>
+            <div>
+              {invalidText}
+            </div>
+          </ErrorText>
 
-          <span>
-            <button type="button" className="startButton" onClick={() => reviewHandler()}>
-              Review and Send
-            </button>
-          </span>
-        </form>
-      </div>
-    </div>
+          <Continue>
+            <ContinueButton type="button" disabled={error} onClick={() => reviewHandler()}>
+             Continue
+            </ContinueButton>
+          </Continue>
+
+        </Form>
+    </Content>
   );
 }

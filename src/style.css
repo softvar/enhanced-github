@@ -580,56 +580,6 @@ div a {
   font-weight: bold;
 }
 
-.transferContent {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  justify-content: center;
-}
-
-.transferContent header {
-  padding: 1rem;
-  border: 1px solid #CCC;
-  border-radius: 5px;
-  margin-bottom: 2rem;
-}
-
-.transfer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-.transfer span label {
-  margin-bottom: .2rem;
-}
-
-.transfer span {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 2rem;
-  width: 100%;
-}
-
-.transfer div {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 100%;
-}
-
-.transfer div input {
-  width: 100%;
-}
-
-.transfer span img {
-  height: 1rem;
-  margin-left: .3rem;
-}
-
 .errorText {
   font-size: 12px;
   font-style: italic;
@@ -647,30 +597,4 @@ div a {
 .balance text {
   margin: 0 .3rem 0 .3rem;
   color: var(--primary);
-}
-
-.transferSummary {
-  font-size: 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  width: 100%;
-}
-
-.transferSummary ul {
-  width: 100%;
-}
-
-.transferSummary ul li:nth-child(odd) {
-  background-color: var(--lightbg)
-}
-
-.transferSummary li {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: .5rem;
-  overflow: hidden;
-  text-overflow: clip;
 }
