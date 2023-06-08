@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import SuccessTransfer from './SuccessTransfer';
-import Loader from './Loader';
+import Loader from '../Loader';
 import { useSelector } from 'react-redux';
-import { postTransferTokens } from '../requests';
+import { postTransferTokens } from '../../requests';
 export default function Review(props) {
   const user = useSelector(state => state.auth.user);
   let { recipientId, recipientName, tokens, amount, setReview, setTransfer, owner, repo, tokenAmount } = props;

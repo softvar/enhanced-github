@@ -3,9 +3,9 @@ import Review from './Review';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import superagent from 'superagent';
-import loadergif from '../loader.gif';
-import { postGetContributorID, postGetContributorTokenAmount } from '../requests';
-import useCommas from '../hooks/useCommas';
+import loadergif from '../../loader.gif';
+import { postGetContributorID, postGetContributorTokenAmount } from '../../requests';
+import useCommas from '../../hooks/useCommas';
 import styled from 'styled-components';
 
 const Content = styled.div`
