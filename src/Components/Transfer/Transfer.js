@@ -55,6 +55,7 @@ export default function Transfer() {
           tokens={transfer.tokens}
           amount={transfer.amount}
           setTransfer={setTransfer}
+          transfer={transfer}
           setStep={setStep}
           repo={repo}
           owner={owner}
