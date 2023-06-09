@@ -6,11 +6,18 @@ import { postGetRepoData } from '../requests';
 import useCommas from '../hooks/useCommas';
 import styled from 'styled-components';
 import PullRequestRow from './PullRequestRow.js';
+import ArrowRight from '../../icons/arrowright.png';
+import SkeletonHome from './SkeletonHome.js';
 
 const VoteText = styled.span`
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
 font-family: 'Inter', sans-serif;
 color: black;
+`;
+
+const ArrowPic = styled.img`
+width: 13px;
+height: 13px;
 `;
 
 const VotePower = styled(VoteText)`
@@ -115,8 +122,16 @@ const RepoButton = styled.button`
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
   font-family: 'Inter', sans-serif;
   font-weight: 500;
+  cursor: pointer;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  gap:5px;
   `;
 
+  const GithubLink = styled.a`
+  color: black;
+  `;
 
   const CreateNotice = styled.span`
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
@@ -126,6 +141,7 @@ font-size:14px;
 color: black;
 text-align: center;
 margin: 1rem auto;
+line-height: 1.8;
 `;
 
   const BtnSpan = styled.span`
@@ -141,6 +157,8 @@ export default function Home() {
   const [pullRequests, setPullRequests] = useState([]);
   const [res, setRes] = useState({});
   const [tokenized, setTokenized] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   const navigate = useNavigate();
   let name = user?.name;
   let username = user?.login;
@@ -153,9 +171,12 @@ export default function Home() {
     //Set current logged in contributor/id to chrome storage for inject to verify user for voting
     chrome.storage.local.set({ contributor_name: user.login });
     chrome.storage.local.set({ contributor_id: user.ethereumAddress });
-
+    setTimeout(() => setLoading(false), 1500);
+    //setLoading(true);
   });
-  
+
+
+
   const getRepoDataHandler = async () => {
     try {
       const response = await postGetRepoData(`${owner}/${repo}`, user.ethereumAddress).then(res => {
@@ -202,13 +223,15 @@ if(owner === 'none' && repo === 'none') {
           <TopBar>
             <OwnerRepo>
                 <OwnerText>
-                  <a href={`https://github.com/JeffreyLWood/${owner}`} target="_blank">
+                  <GithubLink href={`https://github.com/JeffreyLWood/${owner}`} target="_blank">
                     {owner}
-                  </a> /
-                  </OwnerText>
-                  <BoldText> <a href={`https://github.com/${owner}/${repo}`} target="_blank">
-                {repo}
-              </a></BoldText>
+                  </GithubLink> /
+                </OwnerText>
+                <BoldText> 
+                  <GithubLink href={`https://github.com/${owner}/${repo}`} target="_blank">
+                      {repo}
+                  </GithubLink>
+                </BoldText>
             </OwnerRepo>
             {tokenized ? 
             <VotePower>
@@ -218,13 +241,6 @@ if(owner === 'none' && repo === 'none') {
             </VotePower>
             : null}
           </TopBar>
-          
-          
-          {!tokenized && (
-            <div className="votePower">
-              {`${owner}/${repo} is not on turbosrc.`}
-            </div>
-          )}
         </section>
         {tokenized && (
 
@@ -250,14 +266,15 @@ if(owner === 'none' && repo === 'none') {
           </Data>
           )}
         {tokenized ? null : (
+           loading ? ( <SkeletonHome/> ) : (
           <CenteredWrapper>
             <CreateNotice>
             If you are the maintainer of <CreateRepo>{owner}/{repo}</CreateRepo> you can add it to Turbosrc
             </CreateNotice>
             <RepoButton type="button" onClick={() => navigate('/onboard')}>
-              Continue →
+              <p>Continue</p> <ArrowPic src={ArrowRight} />
             </RepoButton>
-          </CenteredWrapper> 
+          </CenteredWrapper> )  
         )}
       </div>
     </Content>

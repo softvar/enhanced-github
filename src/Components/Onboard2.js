@@ -10,7 +10,7 @@ import storageUtil from '../utils/storageUtil';
 import { postCreateRepo, postCheckGithubTokenPermissions } from '../requests';
 import Home from './Home';
 import styled from 'styled-components';
-
+import SkeletonPermissions from './SkeletonPermissions';
 
 const RepoButton = styled.button`
   background-color: #313131;
@@ -20,17 +20,18 @@ const RepoButton = styled.button`
   border: none;
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
   font-family: 'Inter', sans-serif;
-  font-weight: 500;
+  font-weight: 400;
+  cursor: pointer;
   `;
 
-const PermsNotice = styled.span`
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
-font-family: 'Inter', sans-serif;
-font-weight: 700;
-color: black;
-text-align: center;
-margin: 1rem auto;
-`;
+  const Onboard = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+  bottom: 10px;
+  gap: 10px;
+  `;
 
 const CreateRepoInfo = styled.p`
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -39,19 +40,8 @@ font-weight: 400;
 color: black;
 text-align: left;
 width: 80%;
-margin: 20px auto 40px auto;
-`
-
-const PermsList = styled.ul`
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-font-family: 'Inter', sans-serif;
-font-weight: 400;
-color: black;
-text-align: center;
-list-style-type: disc;
-width: 80%;
-margin: 0px auto 40px auto;
-`;
+margin: 0px auto 10px;
+line-height: 1.5;`;
 
 const BtnSpan = styled.span`
 text-align: center;
@@ -78,7 +68,7 @@ export default function Onboard2() {
   const [length, setLength] = useState(false);
   const [errorText, setErrorText] = useState('');
   const [permissions, setPermissions] = useState({public_repo_scopes:false, push_permissions:false});
-
+  const [loadingPerms, setLoadingPerms] = useState(true);
   const checkPermissions = async () => {
     try {
         await postCheckGithubTokenPermissions(owner, repo, user.login, user.token).then(res => {
@@ -123,6 +113,8 @@ export default function Onboard2() {
     if (user.ethereumAddress === 'none' || user.ethereumKey === 'none') {
       navigate('/ethereum');
     }
+    setTimeout(() => setLoadingPerms(false), 1500);
+
   });
 
   useEffect(() => {
@@ -138,33 +130,42 @@ export default function Onboard2() {
   }
 
   if (!permissions.public_repo_scopes) {
-    return (
-      <PermissionsNotice
-      errorText={errorText}
-      />
-    );
+      return(
+        <>
+        {loadingPerms ? (
+          <>
+            <SkeletonPermissions />
+          </>
+        ) : (
+          <>
+            <PermissionsNotice errorText={errorText} />
+          </>
+        )}
+      </> );
   } else {
     return (
       <div className="content">
-        <div className="onboard">
+        <Onboard>
           <CreateRepoInfo>
             Creating this repository on Turbosrc will generate VotePower for this project.
-            <br/> 
-            <br/> 
+          </CreateRepoInfo>
+          <p/>
+          <CreateRepoInfo>
             You can then transfer as much or as little VotePower to your community as you like and vote on pull requests.
-            <br/>
-            <br/> 
+          </CreateRepoInfo>
+          <p/>
+          <CreateRepoInfo>
             When a majority consensus has been reached, the pull request will either be merged or closed automatically.
           </CreateRepoInfo>
           <CreateRepoForm name="create">
             <span>{errorText}</span>
             <BtnSpan >
               <RepoButton type="button" onClick={() => createRepo()}>
-                Submit
+                Create
               </RepoButton>
             </BtnSpan>
           </CreateRepoForm>
-        </div>
+        </Onboard>
       </div>
     );
     } 

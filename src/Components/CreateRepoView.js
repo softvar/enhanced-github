@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
+// TODO: move last else statement in Onboard2.js to here
 export default function CreateRepoView(){
 
     return(
