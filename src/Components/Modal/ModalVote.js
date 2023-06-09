@@ -48,7 +48,7 @@ const ModalVote = props => {
   const voteableStates = new Set(['vote', 'pre-open', 'open']);
   const notVoteableStates = new Set(['conflict', 'merge', 'close']);
   const [clickVoteHandler, setClickVoteHandler] = useState(false);
-
+  const socketEvents = props.socketEvents
   useEffect(() => {
     setTimeout(() => setLoading(false), 1500);
     setLoading(true);
@@ -95,7 +95,7 @@ const ModalVote = props => {
 
   useEffect(() => {
     updateVotesHandler();
-  }, [clickVoteHandler]);
+  }, [clickVoteHandler, socketEvents]);
 
   return (
     <ModalContent>

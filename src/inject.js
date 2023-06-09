@@ -29,6 +29,7 @@ const createButtonHtml = require('./Components/createButtonHtml');
 import VoteStatusButton from './Components/VoteStatusButton';
 import RefreshButton from './Components/RefreshButton';
 import ModalVote from './Components/Modal/ModalVote';
+const {socket} = require('./socketConfig')
 
 const { postSetVote,
         postGetPullRequest, // updated
@@ -61,6 +62,14 @@ var voteTotals;
 const clickedState = {
   clicked: false
 }
+
+socket.on("connect", () => {
+  console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+});
+
+socket.on("disconnect", () => {
+  console.log(socket.id); // undefined
+});
 
 //OAuth Code: ***
 //Github redirects to localhost:5000/authenticated?code=...
@@ -190,6 +199,7 @@ async function get_authorized_contributor(contributor_id, repo_id) {
       let getVotesRes;
       let getVotes = async () => await postGetVotes(repo_id, issue_id, contributor_id);
       //var displayOpenStatus;
+      let socketEvents = 0
 
       const toggleModal = async (event) => {
        if(event.target.id === 'myModal' || event.target.id === 'closeModal') {
@@ -206,7 +216,7 @@ async function get_authorized_contributor(contributor_id, repo_id) {
           const domContainerModal = document.getElementById('myModal');
           voteTotals = await postGetPRvoteTotals(user, repo, issue_id, contributor_id, side);
           getVotesRes = await getVotes();
-          render(ce(ModalVote, {user: user, repo: repo, issueID: issue_id, contributorID: contributor_id, contributorName: contributor_name, voteTotals: voteTotals, githubUser: githubUser, voteRes: getVotesRes, getVotes: getVotes, toggleModal: toggleModal}), domContainerModal);
+          render(ce(ModalVote, {user: user, repo: repo, issueID: issue_id, contributorID: contributor_id, contributorName: contributor_name, voteTotals: voteTotals, githubUser: githubUser, voteRes: getVotesRes, getVotes: getVotes, toggleModal: toggleModal, socketEvents: socketEvents}), domContainerModal);
           }
 
       }
@@ -214,7 +224,7 @@ async function get_authorized_contributor(contributor_id, repo_id) {
       document.addEventListener('click', function (event) {toggleModal(event)})
 
       const renderVoteButtons = async () => {
-
+        
           for (var i = startIndex; i < containerItems.length; i++) {
             issue_id = containerItems[i].getAttribute('id');
             //if (i < 2) {
@@ -226,19 +236,43 @@ async function get_authorized_contributor(contributor_id, repo_id) {
             //displayOpenStatus = status.status === 200 &&  status.state === 'new' || status.status === 200 && status.state === 'open';
             domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}`);
             //if (displayOpenStatus) {
-            render(ce(VoteStatusButton, {user: user, repo: repo, issueID: issue_id, contributorName: contributor_name, contributorID: contributor_id, tsrcPRstatus: tsrcPRstatus, side: side, clicked: clickedState.clicked, toggleModal: toggleModal }), domContainerTurboSrcButton); //} else {
+            render(ce(VoteStatusButton, {socketEvents: socketEvents, user: user, repo: repo, issueID: issue_id, contributorName: contributor_name, contributorID: contributor_id, tsrcPRstatus: tsrcPRstatus, side: side, clicked: clickedState.clicked, toggleModal: toggleModal }), domContainerTurboSrcButton); //} else {
             // render(ce(TurboSrcButtonClosed), domContainerTurboSrcButton);
             //}
           }
           
       } 
+
       renderVoteButtons();
       const handleRefresh = () => {
         clickedState.clicked = !clickedState.clicked;
         renderVoteButtons();
-        
       }
-      render(React.createElement(RefreshButton, {refresh: handleRefresh}), document.getElementById('js-flash-container'));
+
+      const updateVoteStatusButton = async (issueID) => {
+          issue_id = issueID
+          domContainerTurboSrcButton = document.querySelector(`#turbo-src-btn-${issue_id}`);
+          render(ce(VoteStatusButton, {user: user, repo: repo, issueID: issue_id, contributorName: contributor_name, contributorID: contributor_id, tsrcPRstatus: tsrcPRstatus, side: side, clicked: clickedState.clicked, toggleModal: toggleModal, socketEvents: socketEvents }), domContainerTurboSrcButton);
+        } 
+
+      const updateModalVotesTable = async (issueID) => {
+          if(issueID === issue_id && modal.style.display === 'block') {
+            const domContainerModal = document.getElementById('myModal');
+            render(ce(ModalVote, {user: user, repo: repo, issueID: issue_id, contributorID: contributor_id, contributorName: contributor_name, voteTotals: voteTotals, githubUser: githubUser, voteRes: getVotesRes, getVotes: getVotes, toggleModal: toggleModal, socketEvents: socketEvents}), domContainerModal);
+          }
+        } 
+
+      socket.on('vote received', function(ownerFromServer, repoFromServer, issueIDFromServer) {
+        if(user === ownerFromServer && repo === repoFromServer) {
+          /* To update the correct VoteStatusButton & VotesTable we need to both update the socketEvents variable 
+          and call the React render function for them. */
+          socketEvents+=1
+          updateVoteStatusButton(issueIDFromServer)
+          updateModalVotesTable(issueIDFromServer)
+        }
+      });
+
+      !socket.id && render(React.createElement(RefreshButton, {refresh: handleRefresh}), document.getElementById('js-flash-container'));
       
 
 

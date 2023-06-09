@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { postSetVote } from '../../requests';
 import styled from 'styled-components';
+const {socket} = require("../../socketConfig")
 
 const Wrapper = styled.div`
   margin: 0rem 2rem 0rem 2rem;
@@ -90,6 +91,7 @@ function VoteButton({
     await postSetVote(user, repo, issueID, issueID, false, contributorID, side, githubUser.token);
     // Toggle clickVoteHandler to update vote data
     setClickVoteHandler(!clickVoteHandler)
+    socket.emit('vote cast', user, repo, issueID)
   };
 
   //Set switch case use effect:
