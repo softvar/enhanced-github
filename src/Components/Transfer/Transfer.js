@@ -7,6 +7,8 @@ import loadergif from '../../loader.gif';
 import { postGetContributorID, postGetContributorTokenAmount } from '../../requests';
 import useCommas from '../../hooks/useCommas';
 import styled from 'styled-components';
+import SuccessTransfer from './SuccessTransfer';
+import Loader from '../Loader';
 
 const Content = styled.div`
 height: 27rem;
@@ -188,10 +190,10 @@ export default function Transfer(props) {
     amount: 0
   });
 
-  let [review, setReview] = useState(false);
+  let [step, setStep] = useState('Transfer');
 
   useEffect(() => {
-    setReview(false);
+    setStep('Transfer');
   }, []);
 
   useEffect(() => {
@@ -265,34 +267,13 @@ export default function Transfer(props) {
       transfer.recipientId &&
       transfer.recipientId !== 'none'
     ) {
-      setReview(true);
+      setStep('Review');
     }
   };
 
-  useEffect(() => {
-    if (user.ethereumAddress === 'none' || user.ethereumKey === 'none') {
-      navigate('/ethereum');
-    }
-  });
-
-  if (review) {
-    return (
-      <Review
-        from={transfer.from}
-        recipientName={transfer.recipientName}
-        recipientId={transfer.recipientId}
-        tokens={transfer.tokens}
-        amount={transfer.amount}
-        setTransfer={setTransfer}
-        setReview={setReview}
-        repo={repo}
-        owner={owner}
-        tokenAmount={tokenAmount}
-      />
-    );
-  }
-  return (
-    <Content>
+  switch(step) {
+      case 'Transfer':
+      return (<Content>
         <Header>
          <h1>Transfer VotePower</h1>
          <h3>Powered by Turbosrc</h3>
@@ -308,7 +289,6 @@ export default function Transfer(props) {
             </div>
         </Repository>
 
-           
         <Recipient>
           <div>
             <label htmlFor="recipientName">
@@ -367,6 +347,32 @@ export default function Transfer(props) {
           </Continue>
 
         </Form>
-    </Content>
-  );
+    </Content>)
+      case 'Review':
+        return ( <Review
+        from={transfer.from}
+        recipientName={transfer.recipientName}
+        recipientId={transfer.recipientId}
+        tokens={transfer.tokens}
+        amount={transfer.amount}
+        setTransfer={setTransfer}
+        setStep={setStep}
+        repo={repo}
+        owner={owner}
+        tokenAmount={tokenAmount}
+      />)
+      case 'Loading':
+        return <Loader />
+      case 'SuccessTransfer':
+          return ( <SuccessTransfer
+          recipientId={transfer.recipientId}
+          recipientName={transfer.recipientName}
+          amount={transfer.amount}
+          setStep={setStep}
+          setTransfer={setTransfer}
+          repo={repo}
+        /> )
+      default: 
+      return <Transfer />
+  }
 }

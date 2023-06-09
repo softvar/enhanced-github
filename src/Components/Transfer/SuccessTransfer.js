@@ -107,12 +107,20 @@ background-color: #313131;
 
 export default function SuccessTransfer(props) {
   const navigate = useNavigate();
-  let { amount, repo, recipientName, setReview, setTransfer, setSuccess, tokenAmount } = props;
+  let { amount, repo, recipientName, setStep, setTransfer } = props;
+
   const clickHandler = e => {
     e.preventDefault();
-    setSuccess(false);
-    setReview(false);
-    setTransfer({ recipient: '', tokens: '', amount: 0 });
+    setTransfer(
+     {from: '',
+      recipientId: 'none',
+      recipientName: '',
+      amount: 0}
+      );
+    if(e.target.value === 'Home') {
+      navigate('/home')
+    }
+    setStep('Transfer');
   };
 
   return (
@@ -137,10 +145,10 @@ export default function SuccessTransfer(props) {
           </Table>
         </TransferSummary>
         <BottomWrapper>
-          <HomeButton id="/home" onClick={e => clickHandler(e)}>
+          <HomeButton value="Home" onClick={e => clickHandler(e)}>
             Home
           </HomeButton>
-          <TransferButton id="/transfer" onClick={e => clickHandler(e)}>
+          <TransferButton onClick={e => clickHandler(e)}>
             Make another transfer
           </TransferButton>
         </BottomWrapper>

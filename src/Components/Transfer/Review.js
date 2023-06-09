@@ -104,94 +104,94 @@ font-size: 16px;
   cursor: auto;
 }
 `
+
+const ErrorText = styled.div`
+width: 100%;
+display: block;
+font-size: 12px;
+font-weight: 300;
+color: red;
+text-align: center;
+margin: 1rem;
+`
 export default function Review(props) {
   const user = useSelector(state => state.auth.user);
-  let { recipientId, recipientName, tokens, amount, setReview, setTransfer, owner, repo, tokenAmount } = props;
+  let { recipientId, recipientName, tokens, amount, setStep, setTransfer, owner, repo, tokenAmount } = props;
   let [success, setSuccess] = useState(false);
   let [loader, setLoader] = useState(false);
+  let [errorText, setErrorText] = useState("Error")
 
   const clickHandler = async e => {
     setLoader(true);
 
     await postTransferTokens(owner, repo, user.ethereumAddress, recipientId, amount, user.token)
-      .catch(error => setLoader(false))
-      .then(() => setSuccess(true))
-      .then(() => setLoader(false));
+      .then((res) => {
+        console.log('postTransferTokens res', res)
+        // if(res.status === "200") {
+        //   setSuccess(true)
+        // } else {
+        //   setSuccess(false)
+        //   setErrorText('There was an error processing transfer. Please review details and try again.')
+        // }
+        setStep('Loading')
+      })
+      .then(() => setTimeout(() => { setStep('SuccessTransfer') }, 1500 ));
   };
 
-  if (loader) {
-    return <Loader />;
-  }
-
-  // if (success) {
-    return (
-      <SuccessTransfer
-        recipientId={recipientId}
-        recipientName={recipientName}
-        tokens={tokens}
-        amount={amount}
-        setReview={setReview}
-        setTransfer={setTransfer}
-        setSuccess={setSuccess}
-        tokenAmount={tokenAmount}
-        repo={repo}
-      />
-    );
-  // }
-
-  // return (
-  //   <Content>
-  //     <Header>
-  //       <h1>
-  //         Transfer Summary
-  //       </h1>
-  //       <h3>
-  //         Please review before submitting.
-  //       </h3>
-  //     </Header>
-  //     <TransferSummary>
-  //       <Table>
-  //         <ul>
-  //         <li>
-  //           <span>Repository</span> <span>{owner}/{repo}</span>
-  //         </li>
-  //         <li>
-  //           <span>From</span> <span>{user.login}</span>
-  //         </li>
-  //           <li>
-  //             <span>To</span> <span>{recipientName}</span>
-  //           </li>
-  //           {/* <li>
-  //             <span>Recipient Id:</span> <span>{recipientId}</span>
-  //           </li> */}
-  //           <li>
-  //             <span >Amount</span>
-  //             <span>
-  //               {amount} {tokens}
-  //             </span>
-  //           </li>
-  //           <li>
-  //             <span >Network</span>
-  //             <span>
-  //              Turbosrc
-  //             </span>
-  //           </li>
-  //         </ul>
-  //       </Table>
-  //     </TransferSummary>
-  //     <Continue>
-  //         <div onClick={() => setReview(false)}>
-  //           <span>
-  //             <img src="../../../icons/leftarrow.png" />
-  //           </span>
-  //           <span>
-  //             Back
-  //          </span>
-  //         </div>
-  //         <ContinueButton type="button" onClick={e => clickHandler(e)}>
-  //           Submit
-  //         </ContinueButton>
-  //         </Continue>
-  //   </Content>
-  // );
+  return (
+    <Content>
+      <Header>
+        <h1>
+          Transfer Summary
+        </h1>
+        <h3>
+          Please review before submitting.
+        </h3>
+      </Header>
+      <TransferSummary>
+        <Table>
+          <ul>
+          <li>
+            <span>Repository</span> <span>{owner}/{repo}</span>
+          </li>
+          <li>
+            <span>From</span> <span>{user.login}</span>
+          </li>
+            <li>
+              <span>To</span> <span>{recipientName}</span>
+            </li>
+            {/* <li>
+              <span>Recipient Id:</span> <span>{recipientId}</span>
+            </li> */}
+            <li>
+              <span >Amount</span>
+              <span>
+                {amount} {tokens}
+              </span>
+            </li>
+            <li>
+              <span >Network</span>
+              <span>
+               Turbosrc
+              </span>
+            </li>
+          </ul>
+        </Table>
+       <ErrorText>{errorText}</ErrorText>
+      </TransferSummary>
+      <Continue>
+          <div onClick={() => setStep('Transfer')}>
+            <span>
+              <img src="../../../icons/leftarrow.png" />
+            </span>
+            <span>
+              Back
+           </span>
+          </div>
+          <ContinueButton type="button" onClick={e => clickHandler(e)}>
+            Submit
+          </ContinueButton>
+          </Continue>
+    </Content>
+  );
 }
