@@ -3,11 +3,64 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import loadergif from '../loader.gif';
 import Loader from './Loader';
+import PermissionsNotice from './PermissionsNotice';
 import Fail from './Fail';
 import Success from './Success';
 import storageUtil from '../utils/storageUtil';
 import { postCreateRepo, postCheckGithubTokenPermissions } from '../requests';
 import Home from './Home';
+import styled from 'styled-components';
+
+
+const RepoButton = styled.button`
+  background-color: #313131;
+  color: white;
+  width: 200px;
+  height: 50px;
+  border: none;
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  `;
+
+const PermsNotice = styled.span`
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
+font-family: 'Inter', sans-serif;
+font-weight: 700;
+color: black;
+text-align: center;
+margin: 1rem auto;
+`;
+
+const CreateRepoInfo = styled.p`
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+font-family: 'Inter', sans-serif;
+font-weight: 400;
+color: black;
+text-align: left;
+width: 80%;
+margin: 20px auto 40px auto;
+`
+
+const PermsList = styled.ul`
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+font-family: 'Inter', sans-serif;
+font-weight: 400;
+color: black;
+text-align: center;
+list-style-type: disc;
+width: 80%;
+margin: 0px auto 40px auto;
+`;
+
+const BtnSpan = styled.span`
+text-align: center;
+`;
+
+const CreateRepoForm = styled.form`
+  margin: 0 auto;
+  `;
+
 export default function Onboard2() {
   const user = useSelector(state => state.auth.user);
   const repo = useSelector(state => state.repo.name);
@@ -86,81 +139,33 @@ export default function Onboard2() {
 
   if (!permissions.public_repo_scopes) {
     return (
-      <div className="content">
-        <div className="onboard">
-          <form name="create">
-            <div className="apiKey">
-              <span>
-                Turbosrc would like read/write access to your public repos including their, code, commit statuses, repository projects, and deployment statuses.
-              </span>
-              <span className="">
-                <a
-                  href={`https://github.com/login/oauth/authorize?scope=user:email%20public_repo&client_id=${process.env.GITHUB_CLIENT_ID}`}
-                  target="_blank"
-                >
-                  <button type="button" className="startButton">Update Permissions</button>
-                </a>
-              </span>
-            </div>
-            <span>{errorText}</span>
-          </form>
-        </div>
-      </div>
-    );
-  } else if (!permissions.push_permissions) {
-    return (
-      <div className="content">
-        <div className="onboard">
-          <form name="create">
-            <div className="apiKey">
-              <span className="">
-                You do not have permissions to make changes to this repository. Enter a valid Access Token for {repo}
-              </span>
-              <span className="">
-                <input
-                  type="text"
-                  name="apikey"
-                  placeholder=""
-                  value={apiKey}
-                  onChange={e => changeHandler(e)}
-                  required
-                ></input>
-                {checking ? (
-                  <img src={loadergif}></img>
-                ) : verified ? (
-                  <img src="../../icons/success.png"></img>
-                ) : length ? (
-                  <img src="../../icons/incorrect.png"></img>
-                ) : (
-                  <img src="../../icons/warning.png"></img>
-                )}
-              </span>
-            </div>
-            <span>{errorText}</span>
-            <span className="items-center">
-              <button type="button" className="disabledButton">
-                Not permitted
-              </button>
-            </span>
-          </form>
-        </div>
-      </div>
+      <PermissionsNotice
+      errorText={errorText}
+      />
     );
   } else {
     return (
       <div className="content">
         <div className="onboard">
-
-          <form name="create">
+          <CreateRepoInfo>
+            Creating this repository on Turbosrc will generate VotePower for this project.
+            <br/> 
+            <br/> 
+            You can then transfer as much or as little VotePower to your community as you like and vote on pull requests.
+            <br/>
+            <br/> 
+            When a majority consensus has been reached, the pull request will either be merged or closed automatically.
+          </CreateRepoInfo>
+          <CreateRepoForm name="create">
             <span>{errorText}</span>
-            <span className="items-center">
-              <button type="button" className="startButton" onClick={() => createRepo()}>
+            <BtnSpan >
+              <RepoButton type="button" onClick={() => createRepo()}>
                 Submit
-              </button>
-            </span>
-          </form>
+              </RepoButton>
+            </BtnSpan>
+          </CreateRepoForm>
         </div>
       </div>
     );
-  }
+    } 
 }

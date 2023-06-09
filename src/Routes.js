@@ -4,7 +4,7 @@ import Header from './Components/Header';
 import Auth from './Components/Auth';
 import Create from './Components/Create';
 import ApiKey from './Components/ApiKey';
-import Transfer from './Components/Transfer';
+import Transfer from './Components/Transfer/Transfer';
 import Success from './Components/Success';
 import Nav from './Components/Nav';
 import Account from './Components/Account';

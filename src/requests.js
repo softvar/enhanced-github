@@ -182,7 +182,7 @@ async function postGetContributorTokenAmount(
 }
 
 async function postTransferTokens(owner, repo, from, to, amount, token) {
-  superagent
+  const res = await superagent
     .post(`${url}`)
     .send(
       //{ query: '{ name: 'Manny', species: 'cat' }' }
@@ -191,14 +191,16 @@ async function postTransferTokens(owner, repo, from, to, amount, token) {
       //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
       //{ query: `{ getVoteEverything }` }
       {
-        query: `{ transferTokens(owner: "${owner}", repo: "${repo}", from: "${from}", to: "${to}", amount: ${amount}, token: "${token}") }`,
+        query: `{ transferTokens(owner: "${owner}", repo: "${repo}", from: "${from}", to: "${to}", amount: ${amount}, token: "${token}") { status, repo, from, to, amount, createdAt, network, id } }`,
       }
       //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body
     .set("accept", "json")
-    .end((err, res) => {
-      // Calling the end function will send the request
-    });
+    //.end((err, res) => {
+    // Calling the end function will send the request
+    //});
+    const json = JSON.parse(res.text);
+    return json.data.transferTokens;
 }
 
 async function postNewPullRequest(owner, repo, defaultHash, contributor_id, side) {
@@ -506,6 +508,62 @@ async function getGitHubPullRequest(owner, repo, defaultHash)  {
     return json.data.getGitHubPullRequest;
 }
 
+async function postGetRepoData (repo_id, contributor_id) {
+  const res = await superagent
+      .post(`${url}`)
+      .send({
+    query: `{ getRepoData(repo_id: "${repo_id}", contributor_id: "${contributor_id}")
+    {   
+      status, 
+      repo_id,
+      owner,
+      contributor_id,
+      head,
+      quorum,
+      contributor { 
+        contributor_id,
+        contributor,
+        votePower,
+      }, 
+    pullRequests { 
+      state,
+      repo_id,
+      forkBranch,
+      baseBranch,
+      defaultHash,
+      childDefaultHash,
+      head,
+      defaultHash,
+      remoteURL
+    voteData {
+      contributor {
+      contributor_id,
+      voted,
+      votePower,
+      createdAt,
+      },
+    voteTotals {
+      yesPercent,
+      noPercent,
+      totalVotes,
+      totalYesVotes,
+      totalNoVotes,
+    },
+    votes {
+      contributor_id,
+      side,
+      votePower,
+      createdAt
+    }
+  }
+} 
+} 
+}`
+})
+.set("accept", "json");
+const json = JSON.parse(res.text);
+return json.data.getRepoData;
+}
 async function postGetVotes (repo, defaultHash, contributor_id) {
   const res = await superagent
   .post(`${url}`)
@@ -555,5 +613,6 @@ export {
 	postCreatePullRequest,
 	postFork,
         getGitHubPullRequest,
+  postGetRepoData,
   postGetVotes
 }
