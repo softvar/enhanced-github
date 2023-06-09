@@ -127,10 +127,11 @@ export default function Review({
   let [errorText, setErrorText] = useState(' ');
 
   const clickHandler = async e => {
+    e.preventDefault()
     setStep('Loading');
     await postTransferTokens(owner, repo, user.ethereumAddress, recipientId, amount, user.token).then(res => {
       if (res.status === 201) {
-        setTransfer({ ...transfer, amount: res.amount, createdAt: res.createdAt, id: res.id, network: res.network });
+        setTransfer({...transfer, amount: res.amount, createdAt: res.createdAt, id: res.id, network: res.network });
         setTimeout(() => {
           setStep('SuccessTransfer');
         }, 1500);

@@ -16,7 +16,7 @@ const Content = styled.div`
 
 const Header = styled.div`
   width: 100%;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -42,11 +42,11 @@ const Receipt = styled.section`
   width: 100%;
   text-align: center;
   font-family: 'Roboto Mono', monospace;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 24px;
   font-weight: 200;
   color: #6a6868;
-  padding: 1rem 1rem 2rem 1rem;
+  padding: 1rem 1rem 3rem 1rem;
 
   .purple {
     color: #4a00ba;
@@ -105,7 +105,7 @@ const HomeButton = styled(TransferButton)`
   background-color: #313131;
 `;
 
-export default function SuccessTransfer({ amount, repo, recipientName, setStep, setTransfer, createdAt, id, network }) {
+export default function SuccessTransfer({ amount, repo, recipientName, setStep, setTransfer, transfer, createdAt, id, network }) {
   const navigate = useNavigate();
   function timeConverter(unix) {
     const a = new Date(Number(unix));
@@ -116,7 +116,7 @@ export default function SuccessTransfer({ amount, repo, recipientName, setStep, 
     const hour = a.getHours();
     const min = a.getMinutes();
     const sec = a.getSeconds();
-    const time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
+    const time = month + ' ' + date + ' ' + year + ' ' + 'at' + ' ' + hour + ':' + min + ':' + sec;
     return time;
   }
   const date = timeConverter(createdAt);
@@ -129,7 +129,7 @@ export default function SuccessTransfer({ amount, repo, recipientName, setStep, 
     }
     setStep('Transfer');
   };
-
+console.log(transfer)
   return (
     <Content>
       <Header>
