@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import Importance from '../../icons/importance.png';
 
 
 const RepoButton = styled.button`
@@ -17,14 +18,24 @@ const RepoButton = styled.button`
   const PermsNotice = styled.span`
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
   font-family: 'Inter', sans-serif;
-  font-weight: 700;
+  font-weight: 500;
   color: black;
   text-align: center;
-  margin: 1rem auto;
+  margin: 1rem 0;
+  line-height: 1.75;
+  font-size: 16px;
   `;
   
   const BtnSpan = styled.span`
     text-align: center;
+`;
+
+const KeyAPI = styled.div`
+display: flex;
+flex-direction: column;
+width: 100%;
+margin: 1rem 0 2rem 0;
+padding: 1rem;
 `;
 
 const PermsList = styled.ul`
@@ -36,6 +47,10 @@ text-align: center;
 list-style-type: disc;
 width: 80%;
 margin: 0px auto 40px auto;
+
+li{
+    list-style-type: disc;
+}
 `;
 
 export default function PermissionsNotice(props){
@@ -46,9 +61,9 @@ export default function PermissionsNotice(props){
         <div className="content">
         <div className="onboard">
           <form name="create">
-            <div className="apiKey">
+            <KeyAPI>
               <PermsNotice>  
-                Additional permissions are required to add this repository to Turbosrc:
+                <img src={Importance} style={{height: '13px', width: '13px'}}/> Additional permissions are required to add this repository to Turbosrc:
               </PermsNotice>
               <PermsList>
                 <li>Read/write access to your public repositories</li>
@@ -61,7 +76,7 @@ export default function PermissionsNotice(props){
                   <RepoButton type="button">Update Permissions</RepoButton>
                 </a>
               </BtnSpan>
-            </div>
+            </KeyAPI>
             <span>{props.errorText}</span>
           </form>
         </div>
