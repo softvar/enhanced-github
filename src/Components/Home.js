@@ -8,6 +8,10 @@ import styled from 'styled-components';
 import PullRequestRow from './PullRequestRow.js';
 import ArrowRight from '../../icons/arrowright.png';
 import SkeletonHome from './SkeletonHome.js';
+import ExtensionModalVote from './ExtensionModalVote';
+const { 
+  postGetVotes  
+} = require('../requests');
 
 const VoteText = styled.span`
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
@@ -158,7 +162,8 @@ export default function Home() {
   const [res, setRes] = useState({});
   const [tokenized, setTokenized] = useState(false);
   const [loading, setLoading] = useState(true);
-
+  const [contributorID, setContributorID] = useState('');
+  const [seeModal, setSeeModal] = useState(true);
   const navigate = useNavigate();
   let name = user?.name;
   let username = user?.login;
@@ -172,6 +177,9 @@ export default function Home() {
     chrome.storage.local.set({ contributor_name: user.login });
     chrome.storage.local.set({ contributor_id: user.ethereumAddress });
     setTimeout(() => setLoading(false), 1500);
+    setContributorID(user.ethereumAddress);
+    let contributor_id = user.ethereumAddress;
+    console.log(contributor_id);
     //setLoading(true);
   });
 
@@ -194,6 +202,11 @@ export default function Home() {
       console.error('Error fetching repo data:', error);
     }
   };
+/*
+  const modalView = (repo_id, issue_id, contributor_id) => {
+    let getVotes = async () => await postGetVotes(repo_id, issue_id, contributor_id);
+    
+  } */
 
 useEffect(() => {
   setTimeout(()=>{getRepoDataHandler()}, 500)
@@ -201,7 +214,7 @@ useEffect(() => {
 }, [owner, repo]);
 console.log('pullRequests:', pullRequests);
 console.log('res:', res);
-
+let getVotes = async () => await postGetVotes(repo_id, issue_id, contributor_id);
 if(owner === 'none' && repo === 'none') {
     return (
       <div className="content">
@@ -215,68 +228,75 @@ if(owner === 'none' && repo === 'none') {
     </div>
     )
   }
-
-  return (
-    <Content>
-      <div className="home">
-        <section>
-          <TopBar>
-            <OwnerRepo>
-                <OwnerText>
-                  <GithubLink href={`https://github.com/JeffreyLWood/${owner}`} target="_blank">
-                    {owner}
-                  </GithubLink> /
-                </OwnerText>
-                <BoldText> 
-                  <GithubLink href={`https://github.com/${owner}/${repo}`} target="_blank">
+  switch (seeModal) {
+    case true:
+      return <ExtensionModalVote />;
+    case false:
+      return (
+        <Content>
+          <div className="home">
+            <section>
+              <TopBar>
+                <OwnerRepo>
+                  <OwnerText>
+                    <GithubLink href={`https://github.com/JeffreyLWood/${owner}`} target="_blank">
+                      {owner}
+                    </GithubLink> /
+                  </OwnerText>
+                  <BoldText> 
+                    <GithubLink href={`https://github.com/${owner}/${repo}`} target="_blank">
                       {repo}
-                  </GithubLink>
-                </BoldText>
-            </OwnerRepo>
-            {tokenized ? 
-            <VotePower>
-            {tokenAmount === 0 ?
-              'You do not have votepower in this project.'
-              : `${tokenAmount} votepower`}
-            </VotePower>
-            : null}
-          </TopBar>
-        </section>
-        {tokenized && (
-
-        <DataHeading>
-          <PullRequestHeading>Status</PullRequestHeading>
-          <PullRequestHeading>Pull Request</PullRequestHeading>
-          <PullRequestHeading>Yes</PullRequestHeading>
-          <PullRequestHeading>No</PullRequestHeading>
-        </DataHeading>
-        )}
-        {tokenized && (
-          <Data>
-            {pullRequests.map((pr, index) => (
-                <PullRequestRow 
-                state={pr.state} 
-                yes={Math.floor(pr.voteData.voteTotals.yesPercent*100)}
-                no={Math.floor(pr.voteData.voteTotals.noPercent*100)} 
-                forkBranch={pr.forkBranch}
-                key={pr.forkBranch}
-                index={index}
-                />
-            ))}
-          </Data>
-          )}
-        {tokenized ? null : (
-           loading ? ( <SkeletonHome/> ) : (
-          <CenteredWrapper>
-            <CreateNotice>
-            If you are the maintainer of <CreateRepo>{owner}/{repo}</CreateRepo> you can add it to Turbosrc
-            </CreateNotice>
-            <RepoButton type="button" onClick={() => navigate('/onboard')}>
-              <p>Continue</p> <ArrowPic src={ArrowRight} />
-            </RepoButton>
-          </CenteredWrapper> )  
-        )}
-      </div>
-    </Content>
-  );
+                    </GithubLink>
+                  </BoldText>
+                </OwnerRepo>
+                {tokenized ? 
+                  <VotePower>
+                    {tokenAmount === 0 ?
+                      'You do not have votepower in this project.'
+                      : `${tokenAmount} votepower`}
+                  </VotePower>
+                  : null}
+              </TopBar>
+            </section>
+            {tokenized && (
+              <DataHeading>
+                <PullRequestHeading>Status</PullRequestHeading>
+                <PullRequestHeading>Pull Request</PullRequestHeading>
+                <PullRequestHeading>Yes</PullRequestHeading>
+                <PullRequestHeading>No</PullRequestHeading>
+              </DataHeading>
+            )}
+            {tokenized && (
+              <Data>
+                {pullRequests.map((pr, index) => (
+                  <PullRequestRow 
+                    state={pr.state} 
+                    yes={Math.floor(pr.voteData.voteTotals.yesPercent * 100)}
+                    no={Math.floor(pr.voteData.voteTotals.noPercent * 100)} 
+                    forkBranch={pr.forkBranch}
+                    key={pr.forkBranch}
+                    index={index}
+                  />
+                ))}
+              </Data>
+            )}
+            {tokenized ? null : (
+              loading ? (<SkeletonHome />) : (
+                <CenteredWrapper>
+                  <CreateNotice>
+                    If you are the maintainer of <CreateRepo>{owner}/{repo}</CreateRepo> you can add it to Turbosrc
+                  </CreateNotice>
+                  <RepoButton type="button" onClick={() => navigate('/onboard')}>
+                    <p>Continue</p> <ArrowPic src={ArrowRight} />
+                  </RepoButton>
+                </CenteredWrapper>
+              )
+            )}
+          </div>
+        </Content>
+      );
+    default:
+      return null;
+  }
+  
 }

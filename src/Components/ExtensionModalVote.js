@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import VoteTotalMain from './VoteTotalMain';
+import ExtensionVoteTotalMain from './ExtensionVoteTotalMain';
 import styled from 'styled-components';
-import VotesTable from './VotesTable';
-import VoteTotalResults from './VoteTotalResults';
-import VoteButtonGroup from './VoteButtonGroup';
-import VoteText from './VoteText';
-import SkeletonModal from './SkeletonModal';
+import ExtensionVotesTable from './ExtensionVotesTable';
+import ExtensionVoteTotalResults from './ExtensionVoteTotalResults';
+import ExtensionVoteButtonGroup from './ExtensionVoteButtonGroup';
+import ExtensionVoteText from './ExtensionVoteText';
+import SkeletonModal from './Modal/SkeletonModal';
 const ModalContent = styled.div`
   background-color: #fff;
   margin: auto;
@@ -16,7 +16,7 @@ const ModalContent = styled.div`
   box-shadow: 0px 12px 20px -1px rgba(0, 0, 0, 0.18);
 `;
 
-const ModalVote = props => {
+const ExtensionModalVote = props => {
   let user = props.user;
   let repo = props.repo;
   let issue_id = props.issueID;
@@ -52,7 +52,7 @@ const ModalVote = props => {
     setTimeout(() => setLoading(false), 1500);
     setLoading(true);
   }, [props.voteRes]);
-
+  /*
   useEffect(() => {
     setForkBranch(props.voteRes.forkBranch);
     setBaseBranch(props.voteRes.baseBranch);
@@ -76,7 +76,7 @@ const ModalVote = props => {
       setDisabled(true);
     }
     setRes(props.voteRes);
-  }, [props.voteRes]);
+  }, [props.voteRes]); */
 
   const updateVotesHandler = async () =>
     await getVotes().then(res => {
@@ -91,11 +91,11 @@ const ModalVote = props => {
       setNoPercent(res.voteData.voteTotals.noPercent);
       setTotalPercent(res.voteData.voteTotals.totalVotePercent);
     });
-
+/*
   useEffect(() => {
     updateVotesHandler();
   }, [clickVoteHandler, socketEvents]);
-
+ */
   return (
     <ModalContent>
       {loading ? (
@@ -104,7 +104,7 @@ const ModalVote = props => {
         </>
       ) : (
         <>
-          <VoteTotalMain
+          <ExtensionVoteTotalMain
             user={user}
             repo={repo}
             issueID={issue_id}
@@ -122,9 +122,9 @@ const ModalVote = props => {
             id="vote-total-main"
           >
             <h2>Vote Total</h2>
-          </VoteTotalMain>
-          <VoteText disabled={disabled} voted={voted} chosenSide={chosenSide} userVotedAt={userVotedAt} />
-          <VoteButtonGroup
+          </ExtensionVoteTotalMain>
+          <ExtensionVoteText disabled={disabled} voted={voted} chosenSide={chosenSide} userVotedAt={userVotedAt} />
+          <ExtensionVoteButtonGroup
             disabled={disabled}
             setDisabled={setDisabled}
             voted={voted}
@@ -141,7 +141,7 @@ const ModalVote = props => {
             voteTotals={vote_totals}
             githubUser={githubUser}
           />
-          <VoteTotalResults
+          <ExtensionVoteTotalResults
             totalPercent={totalPercent}
             yesPercent={yesPercent}
             noPercent={noPercent}
@@ -151,11 +151,11 @@ const ModalVote = props => {
             quorum={quorum}
             id="vote-total-results"
           />
-          <VotesTable allVotes={allVotes} />
+          <ExtensionVotesTable allVotes={allVotes} />
         </>
       )}
     </ModalContent>
   );
 };
 
-export default ModalVote;
+export default ExtensionModalVote;
