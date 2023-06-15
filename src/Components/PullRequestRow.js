@@ -48,7 +48,7 @@ const PullReqTitle = styled.div`
 
 
 
-export default function PullRequestRow({index, state, forkBranch, yes, no}){
+export default function PullRequestRow({index, issue_id, state, forkBranch, yes, no}){
     const [yesPercent, setYesPercent] = useState(yes);
     const [noPercent, setNoPercent] = useState(no);
     useEffect(() => {
@@ -63,7 +63,7 @@ export default function PullRequestRow({index, state, forkBranch, yes, no}){
                  state={state}
                  />
                 <PullReqTitle>
-                    <Index>#{index}&nbsp;</Index>
+                    <Index>#{issue_id.split('_')[1]}&nbsp;</Index>
                     <p>{forkBranch}</p>    
                 </PullReqTitle>
                 <GreenText>{yesPercent}%</GreenText>
