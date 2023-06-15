@@ -29,7 +29,13 @@ const PullReqTitle = styled.div`
     flex-direction: row;
     gap: 10px;
     align-items: center;
-    overflow: ellipsis;
+    font-size: 12px;
+    
+    p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    }
     `;        
 
     const GreenText = styled.p`
@@ -48,7 +54,7 @@ const PullReqTitle = styled.div`
 
 
 
-export default function PullRequestRow({index, issue_id, state, forkBranch, yes, no}){
+export default function PullRequestRow({index, issue_id, state, forkBranch, title, yes, no}){
     const [yesPercent, setYesPercent] = useState(yes);
     const [noPercent, setNoPercent] = useState(no);
     useEffect(() => {
@@ -64,7 +70,7 @@ export default function PullRequestRow({index, issue_id, state, forkBranch, yes,
                  />
                 <PullReqTitle>
                     <Index>#{issue_id.split('_')[1]}&nbsp;</Index>
-                    <p>{forkBranch}</p>    
+                   <p>{title}</p>
                 </PullReqTitle>
                 <GreenText>{yesPercent}%</GreenText>
                 <RedText>{noPercent}%</RedText>

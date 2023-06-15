@@ -262,6 +262,7 @@ if(owner === 'none' && repo === 'none') {
                 key={pr.forkBranch}
                 index={index}
                 issue_id={pr.issue_id}
+                title={pr.title}
                 />
             ))}
           </Data>
