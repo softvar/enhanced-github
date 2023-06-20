@@ -5,13 +5,13 @@ import styled from 'styled-components';
 const Decision = styled.div`
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap');
     font-family: 'Inter', monospace;
-    margin-top: 20px;
+    margin-top: 0px;
     height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 300;
     color: #333;
 `;

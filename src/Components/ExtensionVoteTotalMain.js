@@ -128,7 +128,7 @@ div img {
 
 function ExtensionVoteTotalMain(props) {
   const { user, repo, issueID, contributorID, contributorName, side, title, baseBranch, forkBranch, votePower } = props;
-
+//<OwnerText>{user} /</OwnerText><BoldText> {repo}</BoldText> add this on line 143 after you get repo and user props 
 
   const handleClick = (e) => {
   };
@@ -140,15 +140,14 @@ function ExtensionVoteTotalMain(props) {
       </TopBar>
         <TopModalTitle>
           <OwnerRepo>
-            <OwnerText>{user} /</OwnerText><BoldText> {repo}</BoldText>
+            
           </OwnerRepo>
           <MediumText>{votePower} VotePower</MediumText>
         </TopModalTitle>
-        <PullRequestTitle>#{issueID.split("_")[1]} {title}</PullRequestTitle>
         <VoteTopicText>{forkBranch} <VoteTopicNormalText>into</VoteTopicNormalText> {baseBranch}</VoteTopicText>
     </Heading>
   );
 }
 
-
+// add this in line 147:         <PullRequestTitle>#{issueID.split("_")[1]} {title}</PullRequestTitle>
 export default ExtensionVoteTotalMain;

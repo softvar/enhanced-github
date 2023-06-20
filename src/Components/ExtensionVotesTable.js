@@ -8,6 +8,7 @@ const VotesTableRow = styled.div`
     color: black;
     justify-items: start;
     padding: 4px 10px 4px 10px;
+    display: none;
 `;
 
 const RowHeading = styled.h2`
@@ -26,7 +27,11 @@ const VoteTableSection = styled.div`
 
 
 export default function ExtensionVotesTable(props){
-    const { allVotes } = props;
+    //const { allVotes } = props;
+    const [allVotes, setAllVotes] = useState(props.allVotes);
+    useEffect(() => {
+        setAllVotes(props.allVotes);
+    });
     return(
         <VoteTableSection>
             <VotesTableRow>

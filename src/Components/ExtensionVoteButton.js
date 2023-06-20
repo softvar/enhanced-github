@@ -28,6 +28,7 @@ const Button = styled.button`
   font-family: 'Inter', sans-serif;
   font-size: 24px;
   border-radius: 5px;
+  font-weight: 600;
 `;
 
 const VoteYesButton = styled(Button)`

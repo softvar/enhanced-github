@@ -7,50 +7,60 @@ import ExtensionVoteButtonGroup from './ExtensionVoteButtonGroup';
 import ExtensionVoteText from './ExtensionVoteText';
 import SkeletonModal from './Modal/SkeletonModal';
 const ModalContent = styled.div`
-  background-color: #fff;
-  margin: auto;
-  padding: 20px;
-  height: 720px;
-  width: 620px;
-  text-align: center;
-  box-shadow: 0px 12px 20px -1px rgba(0, 0, 0, 0.18);
+background-color: #fff;
+margin: auto;
+padding: 20px;
+height: 420px;
+width: 400px;
+text-align: center;
 `;
 
 const ExtensionModalVote = props => {
-  let user = props.user;
-  let repo = props.repo;
+  let repo_id = props.repo;
   let issue_id = props.issueID;
   let contributor_id = props.contributorID;
   let contributor_name = props.contributorName;
   let vote_totals = props.voteTotals;
-  let githubUser = props.githubUser;
+  let githubUser = "";
+  let yes = props.yes;
+    let no = props.no;
+    
+
+    
+
+ 
   const [loading, setLoading] = useState(true);
   let toggleModal = props.toggleModal;
   let getVotes = props.getVotes;
   const [disabled, setDisabled] = useState(false);
   const [disabledButton, setDisabledButton] = useState(false);
-  const [voted, setVoted] = useState(false);
-  const [forkBranch, setForkBranch] = useState('');
+  const [voted, setVoted] = useState(props.voted);
+  const [forkBranch, setForkBranch] = useState(props.forkBranch);
   const [title, setTitle] = useState('');
-  const [baseBranch, setBaseBranch] = useState('');
-  const [votePower, setVotePower] = useState(0);
-  const [totalYesVotes, setTotalYesVotes] = useState(0);
-  const [totalNoVotes, setTotalNoVotes] = useState(0);
+  const [baseBranch, setBaseBranch] = useState(props.baseBranch);
+  const [votePower, setVotePower] = useState(props.votePower);
+  const [totalYesVotes, setTotalYesVotes] = useState(props.yesVotes);
+  const [totalNoVotes, setTotalNoVotes] = useState(props.noVotes);
+  const [user, setUser] = useState("");
+  const [repo, setRepo] = useState("");
   const [res, setRes] = useState({});
-  const [allVotes, setAllVotes] = useState([]);
-  const [chosenSide, setChosenSide] = useState(''); //yes or no
-  const [yesPercent, setYesPercent] = useState(0);
-  const [noPercent, setNoPercent] = useState(0);
-  const [totalPercent, setTotalPercent] = useState(0);
+  const [allVotes, setAllVotes] = useState(props.votesArray);
+  const [chosenSide, setChosenSide] = useState(''); //we need this in the res under contributor
+  const [yesPercent, setYesPercent] = useState(props.yesPercent);
+  const [noPercent, setNoPercent] = useState(props.noPercent);
+  const [totalPercent, setTotalPercent] = useState(0); 
   const [quorum, setQuorum] = useState(0.5);
-  const [userVotedAt, setUserVotedAt] = useState(''); //date
+  const [userVotedAt, setUserVotedAt] = useState(props.createdAt); //date
   const voteableStates = new Set(['vote', 'pre-open', 'open']);
   const notVoteableStates = new Set(['conflict', 'merge', 'close']);
   const [clickVoteHandler, setClickVoteHandler] = useState(false);
+  const [pullRequests, setPullRequests] = useState(props.votesArray); //pull requests for repo
   const socketEvents = props.socketEvents
   useEffect(() => {
     setTimeout(() => setLoading(false), 1500);
+    setPullRequests(props.votesArray);
     setLoading(true);
+    console.log(props.pullRequests);
   }, [props.voteRes]);
   /*
   useEffect(() => {
@@ -77,7 +87,7 @@ const ExtensionModalVote = props => {
     }
     setRes(props.voteRes);
   }, [props.voteRes]); */
-
+/*
   const updateVotesHandler = async () =>
     await getVotes().then(res => {
       setVoted(res.voteData.contributor.voted);
@@ -90,7 +100,7 @@ const ExtensionModalVote = props => {
       setAllVotes(res.voteData.votes);
       setNoPercent(res.voteData.voteTotals.noPercent);
       setTotalPercent(res.voteData.voteTotals.totalVotePercent);
-    });
+    }); */
 /*
   useEffect(() => {
     updateVotesHandler();
@@ -111,7 +121,7 @@ const ExtensionModalVote = props => {
             contributorID={contributor_id}
             contributorName={contributor_name}
             voteTotals={vote_totals}
-            githubUser={githubUser}
+            
             title={title}
             forkBranch={forkBranch}
             yesVotes={totalYesVotes}
@@ -123,7 +133,9 @@ const ExtensionModalVote = props => {
           >
             <h2>Vote Total</h2>
           </ExtensionVoteTotalMain>
+
           <ExtensionVoteText disabled={disabled} voted={voted} chosenSide={chosenSide} userVotedAt={userVotedAt} />
+
           <ExtensionVoteButtonGroup
             disabled={disabled}
             setDisabled={setDisabled}
@@ -143,15 +155,15 @@ const ExtensionModalVote = props => {
           />
           <ExtensionVoteTotalResults
             totalPercent={totalPercent}
-            yesPercent={yesPercent}
-            noPercent={noPercent}
+            yesPercent={yes}
+            noPercent={no}
             yesVotes={totalYesVotes}
             noVotes={totalNoVotes}
             totalVotes={totalYesVotes + totalNoVotes}
             quorum={quorum}
             id="vote-total-results"
           />
-          <ExtensionVotesTable allVotes={allVotes} />
+          <ExtensionVotesTable allVotes={pullRequests} />
         </>
       )}
     </ModalContent>

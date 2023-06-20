@@ -8,7 +8,9 @@ import styled from 'styled-components';
 import PullRequestRow from './PullRequestRow.js';
 import ArrowRight from '../../icons/arrowright.png';
 import SkeletonHome from './SkeletonHome.js';
+import SkeletonExt from './SkeletonExt';
 import ExtensionModalVote from './ExtensionModalVote';
+import { set } from '../utils/storageUtil';
 const { 
   postGetVotes  
 } = require('../requests');
@@ -159,11 +161,27 @@ export default function Home() {
   const repo = useSelector(state => state.repo.name)
   const owner = useSelector(state => state.repo.owner.login)
   const [pullRequests, setPullRequests] = useState([]);
-  const [res, setRes] = useState({});
+  const [response, setResponse] = useState({});
   const [tokenized, setTokenized] = useState(false);
   const [loading, setLoading] = useState(true);
   const [contributorID, setContributorID] = useState('');
-  const [seeModal, setSeeModal] = useState(true);
+  const [seeModal, setSeeModal] = useState(false);
+  const [pullRequestsLoaded, setPullRequestsLoaded] = useState(false);
+  const [selectedPullRequest, setSelectedPullRequest] = useState(null);
+  const [selectedPullRequestID, setSelectedPullRequestID] = useState('');
+  const [selectedPullRequestVotesArray, setSelectedPullRequestVotesArray] = useState([]);
+  const [selectedPullRequestState, setSelectedPullRequestState] = useState('');
+  const [selectedPullRequestYes, setSelectedPullRequestYes] = useState(0);
+  const [selectedPullRequestNo, setSelectedPullRequestNo] = useState(0);
+  const [selectedPullRequestBaseBranch, setSelectedPullRequestBaseBranch] = useState('');
+  const [selectedPullRequestForkBranch, setSelectedPullRequestForkBranch] = useState('');
+  const [selectedPullRequestNoVotes, setSelectedPullRequestNoVotes] = useState(0);
+  const [selectedPullRequestYesVotes, setSelectedPullRequestYesVotes] = useState(0);
+  const [selectedPullRequestCreatedAt, setSelectedPullRequestCreatedAt] = useState('');
+  const [selectedPullRequestVotePower, setSelectedPullRequestVotePower] = useState(0);
+  const [selectedPullRequestVoted, setSelectedPullRequestVoted] = useState(false);
+
+
   const navigate = useNavigate();
   let name = user?.name;
   let username = user?.login;
@@ -183,7 +201,25 @@ export default function Home() {
     //setLoading(true);
   });
 
+  const handlePullRequestClick = (pullRequest) => {
+    console.log("yes hello this is working");
+    setSelectedPullRequest(pullRequest);
+    setSelectedPullRequestID(pullRequest.repo_id);
+    setSelectedPullRequestVotesArray(pullRequest.voteData.votes);
+    setSelectedPullRequestState(pullRequest.state);
+    setSelectedPullRequestBaseBranch(pullRequest.baseBranch);
+    setSelectedPullRequestForkBranch(pullRequest.forkBranch);
+    setSelectedPullRequestYes(Math.floor(pullRequest.voteData.voteTotals.yesPercent * 100));
+    setSelectedPullRequestNo(Math.floor(pullRequest.voteData.voteTotals.noPercent * 100));
+    setSelectedPullRequestYesVotes(pullRequest.voteData.voteTotals.yes);
+    setSelectedPullRequestNoVotes(pullRequest.voteData.voteTotals.no);
+    setSelectedPullRequestCreatedAt(pullRequest.voteData.contributor.createdAt);
+    setSelectedPullRequestVotePower(pullRequest.voteData.contributor.votePower);
+    setSelectedPullRequestVoted(pullRequest.voteData.voted);
 
+    setSeeModal(true);
+  };
+  
 
   const getRepoDataHandler = async () => {
     try {
@@ -192,8 +228,8 @@ export default function Home() {
           setTokenized(true);
         }
         setPullRequests(res.pullRequests);
-        setRes(res);
-        console.log('resHandler:' + res);
+        setResponse(res);
+        
         let tokens = useCommas(res.contributor.votePower);
         setTokenAmount(tokens);
       });
@@ -210,10 +246,12 @@ export default function Home() {
 
 useEffect(() => {
   setTimeout(()=>{getRepoDataHandler()}, 500)
-  console.log('trying to see if this works:', pullRequests);
+  console.log("is this on?");
+  setPullRequestsLoaded(true);
+  console.log(pullRequestsLoaded + "aoiegoienargpiuenrga");
+  console.log('pullRequests:', pullRequests);
 }, [owner, repo]);
-console.log('pullRequests:', pullRequests);
-console.log('res:', res);
+
 let getVotes = async () => await postGetVotes(repo_id, issue_id, contributor_id);
 if(owner === 'none' && repo === 'none') {
     return (
@@ -230,7 +268,23 @@ if(owner === 'none' && repo === 'none') {
   }
   switch (seeModal) {
     case true:
-      return <ExtensionModalVote />;
+      return pullRequestsLoaded ? (
+        <ExtensionModalVote pullRequests={selectedPullRequest} 
+          repo_id={selectedPullRequestID}
+          votesArray={selectedPullRequestVotesArray}
+          state={selectedPullRequestState}
+          baseBranch={selectedPullRequestBaseBranch}
+          forkBranch={selectedPullRequestForkBranch}
+          yes={selectedPullRequestYes}
+          no={selectedPullRequestNo}
+          yesVotes={selectedPullRequestYesVotes}
+          noVotes={selectedPullRequestNoVotes}
+          createdAt={selectedPullRequestCreatedAt}
+          votePower={selectedPullRequestVotePower}
+          voted={selectedPullRequestVoted}
+
+        />
+      ) : <SkeletonExt/>;
     case false:
       return (
         <Content>
@@ -269,6 +323,7 @@ if(owner === 'none' && repo === 'none') {
             {tokenized && (
               <Data>
                 {pullRequests.map((pr, index) => (
+                  <div onClick={() => handlePullRequestClick(pr)}> 
                   <PullRequestRow 
                     state={pr.state} 
                     yes={Math.floor(pr.voteData.voteTotals.yesPercent * 100)}
@@ -276,7 +331,10 @@ if(owner === 'none' && repo === 'none') {
                     forkBranch={pr.forkBranch}
                     key={pr.forkBranch}
                     index={index}
+                    role="button" // Add role="button" to make it clickable
+                    tabIndex={0}
                   />
+                  </div>
                 ))}
               </Data>
             )}
