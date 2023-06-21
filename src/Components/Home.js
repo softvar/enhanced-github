@@ -7,6 +7,7 @@ import useCommas from '../hooks/useCommas';
 import styled from 'styled-components';
 import PullRequestRow from './PullRequestRow.js';
 import ArrowRight from '../../icons/arrowright.png';
+import BackArrow from '../../icons/back.png';
 import SkeletonHome from './SkeletonHome.js';
 import SkeletonExt from './SkeletonExt';
 import ExtensionModalVote from './ExtensionModalVote';
@@ -154,6 +155,22 @@ line-height: 1.8;
 text-align: center;
 `;
 
+const Back = styled(PullRequestHeading)`
+  font-weight:500;
+  
+`;
+
+const BackButton = styled.span`
+position: relative;
+top: 65px;
+left: 30px;
+margin-top: -20px;
+display: flex;
+align-items: center;
+gap: 3px;
+cursor: pointer;
+`
+
 const port = process.env.PORT || 'http://localhost:4000';
 
 export default function Home() {
@@ -269,21 +286,27 @@ if(owner === 'none' && repo === 'none') {
   switch (seeModal) {
     case true:
       return pullRequestsLoaded ? (
-        <ExtensionModalVote pullRequests={selectedPullRequest} 
-          repo_id={selectedPullRequestID}
-          votesArray={selectedPullRequestVotesArray}
-          state={selectedPullRequestState}
-          baseBranch={selectedPullRequestBaseBranch}
-          forkBranch={selectedPullRequestForkBranch}
-          yes={selectedPullRequestYes}
-          no={selectedPullRequestNo}
-          yesVotes={selectedPullRequestYesVotes}
-          noVotes={selectedPullRequestNoVotes}
-          createdAt={selectedPullRequestCreatedAt}
-          votePower={selectedPullRequestVotePower}
-          voted={selectedPullRequestVoted}
+        <>
+          <BackButton onClick={() => setSeeModal(false)}>
+            <img src={BackArrow} alt="back arrow" />
+            <Back>Back to all</Back>
+          </BackButton>
+          <ExtensionModalVote pullRequests={selectedPullRequest} 
+            repo_id={selectedPullRequestID}
+            votesArray={selectedPullRequestVotesArray}
+            state={selectedPullRequestState}
+            baseBranch={selectedPullRequestBaseBranch}
+            forkBranch={selectedPullRequestForkBranch}
+            yes={selectedPullRequestYes}
+            no={selectedPullRequestNo}
+            yesVotes={selectedPullRequestYesVotes}
+            noVotes={selectedPullRequestNoVotes}
+            createdAt={selectedPullRequestCreatedAt}
+            votePower={selectedPullRequestVotePower}
+            voted={selectedPullRequestVoted}
 
-        />
+          />
+        </>
       ) : <SkeletonExt/>;
     case false:
       return (
@@ -324,16 +347,16 @@ if(owner === 'none' && repo === 'none') {
               <Data>
                 {pullRequests.map((pr, index) => (
                   <div onClick={() => handlePullRequestClick(pr)}> 
-                  <PullRequestRow 
-                    state={pr.state} 
-                    yes={Math.floor(pr.voteData.voteTotals.yesPercent * 100)}
-                    no={Math.floor(pr.voteData.voteTotals.noPercent * 100)} 
-                    forkBranch={pr.forkBranch}
-                    key={pr.forkBranch}
-                    index={index}
-                    role="button" // Add role="button" to make it clickable
-                    tabIndex={0}
-                  />
+                    <PullRequestRow 
+                      state={pr.state} 
+                      yes={Math.floor(pr.voteData.voteTotals.yesPercent * 100)}
+                      no={Math.floor(pr.voteData.voteTotals.noPercent * 100)} 
+                      forkBranch={pr.forkBranch}
+                      key={pr.forkBranch}
+                      index={index}
+                      role="button" // Add role="button" to make it clickable
+                      tabIndex={0}
+                    />
                   </div>
                 ))}
               </Data>

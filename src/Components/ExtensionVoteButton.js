@@ -29,6 +29,7 @@ const Button = styled.button`
   font-size: 24px;
   border-radius: 5px;
   font-weight: 600;
+  margin-top: 0;
 `;
 
 const VoteYesButton = styled(Button)`

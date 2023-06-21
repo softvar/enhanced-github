@@ -6,7 +6,7 @@ const Decision = styled.div`
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap');
     font-family: 'Inter', monospace;
     margin-top: 0px;
-    height: 80px;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;

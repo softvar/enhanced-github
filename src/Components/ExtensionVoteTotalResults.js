@@ -9,7 +9,6 @@ const Results = styled.div`
   flex-direction: column;
   width: 100%;
   height: 60px;
-  margin-top: 10px;
   `;
 
 const ExtensionVoteTotalResults = props => {

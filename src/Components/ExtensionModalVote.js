@@ -9,7 +9,7 @@ import SkeletonModal from './Modal/SkeletonModal';
 const ModalContent = styled.div`
 background-color: #fff;
 margin: auto;
-padding: 20px;
+padding: 0 20px 20px 20px;
 height: 420px;
 width: 400px;
 text-align: center;
@@ -57,9 +57,9 @@ const ExtensionModalVote = props => {
   const [pullRequests, setPullRequests] = useState(props.votesArray); //pull requests for repo
   const socketEvents = props.socketEvents
   useEffect(() => {
-    setTimeout(() => setLoading(false), 1500);
+    //setTimeout(() => setLoading(false), 1500);
     setPullRequests(props.votesArray);
-    setLoading(true);
+    setLoading(false);
     console.log(props.pullRequests);
   }, [props.voteRes]);
   /*

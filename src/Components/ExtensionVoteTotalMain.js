@@ -82,7 +82,7 @@ display: flex;
 flex-direction: row;
 align-items: center;
 margin: 0 auto;
-`/*
+`
 function addCommas(num) {
 
   if (num === 0) {
@@ -105,7 +105,7 @@ function addCommas(num) {
 
   // join the array of characters back into a string
   return numArr.join("");
-} */
+} 
 
 
 
@@ -134,15 +134,11 @@ function ExtensionVoteTotalMain(props) {
   };
   return (
     <Heading>
-      <TopBar>
-      <div><a href="https://turbosrc.org/" target="_blank"><img src="https://reibase.rs/turbo-src128.png" /></a></div>
-      <div id="closeModal"><img id="closeModal" src="https://reibase.rs/closeicon.png" /></div>
-      </TopBar>
         <TopModalTitle>
           <OwnerRepo>
             
           </OwnerRepo>
-          <MediumText>{votePower} VotePower</MediumText>
+          <MediumText>{addCommas(votePower)} VotePower</MediumText>
         </TopModalTitle>
         <VoteTopicText>{forkBranch} <VoteTopicNormalText>into</VoteTopicNormalText> {baseBranch}</VoteTopicText>
     </Heading>

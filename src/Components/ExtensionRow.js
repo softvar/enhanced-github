@@ -28,21 +28,34 @@ function getDurationSince(timestamp) {
 
 const VoteRow = styled.div`
     display: grid;
-    grid-template-columns: 63% 20% 10% 7%;
-    padding:4px 10px 4px 10px;
-    justify-items: start;
+    grid-template-columns: 176px 80px 46px 47px;
+    padding: 4px 2px 4px 2px;
+    justify-items: center;
     background-color: ${props => props.$option ? "#FFF" : "#F1F1F1"}
+`;
+
+const Centered = styled.span`
+  text-align: center;
+`;
+
+const OverflowText = styled.span`
+overflow: hidden;
+text-overflow: ellipsis;
+min-width: 0;
+max-width: 100%;
+letter-spacing: 0.6px;
 `;
 
 const Text = styled.p`
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap'); 
 font-family: 'Inter', sans-serif;
 font-weight: 300;
-font-size: 12px;
-color: #313131; 
-margin-top: 5px;
-margin-bottom: 5px;
-
+font-size: 8px;
+color: #313131;
+overflow: hidden;
+text-overflow: ellipsis;
+min-width: 0;
+max-width: 100%;
 `;
 
 const SideText = styled(Text)`
@@ -83,8 +96,12 @@ export default function ExtensionRow(props){
     return(
         <div>
             <VoteRow $option={props.index % 2 == 0}>
-                <Text>{props.id}</Text>
-                <Text>{props.votepower}</Text>
+                <Text>
+                  <OverflowText>{props.id}</OverflowText>
+                </Text>
+                <Text>
+                  <Centered>{props.votepower}</Centered>
+                </Text>
                 <SideText $option={props.side === 'yes'}>{makeAllCaps(props.side)}</SideText>
                 <Text>{getDurationSince(props.age)}</Text>
             </VoteRow>

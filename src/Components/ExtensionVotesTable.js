@@ -20,9 +20,8 @@ color: black;
 `;
 
 const VoteTableSection = styled.div`
-    margin-top: 10px;
     height: 345px;
-    overflow-y: auto;
+    overflow-y: scroll;
 `; 
 
 
