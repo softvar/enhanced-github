@@ -158,32 +158,6 @@ function VoteButton({
       return  <Wrapper><VoteYesButton>{side.toUpperCase()}</VoteYesButton> </Wrapper>;
   }
 }
-// return props.voted && props.chosenSide === props.side ? (
-//   <SelectedVote $voted={issueVoted} $chosenSide={chosenSide} $option={option} disabled={true}>
-//     {props.side.toUpperCase()}
-//   </SelectedVote>
-// ) : (
-//   <Vote
-//     $voted={issueVoted}
-//     $chosenSide={chosenSide}
-//     $option={option}
-//     disabled={disabledButton}
-//     onClick={async () => {
-//       setVoted('valid');
-//       await postSetVote(
-//         props.user,
-//         props.repo,
-//         props.issueID,
-//         false,
-//         props.contributorID,
-//         side,
-//         props.githubUser.token
-//       );
-//       setVoted('done');
-//     }}
-//   >
-//     {props.side.toUpperCase()}
-//   </Vote>
-// );
+
 
 export default VoteButton;

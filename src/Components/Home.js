@@ -303,7 +303,7 @@ if(owner === 'none' && repo === 'none') {
             noVotes={selectedPullRequestNoVotes}
             createdAt={selectedPullRequestCreatedAt}
             votePower={selectedPullRequestVotePower}
-            voted={selectedPullRequestVoted}
+            alreadyVoted={selectedPullRequestVoted}
 
           />
         </>
