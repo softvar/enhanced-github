@@ -528,6 +528,8 @@ async function postGetRepoData (repo_id, contributor_id) {
     pullRequests { 
       state,
       repo_id,
+      issue_id,
+      title,
       forkBranch,
       baseBranch,
       defaultHash,

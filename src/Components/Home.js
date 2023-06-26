@@ -348,6 +348,8 @@ if(owner === 'none' && repo === 'none') {
                 {pullRequests.map((pr, index) => (
                   <div onClick={() => handlePullRequestClick(pr)}> 
                     <PullRequestRow 
+                      issue_id={pr.issue_id}
+                      title={pr.title}
                       state={pr.state} 
                       yes={Math.floor(pr.voteData.voteTotals.yesPercent * 100)}
                       no={Math.floor(pr.voteData.voteTotals.noPercent * 100)} 
