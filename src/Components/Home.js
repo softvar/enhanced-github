@@ -8,9 +8,8 @@ import styled from 'styled-components';
 import PullRequestRow from './PullRequestRow.js';
 import ArrowRight from '../../icons/arrowright.png';
 import BackArrow from '../../icons/back.png';
-import SkeletonHome from './SkeletonHome.js';
-import SkeletonExt from './SkeletonExt';
-import ExtensionModalVote from './ExtensionModalVote';
+import SkeletonModal from './SkeletonExt.js';
+import SinglePullRequestView from './SinglePullRequestView/SinglePullRequestView.js';
 import { set } from '../utils/storageUtil';
 const { 
   postGetVotes  
@@ -162,8 +161,8 @@ const Back = styled(PullRequestHeading)`
 
 const BackButton = styled.span`
 position: relative;
-top: 65px;
-left: 30px;
+top: 85px;
+left: 10px;
 margin-top: -20px;
 display: flex;
 align-items: center;
@@ -197,7 +196,8 @@ export default function Home() {
   const [selectedPullRequestCreatedAt, setSelectedPullRequestCreatedAt] = useState('');
   const [selectedPullRequestVotePower, setSelectedPullRequestVotePower] = useState(0);
   const [selectedPullRequestVoted, setSelectedPullRequestVoted] = useState(false);
-
+  const [selectedPullRequestTitle, setSelectedPullRequestTitle] = useState('');
+  
 
   const navigate = useNavigate();
   let name = user?.name;
@@ -214,7 +214,6 @@ export default function Home() {
     setTimeout(() => setLoading(false), 1500);
     setContributorID(user.ethereumAddress);
     let contributor_id = user.ethereumAddress;
-    console.log(contributor_id);
     //setLoading(true);
   });
 
@@ -233,6 +232,7 @@ export default function Home() {
     setSelectedPullRequestCreatedAt(pullRequest.voteData.contributor.createdAt);
     setSelectedPullRequestVotePower(pullRequest.voteData.contributor.votePower);
     setSelectedPullRequestVoted(pullRequest.voteData.voted);
+    setSelectedPullRequestTitle(pullRequest.title);
 
     setSeeModal(true);
   };
@@ -241,6 +241,8 @@ export default function Home() {
   const getRepoDataHandler = async () => {
     try {
       const response = await postGetRepoData(`${owner}/${repo}`, user.ethereumAddress).then(res => {
+        console.log(res, "hi");
+
         if (res != null || res != undefined){
           setTokenized(true);
         }
@@ -291,8 +293,9 @@ if(owner === 'none' && repo === 'none') {
             <img src={BackArrow} alt="back arrow" />
             <Back>Back to all</Back>
           </BackButton>
-          <ExtensionModalVote pullRequests={selectedPullRequest} 
+          <SinglePullRequestView pullRequests={selectedPullRequest} 
             repo_id={selectedPullRequestID}
+            title={selectedPullRequestTitle}
             votesArray={selectedPullRequestVotesArray}
             state={selectedPullRequestState}
             baseBranch={selectedPullRequestBaseBranch}
@@ -364,7 +367,7 @@ if(owner === 'none' && repo === 'none') {
               </Data>
             )}
             {tokenized ? null : (
-              loading ? (<SkeletonHome />) : (
+              loading ? (<SkeletonModal />) : (
                 <CenteredWrapper>
                   <CreateNotice>
                     If you are the maintainer of <CreateRepo>{owner}/{repo}</CreateRepo> you can add it to Turbosrc

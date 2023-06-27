@@ -126,7 +126,7 @@ div img {
 }
 `
 
-function ExtensionVoteTotalMain(props) {
+function VoteTotal(props) {
   const { user, repo, issueID, contributorID, contributorName, side, title, baseBranch, forkBranch, votePower } = props;
 //<OwnerText>{user} /</OwnerText><BoldText> {repo}</BoldText> add this on line 143 after you get repo and user props 
 
@@ -136,14 +136,15 @@ function ExtensionVoteTotalMain(props) {
     <Heading>
         <TopModalTitle>
           <OwnerRepo>
-            
+          <OwnerText>{repo} </OwnerText><BoldText> {}</BoldText>
           </OwnerRepo>
           <MediumText>{addCommas(votePower)} VotePower</MediumText>
         </TopModalTitle>
+        <PullRequestTitle>{title}</PullRequestTitle>
         <VoteTopicText>{forkBranch} <VoteTopicNormalText>into</VoteTopicNormalText> {baseBranch}</VoteTopicText>
     </Heading>
   );
 }
 
 // add this in line 147:         <PullRequestTitle>#{issueID.split("_")[1]} {title}</PullRequestTitle>
-export default ExtensionVoteTotalMain;
+export default VoteTotal;

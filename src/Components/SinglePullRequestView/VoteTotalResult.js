@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ProgressBar from './Modal/ProgressBar';
+import ProgressBar from './ProgressBar';
 
 const Results = styled.div`
   display: flex;
@@ -11,7 +11,7 @@ const Results = styled.div`
   height: 60px;
   `;
 
-const ExtensionVoteTotalResults = props => {
+const VoteTotalResults = props => {
   const { yesPercent, noPercent, totalPercent, yesVotes, noVotes, totalVotes, quorum } = props;
 
   return (
@@ -27,4 +27,4 @@ const ExtensionVoteTotalResults = props => {
     </Results>
   );
 };
-export default ExtensionVoteTotalResults;
+export default VoteTotalResults;

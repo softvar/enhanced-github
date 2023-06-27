@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import ExtensionVoteTotalMain from './ExtensionVoteTotalMain';
+import VoteTotal from './VoteTotal';
 import styled from 'styled-components';
-import ExtensionVotesTable from './ExtensionVotesTable';
-import ExtensionVoteTotalResults from './ExtensionVoteTotalResults';
-import ExtensionVoteButtonGroup from './ExtensionVoteButtonGroup';
-import ExtensionVoteText from './ExtensionVoteText';
-import SkeletonModal from './Modal/SkeletonModal';
+import VotesTable from './VotesTable';
+import VoteTotalResults from './VoteTotalResult';
+import VoteButtonGroup from './VoteButtonGroup';
+import VoteText from './VoteText';
 const ModalContent = styled.div`
 background-color: #fff;
 margin: auto;
-padding: 0 20px 20px 20px;
+padding: 0 9px 20px 9px;
 height: 420px;
 width: 400px;
 text-align: center;
 `;
 
-const ExtensionModalVote = ({ pullRequests, repo_id, votesArray, state, baseBranch, forkBranch, yes, no, yesVotes, noVotes, createdAt, votePower, alreadyVoted }) => {
+const SinglePullRequestView = ({ pullRequests, repo_id, title, votesArray, state, baseBranch, forkBranch, yes, no, yesVotes, noVotes, createdAt, votePower, alreadyVoted }) => {
   let issue_id = ""
   let contributor_id = ""
   let contributor_name = ""
@@ -26,9 +25,7 @@ const ExtensionModalVote = ({ pullRequests, repo_id, votesArray, state, baseBran
   let toggleModal = "";
   const [disabled, setDisabled] = useState(false);
   const [voted, setVoted] = useState(voted);
-  const [title, setTitle] = useState('');
   const [user, setUser] = useState("");
-  const [repo, setRepo] = useState("");
   const [chosenSide, setChosenSide] = useState(''); //we need this in the res under contributor
   const [totalPercent, setTotalPercent] = useState(0); 
   const voteableStates = new Set(['vote', 'pre-open', 'open']);
@@ -40,7 +37,7 @@ const ExtensionModalVote = ({ pullRequests, repo_id, votesArray, state, baseBran
   return (
     <ModalContent>
 
-      <ExtensionVoteTotalMain
+      <VoteTotal
         user={user}
         repo={repo_id}
         issueID={issue_id}
@@ -58,11 +55,11 @@ const ExtensionModalVote = ({ pullRequests, repo_id, votesArray, state, baseBran
         id="vote-total-main"
       >
         <h2>Vote Total</h2>
-      </ExtensionVoteTotalMain>
+      </VoteTotal>
 
-      <ExtensionVoteText disabled={disabled} voted={voted} chosenSide={chosenSide} userVotedAt={createdAt} />
+      <VoteText disabled={disabled} voted={voted} chosenSide={chosenSide} userVotedAt={createdAt} />
 
-      <ExtensionVoteButtonGroup
+      <VoteButtonGroup
         disabled={disabled}
         setDisabled={setDisabled}
         voted={voted}
@@ -79,7 +76,7 @@ const ExtensionModalVote = ({ pullRequests, repo_id, votesArray, state, baseBran
         voteTotals={vote_totals}
         githubUser={githubUser}
       />
-      <ExtensionVoteTotalResults
+      <VoteTotalResults
         totalPercent={totalPercent}
         yesPercent={yes}
         noPercent={no}
@@ -89,9 +86,9 @@ const ExtensionModalVote = ({ pullRequests, repo_id, votesArray, state, baseBran
         quorum={quorum}
         id="vote-total-results"
       />
-      <ExtensionVotesTable allVotes={votesArray} />
+      <VotesTable allVotes={votesArray} />
   </ModalContent>
   );
 };
 
-export default ExtensionModalVote;
+export default SinglePullRequestView;

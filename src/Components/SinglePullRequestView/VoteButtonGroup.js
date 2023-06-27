@@ -6,9 +6,10 @@ const BtnGroupVote = styled.div`
   display: flex;
   width: 100%;
   height: 80px;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   flex-direction: row; 
+  margin-left: 10px;
 
   &:after {
     content: '';
@@ -20,7 +21,7 @@ const BtnGroupVote = styled.div`
   }
 `;
 
-export default function ExtensionVoteButtonGroup({disabled, setDisabled, clickVoteHandler, setClickVoteHandler, setVoted, voted, setChosenSide, chosenSide, user, repo, issueID, contributorID, contributorName, voteTotals, githubUser}) {
+export default function VoteButtonGroup({disabled, setDisabled, clickVoteHandler, setClickVoteHandler, setVoted, voted, setChosenSide, chosenSide, user, repo, issueID, contributorID, contributorName, voteTotals, githubUser}) {
   return (
     <BtnGroupVote>
       <VoteButton

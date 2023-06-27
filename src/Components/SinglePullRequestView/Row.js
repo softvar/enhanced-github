@@ -50,7 +50,7 @@ const Text = styled.p`
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap'); 
 font-family: 'Inter', sans-serif;
 font-weight: 300;
-font-size: 8px;
+font-size: 10px;
 color: #313131;
 overflow: hidden;
 text-overflow: ellipsis;
@@ -87,7 +87,7 @@ function makeAllCaps(str) {
   
   
   
-export default function ExtensionRow(props){    
+export default function Row(props){    
   let [ticker, setTicker] = useState(0)
 
   useEffect(()=>{

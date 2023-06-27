@@ -11,7 +11,7 @@ const Decision = styled.div`
     align-items: center;
     justify-content: center;
     text-align: center;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 300;
     color: #333;
 `;
@@ -30,7 +30,7 @@ function formatDate(inputDate) {
     return `${month}/${day}/${year}`;
   }
 
-function ExtensionVoteText({
+function VoteText({
     disabled,
   voted,
   chosenSide,
@@ -98,4 +98,4 @@ function ExtensionVoteText({
             );
     }
 }
-export default ExtensionVoteText;
+export default VoteText;

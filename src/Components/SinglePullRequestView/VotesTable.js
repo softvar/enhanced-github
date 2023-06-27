@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import ExtensionRow from './ExtensionRow.js';
+import Row from './Row.js';
 
 const VotesTableRow = styled.div`
     display: grid;
@@ -21,11 +21,11 @@ color: black;
 
 const VoteTableSection = styled.div`
     height: 345px;
-    overflow-y: scroll;
+    overflow-y: auto;
 `; 
 
 
-export default function ExtensionVotesTable(props){
+export default function VotesTable(props){
     //const { allVotes } = props;
     const [allVotes, setAllVotes] = useState(props.allVotes);
     useEffect(() => {
@@ -40,7 +40,7 @@ export default function ExtensionVotesTable(props){
                 <RowHeading>AGE</RowHeading>
             </VotesTableRow>
             {allVotes.map((vote, index) => (
-                <ExtensionRow 
+                <Row 
                 id={vote.contributor_id} 
                 votepower={vote.votePower}
                 side={vote.side} 
