@@ -541,6 +541,7 @@ async function postGetRepoData (repo_id, contributor_id) {
       contributor {
       contributor_id,
       voted,
+      side,
       votePower,
       createdAt,
       },
