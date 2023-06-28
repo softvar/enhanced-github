@@ -252,7 +252,6 @@ export default function Home() {
         let tokens = useCommas(res.contributor.votePower);
         setTokenAmount(tokens);
       });
-      console.log('getRepoData response:', res);
     } catch (error) {
       console.error('Error fetching repo data:', error);
     }
