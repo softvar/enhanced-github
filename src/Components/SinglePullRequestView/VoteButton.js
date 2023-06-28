@@ -70,15 +70,17 @@ function VoteButton({
   setVoted,
   side,
   chosenSide,
-  setChosenSide,
   user,
   repo,
   issueID,
   contributorID,
   contributerName,
-  githubUser,
+  githubToken,
   clickVoteHandler,
-  setClickVoteHandler
+  setClickVoteHandler,
+  defaultHash,
+  childDefaultHash,
+  owner
 }) {
   const [disabledButton, setDisabledButton] = useState(false);
   const [option, setOption] = useState(side);
@@ -89,8 +91,12 @@ function VoteButton({
   }, [disabled, voted, chosenSide, side]);
 
   const voteHandler = async e => {
+    console.log("clicked");
     e.preventDefault();
-    await postSetVote(user, repo, issueID, issueID, false, contributorID, side, githubUser.token);
+    const res = await postSetVote(owner, repo, issueID, issueID, false, contributorID, side, githubToken);
+    console.log(res);
+    //user = ramirc5
+    //repo = demo
     // Toggle clickVoteHandler to update vote data
     setClickVoteHandler(!clickVoteHandler)
     socket.emit('vote cast', user, repo, issueID)

@@ -197,8 +197,11 @@ export default function Home() {
   const [selectedPullRequestVotePower, setSelectedPullRequestVotePower] = useState(0);
   const [selectedPullRequestVoted, setSelectedPullRequestVoted] = useState(false);
   const [selectedPullRequestTitle, setSelectedPullRequestTitle] = useState('');
-  
-
+  const [selectedPullRequestChosenSide, setSelectedPullRequestChosenSide] = useState('');
+  const [selectedPullRequestDefaultHash, setSelectedPullRequestDefaultHash] = useState('');
+  const [selectedPullRequestChildDefaultHash, setSelectedPullRequestChildDefaultHash] = useState('');
+  const [selectedPullRequestContributorID, setSelectedPullRequestContributorID] = useState('');
+  const [selectedPullRequestIssueID, setSelectedPullRequestIssueID] = useState('');
   const navigate = useNavigate();
   let name = user?.name;
   let username = user?.login;
@@ -233,7 +236,11 @@ export default function Home() {
     setSelectedPullRequestVotePower(pullRequest.voteData.contributor.votePower);
     setSelectedPullRequestVoted(pullRequest.voteData.voted);
     setSelectedPullRequestTitle(pullRequest.title);
-
+    setSelectedPullRequestChosenSide(pullRequest.voteData.contributor.chosenSide);
+    setSelectedPullRequestDefaultHash(pullRequest.defaultHash);
+    setSelectedPullRequestChildDefaultHash(pullRequest.childDefaultHash);
+    setSelectedPullRequestContributorID(pullRequest.voteData.contributor.contributor_id);
+    setSelectedPullRequestIssueID(pullRequest.issue_id);
     setSeeModal(true);
   };
   
@@ -307,6 +314,16 @@ if(owner === 'none' && repo === 'none') {
             createdAt={selectedPullRequestCreatedAt}
             votePower={selectedPullRequestVotePower}
             alreadyVoted={selectedPullRequestVoted}
+            chosenSide={selectedPullRequestChosenSide}
+            user={user}
+            repo={repo}
+            githubToken={user.token}
+            defaultHash={selectedPullRequestDefaultHash}
+            childDefaultHash={selectedPullRequestChildDefaultHash}
+            contributorID={user.ethereumAddress}
+            owner={owner}
+            issueID={selectedPullRequestIssueID}
+
 
           />
         </>

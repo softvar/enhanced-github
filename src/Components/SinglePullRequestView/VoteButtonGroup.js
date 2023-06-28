@@ -21,7 +21,7 @@ const BtnGroupVote = styled.div`
   }
 `;
 
-export default function VoteButtonGroup({disabled, setDisabled, clickVoteHandler, setClickVoteHandler, setVoted, voted, setChosenSide, chosenSide, user, repo, issueID, contributorID, contributorName, voteTotals, githubUser}) {
+export default function VoteButtonGroup({disabled, setDisabled, clickVoteHandler, setClickVoteHandler, setVoted, voted, chosenSide, user, repo, issueID, contributorID, contributorName, voteTotals, githubToken, defaultHash, childDefaultHash, owner}) {
   return (
     <BtnGroupVote>
       <VoteButton
@@ -33,13 +33,15 @@ export default function VoteButtonGroup({disabled, setDisabled, clickVoteHandler
         setClickVoteHandler={setClickVoteHandler}
         side={'yes'}
         chosenSide={chosenSide}
-        setChosenSide={setChosenSide}
         user={user}
         repo={repo}
         issueID={issueID}
         contributorID={contributorID}
         contributerName={contributorName}
-        githubUser={githubUser}
+        githubToken={githubToken}
+        defaultHash={defaultHash}
+        childDefaultHash={childDefaultHash}
+        owner={owner}
       ></VoteButton>
       <VoteButton
         disabled={disabled}
@@ -50,13 +52,15 @@ export default function VoteButtonGroup({disabled, setDisabled, clickVoteHandler
         setClickVoteHandler={setClickVoteHandler}
         side={'no'}
         chosenSide={chosenSide}
-        setChosenSide={setChosenSide}
         user={user}
         repo={repo}
         issueID={issueID}
         contributorID={contributorID}
         contributerName={contributorName}
-        githubUser={githubUser}
+        githubToken={githubToken}
+        defaultHash={defaultHash}
+        childDefaultHash={childDefaultHash}
+        owner={owner}
       ></VoteButton>
     </BtnGroupVote>
   );

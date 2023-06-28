@@ -30,12 +30,7 @@ const PullReqTitle = styled.div`
     gap: 10px;
     align-items: center;
     font-size: 12px;
-    
-    p {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    }
+
     `;        
 
     const GreenText = styled.p`
@@ -48,6 +43,13 @@ const PullReqTitle = styled.div`
     
     const Index = styled.p`
     color: #B7B7B7;
+    overflow: visible;
+    `;
+
+    const TitleOverflow = styled.p`
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     `;
 
 // Usage:
@@ -70,7 +72,7 @@ export default function PullRequestRow({index, issue_id, state, forkBranch, titl
                  />
                 <PullReqTitle>
                     <Index>#{issue_id.split('_')[1]}&nbsp;</Index>
-                   <p>{title}</p>
+                   <TitleOverflow>{title}</TitleOverflow>
                 </PullReqTitle>
                 <GreenText>{yesPercent}%</GreenText>
                 <RedText>{noPercent}%</RedText>

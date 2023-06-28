@@ -14,19 +14,16 @@ width: 400px;
 text-align: center;
 `;
 
-const SinglePullRequestView = ({ pullRequests, repo_id, title, votesArray, state, baseBranch, forkBranch, yes, no, yesVotes, noVotes, createdAt, votePower, alreadyVoted }) => {
-  let issue_id = ""
-  let contributor_id = ""
-  let contributor_name = ""
-  let vote_totals = ""
+const SinglePullRequestView = ({ pullRequests, repo_id, title, votesArray, state, baseBranch, forkBranch, yes, no, yesVotes, noVotes, createdAt, votePower, alreadyVoted, chosenSide, user, repo, githubToken, defaultHash, childDefaultHash, contributorID, owner, issueID }) => {
+  let issue_id = "";
+  let contributor_name = "";
+  let vote_totals = "";
   let githubUser = "";
 
   const quorum = 0.5;
   let toggleModal = "";
   const [disabled, setDisabled] = useState(false);
-  const [voted, setVoted] = useState(voted);
-  const [user, setUser] = useState("");
-  const [chosenSide, setChosenSide] = useState(''); //we need this in the res under contributor
+  const [voted, setVoted] = useState(alreadyVoted);
   const [totalPercent, setTotalPercent] = useState(0); 
   const voteableStates = new Set(['vote', 'pre-open', 'open']);
   const notVoteableStates = new Set(['conflict', 'merge', 'close']);
@@ -40,8 +37,8 @@ const SinglePullRequestView = ({ pullRequests, repo_id, title, votesArray, state
       <VoteTotal
         user={user}
         repo={repo_id}
-        issueID={issue_id}
-        contributorID={contributor_id}
+        issueID={issueID}
+        contributorID={contributorID}
         contributorName={contributor_name}
         voteTotals={vote_totals}
         
@@ -57,24 +54,26 @@ const SinglePullRequestView = ({ pullRequests, repo_id, title, votesArray, state
         <h2>Vote Total</h2>
       </VoteTotal>
 
-      <VoteText disabled={disabled} voted={voted} chosenSide={chosenSide} userVotedAt={createdAt} />
+      <VoteText disabled={disabled} voted={alreadyVoted} chosenSide={chosenSide} userVotedAt={createdAt} />
 
       <VoteButtonGroup
         disabled={disabled}
         setDisabled={setDisabled}
-        voted={voted}
+        voted={alreadyVoted}
         setVoted={setVoted}
         clickVoteHandler={clickVoteHandler}
         setClickVoteHandler={setClickVoteHandler}
         chosenSide={chosenSide}
-        setChosenSide={setChosenSide}
         user={user}
-        repo={repo_id}
-        issueID={issue_id}
-        contributorID={contributor_id}
+        repo={repo}
+        issueID={issueID}
+        contributorID={contributorID}
         contributorName={contributor_name}
         voteTotals={vote_totals}
-        githubUser={githubUser}
+        githubToken={githubToken}
+        defaultHash={defaultHash}
+        childDefaultHash={childDefaultHash}
+        owner={owner}
       />
       <VoteTotalResults
         totalPercent={totalPercent}
