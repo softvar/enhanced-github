@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import VoteTotal from './VoteTotal';
 import styled from 'styled-components';
 import VotesTable from './VotesTable';
@@ -14,41 +14,22 @@ width: 400px;
 text-align: center;
 `;
 
-const SinglePullRequestView = ({ pullRequests, repo_id, title, votesArray, state, baseBranch, forkBranch, yes, no, yesVotes, noVotes, createdAt, votePower, alreadyVoted, chosenSide, user, repo, githubToken, defaultHash, childDefaultHash, contributorID, owner, issueID }) => {
-  let issue_id = "";
-  let contributor_name = "";
-  let vote_totals = "";
-  let githubUser = "";
-
+const SinglePullRequestView = ({ pullRequests, repo_id, title, votesArray, state, baseBranch, forkBranch, yes, no, yesVotes, noVotes, createdAt, votePower, alreadyVoted, chosenSide, user, repo, githubToken, defaultHash, childDefaultHash, contributorID, owner, issueID, totalVotes }) => {
   const quorum = 0.5;
-  let toggleModal = "";
   const [disabled, setDisabled] = useState(false);
-  const [voted, setVoted] = useState(alreadyVoted);
-  const [totalPercent, setTotalPercent] = useState(0); 
-  const voteableStates = new Set(['vote', 'pre-open', 'open']);
-  const notVoteableStates = new Set(['conflict', 'merge', 'close']);
-  const [clickVoteHandler, setClickVoteHandler] = useState(false);
+  const [totalPercent, setTotalPercent] = useState(0); // need this from the res
   /* this block of useState calls are waiting for the rest of the response to be given. eventually we will be able to vote from the extension. */
 
-  
+
   return (
     <ModalContent>
 
       <VoteTotal
-        user={user}
         repo={repo_id}
-        issueID={issueID}
-        contributorID={contributorID}
-        contributorName={contributor_name}
-        voteTotals={vote_totals}
-        
         title={title}
         forkBranch={forkBranch}
-        yesVotes={yesVotes}
-        noVotes={noVotes}
         votePower={votePower}
         baseBranch={baseBranch}
-        toggleModal={toggleModal}
         id="vote-total-main"
       >
         <h2>Vote Total</h2>
@@ -58,18 +39,12 @@ const SinglePullRequestView = ({ pullRequests, repo_id, title, votesArray, state
 
       <VoteButtonGroup
         disabled={disabled}
-        setDisabled={setDisabled}
         voted={alreadyVoted}
-        setVoted={setVoted}
-        clickVoteHandler={clickVoteHandler}
-        setClickVoteHandler={setClickVoteHandler}
         chosenSide={chosenSide}
         user={user}
         repo={repo}
         issueID={issueID}
         contributorID={contributorID}
-        contributorName={contributor_name}
-        voteTotals={vote_totals}
         githubToken={githubToken}
         defaultHash={defaultHash}
         childDefaultHash={childDefaultHash}
@@ -81,8 +56,8 @@ const SinglePullRequestView = ({ pullRequests, repo_id, title, votesArray, state
         noPercent={no}
         yesVotes={yesVotes}
         noVotes={noVotes}
-        totalVotes={yesVotes + noVotes}
         quorum={quorum}
+        totalVotes={totalVotes}
         id="vote-total-results"
       />
       <VotesTable allVotes={votesArray} />

@@ -67,7 +67,6 @@ function VoteButton({
   disabled,
   setDisabled,
   voted,
-  setVoted,
   side,
   chosenSide,
   user,
@@ -76,13 +75,10 @@ function VoteButton({
   contributorID,
   contributerName,
   githubToken,
-  clickVoteHandler,
-  setClickVoteHandler,
   defaultHash,
   childDefaultHash,
   owner
 }) {
-  const [disabledButton, setDisabledButton] = useState(false);
   const [option, setOption] = useState(side);
   const [buttonType, setButtonType] = useState('VoteButton');
 
@@ -91,24 +87,15 @@ function VoteButton({
   }, [disabled, voted, chosenSide, side]);
 
   const voteHandler = async e => {
-    console.log("clicked");
     e.preventDefault();
     const res = await postSetVote(owner, repo, issueID, issueID, false, contributorID, side, githubToken);
-    console.log(res);
     //user = ramirc5
     //repo = demo
-    // Toggle clickVoteHandler to update vote data
-    setClickVoteHandler(!clickVoteHandler)
     socket.emit('vote cast', owner, repo, issueID)
   };
 
   //Set switch case use effect:
   useEffect(() => {
-    // disabled handler possibly not needed as disabled can be set in parent component ModalVote based on voted prop or status prop
-    if (disabled === true || (voted == true && chosenSide !== side)) {
-      setDisabledButton(true);
-    }
-    
     if (side === 'yes' && !voted) {
       setButtonType('VoteYesButton');
     }
@@ -129,7 +116,6 @@ function VoteButton({
     if (side === 'no' && voted && chosenSide === 'no') {
       setButtonType('SelectedNoButton');
     }
-    console.log(buttonType + "button type type type");
 
   }, [disabled, voted, chosenSide, side, buttonType]);
 

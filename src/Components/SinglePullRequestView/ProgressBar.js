@@ -45,8 +45,8 @@ const VoteBar = styled.div`
   padding: 0px 10px;
 `;
 
-const ProgressBar = ({ yesPercent, yesVotes, noPercent, noVotes }) => {
-  let difference = 1 / 0.5;
+const ProgressBar = ({ yesPercent, yesVotes, noPercent, noVotes, quorum }) => {
+  let difference = 1 / quorum;
   yesPercent = yesPercent * 100 * difference;
   noPercent = noPercent * 100 * difference;
   let remainingVotesPercent = 0;

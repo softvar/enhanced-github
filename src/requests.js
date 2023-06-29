@@ -225,7 +225,6 @@ async function postNewPullRequest(owner, repo, defaultHash, contributor_id, side
 
 
 async function postSetVote(owner, repo, defaultHash, childDefaultHash, mergeable, contributor_id, side, token) {
-    console.log(owner, "owner", repo, "repo", defaultHash, "defaultHash", childDefaultHash, "childDefaultHash", mergeable, "mergeable", contributor_id, "contributor_id", side, "side", token, "token");
     const res = await superagent
       .post(`${url}`)
       .send(

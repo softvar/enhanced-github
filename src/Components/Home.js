@@ -178,10 +178,8 @@ export default function Home() {
   const repo = useSelector(state => state.repo.name)
   const owner = useSelector(state => state.repo.owner.login)
   const [pullRequests, setPullRequests] = useState([]);
-  const [response, setResponse] = useState({});
   const [tokenized, setTokenized] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [contributorID, setContributorID] = useState('');
   const [seeModal, setSeeModal] = useState(false);
   const [pullRequestsLoaded, setPullRequestsLoaded] = useState(false);
   const [selectedPullRequest, setSelectedPullRequest] = useState(null);
@@ -201,8 +199,8 @@ export default function Home() {
   const [selectedPullRequestChosenSide, setSelectedPullRequestChosenSide] = useState('');
   const [selectedPullRequestDefaultHash, setSelectedPullRequestDefaultHash] = useState('');
   const [selectedPullRequestChildDefaultHash, setSelectedPullRequestChildDefaultHash] = useState('');
-  const [selectedPullRequestContributorID, setSelectedPullRequestContributorID] = useState('');
   const [selectedPullRequestIssueID, setSelectedPullRequestIssueID] = useState('');
+  const [selectedPullRequestTotalVotes, setSelectedPullRequestTotalVotes] = useState('');
   const navigate = useNavigate();
   let name = user?.name;
   let username = user?.login;
@@ -216,13 +214,10 @@ export default function Home() {
     chrome.storage.local.set({ contributor_name: user.login });
     chrome.storage.local.set({ contributor_id: user.ethereumAddress });
     setTimeout(() => setLoading(false), 1500);
-    setContributorID(user.ethereumAddress);
-    let contributor_id = user.ethereumAddress;
-    //setLoading(true);
+    console.log(pullRequests);
   });
 
   const handlePullRequestClick = (pullRequest) => {
-    console.log("yes hello this is working");
     setSelectedPullRequest(pullRequest);
     setSelectedPullRequestID(pullRequest.repo_id);
     setSelectedPullRequestVotesArray(pullRequest.voteData.votes);
@@ -240,28 +235,23 @@ export default function Home() {
     setSelectedPullRequestChosenSide(pullRequest.voteData.contributor.side);
     setSelectedPullRequestDefaultHash(pullRequest.defaultHash);
     setSelectedPullRequestChildDefaultHash(pullRequest.childDefaultHash);
-    setSelectedPullRequestContributorID(pullRequest.voteData.contributor.contributor_id);
     setSelectedPullRequestIssueID(pullRequest.issue_id);
     setSeeModal(true);
     setSelectedPullRequestVoted(pullRequest.voteData.contributor.voted);
+    setSelectedPullRequestTotalVotes(pullRequest.voteData.voteTotals.totalVotes);
   };
   
 
   const getRepoDataHandler = async () => {
     try {
       const response = await postGetRepoData(`${owner}/${repo}`, user.ethereumAddress).then(res => {
-        console.log(res, "hi");
-
         if (res != null || res != undefined){
           setTokenized(true);
         }
-        setPullRequests(res.pullRequests);
-        setResponse(res);
-        
+        setPullRequests(res.pullRequests);        
         let tokens = useCommas(res.contributor.votePower);
         setTokenAmount(tokens);
       });
-      console.log('getRepoData response:', res);
     } catch (error) {
       console.error('Error fetching repo data:', error);
     }
@@ -274,15 +264,11 @@ export default function Home() {
 
 useEffect(() => {
   setTimeout(()=>{getRepoDataHandler()}, 500)
-  console.log("is this on?");
   setPullRequestsLoaded(true);
-  console.log(pullRequestsLoaded + "aoiegoienargpiuenrga");
-  console.log('pullRequests:', pullRequests);
 }, [owner, repo]);
 
 socket.on('vote received', function(ownerFromServer, repoFromServer, issueIDFromServer) {
   if(owner === ownerFromServer && repo === repoFromServer) {
-   console.log('vote message received, please update the state by calling getRepoData again')
     getRepoDataHandler();
   }
 });
@@ -332,6 +318,7 @@ if(owner === 'none' && repo === 'none') {
             contributorID={user.ethereumAddress}
             owner={owner}
             issueID={selectedPullRequestIssueID}
+            totalVotes={selectedPullRequestTotalVotes}
 
 
           />
@@ -358,7 +345,7 @@ if(owner === 'none' && repo === 'none') {
                 {tokenized ? 
                   <VotePower>
                     {tokenAmount === 0 ?
-                      '0'
+                      '0 votepower'
                       : `${tokenAmount} votepower`}
                   </VotePower>
                   : null}

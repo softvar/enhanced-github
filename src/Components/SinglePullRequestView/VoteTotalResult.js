@@ -23,6 +23,7 @@ const VoteTotalResults = props => {
         noVotes={noVotes}
         totalPercent={totalPercent}
         quorum={quorum}
+        totalVotes={totalVotes}
       />
     </Results>
   );
