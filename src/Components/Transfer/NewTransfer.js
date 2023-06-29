@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import loadergif from '../../loader.gif';
 import useCommas from '../../hooks/useCommas';
 import styled from 'styled-components';
-import { postGetContributorID, postGetContributorTokenAmount } from '../../requests';
+import { postGetContributorID, getVotePowerAmount } from '../../requests';
 
 const Content = styled.div`
   height: 27rem;
@@ -184,7 +184,7 @@ export default function StartTransfer({
   let [invalidText, setInvalidText] = useState('');
 
   const getTokenAmount = async () => {
-    await postGetContributorTokenAmount(owner, repo, '', user.ethereumAddress, '', user.token).then(res =>
+    await getVotePowerAmount(owner, repo, '', user.ethereumAddress, '', user.token).then(res =>
       setTokenAmount(res.amount)
     );
   };

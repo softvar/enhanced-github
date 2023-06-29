@@ -99,7 +99,6 @@ function VoteButton(props) {
     }
   }, [props.disabled, props.voted, props.chosenSide, props.side]);
 
-  console.log(disabledButton + " OIHWEIUHGAEIURHGIUEHRGOIAEHRGIUOAHGIUAHRGIUAHERGUI;AEHRGIUAEHRGI;A");
 
 
   return props.voted && props.chosenSide === props.side ? (

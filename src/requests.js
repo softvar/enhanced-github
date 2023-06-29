@@ -150,7 +150,7 @@ async function postCreateRepo(owner, repo, defaultHash, contributor_id, side, to
     return json.data.createRepo;
 }
 
-async function postGetContributorTokenAmount(
+async function postgetVotePowerAmount(
   owner,
   repo,
   defaultHash,
@@ -167,7 +167,7 @@ async function postGetContributorTokenAmount(
         //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
         //{ query: `{ getVoteEverything }` }
         {
-          query: `{ getContributorTokenAmount(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", token: "${token}") { status, amount } }`,
+          query: `{ getVotePowerAmount(owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", token: "${token}") { status, amount } }`,
         }
         //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
       ) // sends a JSON post body
@@ -178,7 +178,7 @@ async function postGetContributorTokenAmount(
     //});
     const json = JSON.parse(res.text);
     console.log(json);
-    return json.data.getContributorTokenAmount;
+    return json.data.getVotePowerAmount;
 }
 
 async function postTransferTokens(owner, repo, from, to, amount, token) {
@@ -541,6 +541,7 @@ async function postGetRepoData (repo_id, contributor_id) {
       contributor {
       contributor_id,
       voted,
+      side,
       votePower,
       createdAt,
       },
@@ -598,7 +599,7 @@ export {
   postCheckGithubTokenPermissions,
   postFindOrCreateUser,
 	postCreateRepo,
-	postGetContributorTokenAmount,
+	postgetVotePowerAmount,
 	postTransferTokens,
 	postNewPullRequest,
 	postSetVote,

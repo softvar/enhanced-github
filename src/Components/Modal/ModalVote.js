@@ -6,7 +6,6 @@ import VoteTotalResults from './VoteTotalResults';
 import VoteButtonGroup from './VoteButtonGroup';
 import VoteText from './VoteText';
 import SkeletonModal from './SkeletonModal';
-
 const ModalContent = styled.div`
   background-color: #fff;
   margin: auto;

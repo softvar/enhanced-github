@@ -214,6 +214,7 @@ async function get_authorized_contributor(contributor_id, repo_id) {
           issue_id = idNameSplit[3];
           modal.style.display = 'block';
           const domContainerModal = document.getElementById('myModal');
+          console.log(issue_id);
           voteTotals = await postGetPRvoteTotals(user, repo, issue_id, contributor_id, side);
           getVotesRes = await getVotes();
           render(ce(ModalVote, {user: user, repo: repo, issueID: issue_id, contributorID: contributor_id, contributorName: contributor_name, voteTotals: voteTotals, githubUser: githubUser, voteRes: getVotesRes, getVotes: getVotes, toggleModal: toggleModal, socketEvents: socketEvents}), domContainerModal);

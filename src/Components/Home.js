@@ -7,7 +7,13 @@ import useCommas from '../hooks/useCommas';
 import styled from 'styled-components';
 import PullRequestRow from './PullRequestRow.js';
 import ArrowRight from '../../icons/arrowright.png';
-import SkeletonHome from './SkeletonHome.js';
+import BackArrow from '../../icons/back.png';
+import SkeletonModal from './SkeletonExt.js';
+import SinglePullRequestView from './SinglePullRequestView/SinglePullRequestView.js';
+import { set } from '../utils/storageUtil';
+const { 
+  postGetVotes  
+} = require('../requests');
 
 const VoteText = styled.span`
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
@@ -148,6 +154,22 @@ line-height: 1.8;
 text-align: center;
 `;
 
+const Back = styled(PullRequestHeading)`
+  font-weight:500;
+  
+`;
+
+const BackButton = styled.span`
+position: relative;
+top: 85px;
+left: 10px;
+margin-top: -20px;
+display: flex;
+align-items: center;
+gap: 3px;
+cursor: pointer;
+`
+
 const port = process.env.PORT || 'http://localhost:4000';
 
 export default function Home() {
@@ -155,9 +177,27 @@ export default function Home() {
   const repo = useSelector(state => state.repo.name)
   const owner = useSelector(state => state.repo.owner.login)
   const [pullRequests, setPullRequests] = useState([]);
-  const [res, setRes] = useState({});
+  const [response, setResponse] = useState({});
   const [tokenized, setTokenized] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [contributorID, setContributorID] = useState('');
+  const [seeModal, setSeeModal] = useState(false);
+  const [pullRequestsLoaded, setPullRequestsLoaded] = useState(false);
+  const [selectedPullRequest, setSelectedPullRequest] = useState(null);
+  const [selectedPullRequestID, setSelectedPullRequestID] = useState('');
+  const [selectedPullRequestVotesArray, setSelectedPullRequestVotesArray] = useState([]);
+  const [selectedPullRequestState, setSelectedPullRequestState] = useState('');
+  const [selectedPullRequestYes, setSelectedPullRequestYes] = useState(0);
+  const [selectedPullRequestNo, setSelectedPullRequestNo] = useState(0);
+  const [selectedPullRequestBaseBranch, setSelectedPullRequestBaseBranch] = useState('');
+  const [selectedPullRequestForkBranch, setSelectedPullRequestForkBranch] = useState('');
+  const [selectedPullRequestNoVotes, setSelectedPullRequestNoVotes] = useState(0);
+  const [selectedPullRequestYesVotes, setSelectedPullRequestYesVotes] = useState(0);
+  const [selectedPullRequestCreatedAt, setSelectedPullRequestCreatedAt] = useState('');
+  const [selectedPullRequestVotePower, setSelectedPullRequestVotePower] = useState(0);
+  const [selectedPullRequestVoted, setSelectedPullRequestVoted] = useState(false);
+  const [selectedPullRequestTitle, setSelectedPullRequestTitle] = useState('');
+  
 
   const navigate = useNavigate();
   let name = user?.name;
@@ -172,36 +212,65 @@ export default function Home() {
     chrome.storage.local.set({ contributor_name: user.login });
     chrome.storage.local.set({ contributor_id: user.ethereumAddress });
     setTimeout(() => setLoading(false), 1500);
+    setContributorID(user.ethereumAddress);
+    let contributor_id = user.ethereumAddress;
     //setLoading(true);
   });
 
+  const handlePullRequestClick = (pullRequest) => {
+    console.log("yes hello this is working");
+    setSelectedPullRequest(pullRequest);
+    setSelectedPullRequestID(pullRequest.repo_id);
+    setSelectedPullRequestVotesArray(pullRequest.voteData.votes);
+    setSelectedPullRequestState(pullRequest.state);
+    setSelectedPullRequestBaseBranch(pullRequest.baseBranch);
+    setSelectedPullRequestForkBranch(pullRequest.forkBranch);
+    setSelectedPullRequestYes(Math.floor(pullRequest.voteData.voteTotals.yesPercent * 100));
+    setSelectedPullRequestNo(Math.floor(pullRequest.voteData.voteTotals.noPercent * 100));
+    setSelectedPullRequestYesVotes(pullRequest.voteData.voteTotals.yes);
+    setSelectedPullRequestNoVotes(pullRequest.voteData.voteTotals.no);
+    setSelectedPullRequestCreatedAt(pullRequest.voteData.contributor.createdAt);
+    setSelectedPullRequestVotePower(pullRequest.voteData.contributor.votePower);
+    setSelectedPullRequestVoted(pullRequest.voteData.voted);
+    setSelectedPullRequestTitle(pullRequest.title);
 
+    setSeeModal(true);
+  };
+  
 
   const getRepoDataHandler = async () => {
     try {
       const response = await postGetRepoData(`${owner}/${repo}`, user.ethereumAddress).then(res => {
+        console.log(res, "hi");
+
         if (res != null || res != undefined){
           setTokenized(true);
         }
         setPullRequests(res.pullRequests);
-        setRes(res);
-        console.log('resHandler:' + res);
+        setResponse(res);
+        
         let tokens = useCommas(res.contributor.votePower);
         setTokenAmount(tokens);
       });
-      console.log('getRepoData response:', response);
     } catch (error) {
       console.error('Error fetching repo data:', error);
     }
   };
+/*
+  const modalView = (repo_id, issue_id, contributor_id) => {
+    let getVotes = async () => await postGetVotes(repo_id, issue_id, contributor_id);
+    
+  } */
 
 useEffect(() => {
   setTimeout(()=>{getRepoDataHandler()}, 500)
-  console.log('trying to see if this works:', pullRequests);
+  console.log("is this on?");
+  setPullRequestsLoaded(true);
+  console.log(pullRequestsLoaded + "aoiegoienargpiuenrga");
+  console.log('pullRequests:', pullRequests);
 }, [owner, repo]);
-console.log('pullRequests:', pullRequests);
-console.log('res:', res);
 
+let getVotes = async () => await postGetVotes(repo_id, issue_id, contributor_id);
 if(owner === 'none' && repo === 'none') {
     return (
       <div className="content">
@@ -215,70 +284,104 @@ if(owner === 'none' && repo === 'none') {
     </div>
     )
   }
+  switch (seeModal) {
+    case true:
+      return pullRequestsLoaded ? (
+        <>
+          <BackButton onClick={() => setSeeModal(false)}>
+            <img src={BackArrow} alt="back arrow" />
+            <Back>Back to all</Back>
+          </BackButton>
+          <SinglePullRequestView pullRequests={selectedPullRequest} 
+            repo_id={selectedPullRequestID}
+            title={selectedPullRequestTitle}
+            votesArray={selectedPullRequestVotesArray}
+            state={selectedPullRequestState}
+            baseBranch={selectedPullRequestBaseBranch}
+            forkBranch={selectedPullRequestForkBranch}
+            yes={selectedPullRequestYes}
+            no={selectedPullRequestNo}
+            yesVotes={selectedPullRequestYesVotes}
+            noVotes={selectedPullRequestNoVotes}
+            createdAt={selectedPullRequestCreatedAt}
+            votePower={selectedPullRequestVotePower}
+            alreadyVoted={selectedPullRequestVoted}
 
-  return (
-    <Content>
-      <div className="home">
-        <section>
-          <TopBar>
-            <OwnerRepo>
-                <OwnerText>
-                  <GithubLink href={`https://github.com/JeffreyLWood/${owner}`} target="_blank">
-                    {owner}
-                  </GithubLink> /
-                </OwnerText>
-                <BoldText> 
-                  <GithubLink href={`https://github.com/${owner}/${repo}`} target="_blank">
+          />
+        </>
+      ) : <SkeletonExt/>;
+    case false:
+      return (
+        <Content>
+          <div className="home">
+            <section>
+              <TopBar>
+                <OwnerRepo>
+                  <OwnerText>
+                    <GithubLink href={`https://github.com/JeffreyLWood/${owner}`} target="_blank">
+                      {owner}
+                    </GithubLink> /
+                  </OwnerText>
+                  <BoldText> 
+                    <GithubLink href={`https://github.com/${owner}/${repo}`} target="_blank">
                       {repo}
-                  </GithubLink>
-                </BoldText>
-            </OwnerRepo>
-            {tokenized ? 
-            <VotePower>
-            {tokenAmount === 0 ?
-              'You do not have votepower in this project.'
-              : `${tokenAmount} votepower`}
-            </VotePower>
-            : null}
-          </TopBar>
-        </section>
-        {tokenized && (
-
-        <DataHeading>
-          <PullRequestHeading>Status</PullRequestHeading>
-          <PullRequestHeading>Pull Request</PullRequestHeading>
-          <PullRequestHeading>Yes</PullRequestHeading>
-          <PullRequestHeading>No</PullRequestHeading>
-        </DataHeading>
-        )}
-        {tokenized && (
-          <Data>
-            {pullRequests.map((pr, index) => (
-                <PullRequestRow 
-                state={pr.state} 
-                yes={Math.floor(pr.voteData.voteTotals.yesPercent*100)}
-                no={Math.floor(pr.voteData.voteTotals.noPercent*100)} 
-                forkBranch={pr.forkBranch}
-                key={pr.forkBranch}
-                index={index}
-                issue_id={pr.issue_id}
-                title={pr.title}
-                />
-            ))}
-          </Data>
-          )}
-        {tokenized ? null : (
-           loading ? ( <SkeletonHome/> ) : (
-          <CenteredWrapper>
-            <CreateNotice>
-            If you are the maintainer of <CreateRepo>{owner}/{repo}</CreateRepo> you can add it to Turbosrc
-            </CreateNotice>
-            <RepoButton type="button" onClick={() => navigate('/onboard')}>
-              <p>Continue</p> <ArrowPic src={ArrowRight} />
-            </RepoButton>
-          </CenteredWrapper> )  
-        )}
-      </div>
-    </Content>
-  );
+                    </GithubLink>
+                  </BoldText>
+                </OwnerRepo>
+                {tokenized ? 
+                  <VotePower>
+                    {tokenAmount === 0 ?
+                      'You do not have votepower in this project.'
+                      : `${tokenAmount} votepower`}
+                  </VotePower>
+                  : null}
+              </TopBar>
+            </section>
+            {tokenized && (
+              <DataHeading>
+                <PullRequestHeading>Status</PullRequestHeading>
+                <PullRequestHeading>Pull Request</PullRequestHeading>
+                <PullRequestHeading>Yes</PullRequestHeading>
+                <PullRequestHeading>No</PullRequestHeading>
+              </DataHeading>
+            )}
+            {tokenized && (
+              <Data>
+                {pullRequests.map((pr, index) => (
+                  <div onClick={() => handlePullRequestClick(pr)}> 
+                    <PullRequestRow 
+                      issue_id={pr.issue_id}
+                      title={pr.title}
+                      state={pr.state} 
+                      yes={Math.floor(pr.voteData.voteTotals.yesPercent * 100)}
+                      no={Math.floor(pr.voteData.voteTotals.noPercent * 100)} 
+                      forkBranch={pr.forkBranch}
+                      key={pr.forkBranch}
+                      index={index}
+                      role="button" // Add role="button" to make it clickable
+                      tabIndex={0}
+                    />
+                  </div>
+                ))}
+              </Data>
+            )}
+            {tokenized ? null : (
+              loading ? (<SkeletonModal />) : (
+                <CenteredWrapper>
+                  <CreateNotice>
+                    If you are the maintainer of <CreateRepo>{owner}/{repo}</CreateRepo> you can add it to Turbosrc
+                  </CreateNotice>
+                  <RepoButton type="button" onClick={() => navigate('/onboard')}>
+                    <p>Continue</p> <ArrowPic src={ArrowRight} />
+                  </RepoButton>
+                </CenteredWrapper>
+              )
+            )}
+          </div>
+        </Content>
+      );
+    default:
+      return null;
+  }
+  
 }
