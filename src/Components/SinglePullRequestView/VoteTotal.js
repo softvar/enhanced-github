@@ -25,7 +25,10 @@ color: #656565;
 font-size: 12px;
 text-align: left;
 margin-bottom: 0px;
-overflow: ellipsis;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+max-width: 380px;
 `;
 
 const MediumText = styled(VoteText)`

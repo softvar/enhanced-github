@@ -11,6 +11,7 @@ import BackArrow from '../../icons/back.png';
 import SkeletonModal from './SkeletonExt.js';
 import SinglePullRequestView from './SinglePullRequestView/SinglePullRequestView.js';
 import { set } from '../utils/storageUtil';
+const {socket} = require("../socketConfig")
 const { 
   postGetVotes  
 } = require('../requests');
@@ -236,12 +237,13 @@ export default function Home() {
     setSelectedPullRequestVotePower(pullRequest.voteData.contributor.votePower);
     setSelectedPullRequestVoted(pullRequest.voteData.voted);
     setSelectedPullRequestTitle(pullRequest.title);
-    setSelectedPullRequestChosenSide(pullRequest.voteData.contributor.chosenSide);
+    setSelectedPullRequestChosenSide(pullRequest.voteData.contributor.side);
     setSelectedPullRequestDefaultHash(pullRequest.defaultHash);
     setSelectedPullRequestChildDefaultHash(pullRequest.childDefaultHash);
     setSelectedPullRequestContributorID(pullRequest.voteData.contributor.contributor_id);
     setSelectedPullRequestIssueID(pullRequest.issue_id);
     setSeeModal(true);
+    setSelectedPullRequestVoted(pullRequest.voteData.contributor.voted);
   };
   
 
@@ -277,6 +279,13 @@ useEffect(() => {
   console.log(pullRequestsLoaded + "aoiegoienargpiuenrga");
   console.log('pullRequests:', pullRequests);
 }, [owner, repo]);
+
+socket.on('vote received', function(ownerFromServer, repoFromServer, issueIDFromServer) {
+  if(owner === ownerFromServer && repo === repoFromServer) {
+   console.log('vote message received, please update the state by calling getRepoData again')
+    getRepoDataHandler();
+  }
+});
 
 let getVotes = async () => await postGetVotes(repo_id, issue_id, contributor_id);
 if(owner === 'none' && repo === 'none') {
@@ -349,7 +358,7 @@ if(owner === 'none' && repo === 'none') {
                 {tokenized ? 
                   <VotePower>
                     {tokenAmount === 0 ?
-                      'You do not have votepower in this project.'
+                      '0'
                       : `${tokenAmount} votepower`}
                   </VotePower>
                   : null}

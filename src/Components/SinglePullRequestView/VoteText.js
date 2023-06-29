@@ -52,6 +52,8 @@ function VoteText({
             setTextType('No');
         }
 
+        console.log("this is the text type", voted, chosenSide, disabled);
+
 
     }, [voted, chosenSide, disabled]);
 

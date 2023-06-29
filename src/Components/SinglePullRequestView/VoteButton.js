@@ -99,7 +99,7 @@ function VoteButton({
     //repo = demo
     // Toggle clickVoteHandler to update vote data
     setClickVoteHandler(!clickVoteHandler)
-    socket.emit('vote cast', user, repo, issueID)
+    socket.emit('vote cast', owner, repo, issueID)
   };
 
   //Set switch case use effect:
