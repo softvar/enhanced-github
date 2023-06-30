@@ -89,8 +89,6 @@ function VoteButton({
   const voteHandler = async e => {
     e.preventDefault();
     const res = await postSetVote(owner, repo, issueID, issueID, false, contributorID, side, githubToken);
-    //user = ramirc5
-    //repo = demo
     socket.emit('vote cast', owner, repo, issueID)
   };
 

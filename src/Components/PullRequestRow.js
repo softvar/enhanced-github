@@ -54,14 +54,16 @@ const PullReqTitle = styled.div`
 
 // Usage:
 
-
+/*
+yes={Math.floor(pr.voteData.voteTotals.yesPercent * 100)}
+no={Math.floor(pr.voteData.voteTotals.noPercent * 100)}
+                      */
 
 export default function PullRequestRow({index, issue_id, state, forkBranch, title, yes, no}){
-    const [yesPercent, setYesPercent] = useState(yes);
-    const [noPercent, setNoPercent] = useState(no);
+    const [yesPercent, setYesPercent] = useState(Math.floor(yes * 100));
+    const [noPercent, setNoPercent] = useState(Math.floor(no * 100));
     useEffect(() => {
-        setYesPercent(yes);
-        setNoPercent(no);
+        
     }, [yes, no]);
     return(
         <div>

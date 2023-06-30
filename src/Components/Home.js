@@ -11,30 +11,28 @@ import BackArrow from '../../icons/back.png';
 import SkeletonModal from './SkeletonExt.js';
 import SinglePullRequestView from './SinglePullRequestView/SinglePullRequestView.js';
 import { set } from '../utils/storageUtil';
-const {socket} = require("../socketConfig")
-const { 
-  postGetVotes  
-} = require('../requests');
+const { socket } = require('../socketConfig');
+const { postGetVotes } = require('../requests');
 
 const VoteText = styled.span`
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
-font-family: 'Inter', sans-serif;
-color: black;
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  font-family: 'Inter', sans-serif;
+  color: black;
 `;
 
 const ArrowPic = styled.img`
-width: 13px;
-height: 13px;
+  width: 13px;
+  height: 13px;
 `;
 
 const VotePower = styled(VoteText)`
-font-weight: 500; 
-font-size: 14px;
-margin-bottom: 0px;
-color: #4A00BA;
-background: #E7F0FF;
-padding: 5px 8px;
-letter-spacing: .2px;
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 0px;
+  color: #4a00ba;
+  background: #e7f0ff;
+  padding: 5px 8px;
+  letter-spacing: 0.2px;
 `;
 
 const NotOwnRepo = styled.div`
@@ -42,8 +40,8 @@ const NotOwnRepo = styled.div`
   font-family: 'Roboto Mono', monospace;
   font-weight: 300;
   font-size: 14px;
-  letter-spacing: .2px;
-  text-align:center;
+  letter-spacing: 0.2px;
+  text-align: center;
   position: relative;
   top: 150px;
 `;
@@ -57,67 +55,66 @@ const CenteredWrapper = styled.div`
 `;
 
 const CreateRepo = styled.span`
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
-font-family: 'Roboto Mono', monospace;
-font-weight: 300;
-font-size: 14px;
-color: #001AFF;
-background-color:#e5eefd;
+  @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 300;
+  font-size: 14px;
+  color: #001aff;
+  background-color: #e5eefd;
 `;
 
 const BoldText = styled(VoteText)`
-font-weight: 700;
-font-size: 26px;
-margin-bottom: 0px;
+  font-weight: 700;
+  font-size: 26px;
+  margin-bottom: 0px;
 `;
 
 const TopBar = styled.div`
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;
 
-
 const OwnerRepo = styled.div`
-display: flex;
-flex-direction: row;
-align-items: center;
-gap: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
 `;
 
 const OwnerText = styled(VoteText)`
-font-weight: 500;
-font-size: 26px;
-margin-bottom: 0px;
+  font-weight: 500;
+  font-size: 26px;
+  margin-bottom: 0px;
 `;
 
 const Data = styled.div`
-width: 100%;
-height: 100%;
-overflow-y: auto;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
 `;
 
 const Content = styled.div`
-height: 27rem;
-display: flex;
-flex-direction: column;
-justify-content: center;
-overflow-y: auto;
-overflow-x: hidden;
-padding: 0.5rem;
+  height: 27rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0.5rem;
 `;
 
 const DataHeading = styled.div`
-display: grid;
-grid-template-columns: 20% 60% 10% 10%;
+  display: grid;
+  grid-template-columns: 20% 60% 10% 10%;
 `;
 
 const PullRequestHeading = styled.p`
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
-font-family: 'Inter', sans-serif;
-font-weight: 600;
-color: black;
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  color: black;
 `;
 
 const RepoButton = styled.button`
@@ -126,57 +123,56 @@ const RepoButton = styled.button`
   width: 200px;
   height: 50px;
   border: none;
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   cursor: pointer;
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
-  gap:5px;
-  `;
-
-  const GithubLink = styled.a`
-  color: black;
-  `;
-
-  const CreateNotice = styled.span`
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
-font-family: 'Inter', sans-serif;
-font-weight: 400;
-font-size:14px;
-color: black;
-text-align: center;
-margin: 1rem auto;
-line-height: 1.8;
+  gap: 5px;
 `;
 
-  const BtnSpan = styled.span`
-text-align: center;
+const GithubLink = styled.a`
+  color: black;
+`;
+
+const CreateNotice = styled.span`
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: black;
+  text-align: center;
+  margin: 1rem auto;
+  line-height: 1.8;
+`;
+
+const BtnSpan = styled.span`
+  text-align: center;
 `;
 
 const Back = styled(PullRequestHeading)`
-  font-weight:500;
-  
+  font-weight: 500;
 `;
 
 const BackButton = styled.span`
-position: relative;
-top: 85px;
-left: 10px;
-margin-top: -20px;
-display: flex;
-align-items: center;
-gap: 3px;
-cursor: pointer;
-`
+  position: relative;
+  top: 85px;
+  left: 10px;
+  margin-top: -20px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+`;
 
 const port = process.env.PORT || 'http://localhost:4000';
 
 export default function Home() {
   const user = useSelector(state => state.auth.user);
-  const repo = useSelector(state => state.repo.name)
-  const owner = useSelector(state => state.repo.owner.login)
+  const repo = useSelector(state => state.repo.name);
+  const owner = useSelector(state => state.repo.owner.login);
   const [pullRequests, setPullRequests] = useState([]);
   const [tokenized, setTokenized] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -186,12 +182,10 @@ export default function Home() {
   const [selectedPullRequestID, setSelectedPullRequestID] = useState('');
   const [selectedPullRequestVotesArray, setSelectedPullRequestVotesArray] = useState([]);
   const [selectedPullRequestState, setSelectedPullRequestState] = useState('');
-  const [selectedPullRequestYes, setSelectedPullRequestYes] = useState(0);
-  const [selectedPullRequestNo, setSelectedPullRequestNo] = useState(0);
+  const [selectedPullRequestYesPercent, setSelectedPullRequestYesPercent] = useState(0);
+  const [selectedPullRequestNoPercent, setSelectedPullRequestNoPercent] = useState(0);
   const [selectedPullRequestBaseBranch, setSelectedPullRequestBaseBranch] = useState('');
   const [selectedPullRequestForkBranch, setSelectedPullRequestForkBranch] = useState('');
-  const [selectedPullRequestNoVotes, setSelectedPullRequestNoVotes] = useState(0);
-  const [selectedPullRequestYesVotes, setSelectedPullRequestYesVotes] = useState(0);
   const [selectedPullRequestCreatedAt, setSelectedPullRequestCreatedAt] = useState('');
   const [selectedPullRequestVotePower, setSelectedPullRequestVotePower] = useState(0);
   const [selectedPullRequestVoted, setSelectedPullRequestVoted] = useState(false);
@@ -217,17 +211,15 @@ export default function Home() {
     console.log(pullRequests);
   });
 
-  const handlePullRequestClick = (pullRequest) => {
+  const handlePullRequestClick = pullRequest => {
     setSelectedPullRequest(pullRequest);
     setSelectedPullRequestID(pullRequest.repo_id);
     setSelectedPullRequestVotesArray(pullRequest.voteData.votes);
     setSelectedPullRequestState(pullRequest.state);
     setSelectedPullRequestBaseBranch(pullRequest.baseBranch);
     setSelectedPullRequestForkBranch(pullRequest.forkBranch);
-    setSelectedPullRequestYes(Math.floor(pullRequest.voteData.voteTotals.yesPercent * 100));
-    setSelectedPullRequestNo(Math.floor(pullRequest.voteData.voteTotals.noPercent * 100));
-    setSelectedPullRequestYesVotes(pullRequest.voteData.voteTotals.yes);
-    setSelectedPullRequestNoVotes(pullRequest.voteData.voteTotals.no);
+    setSelectedPullRequestYesPercent((pullRequest.voteData.voteTotals.yesPercent));
+    setSelectedPullRequestNoPercent(pullRequest.voteData.voteTotals.noPercent);
     setSelectedPullRequestCreatedAt(pullRequest.voteData.contributor.createdAt);
     setSelectedPullRequestVotePower(pullRequest.voteData.contributor.votePower);
     setSelectedPullRequestVoted(pullRequest.voteData.voted);
@@ -240,15 +232,14 @@ export default function Home() {
     setSelectedPullRequestVoted(pullRequest.voteData.contributor.voted);
     setSelectedPullRequestTotalVotes(pullRequest.voteData.voteTotals.totalVotes);
   };
-  
 
   const getRepoDataHandler = async () => {
     try {
       const response = await postGetRepoData(`${owner}/${repo}`, user.ethereumAddress).then(res => {
-        if (res != null || res != undefined){
+        if (res != null || res != undefined) {
           setTokenized(true);
         }
-        setPullRequests(res.pullRequests);        
+        setPullRequests(res.pullRequests);
         let tokens = useCommas(res.contributor.votePower);
         setTokenAmount(tokens);
       });
@@ -256,36 +247,31 @@ export default function Home() {
       console.error('Error fetching repo data:', error);
     }
   };
-/*
-  const modalView = (repo_id, issue_id, contributor_id) => {
-    let getVotes = async () => await postGetVotes(repo_id, issue_id, contributor_id);
-    
-  } */
 
-useEffect(() => {
-  setTimeout(()=>{getRepoDataHandler()}, 500)
-  setPullRequestsLoaded(true);
-}, [owner, repo]);
+  useEffect(() => {
+    setTimeout(() => {
+      getRepoDataHandler();
+    }, 500);
+    setPullRequestsLoaded(true);
+  }, [owner, repo]);
 
-socket.on('vote received', function(ownerFromServer, repoFromServer, issueIDFromServer) {
-  if(owner === ownerFromServer && repo === repoFromServer) {
-    getRepoDataHandler();
-  }
-});
+  socket.on('vote received', function(ownerFromServer, repoFromServer, issueIDFromServer) {
+    if (owner === ownerFromServer && repo === repoFromServer) {
+      getRepoDataHandler();
+    }
+  });
 
-let getVotes = async () => await postGetVotes(repo_id, issue_id, contributor_id);
-if(owner === 'none' && repo === 'none') {
+  let getVotes = async () => await postGetVotes(repo_id, issue_id, contributor_id);
+  if (owner === 'none' && repo === 'none') {
     return (
       <div className="content">
-      <div className="home">
-        <section>
-          <NotOwnRepo>
-            Please visit a Github repo page in your browser to use Turbosrc.           
-          </NotOwnRepo>
-        </section>
+        <div className="home">
+          <section>
+            <NotOwnRepo>Please visit a Github repo page in your browser to use Turbosrc.</NotOwnRepo>
+          </section>
+        </div>
       </div>
-    </div>
-    )
+    );
   }
   switch (seeModal) {
     case true:
@@ -295,17 +281,16 @@ if(owner === 'none' && repo === 'none') {
             <img src={BackArrow} alt="back arrow" />
             <Back>Back to all</Back>
           </BackButton>
-          <SinglePullRequestView pullRequests={selectedPullRequest} 
+          <SinglePullRequestView
+            pullRequests={selectedPullRequest}
             repo_id={selectedPullRequestID}
             title={selectedPullRequestTitle}
             votesArray={selectedPullRequestVotesArray}
             state={selectedPullRequestState}
             baseBranch={selectedPullRequestBaseBranch}
             forkBranch={selectedPullRequestForkBranch}
-            yes={selectedPullRequestYes}
-            no={selectedPullRequestNo}
-            yesVotes={selectedPullRequestYesVotes}
-            noVotes={selectedPullRequestNoVotes}
+            yesPercent={selectedPullRequestYesPercent}
+            noPercent={selectedPullRequestNoPercent}
             createdAt={selectedPullRequestCreatedAt}
             votePower={selectedPullRequestVotePower}
             alreadyVoted={selectedPullRequestVoted}
@@ -319,11 +304,11 @@ if(owner === 'none' && repo === 'none') {
             owner={owner}
             issueID={selectedPullRequestIssueID}
             totalVotes={selectedPullRequestTotalVotes}
-
-
           />
         </>
-      ) : <SkeletonExt/>;
+      ) : (
+        <SkeletonExt />
+      );
     case false:
       return (
         <Content>
@@ -332,23 +317,20 @@ if(owner === 'none' && repo === 'none') {
               <TopBar>
                 <OwnerRepo>
                   <OwnerText>
-                    <GithubLink href={`https://github.com/JeffreyLWood/${owner}`} target="_blank">
+                    <GithubLink href={`https://github.com/${owner}`} target="_blank">
                       {owner}
-                    </GithubLink> /
+                    </GithubLink>{' '}
+                    /
                   </OwnerText>
-                  <BoldText> 
+                  <BoldText>
                     <GithubLink href={`https://github.com/${owner}/${repo}`} target="_blank">
                       {repo}
                     </GithubLink>
                   </BoldText>
                 </OwnerRepo>
-                {tokenized ? 
-                  <VotePower>
-                    {tokenAmount === 0 ?
-                      '0 votepower'
-                      : `${tokenAmount} votepower`}
-                  </VotePower>
-                  : null}
+                {tokenized ? (
+                  <VotePower>{tokenAmount === 0 ? '0 votepower' : `${tokenAmount} votepower`}</VotePower>
+                ) : null}
               </TopBar>
             </section>
             {tokenized && (
@@ -362,13 +344,13 @@ if(owner === 'none' && repo === 'none') {
             {tokenized && (
               <Data>
                 {pullRequests.map((pr, index) => (
-                  <div onClick={() => handlePullRequestClick(pr)}> 
-                    <PullRequestRow 
+                  <div onClick={() => handlePullRequestClick(pr)}>
+                    <PullRequestRow
                       issue_id={pr.issue_id}
                       title={pr.title}
-                      state={pr.state} 
-                      yes={Math.floor(pr.voteData.voteTotals.yesPercent * 100)}
-                      no={Math.floor(pr.voteData.voteTotals.noPercent * 100)} 
+                      state={pr.state}
+                      yes={pr.voteData.voteTotals.yesPercent}
+                      no={pr.voteData.voteTotals.noPercent}
                       forkBranch={pr.forkBranch}
                       key={pr.forkBranch}
                       index={index}
@@ -379,17 +361,21 @@ if(owner === 'none' && repo === 'none') {
                 ))}
               </Data>
             )}
-            {tokenized ? null : (
-              loading ? (<SkeletonModal />) : (
-                <CenteredWrapper>
-                  <CreateNotice>
-                    If you are the maintainer of <CreateRepo>{owner}/{repo}</CreateRepo> you can add it to Turbosrc
-                  </CreateNotice>
-                  <RepoButton type="button" onClick={() => navigate('/onboard')}>
-                    <p>Continue</p> <ArrowPic src={ArrowRight} />
-                  </RepoButton>
-                </CenteredWrapper>
-              )
+            {tokenized ? null : loading ? (
+              <SkeletonModal />
+            ) : (
+              <CenteredWrapper>
+                <CreateNotice>
+                  If you are the maintainer of{' '}
+                  <CreateRepo>
+                    {owner}/{repo}
+                  </CreateRepo>{' '}
+                  you can add it to Turbosrc
+                </CreateNotice>
+                <RepoButton type="button" onClick={() => navigate('/onboard')}>
+                  <p>Continue</p> <ArrowPic src={ArrowRight} />
+                </RepoButton>
+              </CenteredWrapper>
             )}
           </div>
         </Content>
@@ -397,5 +383,4 @@ if(owner === 'none' && repo === 'none') {
     default:
       return null;
   }
-  
 }

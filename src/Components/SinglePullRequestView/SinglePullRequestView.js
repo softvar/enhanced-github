@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import VoteTotal from './VoteTotal';
 import styled from 'styled-components';
 import VotesTable from './VotesTable';
-import VoteTotalResults from './VoteTotalResult';
 import VoteButtonGroup from './VoteButtonGroup';
 import VoteText from './VoteText';
-const ModalContent = styled.div`
+import ProgressBar from './ProgressBar';
+
+const Content = styled.div`
 background-color: #fff;
 margin: auto;
 padding: 0 9px 20px 9px;
@@ -14,15 +15,30 @@ width: 400px;
 text-align: center;
 `;
 
-const SinglePullRequestView = ({ pullRequests, repo_id, title, votesArray, state, baseBranch, forkBranch, yes, no, yesVotes, noVotes, createdAt, votePower, alreadyVoted, chosenSide, user, repo, githubToken, defaultHash, childDefaultHash, contributorID, owner, issueID, totalVotes }) => {
-  const quorum = 0.5;
-  const [disabled, setDisabled] = useState(false);
-  const [totalPercent, setTotalPercent] = useState(0); // need this from the res
-  /* this block of useState calls are waiting for the rest of the response to be given. eventually we will be able to vote from the extension. */
+const Results = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 60px;
+  `;
 
+const SinglePullRequestView = ({ pullRequests, repo_id, title, votesArray, state, baseBranch, forkBranch, yesPercent, noPercent, createdAt, votePower, alreadyVoted, chosenSide, user, repo, githubToken, defaultHash, childDefaultHash, contributorID, owner, issueID, totalVotes }) => {
+  const quorum = 0.5;
+  const voteableStates = new Set(['vote', 'pre-open', 'open']);
+  const notVoteableStates = new Set(['conflict', 'merge', 'close']);
+  const [disabled, setDisabled] = useState(false);
+  useEffect(() => {
+    if (voteableStates.has(state)) {
+      setDisabled(false);
+    } else if (notVoteableStates.has(state)) {
+      setDisabled(true);
+    }
+  }, [state]);
 
   return (
-    <ModalContent>
+    <Content>
 
       <VoteTotal
         repo={repo_id}
@@ -50,18 +66,15 @@ const SinglePullRequestView = ({ pullRequests, repo_id, title, votesArray, state
         childDefaultHash={childDefaultHash}
         owner={owner}
       />
-      <VoteTotalResults
-        totalPercent={totalPercent}
-        yesPercent={yes}
-        noPercent={no}
-        yesVotes={yesVotes}
-        noVotes={noVotes}
+      <Results>
+      <ProgressBar
+        yesPercent={yesPercent}
+        noPercent={noPercent}
         quorum={quorum}
-        totalVotes={totalVotes}
-        id="vote-total-results"
       />
+    </Results>
       <VotesTable allVotes={votesArray} />
-  </ModalContent>
+  </Content>
   );
 };
 
