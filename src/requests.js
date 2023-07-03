@@ -150,7 +150,7 @@ async function postCreateRepo(owner, repo, defaultHash, contributor_id, side, to
     return json.data.createRepo;
 }
 
-async function postgetVotePowerAmount(
+async function postGetVotePowerAmount(
   owner,
   repo,
   defaultHash,
@@ -599,7 +599,7 @@ export {
   postCheckGithubTokenPermissions,
   postFindOrCreateUser,
 	postCreateRepo,
-	postgetVotePowerAmount,
+	postGetVotePowerAmount,
 	postTransferTokens,
 	postNewPullRequest,
 	postSetVote,
