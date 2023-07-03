@@ -28,6 +28,8 @@ const Button = styled.button`
   font-family: 'Inter', sans-serif;
   font-size: 24px;
   border-radius: 5px;
+  font-weight: 600;
+  margin-top: 0;
 `;
 
 const VoteYesButton = styled(Button)`
@@ -65,20 +67,18 @@ function VoteButton({
   disabled,
   setDisabled,
   voted,
-  setVoted,
   side,
   chosenSide,
-  setChosenSide,
   user,
   repo,
   issueID,
   contributorID,
   contributerName,
-  githubUser,
-  clickVoteHandler,
-  setClickVoteHandler
+  githubToken,
+  defaultHash,
+  childDefaultHash,
+  owner
 }) {
-  const [disabledButton, setDisabledButton] = useState(false);
   const [option, setOption] = useState(side);
   const [buttonType, setButtonType] = useState('VoteButton');
 
@@ -88,19 +88,12 @@ function VoteButton({
 
   const voteHandler = async e => {
     e.preventDefault();
-    await postSetVote(user, repo, issueID, issueID, false, contributorID, side, githubUser.token);
-    // Toggle clickVoteHandler to update vote data
-    setClickVoteHandler(!clickVoteHandler)
-    socket.emit('vote cast', user, repo, issueID)
+    const res = await postSetVote(owner, repo, issueID, issueID, false, contributorID, side, githubToken);
+    socket.emit('vote cast', owner, repo, issueID)
   };
 
   //Set switch case use effect:
   useEffect(() => {
-    // disabled handler possibly not needed as disabled can be set in parent component ModalVote based on voted prop or status prop
-    if (disabled === true || (voted == true && chosenSide !== side)) {
-      setDisabledButton(true);
-    }
-    
     if (side === 'yes' && !voted) {
       setButtonType('VoteYesButton');
     }
@@ -121,57 +114,40 @@ function VoteButton({
     if (side === 'no' && voted && chosenSide === 'no') {
       setButtonType('SelectedNoButton');
     }
-    console.log(buttonType + "button type type type");
 
   }, [disabled, voted, chosenSide, side, buttonType]);
 
   switch (buttonType) {
     case 'VoteYesButton':
-      return (
-        <Wrapper>
-          <VoteYesButton value={side} onClick={e => voteHandler(e)}>
-            {side.toUpperCase()}
-          </VoteYesButton>
+      return (<Wrapper>
+        <VoteYesButton value={side} onClick={e => voteHandler(e)}>
+          {side.toUpperCase()}
+        </VoteYesButton>
         </Wrapper>
       );
     case 'VoteNoButton':
-      return (
-       <Wrapper>
-          <VoteNoButton onClick={e => voteHandler(e)}>{side.toUpperCase()}</VoteNoButton>
-       </Wrapper>
-      );
+      return <Wrapper>
+       <VoteNoButton onClick={e => voteHandler(e)}>{side.toUpperCase()}</VoteNoButton>
+       </Wrapper>;
     case 'SelectedYesButton':
-      return (
-        <Wrapper>
-          <SelectedYesButton disabled={true}>{side.toUpperCase()}</SelectedYesButton>
-          <img src="https://reibase.rs/greencheck.png" />
-      </Wrapper>
-      );
+      return <Wrapper>
+        <SelectedYesButton disabled={true}>{side.toUpperCase()}</SelectedYesButton>
+        <img src="https://reibase.rs/greencheck.png" />
+      </Wrapper>;
     case 'SelectedNoButton':
-        return (
-          <Wrapper><SelectedNoButton disabled={true}>{side.toUpperCase()}</SelectedNoButton>
-            <img src="https://reibase.rs/redcheck.png" />
-          </Wrapper>
-        );
+        return  <Wrapper><SelectedNoButton disabled={true}>{side.toUpperCase()}</SelectedNoButton>
+        <img src="https://reibase.rs/redcheck.png" />
+        </Wrapper>;
     case 'DisabledYesButton':
-      return (
-        <Wrapper>
-          <DisabledVoteYesButton disabled={true}>{side.toUpperCase()}</DisabledVoteYesButton>
-        </Wrapper>
-        );
+      return  <Wrapper><DisabledVoteYesButton disabled={true}>{side.toUpperCase()}</DisabledVoteYesButton>
+      </Wrapper>;
     case 'DisabledNoButton':
-        return (
-        <Wrapper
-          ><DisabledVoteNoButton disabled={true}>{side.toUpperCase()}</DisabledVoteNoButton>
-        </Wrapper>
-        );
+        return  <Wrapper><DisabledVoteNoButton disabled={true}>{side.toUpperCase()}</DisabledVoteNoButton></Wrapper>;
+    //etc...
     default:
-      return (
-        <Wrapper>
-          <VoteYesButton>{side.toUpperCase()}</VoteYesButton> 
-        </Wrapper>
-      );
+      return  <Wrapper><VoteYesButton>{side.toUpperCase()}</VoteYesButton> </Wrapper>;
   }
 }
+
 
 export default VoteButton;
