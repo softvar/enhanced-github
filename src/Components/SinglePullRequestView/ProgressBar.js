@@ -12,26 +12,6 @@ const NoBar = styled(YesBar)`
   flex-basis: ${props => props.flexBasis}%;
 `;
 
-const YesTotals = styled(YesBar)`
-  background-color: #fff;
-  color: #038800;
-  height: 10px;
-  text-align: right;
-  margin-bottom: 2px;
-  font-weight: 300;
-  flex-basis: ${props => props.flexBasis}%;
-`;
-
-const NoTotals = styled(YesTotals)`
-  background-color: #fff;
-  color: #d33131;
-  height: 10px;
-  text-align: right;
-  margin-bottom: 2px;
-  font-weight: 300;
-  flex-basis: ${props => props.flexBasis}%;
-`;
-
 const RemainingBar = styled(YesBar)`
   background-color: #d9d9d9;
   flex-basis: ${props => props.flexBasis}%;
@@ -45,37 +25,24 @@ const VoteBar = styled.div`
   padding: 0px 10px;
 `;
 
-const ProgressBar = ({ yesPercent, yesVotes, noPercent, noVotes }) => {
-  let difference = 1 / 0.5;
-  yesPercent = yesPercent * 100 * difference;
-  noPercent = noPercent * 100 * difference;
-  let remainingVotesPercent = 0;
+const ProgressBar = ({ yesPercent, noPercent, quorum }) => {
+  const difference = 1 / quorum;
+  const yesWidth = yesPercent * 100 * difference;
+  const noWidth = noPercent * 100 * difference;
+  const remainingVotesPercent = 100 - (yesWidth + noWidth);
 
   return (
     <>
       <VoteBar>
         {yesPercent >= noPercent ? (
           <>
-            <NoTotals flexBasis={noPercent}>{noVotes >= 1 && noVotes}</NoTotals>
-            <YesTotals flexBasis={yesPercent}>{yesVotes >= 1 && yesVotes}</YesTotals>
+            <NoBar flexBasis={noWidth} />
+            <YesBar flexBasis={yesWidth} />
           </>
         ) : (
           <>
-            <YesTotals flexBasis={yesPercent}>{yesVotes >= 1 && yesVotes}</YesTotals>
-            <NoTotals flexBasis={noPercent}>{noVotes >= 1 && noVotes}</NoTotals>
-          </>
-        )}
-      </VoteBar>
-      <VoteBar>
-        {yesPercent >= noPercent ? (
-          <>
-            <NoBar flexBasis={noPercent} />
-            <YesBar flexBasis={yesPercent} />
-          </>
-        ) : (
-          <>
-            <YesBar flexBasis={yesPercent} />
-            <NoBar flexBasis={noPercent} />
+            <YesBar flexBasis={yesWidth} />
+            <NoBar flexBasis={noWidth} />
           </>
         )}
         <RemainingBar flexBasis={remainingVotesPercent} />

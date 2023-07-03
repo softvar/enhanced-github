@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const Heading = styled.div`
@@ -25,7 +25,10 @@ color: #656565;
 font-size: 12px;
 text-align: left;
 margin-bottom: 0px;
-overflow: ellipsis;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+max-width: 380px;
 `;
 
 const MediumText = styled(VoteText)`
@@ -36,12 +39,6 @@ color: #4A00BA;
 background: #E7F0FF;
 padding: 5px 8px;
 letter-spacing: .2px;
-`;
-
-const BoldText = styled(VoteText)`
-font-weight: 700;
-font-size: 26px;
-margin-bottom: 0px;
 `;
 
 const VoteTopicText = styled(VoteText)`
@@ -77,12 +74,6 @@ align-items: center;
 gap: 10px;
 `;
 
-const VotedStatus = styled.div`
-display: flex;
-flex-direction: row;
-align-items: center;
-margin: 0 auto;
-`
 function addCommas(num) {
 
   if (num === 0) {
@@ -107,36 +98,14 @@ function addCommas(num) {
   return numArr.join("");
 } 
 
-
-
-const TopBar = styled.div`
-height: 18px;
-margin-bottom: 5px;
-display: flex;
-justify-content: space-between;
-align-items: center;
-
-div {
-  cursor: pointer;
-}
-
-div img {
-  width: auto;
-  height: 18px;
-}
-`
-
 function VoteTotal(props) {
-  const { user, repo, issueID, contributorID, contributorName, side, title, baseBranch, forkBranch, votePower } = props;
-//<OwnerText>{user} /</OwnerText><BoldText> {repo}</BoldText> add this on line 143 after you get repo and user props 
+  const {repo, title, baseBranch, forkBranch, votePower} = props;
 
-  const handleClick = (e) => {
-  };
   return (
     <Heading>
         <TopModalTitle>
           <OwnerRepo>
-          <OwnerText>{repo} </OwnerText><BoldText> {}</BoldText>
+          <OwnerText>{repo} </OwnerText>
           </OwnerRepo>
           <MediumText>{addCommas(votePower)} VotePower</MediumText>
         </TopModalTitle>
@@ -146,5 +115,4 @@ function VoteTotal(props) {
   );
 }
 
-// add this in line 147:         <PullRequestTitle>#{issueID.split("_")[1]} {title}</PullRequestTitle>
 export default VoteTotal;

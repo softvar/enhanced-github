@@ -12,33 +12,23 @@ const VotesTableRow = styled.div`
 `;
 
 const RowHeading = styled.h2`
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap'); 
-font-family: 'Inter', sans-serif;
-font-weight: 300;
-font-size: 12px;
-color: black;
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap'); 
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    color: black;
 `;
 
 const VoteTableSection = styled.div`
-    height: 345px;
+    height: 158px;
     overflow-y: auto;
 `; 
 
 
-export default function VotesTable(props){
-    //const { allVotes } = props;
-    const [allVotes, setAllVotes] = useState(props.allVotes);
-    useEffect(() => {
-        setAllVotes(props.allVotes);
-    });
+export default function VotesTable({allVotes}){
+    
     return(
         <VoteTableSection>
-            <VotesTableRow>
-                <RowHeading>CONTRIBUTOR ID</RowHeading>
-                <RowHeading>VOTEPOWER</RowHeading>
-                <RowHeading>SIDE</RowHeading>
-                <RowHeading>AGE</RowHeading>
-            </VotesTableRow>
             {allVotes.map((vote, index) => (
                 <Row 
                 id={vote.contributor_id} 

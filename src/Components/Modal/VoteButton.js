@@ -127,61 +127,51 @@ function VoteButton({
 
   switch (buttonType) {
     case 'VoteYesButton':
-      return (<Wrapper>
-        <VoteYesButton value={side} onClick={e => voteHandler(e)}>
-          {side.toUpperCase()}
-        </VoteYesButton>
+      return (
+        <Wrapper>
+          <VoteYesButton value={side} onClick={e => voteHandler(e)}>
+            {side.toUpperCase()}
+          </VoteYesButton>
         </Wrapper>
       );
     case 'VoteNoButton':
-      return <Wrapper>
-       <VoteNoButton onClick={e => voteHandler(e)}>{side.toUpperCase()}</VoteNoButton>
-       </Wrapper>;
+      return (
+       <Wrapper>
+          <VoteNoButton onClick={e => voteHandler(e)}>{side.toUpperCase()}</VoteNoButton>
+       </Wrapper>
+      );
     case 'SelectedYesButton':
-      return <Wrapper>
-        <SelectedYesButton disabled={true}>{side.toUpperCase()}</SelectedYesButton>
-        <img src="https://reibase.rs/greencheck.png" />
-      </Wrapper>;
+      return (
+        <Wrapper>
+          <SelectedYesButton disabled={true}>{side.toUpperCase()}</SelectedYesButton>
+          <img src="https://reibase.rs/greencheck.png" />
+      </Wrapper>
+      );
     case 'SelectedNoButton':
-        return  <Wrapper><SelectedNoButton disabled={true}>{side.toUpperCase()}</SelectedNoButton>
-        <img src="https://reibase.rs/redcheck.png" />
-        </Wrapper>;
+        return (
+          <Wrapper><SelectedNoButton disabled={true}>{side.toUpperCase()}</SelectedNoButton>
+            <img src="https://reibase.rs/redcheck.png" />
+          </Wrapper>
+        );
     case 'DisabledYesButton':
-      return  <Wrapper><DisabledVoteYesButton disabled={true}>{side.toUpperCase()}</DisabledVoteYesButton>
-      </Wrapper>;
+      return (
+        <Wrapper>
+          <DisabledVoteYesButton disabled={true}>{side.toUpperCase()}</DisabledVoteYesButton>
+        </Wrapper>
+        );
     case 'DisabledNoButton':
-        return  <Wrapper><DisabledVoteNoButton disabled={true}>{side.toUpperCase()}</DisabledVoteNoButton></Wrapper>;
-    //etc...
+        return (
+        <Wrapper
+          ><DisabledVoteNoButton disabled={true}>{side.toUpperCase()}</DisabledVoteNoButton>
+        </Wrapper>
+        );
     default:
-      return  <Wrapper><VoteYesButton>{side.toUpperCase()}</VoteYesButton> </Wrapper>;
+      return (
+        <Wrapper>
+          <VoteYesButton>{side.toUpperCase()}</VoteYesButton> 
+        </Wrapper>
+      );
   }
 }
-// return props.voted && props.chosenSide === props.side ? (
-//   <SelectedVote $voted={issueVoted} $chosenSide={chosenSide} $option={option} disabled={true}>
-//     {props.side.toUpperCase()}
-//   </SelectedVote>
-// ) : (
-//   <Vote
-//     $voted={issueVoted}
-//     $chosenSide={chosenSide}
-//     $option={option}
-//     disabled={disabledButton}
-//     onClick={async () => {
-//       setVoted('valid');
-//       await postSetVote(
-//         props.user,
-//         props.repo,
-//         props.issueID,
-//         false,
-//         props.contributorID,
-//         side,
-//         props.githubUser.token
-//       );
-//       setVoted('done');
-//     }}
-//   >
-//     {props.side.toUpperCase()}
-//   </Vote>
-// );
 
 export default VoteButton;

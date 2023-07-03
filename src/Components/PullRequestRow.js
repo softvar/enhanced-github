@@ -30,12 +30,7 @@ const PullReqTitle = styled.div`
     gap: 10px;
     align-items: center;
     font-size: 12px;
-    
-    p {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    }
+
     `;        
 
     const GreenText = styled.p`
@@ -48,18 +43,27 @@ const PullReqTitle = styled.div`
     
     const Index = styled.p`
     color: #B7B7B7;
+    overflow: visible;
+    `;
+
+    const TitleOverflow = styled.p`
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     `;
 
 // Usage:
 
-
+/*
+yes={Math.floor(pr.voteData.voteTotals.yesPercent * 100)}
+no={Math.floor(pr.voteData.voteTotals.noPercent * 100)}
+                      */
 
 export default function PullRequestRow({index, issue_id, state, forkBranch, title, yes, no}){
-    const [yesPercent, setYesPercent] = useState(yes);
-    const [noPercent, setNoPercent] = useState(no);
+    const [yesPercent, setYesPercent] = useState(Math.floor(yes * 100));
+    const [noPercent, setNoPercent] = useState(Math.floor(no * 100));
     useEffect(() => {
-        setYesPercent(yes);
-        setNoPercent(no);
+        
     }, [yes, no]);
     return(
         <div>
@@ -70,7 +74,7 @@ export default function PullRequestRow({index, issue_id, state, forkBranch, titl
                  />
                 <PullReqTitle>
                     <Index>#{issue_id.split('_')[1]}&nbsp;</Index>
-                   <p>{title}</p>
+                   <TitleOverflow>{title}</TitleOverflow>
                 </PullReqTitle>
                 <GreenText>{yesPercent}%</GreenText>
                 <RedText>{noPercent}%</RedText>
