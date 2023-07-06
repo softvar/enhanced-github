@@ -65,8 +65,12 @@ const CreateRepo = styled.span`
 
 const BoldText = styled(VoteText)`
   font-weight: 700;
-  font-size: 26px;
+  font-size: 18px;
   margin-bottom: 0px;
+  white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width:120px;
 `;
 
 const TopBar = styled.div`
@@ -85,8 +89,18 @@ const OwnerRepo = styled.div`
 
 const OwnerText = styled(VoteText)`
   font-weight: 500;
-  font-size: 26px;
+  font-size: 18px;
   margin-bottom: 0px;
+  white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width:120px;
+`;
+
+const SlashText = styled(OwnerText)`
+  color: #6A6868;
+  margin-left: -5px;
+  margin-right: -5px;
 `;
 
 const Data = styled.div`
@@ -252,7 +266,7 @@ export default function Home() {
     setTimeout(() => {
       getRepoDataHandler();
     }, 500);
-    setPullRequestsLoaded(true);
+    setPullRequestsLoaded(false);
   }, [owner, repo]);
 
   socket.on('vote received', function(ownerFromServer, repoFromServer, issueIDFromServer) {
@@ -275,7 +289,7 @@ export default function Home() {
   }
   switch (seeModal) {
     case true:
-      return pullRequestsLoaded ? (
+      return (
         <>
           <BackButton onClick={() => setSeeModal(false)}>
             <img src={BackArrow} alt="back arrow" />
@@ -306,8 +320,6 @@ export default function Home() {
             totalVotes={selectedPullRequestTotalVotes}
           />
         </>
-      ) : (
-        <SkeletonExt />
       );
     case false:
       return (
@@ -320,8 +332,9 @@ export default function Home() {
                     <GithubLink href={`https://github.com/${owner}`} target="_blank">
                       {owner}
                     </GithubLink>{' '}
-                    /
+                    
                   </OwnerText>
+                  <SlashText>/</SlashText>
                   <BoldText>
                     <GithubLink href={`https://github.com/${owner}/${repo}`} target="_blank">
                       {repo}
