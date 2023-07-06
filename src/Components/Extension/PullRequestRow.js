@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import StatusBadge from './StatusBadge';
+import StatusBadge from './StatusBadge.js';
 
 const DividerLine = styled.span`
   display: block;

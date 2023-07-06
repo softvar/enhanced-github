@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Importance from '../../icons/importance.png';
+import Importance from '../../../../icons/importance.png';
 
 
 const RepoButton = styled.button`

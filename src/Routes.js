@@ -1,16 +1,15 @@
 import React from 'react';
 import { Routes as Switch, BrowserRouter, Route } from 'react-router-dom';
-import Header from './Components/Header';
-import Auth from './Components/Auth';
-import Create from './Components/Create';
-import ApiKey from './Components/ApiKey';
+import Header from './Components/Extension/Nav/Header';
+import Auth from './Components/Extension/Nav/Auth';
+import Create from './Components/Extension/Create/Create';
+import ApiKey from './Components/Extension/Nav/ApiKey';
 import Transfer from './Components/Transfer/Transfer';
-import Success from './Components/Success';
-import Nav from './Components/Nav';
-import Account from './Components/Account';
-import Onboard from './Components/Onboard2';
-import Ethereum from './Components/Ethereum';
-import Home from './Components/Home';
+import Success from './Components/Extension/Create/Success';
+import Nav from './Components/Extension/Nav/Nav';
+import Account from './Components/Extension/Nav/Account';
+import Onboard from './Components/Extension/Create/Onboard2';
+import Home from './Components/Extension/Home';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuth } from './store/auth';
 import { setRepo } from './store/repo';
@@ -62,7 +61,6 @@ export default function Routes(props) {
         <Switch>
           <Route exact path="/popup.html" element={<Home />} />
           <Route exact path="/home" element={<Home />} />
-          <Route exact path="/ethereum" element={<Ethereum />} />
           <Route exact path="/settings" element={<Account />} />
           <Route exact path="/onboard" element={<Onboard />} />
           <Route exact path="/account" element={<Account />} />

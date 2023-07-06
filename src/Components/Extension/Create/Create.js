@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import ApiKey from './ApiKey';
+import ApiKey from '../Nav/ApiKey';
 
 export default function Create(props) {
   let [complete, setComplete] = useState(false);

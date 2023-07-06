@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { logoutUser } from '../store/auth';
+import { logoutUser } from '../../../store/auth';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 

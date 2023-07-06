@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Fail from './Fail';
-import Success from './Success';
+import Success from '../Create/Success';
 import Loader from './Loader';
 export default function ApiKey(props) {
   let { repo, amount, currency } = props;

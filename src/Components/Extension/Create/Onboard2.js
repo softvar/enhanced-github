@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import loadergif from '../loader.gif';
-import Loader from './Loader';
+import loadergif from '../../../loader.gif';
+import Loader from '../Nav/Loader';
 import PermissionsNotice from './PermissionsNotice';
-import Fail from './Fail';
+import Fail from '../Nav/Fail';
 import Success from './Success';
-import storageUtil from '../utils/storageUtil';
-import { postCreateRepo, postCheckGithubTokenPermissions } from '../requests';
-import Home from './Home';
+import storageUtil from '../../../utils/storageUtil';
+import { postCreateRepo, postCheckGithubTokenPermissions } from '../../../requests';
+import Home from '../Home';
 import styled from 'styled-components';
 import SkeletonPermissions from './SkeletonPermissions';
 

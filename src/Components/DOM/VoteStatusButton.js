@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { render } from 'react-dom';
-import { postGetPullRequest, postGetPRvoteYesTotals, postGetPRvoteNoTotals } from '../requests';
-import commonUtil from '../utils/commonUtil';
-import mathUtil from '../utils/mathUtil';
+import { postGetPullRequest, postGetPRvoteYesTotals, postGetPRvoteNoTotals } from '../../requests';
+import commonUtil from '../../utils/commonUtil';
+import mathUtil from '../../utils/mathUtil';
 import { Button } from 'react-bootstrap';
 
 export default function VoteStatusButton(props){

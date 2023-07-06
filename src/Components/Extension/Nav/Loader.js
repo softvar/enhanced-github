@@ -1,5 +1,5 @@
 import React from 'react';
-import loaderGif from '../loader.gif';
+import loaderGif from '../../../loader.gif';
 export default function Loader() {
   return (
     <div className="content items-center">
