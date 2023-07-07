@@ -7,6 +7,7 @@ const SkeletonGrid = styled.div`
   grid-template-columns: 50% 50%;
   grid-template-rows: 1fr 1fr 3fr;
   gap: 0px 0px;
+  height: 370px;
   `;
 
   const SkeletonButton = styled.div`
@@ -50,35 +51,15 @@ export default function SkeletonModal() {
         <SkeletonGrid>
             <div>
                 <TopLineSkeleton>
-                    <Skeleton animation="wave" variant="text" width={350} height={40} />
+                    <Skeleton animation="wave" variant="text" width={385} height={40} />
+                    <Skeleton animation="wave" variant="text" width={385} height={40} />
+                    <Skeleton animation="wave" variant="text" width={385} height={40} />
+                    <Skeleton animation="wave" variant="text" width={385} height={40} />
+                    <Skeleton animation="wave" variant="text" width={385} height={40} />
+                    <Skeleton animation="wave" variant="text" width={385} height={40} />
+             
                 </TopLineSkeleton>
-                <Skeleton animation="wave" variant="text" width={250} height={20} />
-                <Skeleton animation="wave" variant="text" width={150} height={20} />
-                <Skeleton animation="wave" variant="text" width={0} height={20} />
-                <DecisionSkeleton>
-                    <Skeleton animation="wave" variant="text" width={480} height={40} />
-                </DecisionSkeleton>
             </div>
-            <SkeletonVotePower>
-                <Skeleton animation="wave" variant="rectangular" width={150} height={30} />
-            </SkeletonVotePower>
-            <SkeletonButtonLeft>
-                <Skeleton animation="wave" variant="rounded" width={110} height={55} />
-            </SkeletonButtonLeft>
-            <SkeletonButtonRight>
-                <Skeleton animation="wave" variant="rounded" width={110} height={55} />
-            </SkeletonButtonRight>
-            <SkeletonVoteRows>
-                <Skeleton animation="wave" variant="text" width={580} height={30} />
-                <Skeleton animation="wave" variant="text" width={0} height={30} />
-                <Skeleton animation="wave" variant="text" width={580} height={50} />
-                <Skeleton animation="wave" variant="text" width={580} height={50} />
-                <Skeleton animation="wave" variant="text" width={580} height={50} />
-                <Skeleton animation="wave" variant="text" width={580} height={50} />
-                <Skeleton animation="wave" variant="text" width={580} height={50} />
-                <Skeleton animation="wave" variant="text" width={580} height={50} />
-            </SkeletonVoteRows>
-            <div></div>
         </SkeletonGrid>
     )
 }

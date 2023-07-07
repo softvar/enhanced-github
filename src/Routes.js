@@ -9,7 +9,7 @@ import Success from './Components/Success';
 import Nav from './Components/Nav';
 import Account from './Components/Account';
 import Onboard from './Components/Onboard2';
-import Ethereum from './Components/Ethereum';
+//import Ethereum from './Components/Ethereum';
 import Home from './Components/Home';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuth } from './store/auth';
@@ -62,7 +62,6 @@ export default function Routes(props) {
         <Switch>
           <Route exact path="/popup.html" element={<Home />} />
           <Route exact path="/home" element={<Home />} />
-          <Route exact path="/ethereum" element={<Ethereum />} />
           <Route exact path="/settings" element={<Account />} />
           <Route exact path="/onboard" element={<Onboard />} />
           <Route exact path="/account" element={<Account />} />
