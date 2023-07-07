@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import loadergif from '../../../../loader.gif';
+import loadergif from '../../../loader.gif';
 import styled from 'styled-components';
-import { postGetContributorID, postGetVotePowerAmount } from '../../../../requests';
+import { postGetContributorID, postGetVotePowerAmount } from '../../../requests';
 
 const Content = styled.div`
   height: 27rem;
