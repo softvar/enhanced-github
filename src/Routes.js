@@ -1,15 +1,13 @@
 import React from 'react';
 import { Routes as Switch, BrowserRouter, Route } from 'react-router-dom';
 import Header from './Components/Extension/Nav/Header';
-import Auth from './Components/Extension/Nav/Auth';
-import Create from './Components/Extension/Create/Create';
-import ApiKey from './Components/Extension/Nav/ApiKey';
-import Transfer from './Components/Transfer/Transfer';
+import Auth from './Components/Extension/Auth';
+import Transfer from './Components/Extension/Account/Transfer/Transfer';
 import Success from './Components/Extension/Create/Success';
 import Nav from './Components/Extension/Nav/Nav';
-import Account from './Components/Extension/Nav/Account';
+import Account from './Components/Extension/Account/Account';
 import Onboard from './Components/Extension/Create/Onboard2';
-import Home from './Components/Extension/Home';
+import Home from './Components/Extension/Home/Home';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuth } from './store/auth';
 import { setRepo } from './store/repo';
@@ -64,8 +62,6 @@ export default function Routes(props) {
           <Route exact path="/settings" element={<Account />} />
           <Route exact path="/onboard" element={<Onboard />} />
           <Route exact path="/account" element={<Account />} />
-          <Route exact path="/create" element={<Create />} />
-          <Route exact path="/apikey" element={<ApiKey />} />
           <Route exact path="/transfer" element={<Transfer />} />
           <Route exact path="/success" element={<Success />} />
         </Switch>
@@ -81,8 +77,6 @@ export default function Routes(props) {
           <Route exact path="/home" element={<Auth />} />
           <Route exact path="/onboard" element={<Onboard />} />
           <Route exact path="/account" element={<Auth />} />
-          <Route exact path="/create" element={<Create />} />
-          <Route exact path="/apikey" element={<ApiKey />} />
           <Route exact path="/transfer" element={<Transfer />} />
           <Route exact path="/success" element={<Success />} />
         </Switch>

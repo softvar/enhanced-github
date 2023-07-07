@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Review from './Review';
 import { useSelector } from 'react-redux';
 import SuccessTransfer from './SuccessTransfer';
-import Loader from '../Extension/Nav/Loader';
+import Loader from '../../Loader';
 import NewTransfer from './NewTransfer';
 
 export default function Transfer() {
