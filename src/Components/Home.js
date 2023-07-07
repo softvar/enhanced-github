@@ -385,9 +385,11 @@ export default function Home() {
                   </CreateRepo>{' '}
                   you can add it to Turbosrc
                 </CreateNotice>
-                <RepoButton type="button" onClick={() => navigate('/onboard')}>
-                  <p>Continue</p> <ArrowPic src={ArrowRight} />
-                </RepoButton>
+                {owner === user && (
+                  <RepoButton type="button" onClick={() => navigate('/onboard')}>
+                    <p>Continue</p> <ArrowPic src={ArrowRight} />
+                  </RepoButton>
+                )}
               </CenteredWrapper>
             )}
           </div>
