@@ -25,9 +25,9 @@ const mathUtil = require('./utils/mathUtil');
 const authContributor = require('./authorizedContributor');
 const { getRepoStatus } = require('./requests');
 const createModal = require('./Components/Modal/createModal');
-const createButtonHtml = require('./Components/createButtonHtml');
-import VoteStatusButton from './Components/VoteStatusButton';
-import RefreshButton from './Components/RefreshButton';
+const createButtonHtml = require('./Components/DOM/createButtonHtml');
+import VoteStatusButton from './Components/DOM/VoteStatusButton';
+import RefreshButton from './Components/DOM/RefreshButton';
 import ModalVote from './Components/Modal/ModalVote';
 const {socket} = require('./socketConfig')
 

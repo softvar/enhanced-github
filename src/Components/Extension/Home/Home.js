@@ -2,17 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import superagent from 'superagent';
-import { postGetRepoData } from '../requests';
-import useCommas from '../hooks/useCommas';
+import { postGetRepoData } from '../../../requests';
+import useCommas from '../../../hooks/useCommas';
 import styled from 'styled-components';
 import PullRequestRow from './PullRequestRow.js';
-import ArrowRight from '../../icons/arrowright.png';
-import BackArrow from '../../icons/back.png';
+import ArrowRight from '../../../../icons/arrowright.png';
+import BackArrow from '../../../../icons/back.png';
 import SkeletonModal from './SkeletonExt.js';
-import SinglePullRequestView from './SinglePullRequestView/SinglePullRequestView.js';
-import { set } from '../utils/storageUtil';
-const { socket } = require('../socketConfig');
-const { postGetVotes } = require('../requests');
+import SinglePullRequestView from '../SinglePullRequestView/SinglePullRequestView.js';
+import { set } from '../../../utils/storageUtil';
+const { socket } = require('../../../socketConfig');
+const { postGetVotes } = require('../../../requests');
 
 const VoteText = styled.span`
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
