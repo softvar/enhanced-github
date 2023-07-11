@@ -145,6 +145,11 @@ const RepoButton = styled.button`
   justify-content: center;
   align-items: center;
   gap: 5px;
+
+  &:disabled{
+    background-color: darkgrey;
+    cursor: auto;
+  }
 `;
 
 const GithubLink = styled.a`
@@ -222,7 +227,7 @@ export default function Home() {
     chrome.storage.local.set({ contributor_name: user.login });
     chrome.storage.local.set({ contributor_id: user.ethereumAddress });
     setTimeout(() => setLoading(false), 1500);
-    console.log(pullRequests);
+    console.log('user', user, 'repo', repo, 'owner', owner);
   });
 
   const handlePullRequestClick = pullRequest => {
@@ -385,9 +390,11 @@ export default function Home() {
                   </CreateRepo>{' '}
                   you can add it to Turbosrc
                 </CreateNotice>
-                <RepoButton type="button" onClick={() => navigate('/onboard')}>
-                  <p>Continue</p> <ArrowPic src={ArrowRight} />
-                </RepoButton>
+                
+                  <RepoButton type="button" disabled={owner === user.login ? false : true} onClick={() => navigate('/onboard')}>
+                    <p>Continue</p> <ArrowPic src={ArrowRight} />
+                  </RepoButton>
+                
               </CenteredWrapper>
             )}
           </div>
