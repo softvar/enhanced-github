@@ -7,6 +7,7 @@ const CONFIG = require('./config.js');
 //const port = "https://turbosrc-marialis.dev";
 
 const url = CONFIG.url;
+const turbosrcID = CONFIG.turbosrcID
 
 async function postCreateUser(owner, repo, contributor_id, contributor_name, contributor_signature, token) {
   const res = await superagent
