@@ -145,12 +145,12 @@ const RepoButton = styled.button`
   justify-content: center;
   align-items: center;
   gap: 5px;
-`;
 
-const DisabledRepoButton = styled(RepoButton)`
-  background-color: darkgrey;
-  cursor: auto;
-  `;
+  &:disabled{
+    background-color: darkgrey;
+    cursor: auto;
+  }
+`;
 
 const GithubLink = styled.a`
   color: black;
@@ -390,15 +390,11 @@ export default function Home() {
                   </CreateRepo>{' '}
                   you can add it to Turbosrc
                 </CreateNotice>
-                {owner == user.login ? (
-                  <RepoButton type="button" onClick={() => navigate('/onboard')}>
+                
+                  <RepoButton type="button" disabled={owner === user.login ? false : true} onClick={() => navigate('/onboard')}>
                     <p>Continue</p> <ArrowPic src={ArrowRight} />
                   </RepoButton>
-                ) : (
-                  <DisabledRepoButton disabled type="button" onClick={() => navigate('/onboard')}>
-                    <p>Continue</p> <ArrowPic src={ArrowRight} />
-                  </DisabledRepoButton>
-                )}
+                
               </CenteredWrapper>
             )}
           </div>
