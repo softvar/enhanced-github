@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { postSetVote } from '../../requests';
+import { postSetVote } from '../../../requests';
 import styled from 'styled-components';
-const {socket} = require("../../socketConfig")
+const {socket} = require("../../../socketConfig")
 
 const Wrapper = styled.div`
   margin: 0rem 2rem 0rem 2rem;
