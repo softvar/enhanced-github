@@ -21,7 +21,6 @@ const RowPR = styled.div`
     &:hover {
         background-color: #F5F5F5; /* Set background color on hover */
     }
-    
     `;
 
 const PullReqTitle = styled.div`
@@ -30,14 +29,14 @@ const PullReqTitle = styled.div`
     gap: 10px;
     align-items: center;
     font-size: 12px;
-
     `;        
 
     const GreenText = styled.p`
     color: #038800;
+    text-align: center;
     `;
 
-    const RedText = styled.p`
+    const RedText = styled(GreenText)`
     color: #D33131;
     `;
     
@@ -52,18 +51,17 @@ const PullReqTitle = styled.div`
     text-overflow: ellipsis;
     `;
 
-// Usage:
-
-/*
-yes={Math.floor(pr.voteData.voteTotals.yesPercent * 100)}
-no={Math.floor(pr.voteData.voteTotals.noPercent * 100)}
-                      */
-
 export default function PullRequestRow({index, issue_id, state, forkBranch, title, yes, no}){
-    const [yesPercent, setYesPercent] = useState(Math.floor(yes * 100));
-    const [noPercent, setNoPercent] = useState(Math.floor(no * 100));
+    const [yesPercent, setYesPercent] = useState(Math.floor(yes * 100 * 2));
+    const [noPercent, setNoPercent] = useState(Math.floor(no * 100 * 2));
+
+    
     useEffect(() => {
-        
+        if (Math.floor(yes * 100 * 2) >= 100) {
+            setYesPercent(100 - noPercent);
+        } else if (Math.floor(no * 100 * 2) >= 100) {
+            setNoPercent(100 - yesPercent);
+        }
     }, [yes, no]);
     return(
         <div>

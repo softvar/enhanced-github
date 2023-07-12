@@ -37,6 +37,8 @@ const SinglePullRequestView = ({ pullRequests, repo_id, title, votesArray, state
     }
   }, [state]);
 
+  console.log("from singlepullrequest view, yespercent and nopercent", yesPercent, noPercent);
+
   return (
     <Content>
 
