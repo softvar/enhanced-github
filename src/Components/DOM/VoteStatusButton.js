@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { render } from 'react-dom';
 import { postGetPullRequest, postGetPRvoteYesTotals, postGetPRvoteNoTotals } from '../../requests';
-import commonUtil from '../../utils/commonUtil';
-import mathUtil from '../../utils/mathUtil';
 import { Button } from 'react-bootstrap';
 
 export default function VoteStatusButton(props){
@@ -16,6 +14,8 @@ export default function VoteStatusButton(props){
     const [voteYesTotalState, setVoteYesTotalState] = useState(0.0);
     const [voteNoTotalState, setVoteNoTotalState] = useState(0.0);
     const [voteTotals, setVoteTotals] = useState(0);
+    const [yesPercent, setYesPercent] = useState(0);
+    const [noPercent, setNoPercent] = useState(0);
     const [side, setSide] = useState(props.side);
     const [clicked, setClicked] = useState(props.clicked);
     const buttonStyle = {
@@ -52,11 +52,12 @@ export default function VoteStatusButton(props){
           contributorID,
           ""
         );
-        const resYes = mathUtil.votePercentToMergeInteger(voteYesTotal);
-        const resNo = mathUtil.votePercentToMergeInteger(voteNoTotal);
-        if (resYes !== null && resNo !== null) {
-          textMath = resYes / 2 + resNo / 2;
-          setVoteTotals(`${textMath}%`);
+        let quorum = 0.5;
+        const totalVotes = voteYesTotal + voteNoTotal;
+        const totalPossibleVotes = 1_000_000;
+        const totalPercent = (totalVotes / totalPossibleVotes) * 100 * (1 / quorum);
+        if (totalPercent !== null) {
+          setVoteTotals(`${Math.round(totalPercent)}%`);
         }
         setVoteYesTotalState(voteYesTotal);
         setVoteNoTotalState(voteNoTotal);
@@ -72,7 +73,7 @@ export default function VoteStatusButton(props){
     }, [props.socketEvents, clicked]);
 
     useEffect(() => {
-      console.log('tsrcPRStatus:', tsrcPRStatus)
+      
         if(!tsrcPRStatus) {
           return;
         }
