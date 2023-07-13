@@ -15,9 +15,9 @@ export default function Settings() {
   return (
     <div>
       <div className="settings">
-        <span className="bold">Account Settings</span>
+        {/*<span className="bold">Account Settings</span> */}
         <ul>
-          <li className="settingsCard">
+          {/*<li className="settingsCard">
             <div>
               <span>Personal Information</span>
               <p>Change your account information</p>
@@ -34,7 +34,7 @@ export default function Settings() {
             <div>
               <img src="../../icons/rightarrow.png" />
             </div>
-          </li>
+          </li> */}
           <li className="settingsCard" onClick={e => logoutHandler(e)}>
             <div>
               <span>Log Out</span>

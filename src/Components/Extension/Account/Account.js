@@ -1,10 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Settings from './Settings';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { postGetVotePowerAmount } from '../../../requests';
 import useCommas from '../../../hooks/useCommas';
 import styled from 'styled-components';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 export default function Account() {
   const user = useSelector(state => state.auth.user);
@@ -16,6 +20,36 @@ export default function Account() {
   let username = user?.login;
   let [tokenAmount, setTokenAmount] = useState('');
   let avatar = user?.avatar_url || null;
+
+  const notify = () => toast("Copied to clipboard!");
+
+  const copyAddress = () => {
+    const textToCopy = navigator.clipboard.writeText(user?.ethereumAddress)
+      .then(() => {
+        console.log('Text copied to clipboard:', textToCopy);
+        notify();
+        // Perform any additional actions on successful copy
+      })
+      .catch((error) => {
+        console.error('Failed to copy text:', error);
+        // Handle any errors that occur during copying
+      });
+  };  
+
+  const copySignature = () => {
+    const textToCopy = navigator.clipboard.writeText(user?.ethereumKey)
+      .then(() => {
+        console.log('Text copied to clipboard:', textToCopy);
+        notify();
+        // Perform any additional actions on successful copy
+      })
+      .catch((error) => {
+        console.error('Failed to copy text:', error);
+        // Handle any errors that occur during copying
+      });
+  };  
+  
+  
 
   const Profile = styled.div`
     display: flex;
@@ -30,8 +64,8 @@ export default function Account() {
     `;
 
     const ProfilePicture = styled.img`
-      height: 5rem;
-      width: 5rem;
+      height: 4rem;
+      width: 4rem;
       display: block;
       object-fit: cover;
       border-radius: 50%;
@@ -58,7 +92,7 @@ export default function Account() {
     `;
 
     const AccountAddress = styled.div`
-      width: 260px;
+      width: 285px;
     `;
 
     const Address = styled.div`
@@ -68,16 +102,21 @@ export default function Account() {
 
       const AddressHeading = styled.span`
         color: #6A6868;
-        font-size: 11px;
+        font-size: 12px;
         font-weight: 600;
       `;
 
       const EthAddress = styled.span`
         color: black;
-        font-size: 10px;
+        font-size: 11px;
         font-weight: 600;
+        margin-bottom: 10px;
       `;
-
+      const Signature = styled(EthAddress)`
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      `;
 
   useEffect(() => {
     const getTokenAmount = async () => {
@@ -101,22 +140,14 @@ export default function Account() {
           </Username>
         </Profile>
         <AccountAddress>
-          <Address>
-            <AddressHeading>Address</AddressHeading>
-            <EthAddress>{user?.ethereumAddress}</EthAddress>
+          <Address >
+            <AddressHeading >Address</AddressHeading>
+            <EthAddress onClick={copyAddress} >{user?.ethereumAddress}</EthAddress>
           </Address>
-          <ul>
-            <li className="bold">{name}</li>
-            <li className="secondary githubLine">
-              <a href={user?.html_url} target="_blank">
-                {username}
-                <img src="../../icons/github.png" />
-              </a>
-            </li>
-            <li className="secondary tokensLine">
-              <span>{` ${tokenAmount || 0} ${repo}`}</span> VotePower
-            </li>
-          </ul>
+          <Address >
+            <AddressHeading >Signature</AddressHeading>
+            <Signature onClick={copySignature} >{user?.ethereumKey}</Signature>
+          </Address>
         </AccountAddress>
       </AccountHeader>
 
