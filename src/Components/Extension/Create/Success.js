@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Home from './Home';
+import Home from '../Home/Home';
 export default function Success(props) {
   let { amount, currency, repo } = props;
   let [complete, setComplete] = useState(false);

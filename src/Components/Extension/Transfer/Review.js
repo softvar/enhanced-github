@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { postTransferTokens } from '../../requests';
+import { postTransferTokens } from '../../../requests';
 import styled from 'styled-components';
 
 const Content = styled.div`

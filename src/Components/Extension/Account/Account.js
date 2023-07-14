@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Settings from './Settings';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { postGetVotePowerAmount } from '../requests';
-import useCommas from '../hooks/useCommas';
+import { postGetVotePowerAmount } from '../../../requests';
+import useCommas from '../../../hooks/useCommas';
 export default function Account() {
   const user = useSelector(state => state.auth.user);
   const repo = useSelector(state => state.repo.name);
