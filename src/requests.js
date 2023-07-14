@@ -7,13 +7,13 @@ const CONFIG = require('./config.js');
 //const port = "https://turbosrc-marialis.dev";
 
 const url = CONFIG.url;
-const turbosrcID = CONFIG.turbosrcID
+const turboSrcID = CONFIG.turboSrcID
 
 async function postCreateUser(owner, repo, contributor_id, contributor_name, contributor_signature, token) {
   const res = await superagent
     .post(`${url}`)
     .send({
-      query: `{ createUser(turbosrcID: "${turbosrcID}", owner: "${owner}", repo: "${repo}", contributor_id: "${contributor_id}", contributor_name: "${contributor_name}", contributor_signature: "${contributor_signature}", token: "${token}") }`
+      query: `{ createUser(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", contributor_id: "${contributor_id}", contributor_name: "${contributor_name}", contributor_signature: "${contributor_signature}", token: "${token}") }`
     })
     .set('accept', 'json');
 
@@ -31,7 +31,7 @@ async function postGetContributorName(owner, repo, defaultHash, contributor_id) 
       //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
       //{ query: `{ getVoteEverything }` }
       {
-        query: `{ getContributorName(turbosrcID: "${turbosrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}") }`
+        query: `{ getContributorName(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}") }`
       }
       //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body
@@ -55,7 +55,7 @@ async function postGetContributorID(owner, repo, defaultHash, contributor_name) 
       //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
       //{ query: `{ getVoteEverything }` }
       {
-        query: `{ getContributorID(turbosrcID: "${turbosrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_name: "${contributor_name}") }`
+        query: `{ getContributorID(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_name: "${contributor_name}") }`
       }
       //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body
@@ -79,7 +79,7 @@ async function postGetContributorSignature(owner, repo, defaultHash, contributor
       //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
       //{ query: `{ getVoteEverything }` }
       {
-        query: `{ getContributorSignature(turbosrcID: "${turbosrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}") }`
+        query: `{ getContributorSignature(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}") }`
       }
       //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body
@@ -97,7 +97,7 @@ async function postFindOrCreateUser(owner, repo, contributor_id, contributor_nam
   const res = await superagent
     .post(`${url}`)
     .send({
-      query: `{ findOrCreateUser(turbosrcID: "${turbosrcID}", owner: "${owner}", repo: "${repo}", contributor_id: "${contributor_id}", contributor_name: "${contributor_name}", contributor_signature: "${contributor_signature}", token: "${token}") {contributor_name, contributor_id, contributor_signature, token}}`
+      query: `{ findOrCreateUser(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", contributor_id: "${contributor_id}", contributor_name: "${contributor_name}", contributor_signature: "${contributor_signature}", token: "${token}") {contributor_name, contributor_id, contributor_signature, token}}`
     })
     .set('accept', 'json');
   const json = JSON.parse(res.text);
@@ -107,7 +107,7 @@ async function postCheckGithubTokenPermissions(owner, repo, contributor_name, to
   const res = await superagent
     .post(`${url}`)
     .send({
-      query: `{ checkGithubTokenPermissions(turbosrcID: "${turbosrcID}", owner: "${owner}", repo: "${repo}", contributor_name: "${contributor_name}", token: "${token}") { public_repo_scopes, push_permissions }}`
+      query: `{ checkGithubTokenPermissions(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", contributor_name: "${contributor_name}", token: "${token}") { public_repo_scopes, push_permissions }}`
     })
     .set('accept', 'json');
   const json = JSON.parse(res.text);
@@ -117,7 +117,7 @@ async function postCreateRepo(owner, repo, defaultHash, contributor_id, side, to
   const res = await superagent
     .post(`${url}`)
     .send({
-      query: `{ createRepo(turbosrcID: "${turbosrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", token: "${token}") }`
+      query: `{ createRepo(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", token: "${token}") }`
     })
     .set('accept', 'json');
 
@@ -135,7 +135,7 @@ async function postGetVotePowerAmount(owner, repo, defaultHash, contributor_id, 
       //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
       //{ query: `{ getVoteEverything }` }
       {
-        query: `{ getVotePowerAmount(turbosrcID: "${turbosrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", token: "${token}") { status, amount } }`
+        query: `{ getVotePowerAmount(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}", token: "${token}") { status, amount } }`
       }
       //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body
@@ -159,7 +159,7 @@ async function postTransferTokens(owner, repo, from, to, amount, token) {
       //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
       //{ query: `{ getVoteEverything }` }
       {
-        query: `{ transferTokens(turbosrcID: "${turbosrcID}", owner: "${owner}", repo: "${repo}", from: "${from}", to: "${to}", amount: ${amount}, token: "${token}") { status, repo, from, to, amount, createdAt, network, id } }`
+        query: `{ transferTokens(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", from: "${from}", to: "${to}", amount: ${amount}, token: "${token}") { status, repo, from, to, amount, createdAt, network, id } }`
       }
       //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body
@@ -181,7 +181,7 @@ async function postNewPullRequest(owner, repo, defaultHash, contributor_id, side
       //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
       //{ query: `{ getVoteEverything }` }
       {
-        query: `{ newPullRequest(turbosrcID: "${turbosrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`
+        query: `{ newPullRequest(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`
       }
       //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body
@@ -201,7 +201,7 @@ async function postSetVote(owner, repo, defaultHash, childDefaultHash, mergeable
       //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
       //{ query: `{ getVoteEverything }` }
       {
-        query: `{ setVote(turbosrcID: "${turbosrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", childDefaultHash: "${childDefaultHash}", mergeable: ${mergeable}, contributor_id: "${contributor_id}", side: "${side}", token: "${token}") }`
+        query: `{ setVote(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", childDefaultHash: "${childDefaultHash}", mergeable: ${mergeable}, contributor_id: "${contributor_id}", side: "${side}", token: "${token}") }`
       }
       //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body
@@ -217,7 +217,7 @@ async function getRepoStatus(repo_id) {
   const res = await superagent
     .post(`${url}`)
     .send({
-      query: `{ getRepoStatus(turbosrcID: "${turbosrcID}", repo_id: "${repo_id}" ) { status, exists } }`
+      query: `{ getRepoStatus(turboSrcID: "${turboSrcID}", repo_id: "${repo_id}" ) { status, exists } }`
     })
     .set('accept', 'json');
   //.end((err, res) => {
@@ -231,7 +231,7 @@ async function get_authorized_contributor(contributor_id, repo_id) {
   return await superagent
     .post(`${url}`)
     .send({
-      query: `{ getAuthorizedContributor(turbosrcID: "${turbosrcID}", contributor_id: "${contributor_id}", repo_id: "${repo_id}") }`
+      query: `{ getAuthorizedContributor(turboSrcID: "${turboSrcID}", contributor_id: "${contributor_id}", repo_id: "${repo_id}") }`
     })
     .set('accept', 'json');
 }
@@ -240,7 +240,7 @@ async function postPullFork(owner, repo, issue_id, contributor_id) {
   return await superagent
     .post('http://localhost:4001/graphql')
     .send({
-      query: `{ getPRfork(turbosrcID: "${turbosrcID}", owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}") }`
+      query: `{ getPRfork(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}") }`
     }) // sends a JSON post body
     .set('accept', 'json');
 }
@@ -249,7 +249,7 @@ async function postGetPRforkStatus(owner, repo, issue_id, contributor_id) {
   const res = await superagent
     .post(`${url}`)
     .send({
-      query: `{ getPRforkStatus(turbosrcID: "${turbosrcID}", owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}") }`
+      query: `{ getPRforkStatus(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", pr_id: "${issue_id}", contributor_id: "${contributor_id}") }`
     }) // sends a JSON post body
     .set('accept', 'json');
   //const resJSON = JSON.parseFromString(res.text)
@@ -263,7 +263,7 @@ async function postGetPullRequest(owner, repo, defaultHash, contributor_id, side
   const res = await superagent
     .post(`${url}`)
     .send({
-      query: `{ getPullRequest(turbosrcID: "${turbosrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") { status, state, repo_id, fork_branch, defaultHash, childDefaultHash, mergeableCodeHost } }`
+      query: `{ getPullRequest(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") { status, state, repo_id, fork_branch, defaultHash, childDefaultHash, mergeableCodeHost } }`
     })
     .set('accept', 'json');
   //.end((err, res) => {
@@ -283,7 +283,7 @@ async function postGetPRpercentVotedQuorum(owner, repo, defaultHash, contributor
       //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
       //{ query: `{ getVoteEverything }` }
       {
-        query: `{ getPRvoteTotals(turbosrcID: "${turbosrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`
+        query: `{ getPRvoteTotals(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`
       }
       //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body
@@ -306,7 +306,7 @@ async function postGetPRvoteTotals(owner, repo, defaultHash, contributor_id, sid
       //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
       //{ query: `{ getVoteEverything }` }
       {
-        query: `{ getPRvoteTotals(turbosrcID: "${turbosrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`
+        query: `{ getPRvoteTotals(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`
       }
       //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body
@@ -329,7 +329,7 @@ async function postGetPRvoteYesTotals(owner, repo, defaultHash, contributor_id, 
       //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
       //{ query: `{ getVoteEverything }` }
       {
-        query: `{ getPRvoteYesTotals(turbosrcID: "${turbosrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`
+        query: `{ getPRvoteYesTotals(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`
       }
       //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body
@@ -352,7 +352,7 @@ async function postGetPRvoteNoTotals(owner, repo, defaultHash, contributor_id, s
       //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
       //{ query: `{ getVoteEverything }` }
       {
-        query: `{ getPRvoteNoTotals(turbosrcID: "${turbosrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`
+        query: `{ getPRvoteNoTotals(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`
       }
       //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body
@@ -375,7 +375,7 @@ async function postClosePullRequest(owner, repo, defaultHash, contributor_id, si
       //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
       //{ query: `{ getVoteEverything }` }
       {
-        query: `{ closePullRequest(turbosrcID: "${turbosrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`
+        query: `{ closePullRequest(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`
       }
       //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body
@@ -395,7 +395,7 @@ async function postMergePullRequest(owner, repo, defaultHash, contributor_id, si
       //{ query: '{ getVoteAll(defaultHash: "default") { vote_code } }' }
       //{ query: `{ getVoteEverything }` }
       {
-        query: `{ mergePullRequest(turbosrcID: "${turbosrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`
+        query: `{ mergePullRequest(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id: "${contributor_id}", side: "${side}") }`
       }
       //{ query: '{ setVote(defaultHash: "default" contributorId: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body
@@ -415,7 +415,7 @@ async function postCreatePullRequest(owner, repo, fork_branch, issue_id, title) 
       //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
       //{ query: `{ getVoteEverything }` }
       {
-        query: `{ createPullRequest(turbosrcID: "${turbosrcID}", owner: "${owner}", repo: "${repo}", fork_branch: "${fork_branch}", pr_id: "${issue_id}", title: "${title}") }`
+        query: `{ createPullRequest(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", fork_branch: "${fork_branch}", pr_id: "${issue_id}", title: "${title}") }`
       }
       //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body
@@ -434,7 +434,7 @@ async function postFork(owner, repo, org) {
       //{ query: '{ getVote(pr_id: "default", contributorId: 1) {side} }' }
       //{ query: '{ getVoteAll(pr_id: "default") { vote_code } }' }
       //{ query: `{ getVoteEverything }` }
-      { query: `{ fork(turbosrcID: "${turbosrcID}", owner: "${owner}", repo: "${repo}", org: "${org}") }` }
+      { query: `{ fork(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", org: "${org}") }` }
       //{ query: '{ setVote(pr_id: "default" contributorId: "2", side: 1 ) { vote_code }' }
     ) // sends a JSON post body
     .set('accept', 'json')
@@ -447,7 +447,7 @@ async function getGitHubPullRequest(owner, repo, defaultHash) {
   const res = await superagent
     .post(`${url}`)
     .send({
-      query: `{ getGitHubPullRequest(turbosrcID: "${turbosrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}") { status, mergeable, mergeCommitSha, state, baseBranch } }`
+      query: `{ getGitHubPullRequest(turboSrcID: "${turboSrcID}", owner: "${owner}", repo: "${repo}", defaultHash: "${defaultHash}") { status, mergeable, mergeCommitSha, state, baseBranch } }`
     })
     .set('accept', 'json');
   //.end((err, res) => {
@@ -461,7 +461,7 @@ async function postGetRepoData(repo_id, contributor_id) {
   const res = await superagent
     .post(`${url}`)
     .send({
-      query: `{ getRepoData(turbosrcID: "${turbosrcID}", repo_id: "${repo_id}", contributor_id: "${contributor_id}")
+      query: `{ getRepoData(turboSrcID: "${turboSrcID}", repo_id: "${repo_id}", contributor_id: "${contributor_id}")
     {   
       status, 
       repo_id,
@@ -521,7 +521,7 @@ async function postGetVotes(repo, defaultHash, contributor_id) {
     .post(`${url}`)
     .send({
       query: `
-      { getVotes(turbosrcID: "${turbosrcID}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id:"${contributor_id}") 
+      { getVotes(turboSrcID: "${turboSrcID}", repo: "${repo}", defaultHash: "${defaultHash}", contributor_id:"${contributor_id}") 
       { status, repo_id, title, head, remoteURL, baseBranch, forkBranch, childDefaultHash, defaultHash, mergeable, state
         voteData {
           contributor {
