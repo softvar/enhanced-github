@@ -12,16 +12,16 @@ export default function App(props) {
       <Routes currentRepo={props.currentRepo} />
       <ToastContainer
 position="top-right"
-autoClose={2000}
-hideProgressBar={false}
+autoClose={3000}
+hideProgressBar={true}
 newestOnTop={false}
 closeOnClick
 rtl={false}
 pauseOnFocusLoss
 draggable={false}
 pauseOnHover
-theme="dark">
-  Test test test
-  </ToastContainer>    </Provider>
+theme="dark"/>
+
+  </Provider>
   );
 }

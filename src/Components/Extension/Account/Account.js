@@ -5,15 +5,18 @@ import { useNavigate } from 'react-router-dom';
 import { postGetVotePowerAmount } from '../../../requests';
 import useCommas from '../../../hooks/useCommas';
 import styled from 'styled-components';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import {AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
+import {BiCopy} from 'react-icons/bi';
 
 
 export default function Account() {
   const user = useSelector(state => state.auth.user);
   const repo = useSelector(state => state.repo.name);
   const owner = useSelector(state => state.repo.owner.login);
+  const [passwordViewToggle, setpasswordViewToggle] = useState(true);
+
 
   const navigate = useNavigate();
   let name = user?.name;
@@ -55,12 +58,13 @@ export default function Account() {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     `;
 
     const Username = styled.span`
       color: #6A6868;
       font-size: 15px;
-      font-weight: 600;
+      font-weight: 400;
     `;
 
     const ProfilePicture = styled.img`
@@ -93,6 +97,9 @@ export default function Account() {
 
     const AccountAddress = styled.div`
       width: 285px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     `;
 
     const Address = styled.div`
@@ -103,19 +110,53 @@ export default function Account() {
       const AddressHeading = styled.span`
         color: #6A6868;
         font-size: 12px;
-        font-weight: 600;
+        font-weight: 400;
       `;
 
       const EthAddress = styled.span`
         color: black;
         font-size: 11px;
-        font-weight: 600;
+        font-weight: 400;
         margin-bottom: 10px;
+        cursor: pointer;
       `;
-      const Signature = styled(EthAddress)`
+      const Signature = styled.input`
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      width: 90%;
+      border: none; /* Remove the border */
+      outline: none; /* Remove the outline when focused */
+      cursor: pointer;
+      height:15px;
+      `;
+
+      const SignatureHidden = styled(Signature)`
+        text-overflow: clip;
+        `;
+
+      const EyeIcon = styled.img`
+      height: 20px;
+      width: 20px;
+      margin-bottom: 10px;
+      `;
+
+      const SignatureContainer = styled.div`
+      display: flex;
+      flex-direction: row;
+      gap:5px;  
+      `;
+
+      const HeadingContainer = styled.div`
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      `;
+
+      const SignatureWarning = styled.span`
+      color: #6A6868;
+      font-size: 10px;
+      font-weight: 400;
       `;
 
   useEffect(() => {
@@ -141,12 +182,37 @@ export default function Account() {
         </Profile>
         <AccountAddress>
           <Address >
-            <AddressHeading >Address</AddressHeading>
+            <HeadingContainer>
+              <AddressHeading >Address</AddressHeading>
+              <BiCopy onClick={copyAddress} style={{ cursor: 'pointer' }} />
+            </HeadingContainer>
             <EthAddress onClick={copyAddress} >{user?.ethereumAddress}</EthAddress>
           </Address>
           <Address >
-            <AddressHeading >Signature</AddressHeading>
-            <Signature onClick={copySignature} >{user?.ethereumKey}</Signature>
+            <HeadingContainer>
+              <AddressHeading >Signature</AddressHeading>
+              <BiCopy onClick={copySignature} style={{ cursor: 'pointer' }} />
+            </HeadingContainer>
+            <SignatureContainer>
+              {passwordViewToggle ? (
+                <>                  
+                  <SignatureHidden onClick={copySignature} type="password" readOnly value={user?.ethereumKey} />
+                  <AiOutlineEyeInvisible onClick={() => setpasswordViewToggle(!passwordViewToggle)}
+                  style={{ cursor: 'pointer' }} />
+                  </>
+                ) : (
+                  <>
+                    <Signature onClick={copySignature} type="text" readOnly value={user?.ethereumKey} />
+                    <AiOutlineEye onClick={() => setpasswordViewToggle(!passwordViewToggle)}
+                      style={{ cursor: 'pointer' }}
+                    />
+                  </>
+                )}
+              
+            </SignatureContainer>
+            <SignatureWarning>
+            Do not share your signature with anyone.
+            </SignatureWarning>
           </Address>
         </AccountAddress>
       </AccountHeader>
