@@ -29,26 +29,20 @@ export default function Account() {
   const copyAddress = () => {
     const textToCopy = navigator.clipboard.writeText(user?.ethereumAddress)
       .then(() => {
-        console.log('Text copied to clipboard:', textToCopy);
         notify();
-        // Perform any additional actions on successful copy
       })
       .catch((error) => {
         console.error('Failed to copy text:', error);
-        // Handle any errors that occur during copying
       });
   };  
 
   const copySignature = () => {
     const textToCopy = navigator.clipboard.writeText(user?.ethereumKey)
       .then(() => {
-        console.log('Text copied to clipboard:', textToCopy);
         notify();
-        // Perform any additional actions on successful copy
       })
       .catch((error) => {
         console.error('Failed to copy text:', error);
-        // Handle any errors that occur during copying
       });
   };  
   
