@@ -165,7 +165,6 @@ export default function Account() {
         .then(tokens => setTokenAmount(tokens));
     };
     getTokenAmount();
-    console.log(user, 'user', repo, 'repo', owner, 'owner', name, 'name', username, 'username');
   });
 
   return (
