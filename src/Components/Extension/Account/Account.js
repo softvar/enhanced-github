@@ -5,8 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { postGetVotePowerAmount } from '../../../requests';
 import useCommas from '../../../hooks/useCommas';
 import styled from 'styled-components';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import toast from 'react-hot-toast';
 import {AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
 import {BiCopy} from 'react-icons/bi';
 
@@ -24,7 +23,11 @@ export default function Account() {
   let [tokenAmount, setTokenAmount] = useState('');
   let avatar = user?.avatar_url || null;
 
-  const notify = () => toast("Copied to clipboard!");
+  const notify = () => toast.success('Copied to clipboard!', {
+    duration: 1000,
+    position: 'top-center',
+    style: {}
+  });
 
   const copyAddress = () => {
     const textToCopy = navigator.clipboard.writeText(user?.ethereumAddress)
@@ -62,8 +65,8 @@ export default function Account() {
     `;
 
     const ProfilePicture = styled.img`
-      height: 4rem;
-      width: 4rem;
+      height: 3rem;
+      width: 3rem;
       display: block;
       object-fit: cover;
       border-radius: 50%;
@@ -90,7 +93,7 @@ export default function Account() {
     `;
 
     const AccountAddress = styled.div`
-      width: 285px;
+      width: 290px;
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -105,6 +108,7 @@ export default function Account() {
         color: #6A6868;
         font-size: 12px;
         font-weight: 400;
+        margin-bottom: 5px;
       `;
 
       const EthAddress = styled.span`
@@ -123,6 +127,7 @@ export default function Account() {
       outline: none; /* Remove the outline when focused */
       cursor: pointer;
       height:15px;
+      margin-bottom: 10px;
       `;
 
       const SignatureHidden = styled(Signature)`
@@ -138,7 +143,7 @@ export default function Account() {
       const SignatureContainer = styled.div`
       display: flex;
       flex-direction: row;
-      gap:5px;  
+      gap:17px;  
       `;
 
       const HeadingContainer = styled.div`
