@@ -35,7 +35,7 @@ const VotePower = styled(VoteText)`
   letter-spacing: 0.2px;
 `;
 
-const NotOwnRepo = styled.div`
+const TurbosrcNotice = styled.div`
   @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
   font-family: 'Roboto Mono', monospace;
   font-weight: 300;
@@ -192,6 +192,7 @@ export default function Home() {
   const user = useSelector(state => state.auth.user);
   const repo = useSelector(state => state.repo.name);
   const owner = useSelector(state => state.repo.owner.login);
+  const oldVersion = false;
   const [pullRequests, setPullRequests] = useState([]);
   const [tokenized, setTokenized] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -281,17 +282,17 @@ export default function Home() {
   });
 
   let getVotes = async () => await postGetVotes(repo_id, issue_id, contributor_id);
-  if (owner === 'none' && repo === 'none') {
+  if (oldVersion){
     return (
-      <div className="content">
-        <div className="home">
-          <section>
-            <NotOwnRepo>Please visit a Github repo page in your browser to use Turbosrc.</NotOwnRepo>
-          </section>
-        </div>
-      </div>
+      <TurbosrcNotice>Your version of Turbosrc is out of date and needs to be updated to continue.</TurbosrcNotice>
+    );
+  } else if (owner === 'none' && repo === 'none') {
+    return (
+      <TurbosrcNotice>Please visit a Github repo page in your browser to use Turbosrc.</TurbosrcNotice>
     );
   }
+  
+  
   switch (seeModal) {
     case true:
       return (
