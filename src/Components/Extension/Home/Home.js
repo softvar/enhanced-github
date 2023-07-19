@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import superagent from 'superagent';
 import { postGetRepoData } from '../../../requests';
 import useCommas from '../../../hooks/useCommas';
 import styled from 'styled-components';
