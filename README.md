@@ -54,7 +54,7 @@ The extension handles the SPA behavior of GitHub website from `v3.0.0` onwards :
 
 Varun Malhotra
 <a href="https://varunmalhotra.xyz"><img align="center" alt="Varun Malhotra Website" src="https://img.icons8.com/material/24/000000/domain--v1.png"/></a>
-<a href="https://twitter.com/s0ftvar"><img align="center" alt="twitter" src="https://img.icons8.com/ios-glyphs/24/twitterx--v2.png"/></a>
+<a href="https://twitter.com/s0ftvar"><img align="center" alt="𝕏" src="https://img.icons8.com/ios-glyphs/24/twitterx--v2.png"/></a>
 <a href="https://stackoverflow.com/users/2494535/softvar"><img align="center" alt="StackOverflow" src="https://img.icons8.com/color/24/000000/stackoverflow.png" /></a>
 <a href="https://www.linkedin.com/in/softvar/"><img align="center" alt="LinkedIn" src="https://img.icons8.com/color/24/000000/linkedin.png" /></a>
 <a href="https://github.com/softvar"><img align="center" alt="GitHub" src="https://img.icons8.com/fluent/24/000000/github.png"/></a>
