@@ -3,7 +3,9 @@
  * https://github.com/softvar/enhanced-github
  *
  * Licensed MIT (c) Varun Malhotra
- */
+*/
+
+/* global chrome */
 const messageListenerUtil = require('./utils/messageListenerUtil');
 const domUtil = require('./utils/domUtil');
 const storageUtil = require('./utils/storageUtil');

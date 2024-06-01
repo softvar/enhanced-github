@@ -34,7 +34,7 @@ const domUtil = {
     const formattedFileSize = commonUtil.convertSizeToHumanReadableFormat(storageUtil.get('repoSize') * 1024); // GitHub API return size in KB for repo
     let elem;
 
-    if (document.querySelector('readme-toc') && document.querySelectorAll('readme-toc').length) {
+    /* if (document.querySelector('readme-toc') && document.querySelectorAll('readme-toc').length) {
       elem = document.querySelectorAll('a[href="#readme"]:not(#user-content-readme)')[1];
     } else {
       const readmeEls = document.querySelectorAll('a[href="#readme"]:not(#user-content-readme)');
@@ -43,9 +43,29 @@ const domUtil = {
       } else {
         elem = readmeEls[0];
       }
+    } */
+    if (document.querySelectorAll('.Layout-sidebar .hide-sm.hide-md').length) {
+      elem = document.querySelectorAll('.Layout-sidebar .hide-sm.hide-md')[0];
     }
 
     if (elem) {
+      const html = `
+        <h3 class="sr-only">Repo Size</h3>
+        <div class="mt-2">
+          <a href="javascript:void(0);" data-view-component="true" class="Link Link--muted">
+            <svg class="octicon octicon-database mr-2" mr="2" aria-hidden="true" height="16" version="1.1" viewBox="0 0 12 16" width="16">
+              <path d="M6 15c-3.31 0-6-.9-6-2v-2c0-.17.09-.34.21-.5.67.86 3 1.5 5.79 1.5s5.12-.64 5.79-1.5c.13.16.21.33.21.5v2c0 1.1-2.69 2-6 2zm0-4c-3.31 0-6-.9-6-2V7c0-.11.04-.21.09-.31.03-.06.07-.13.12-.19C.88 7.36 3.21 8 6 8s5.12-.64 5.79-1.5c.05.06.09.13.12.19.05.1.09.21.09.31v2c0 1.1-2.69 2-6 2zm0-4c-3.31 0-6-.9-6-2V3c0-1.1 2.69-2 6-2s6 .9 6 2v2c0 1.1-2.69 2-6 2zm0-5c-2.21 0-4 .45-4 1s1.79 1 4 1 4-.45 4-1-1.79-1-4-1z"></path>
+            </svg>
+            <strong>${formattedFileSize.size}</strong>
+            <span>${formattedFileSize.measure}</span>
+          </a>
+        </div>
+      `;
+
+      elem.parentElement.insertAdjacentHTML('beforeend', html);
+    }
+
+    /* if (elem) {
       const html = `
         <div class="mt-3 eg-repo-size">
           <a class="Link--muted">
@@ -59,7 +79,7 @@ const domUtil = {
       `;
 
       elem.parentElement.insertAdjacentHTML('beforeend', html);
-    }
+    } */
   },
   addRepoData: function() {
     setTimeout(() => {
@@ -103,7 +123,7 @@ const domUtil = {
 
     if (btnGroup && window.location.href && window.location.href.indexOf('blob/' + commonUtil.getBranch()) > -1) {
       // instantiate copy to clipborad
-      new ClipboardLib('.js-file-clipboard'); // eslint-disable-line no-new
+      new ClipboardLib('.js-file-clipboard');  
 
       apiUtil.getRepoContent(function(data) {
         handlersUtil.onPathContentFetchedForBtns(data);

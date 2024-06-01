@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## **v5.0.11** - 2021-12-25
+## **v6.0.0** - 2024-06-02
+
+- Support latest GitHub Interface 🎉
+
+## **v5.0.12** - 2021-12-25
 
 - Fix selector path as per new UI design for showing copy file and download options at the correct location.
 
@@ -56,18 +60,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## **v4.0.1** - 17th July, 2020
 
-  - Fix #66 i.e. content appearing multiple times
+- Fix #66 i.e. content appearing multiple times
 
 ## **v4.0.0** - 26th June, 2020
 
-  - Support new GitHub Design. Refer [GitHub Blog](https://github.blog/changelog/2020-06-23-design-updates-to-repositories-and-github-ui/)
-  - Backward compatibility to the old design, if new UI is not 100% publicly available.
-  - Fix the options token validation message issue.
+- Support new GitHub Design. Refer [GitHub Blog](https://github.blog/changelog/2020-06-23-design-updates-to-repositories-and-github-ui/)
+- Backward compatibility to the old design, if new UI is not 100% publicly available.
+- Fix the options token validation message issue.
 
 ## **v3.1.0** - 6th Jan, 2020
 
-  - Extension only utilizes `webNavigation` history for GitHub website using webNavigation event filters. Rest assured, history of any other website is not permitted.
-  - Updated README with the doc link explaining introduction of `webRequest` and `webNavigation` API for supporting single-page GitHub website.
+- Extension only utilizes `webNavigation` history for GitHub website using webNavigation event filters. Rest assured, history of any other website is not permitted.
+- Updated README with the doc link explaining introduction of `webRequest` and `webNavigation` API for supporting single-page GitHub website.
 
 ## **v3.0.1** - 3rd Jan, 2020
 

@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const ZipFilesPlugin = require('webpack-zip-files-plugin');
+const ZipPlugin = require('zip-webpack-plugin');
 
 const path = require('path');
 const packageFile = require('./package.json');
@@ -10,7 +10,6 @@ const libraryName = 'enhanced-github';
 const libVersion = packageFile.version;
 const license = packageFile.license;
 const destination = path.resolve(__dirname, 'dist');
-const zipDestination = path.resolve(__dirname, 'enhanced-github');
 
 let deps = '';
 Object.keys(packageFile.dependencies).map((key, index) => {
@@ -38,26 +37,24 @@ function addPlugins(argv) {
     })
   );
   plugins.push(
-    new CopyPlugin(
-      [
-        { from: 'options.js', to: destination },
-        { from: 'popup.js', to: destination },
-        { from: '*html', to: destination },
-        { from: 'manifest.json', to: destination },
-        { from: 'icons/*.png', to: destination },
-        { from: 'src/background.js', to: destination },
-        { from: 'LICENSE', to: destination }
-      ],
-      { copyUnmodified: true }
-    )
+    new CopyPlugin({
+      patterns: [
+        { from: 'options.js', to: destination, },
+        { from: 'popup.js', to: destination, },
+        { from: '*html', to: destination, },
+        { from: 'manifest.json', to: destination,},
+        { from: 'icons/*.png', to: destination, },
+        { from: 'src/background.js', to: destination, },
+        { from: 'LICENSE', to: destination , }
+      ]
+    })
   );
 
   if (argv.mode === 'production') {
     plugins.push(
-      new ZipFilesPlugin({
-        entries: [{ src: destination, dist: '/enhanced-github' }],
-        output: zipDestination,
-        format: 'zip'
+      new ZipPlugin({
+        path: path.resolve(__dirname, 'dist'),
+        filename: path.resolve(__dirname, 'enhanced-github.zip')
       })
     );
   }
@@ -70,6 +67,7 @@ module.exports = function(_env, argv) {
     entry: {
       [libraryName]: './src/inject.js'
     },
+    devtool: 'source-map',
     mode: argv.mode,
     output: {
       path: destination,
