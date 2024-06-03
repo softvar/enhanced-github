@@ -75,7 +75,7 @@ To tackle this, create a new GitHub Access Token.
 
    Right-click on enhanced-github extension and click on `Options` in the dropdown menu.
 
-   <img src="screenshots/extension-options-page.png" width="380" />
+   <img src="screenshots/2024-redesigned-options.png" width="380" />
 
 5. Enter the valid GitHub Access Token
 6. Click on `SAVE` and Enjoy the benefits.
@@ -83,6 +83,12 @@ To tackle this, create a new GitHub Access Token.
 This browser extension will automatically pick this valid access token and Bingo!
 
 ## Screenshots
+
+### 2024 - Updated GitHub UI
+
+#### Screenshot of each file size and it's download link
+
+<img src="screenshots/2024-enhanced-github-new-design.png">
 
 ### New GitHub Design - [Blog](https://github.blog/changelog/2020-06-23-design-updates-to-repositories-and-github-ui/)
 
