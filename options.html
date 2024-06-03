@@ -6,6 +6,17 @@
     <style type="text/css">
       body {
         font-size: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .content {
+        background: #ececec;
+        padding: 10px;
+        width: 30%;
       }
 
       .background--grey {
@@ -76,6 +87,7 @@
         line-height: 36px;
         vertical-align: middle;
       }
+
       .btn:hover {
         background: #3fb594;
         color: #fff !important;
@@ -90,78 +102,99 @@
       .ph-link {
         color: #da552f;
       }
+
+      input[type="text"] {
+        width: 100%;
+        padding: 10px 10px 10px 5px;
+        font-size: 14px;
+        border: none;
+        border-bottom: 1px solid #757575;
+        background: transparent;
+        outline: none;
+      }
+
+      input[type="text"]:focus {
+        border-bottom: 2px solid #5264AE;
+      }
     </style>
   </head>
   <body>
-    <div class="inline-block  float--right  hidden" id="status" style="margin-top: 15px;">
-      <svg
-        fill="#3fb594"
-        height="24"
-        viewBox="0 0 24 24"
-        width="24"
-        xmlns="http://www.w3.org/2000/svg"
-        class="vertical-center"
-      >
-        <path d="M0 0h24v24H0z" fill="none" />
-        <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
-      </svg>
-      <span id="status--text" class="success-msg  vertical-center"></span>
-    </div>
-    <h3 class="inline-block">Options</h3>
+    <div class="content">
+      <div class="text--center">
+        <img src="icons/enhanced-github48.png" align="center">
+        <h2 style="margin-left: 5px; color:grey;" class="inline-block">Enhanced GitHub</h2>
+      </div>
+      <h3 style="color:grey;">Options</h3>
 
-    <div class="background--grey  push--top  padding--10">
-      <div style="padding-bottom: 10px;">Enter GitHub Access Token</div>
-      <input
-        type="text"
-        name=""
-        placeholder="GitHub Access Token"
-        id="x-github-token"
-        class="push--top"
-        style="width: 98%;"
-      />
+      <div class="background--grey  push--top  padding--10">
+        <h3 style="padding-bottom: 10px; color: grey;">GitHub Access Token</h3>
+        <input
+          type="text"
+          name=""
+          placeholder="Enter access token here"
+          id="x-github-token"
+          class="push--top"
+          style="width: 98%;"
+        />
 
-      <div class="push--top  hidden" id="validation-block">
-        <svg
-          fill="#de973e"
-          height="24"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
-          class="vertical-center"
-        >
-          <path d="M0 0h24v24H0z" fill="none" />
-          <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" />
-        </svg>
-        <span id="validation-warning" class="warning-msg  vertical-center  push--top"></span>
+        <div class="inline-block  hidden" id="status" style="margin-top: 15px;">
+          <svg
+            fill="#3fb594"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+            class="vertical-center"
+          >
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+          </svg>
+          <span id="status--text" class="success-msg  vertical-center"></span>
+        </div>
+
+        <div class="push--top  inline-block  hidden" id="validation-block">
+          <svg
+            fill="#de973e"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+            class="vertical-center"
+          >
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" />
+          </svg>
+          <span id="validation-warning" class="warning-msg  vertical-center  push--top"></span>
+        </div>
+
+        <button class="btn" id="save-btn" style="margin-top: 20px;">Save</button>
       </div>
 
-      <button class="btn" id="save-btn" style="margin-top: 20px;">Save</button>
-    </div>
+      <hr />
 
-    <hr />
+      <div class="background--grey  padding--10  text--center">
+        <div style="padding: 15px 10px;">
+          <!-- Place this tag where you want the button to render. -->
+          <iframe
+            src="https://ghbtns.com/github-btn.html?user=softvar&repo=enhanced-github&type=star&count=true&size=large"
+            frameborder="0"
+            scrolling="0"
+            width="160px"
+            height="38px"
+          ></iframe>
 
-    <div class="background--grey  padding--10  text--center">
-      <div style="padding: 15px 10px;">
-        <!-- Place this tag where you want the button to render. -->
-        <iframe
-          src="https://ghbtns.com/github-btn.html?user=softvar&repo=enhanced-github&type=star&count=true&size=large"
-          frameborder="0"
-          scrolling="0"
-          width="160px"
-          height="38px"
-        ></iframe>
-
-        <iframe
-          src="https://platform.twitter.com/widgets/tweet_button.html?size=l&url=http://github.com/softvar/enhanced-github&via=s0ftvar&text=Display size of each file, download link and option to copy file contents&hashtags=extension,github"
-          title="Twitter Tweet Button"
-          style="width: 76px;height: 37px;border: 0;overflow: hidden;display: inline-block;"
-        >
-        </iframe>
-      </div>
-      <div>
-        <a class="ph-link" href="https://www.producthunt.com/tech/enhanced-github" target="_blank">
-          Featured On ProductHunt
-        </a>
+          <iframe
+            src="https://platform.twitter.com/widgets/tweet_button.html?size=l&url=http://github.com/softvar/enhanced-github&via=s0ftvar&text=Display size of each file, download link and option to copy file contents&hashtags=extension,github"
+            title="Twitter Tweet Button"
+            style="width: 76px;height: 37px;border: 0;overflow: hidden;display: inline-block;"
+          >
+          </iframe>
+        </div>
+        <div>
+          <a class="ph-link" href="https://www.producthunt.com/tech/enhanced-github" target="_blank">
+            Featured On ProductHunt
+          </a>
+        </div>
       </div>
     </div>
 

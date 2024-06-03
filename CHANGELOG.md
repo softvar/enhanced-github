@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## **v6.1.0** - 2024-06-03
+
+- Redesigned Options page to enter GitHub access token for private repos or higher rate limits for public repos
+
 ## **v6.0.0** - 2024-06-02
 
 - Support latest GitHub Interface 🎉

@@ -1,7 +1,7 @@
 {
   "name": "Enhanced GitHub",
   "short_name": "Enhanced GitHub",
-  "version": "6.0.0",
+  "version": "6.1.0",
   "manifest_version": 3,
   "description": "Display repo size, size of each file, download link and option to copy file contents",
   "homepage_url": "https://github.com/softvar/enhanced-github",
@@ -25,7 +25,8 @@
     }
   ],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "scripts": ["background.js"]
   },
   "options_ui": {
     "page": "options.html",
@@ -33,5 +34,11 @@
   },
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{72bd91c9-3dc5-40a8-9b10-dec633c0873f}",
+      "strict_min_version": "42.0"
+    }
   }
 }

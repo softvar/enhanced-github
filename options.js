@@ -9,9 +9,11 @@ function validateUserToken(token) {
   }
 
   if (invalidTokenMsg) {
+    document.getElementById('validation-block').style.opacity = 1;
     document.getElementById('validation-block').style.display = 'inline-block';
   } else {
-    document.getElementById('validation-block').style.display = 'none';
+    document.getElementById('validation-block').style.opacity = 0;
+    document.getElementById('validation-block').style.display = 'hidden';
   }
 
   return invalidTokenMsg;
